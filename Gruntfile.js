@@ -248,7 +248,7 @@ module.exports = function (grunt) {
 				platforms: [getPlatform()],
 				appName: 'InterValue-2.0-testnet',
 				buildDir: '../intervaluebuilds',
-				version: '0.14.7',
+				version: '0.21.6',
 				zip: false,
 				macIcns: './public/img/icons/icon-white-outline.icns',
 				winIco: './public/img/icons/icon-white-outline.ico',
