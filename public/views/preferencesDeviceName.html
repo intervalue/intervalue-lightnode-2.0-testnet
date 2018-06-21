@@ -1,0 +1,29 @@
+<div
+        class="topbar-container"
+        ng-include="'views/includes/topbar.html'"
+        ng-init="titleSection='Device name'; goBackToState = true">
+</div>
+
+<!-- 设备名a视图 -->
+<div class="content preferences" ng-controller="preferencesDeviceNameController as prefDeviceName" style="background: #ECEFF6;">
+    <div class="chatbgcolorheight ng-scope"></div>
+    <!-- 提交表单 -->
+    <form name="settingsDeviceNameForm" ng-submit="prefDeviceName.save()" class="settingforml" style="background: #ECEFF6;">
+        <div class="settingdevflexl">
+            <!--<i class="itbhub iconfont icon-icon-" style="color:#C3E7B5;font-size: 24px;"></i>-->
+
+            <img src="./img/shebei.png" style="margin-right: 20px;width:23px;height: 23px;margin-top: 3px; "/><i translate class="i" style="margin-left: -7px;font-size: 16px;margin-right: 10px;">Device name</i>
+            <input  type="text" style="text-align: right;font-size:16px; background: #FFFFFF;border:0px;color:#9d9d9d;" id="deviceName"  name="deviceName"  ng-model="prefDeviceName.deviceName" >
+        </div>
+        <div style="width:100%;padding:30px 18px 0 18px;">
+            <input type="submit" style="     width: 100%;    background-color: rgb(36, 109, 152);   border-radius: 26px;color: #fff;
+    font-size: 16px;  padding: 0; height: 46px;    " class="  black " value="{{'Save'|translate}}"
+                   ng-style="{'background-color':'#236D97'}">
+        </div>
+
+    </form>
+    <!-- 显示信息 -->
+    <div class="text-gray size-12 text-center" translate style="color: #AEAFB1;padding: 0 18px;">Device name is visible to other devices you communicate with.
+    </div>
+</div>
+<div class="extra-margin-bottom"></div>

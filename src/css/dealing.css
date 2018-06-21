@@ -1,0 +1,121 @@
+<!--交易首页-->
+.dealinghome{
+    width: 100%!important;
+    position: absolute!important;
+    top: 45px;
+    bottom: 37px;
+    overflow: auto;
+    padding-bottom: 40px;
+}
+.dealingform{
+    background: #eceff5;
+    height: 542px;
+}
+.dealingAddress{
+    background: #fff;
+    height: 81px;
+    margin-bottom: 20px
+}
+.dealinglaber{
+    border-bottom: 1px solid #E9E9EC;
+    height: 42px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.dealingAmount{
+    background: #fff;
+    height: 81px;
+    margin-top: -43px;
+}
+.dealingadd{
+    margin-top: 20px!important;
+    border-bottom: 1px solid #E9E9EC;
+    border-top: 1px solid #E9E9EC;
+    height: 67px;
+}
+.dealingherf{
+    display: inherit;
+    width: 100% !important;
+    background-color: #ffff;
+}
+.dealinginput{
+    background-color: #fff;
+    border-bottom: 1px solid #E9E9EC!important;
+    height: 60px!important;
+    display: flex;
+    align-items:center;
+    padding-left: 20px;
+
+}
+.dealinginput span{flex-shrink: 0;}
+.dealinginput label{
+    margin-bottom: 1rem!important;
+    margin-top: 1rem!important;
+    margin-left: 19px!important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 11px;
+    color: #34495E;
+    margin-bottom: 3px;
+    float: left;
+    /*width: 20%*/
+    min-width: 80px;
+}
+.dealinginput input{
+    color: #6A7D90!important;
+    padding-bottom: 1rem!important;
+    padding-top: 1rem!important;
+    text-align: right;
+    height: 100%!important;
+    background: transparent!important;
+    border: none!important;
+    padding-left: 0rem!important;
+    font-size: 16px!important;
+    margin-bottom: 0rem!important;
+    border-bottom: 0px solid #E9E9EC!important;
+    width: 100%;
+    padding-right: 14px;
+
+}
+.dealingtab{
+    color: #FFFFFF!important;
+    height: 2.8125rem!important;
+    line-height: 2.8125rem!important;
+    position: relative;
+}
+.dealinginputd input{
+    color: #6A7D90!important;
+    /* margin-bottom: 1.5rem; */
+    height: 35px!important;
+    background: transparent!important;
+    border: none!important;
+    padding-left: 0.1rem!important;
+    font-size: 13px!important;
+    border-top: 1px solid #E9E9EC!important;
+    position: absolute!important;
+    left: 6rem;
+}
+.inputamount input{
+    color: #6A7D90 !important;
+    margin-bottom: 0rem !important;
+    height: 35px !important;
+    background: transparent !important;
+    border: none !important;
+    padding-left: 0rem !important;
+    font-size: 13px !important;
+    /*border-top: 1px solid #A5B2BF !important;*/
+
+}
+.inputamount {
+
+
+}
+
+
+
+.dealingdeleterecordbtn{width:100%;padding:0 18px;overflow:hidden;}
+.dealingdeleterecordbtn input{height: 45px;line-height: 45px;width:49% !important;padding:0;margin:0;}
+.dealingdeleterecordbtn .dealingsave{background-color: #246d98 !important;color:#fff !important;float:right;}
+.dealingdeleterecordbtn .dealingcancer{color:#246d98 !important;border-color: #246d98 !important;background-color:#eceff5;float:left;}
+.dealingdeleterecordbtn .dealingcancer:hover, .dealingdeleterecordbtn .dealingcancer:focus{background-color: rgb(36, 109, 152) !important;    color: #fff !important;}

@@ -1,0 +1,117 @@
+<div ng-controller="editCorrespondentDeviceController">
+
+	<!--div
+      class="topbar-container"
+      ng-include="'views/includes/topbar.html'"
+      ng-init="titleSection='{{name}}'; goBackToState = true; showCamera = true">
+    </div-->
+
+	<nav class="tab-bar chatmysetting">
+		<section class="left-small">
+			<!--<a-->
+			<!--ng-click="$root.go('correspondentDevices.correspondentDevice')"><i-->
+			<!--class="icon-arrow-left3 icon-back"></i>-->
+			<!--<span class="text-back">{{'Back'|translate}}</span>-->
+			<!--</a>-->
+			<a class="chatpaddingleffi" ng-click="$root.go('correspondentDevices.correspondentDevice')">
+				<img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+				<!--<i class="iconfont icon-fanhui">&nbsp;返回</i>-->
+			</a>
+		</section>
+
+		<section class="middle tab-bar-section">
+			<!--<h1 class="title ellipsis" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">-->
+			<!--{{name}}-->
+			<!--</h1>-->
+			<h1 class="title ellipsis chatmysettingtitle" ng-style="{'color': noColor ? '#ffffff' : '#ffffff'}">
+				{{name}}
+			</h1>
+		</section>
+	</nav>
+	<!--<div class="chatbgcolorheight ng-scope"></div>-->
+	<div  style="margin-top:67px;">
+
+		<div class="chatsettingaddr">
+			<!--<span translate>Full address:</span>-->
+			<img class="" src="./img/chatsettingaddr.png" />
+			<!--<i class="iconfont icon-shebeileiservercascade"></i>-->
+			<div class=" chatsettingtitle" translate style="font-size: 16px;">Device address</div>
+			<div class="chatsettingaddrtext ">{{correspondent.device_address}}@{{hub}}</div>
+		</div>
+
+		<form name="editForm" class="m20t" no-validate>
+			<div class="text-warning size-12 m10b" ng-show="error">{{error|translate}}</div>
+			<!--<span translate>Rename:</span>-->
+			<!--<input type="text" id="name" name="name" ng-model="name" required>-->
+			<div class="chatsettingrename">
+				<img class="" src="./img/chatsettingreaname.png" />
+				<!--<i class="iconfont icon-xingmingyonghumingnicheng"></i>-->
+				<div class=" chatsettingtitle" translate style="font-size: 16px;">Rename</div>
+				<input type="text" id="name" name="name" ng-model="name" required style="font-size: 16px;">
+			</div>
+			<!--<span translate>Change hub:</span>-->
+			<!--<input type="text" id="hub" name="hub" ng-model="hub" required>-->
+			<div class="chatsettingbtn">
+				<!--<div>-->
+				<!--<input type="submit"-->
+				<!--class="button expand round"-->
+				<!--value="{{'Save'|translate}}"-->
+				<!--ng-disabled="!editForm.$valid"-->
+				<!--ng-style="{'background-color':backgroundColor}"-->
+				<!--ng-click="save()">-->
+				<!---->
+				<!--</div>-->
+				<button class="chatsaverecords" ng-disabled="!editForm.$valid" ng-style="{'background-color':'#246d98'}" ng-click="save()" translate>
+					Save
+				</button>
+				<button class="chatclearrecords"  ng-click="purge_chat()" translate>
+					clear chat history
+				</button>
+			</div>
+		</form>
+	</div>
+	<!--<div class="purge_chat columns"><a href="#" ng-click="purge_chat()" translate>clear chat history</a></div>-->
+
+	<div class="extra-margin-bottom"></div>
+</div>
+<!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->
+
+<!--弹出层-->
+<!--弹出层-->
+<div id="pop" style="display: none;position: relative;right:6px;">
+	<div class="triangle">
+	</div>
+	<div class="popUpWindw"  style="background-color:#324e77;position:absolute;top:0px;right:0;padding-left: 20px;padding-bottom: 12px ">
+
+		<!-- 扫一扫 -->
+		<div class="subDiv" style="vertical-align: middle" ng-show="true" >
+			<qr-scanner on-scan="topbar.onQrCodeScanned(data)"
+						before-scan="topbar.onBeforeScan()">
+				<i class="iconfont icon-saoyisao" style="font-size: 15px">&ensp;</i>
+				<div style="display: inline-block;">
+					<span class="size-16" translate>Scanner</span>
+				</div>
+			</qr-scanner>
+		</div>
+
+		<!-- 收款地址 -->
+		<div class="subDiv"  style="vertical-align: middle">
+			<a ng-click="$root.go('receive')">
+				<i class="iconfont icon-dizhi" style="font-size: 15px">&ensp;</i>
+				<div style="display: inline-block">
+					<span class="size-16" translate>receive address</span>
+				</div>
+			</a>
+		</div>
+
+		<!--添加设备-->
+		<div class="subDiv" >
+			<a ng-click="$root.go('correspondentDevices.addCorrespondentDevice')" style="padding-bottom: 10px">
+				<i class="iconfont icon-tianjia" style="font-size: 15px">&ensp;</i>
+				<div style="display: inline-block;">
+					<span class="size-16" translate>Add device</span>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

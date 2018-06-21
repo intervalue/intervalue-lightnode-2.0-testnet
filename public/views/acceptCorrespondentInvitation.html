@@ -1,0 +1,82 @@
+<!--div
+  class="topbar-container"
+  ng-include="'views/includes/topbar.html'"
+  ng-init="titleSection='Accept invitation'; goBackToState = true; showCamera = true">
+</div-->
+
+<div ng-controller="acceptCorrespondentInvitationController">
+
+  <nav class="tab-bar">
+    <section class="left-small">
+      <!--<a-->
+      <!--ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice')"><i class="icon-arrow-left3 icon-back"></i>-->
+      <!--<span class="text-back">{{'Back'|translate}}</span>-->
+      <!--</a>-->
+      <a  ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice')" class="chatpaddingleffi chatacolorfff">
+        <!--<i class="chateightmargin iconfont icon-fanhui" style="color:#fff;"> &nbsp;返回</i>-->
+        <!--<span class="text-back">{{'Back'|translate}}</span>-->
+        <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+      </a>
+    </section>
+
+    <section class="right-small" >
+      <qr-scanner on-scan="onQrCodeScanned(data)" before-scan="onBeforeScan()" >
+        <img src="./img/chatscannerd.png" style="margin-right:8px;width:22px;">
+      </qr-scanner>
+    </section>
+
+    <section class="middle tab-bar-section">
+      <h1 class="title ellipsis" style="font-size:18px;color:#fff;" translate>
+        Add new device
+      </h1>
+    </section>
+  </nav>
+
+
+
+
+  <div class="onGoingProcess" ng-show="onGoingProcess">
+    <div class="onGoingProcess-content" ng-style="{'background-color':backgroundColor}">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+      {{onGoingProcess|translate}}...
+    </div>
+  </div>
+
+  <div class="chatbgcolorheight"></div>
+  <div >
+    <form name="pairingCodeForm"  no-validate>
+
+
+      <div class="text-warning size-12 m10b" ng-show="error">{{error|translate}}</div>
+      <div class="chatpairinputdiv">
+        <!--<span translate>Pairing code</span>-->
+        <!--<input type="text"  id="code" name="code" ng-model="code" required>-->
+        <input type="text"  id="code" name="code" ng-model="code" required placeholder="{{'Pairing code'|translate}}" >
+      </div>
+      <div class="chatpairinfodiv">
+        <img src="./img/chatpairinfo.png"/>
+
+        <div translate>Enter the pairing code received from the other device, or use your camera (icon at the upper right corner) to scan the QR code displayed on the other device.</div>
+      </div>
+      <div class="chatpairbitndiv">
+        <input  type="submit"
+                class=" pairbtn"
+                value="{{'Pair'|translate}}"
+                ng-disabled="!pairingCodeForm.$valid"
+                ng-click="pair()">
+      </div>
+
+    </form>
+  </div>
+
+
+
+  <div class="extra-margin-bottom"></div>
+</div>
+<!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->

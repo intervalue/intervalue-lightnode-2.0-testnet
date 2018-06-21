@@ -1,0 +1,20 @@
+.popUpWindw{
+    width: 134px;
+    height: 106px;
+    position: absolute;
+    margin-top: 47px;
+}
+.triangle{
+    position:absolute;
+    right:12px;
+    border-top:40px solid transparent;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-bottom:7px solid #324e77;
+}
+
+.subDiv{
+    height: 30px;
+    margin: 0;
+    padding-bottom: 17px;
+}

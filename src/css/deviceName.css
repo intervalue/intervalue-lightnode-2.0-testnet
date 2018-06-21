@@ -1,0 +1,105 @@
+.i {
+    /*position: absolute;*/
+    /*left: 0;font-style:normal;*/
+    font-style: normal;
+    /*padding-top: 23px;*/
+    /*padding-left: 80px;*/
+    font-size: 14px;
+
+}
+.itb {
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    padding-top: 13px;
+    padding-left: 20px;
+
+}
+.zh {
+    text-align: right;
+}
+.frombj{
+    background: red;
+}
+/*//hub*/
+.itbhub {
+    /*position: absolute;*/
+    /*left: 0;font-style:normal;*/
+    font-style: normal;
+    /*padding-top: 20px;*/
+    /*padding-left: 18px;*/
+
+}
+.ihub{
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    padding-top: 20px;
+    padding-left: 57px;
+    font-size: 14px;
+}
+/*恢复钱包*/
+.ihuifu{
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+/*交易密码*/
+.xian1 {
+    border-top: 2px solid #F2F1F6;
+    width: 80%;
+    text-align: center;
+
+
+}
+/*隐藏钱包口令*/
+.itbyc {
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    padding-top: 30px;
+    padding-left: 18px;
+
+}
+/*设置颜色*/
+.settintcolorl{color:#9D9D9D;}
+.preferences .settinth4titlel{padding: 18px 0px 5px 18px;color:#9D9D9D;font-size: 13px;font-weight: normal;}
+.preferences ul .settinth4titlel{padding: 13px 18px;}
+.settingarrowl{    margin-top: 4px;width: 18px;margin-left: 6px;}
+.settingpopbtnl{width:48px;height:26px;}
+.settingpopbtnl small{height:26px;width:26px;}
+.settintlipaddingl{padding-left:18px !important;padding-right:18px !important;}
+
+/*设置设备名字*/
+.preferences .settingforml{padding-top:0;margin-bottom:0;}
+.settingdevflexl{display: flex;background-color:#fff;padding:10px 18px;}
+.settingdevflexl input{width:100%;height:auto !important;padding:0 !important;margin:0 !important;}
+.settingdevflexl .itbhub{flex-shrink:0;margin-right: 10px;margin-top: 4px;}
+.settingdevflexl .i{flex-shrink:0;margin-top: 4px;}
+
+
+
+
+
+.indexbottomline:after{display:block;height:1px;width:cacl(100%-14px);border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;    position: absolute;
+    bottom: 0;
+    left: 14px;}
+.indexbottomline:last-child:after{display:block;height:0;width:cacl(100%-14px);border-bottom:none;content: '';margin:0 auto;left:14px;}
+.last-transactions-content{border:none !important;}
+.last-transactions-content:after{display:block;height:1px;width:100%;border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;    margin-top: 12px;}
+
+
+
+/*//mima*/
+.mimatk{background-color: #ffffff;border-color: #236D97;color : #236D97;}
+
+/*backup*/
+.setdeletecordsdiv{margin:20px;background-color:#fff;padding: 36px;    padding-top: 68px;margin-bottom:16px;padding-bottom:44px;}
+.setdeletecordsdiv .setdeletecordsimg,.setdeletecordsdiv .setdeletecordstext{width: 100%;}
+.setdeletecordsdiv .setdeletecordsimg{margin:0 auto; text-align:center;}
+.setdeletecordsdiv .setdeletecordsimg img{width: 58px;height: 58px;}
+.setdeletecordsdiv .setdeletecordsimg i {font-size: 68px;color: #226d97;}
+.setdeletecordsdiv .setdeletecordstext{color:#6A7D90;font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;margin-top: 56px;font-size:18px;text-align: center;}

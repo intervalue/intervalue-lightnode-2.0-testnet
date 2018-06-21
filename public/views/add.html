@@ -1,0 +1,27 @@
+<div
+	class="topbar-container"
+	ng-include="'views/includes/topbar.html'"
+	ng-init="titleSection='Add wallet'; closeToHome = true; noColor = true">
+</div>
+
+<!-- 钱包管理页面：创建和导出 -->
+<div class="content">
+	<ul class="no-bullet manage size-12">
+		<!-- 跳转到创建页面 -->
+		<li>
+			<a title="Create new wallet" ng-click="$root.go('create')">
+				<i class="fi-plus circle plus-fixed"></i>
+				<i class="icon-arrow-right3 size-18 right m20t"></i>
+				<span translate>Create new wallet</span>
+			</a>
+		</li>
+		<!-- 跳转到导出页面（与全局设置导出共用同一页面） -->
+		<li>
+			<a title="Import wallet" ng-click="$root.go('preferencesGlobal.import')">
+				<i class="icon-download circle"></i>
+				<i class="icon-arrow-right3 size-18 right m20t"></i>
+				<span translate>Import wallet </span>
+			</a>
+		</li>
+	</ul>
+</div>

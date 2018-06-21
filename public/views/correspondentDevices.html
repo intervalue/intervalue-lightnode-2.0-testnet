@@ -1,0 +1,144 @@
+<style type="text/css">
+    .bot_name {
+        text-overflow: ellipsis;
+        width: 75%;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
+
+<!-- 钱包聊天视图 -->
+<div ng-controller="correspondentDevicesController" style="height:100%;" >
+    <!-- 顶部导航栏 -->
+    <!-- 主显示区 -->
+    <div ui-view="dialog"></div>
+    <!---->
+    <div></div>
+    <!-- tab对应视图 -->
+    <div class="tab-view tab-in chat-tab-view" ng-show="state.is('correspondentDevices')" id="chat"  style="height:100%;" ng-click="hiderightpop($event)">
+        <div class="chattabtitle tab-bar" >
+            <h1 translate>Message</h1>
+            <a><img src="./img/chatradd.png" class="chattopdotimg right" id="chattopdotimg" ng-click="showrightpop($event)"/></a>
+            <!--弹出层-->
+            <div id="chatpop" style="top:-50px;" ng-show="showrightpopvalue" >
+                <div class="triangle chattriangle">
+                </div>
+                <div class="chatpopUpWindw" >
+                    <!-- 扫一扫 -->
+                    <div class="subDiv" style="vertical-align: middle" ng-show="true" >
+                        <qr-scanner on-scan="topbar.onQrCodeScanned(data)"
+                                    before-scan="topbar.onBeforeScan()">
+                            <img src="./img/chatscannner.png"/><span translate>Scanner</span>
+                        </qr-scanner>
+                    </div>
+
+                    <!-- 收款地址 -->
+                    <div class="subDiv"  style="vertical-align: middle">
+                        <a ng-click="$root.go('receive')">
+                            <img src="./img/chatshoukuan.png"/><span translate>receive address</span>
+                        </a>
+                    </div>
+
+                    <!--添加设备-->
+                    <div class="subDiv" >
+                        <a ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice')" >
+                            <img src="./img/chatadddevice.png"/><span translate>Add device</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="chatbgcolorheight"></div>
+        <!-- contacts页签对应视图 -->
+        <div class="mtab" ng-class="{'active': mtab == 1}" ng-init="mtab = 1" style="min-height:150px;background-color:#eceff5;    height: calc(100% - 65px);">
+            <ul class="no-bullet m0 correspondentList" ng-init="readList()" style="background-color:#fff;">
+                <!-- 聊天联系人列表 -->
+                <li class="chatli line-b" ng-repeat="correspondent in list | orderBy:newMsgByAddressComparator">
+
+                    <!--<a class="selectCorrespondentList"-->
+                    <!--ng-show="editCorrespondentList"-->
+                    <!--ng-click="toggleSelectCorrespondentList(correspondent.device_address)">-->
+                    <!--<i class="fi-trash"></i></a>-->
+                    <!-- 点击进入对话页面 -->
+                    <div ng-click="showCorrespondent(correspondent)" class="pointer chatclearfix">
+                        <div class="chataddrname">{{correspondent.name}} ({{correspondent.device_address | limitTo:4}}...)</div>
+                        <div class="right text-gray chat-rigth-jt">
+                            <!--<i class="icon-arrow-right3 size-24" ng-show="!editCorrespondentList && hideRemove"></i>-->
+                            <img src="./img/chatltyou.png" class="chatarrow" ng-show="!editCorrespondentList && hideRemove"/>
+                            <!--<i class="chatarrow iconfont icon-you" ng-show="!editCorrespondentList && hideRemove"></i>-->
+                        </div>
+                        <!--消息个数提示-->
+                        <div class="right correspondentlist_badge chatxiaoxicountgs"
+                             ng-show="newMessagesCount[correspondent.device_address]">
+                            {{newMessagesCount[correspondent.device_address]}}
+                        </div>
+                        <!--消息个数提示-->
+                        <!--<a class="right removeCorrespondentList chatdeletebtn" ng-show="selectedCorrespondentList[correspondent.device_address]"-->
+                        <!--ng-hide="hideRemoveButton(correspondent.removable)" ng-click="remove(correspondent.device_address)">-->
+                        <a class="right removeCorrespondentList chatdeletebtn" ng-show="selectedCorrespondentList[correspondent.device_address]"
+                           ng-hide="hideRemoveButton(correspondent.removable)" ng-click="remove(correspondent.device_address,$event)">
+                            <!--<i class="iconfont icon-lajitong size-24"></i>-->
+                            <img src="./img/chatltremove.png"/>
+                        </a>
+                        <!--<div class="size-10 text-gray ellipsis">{{correspondent.device_address}}@{{correspondent.hub}}-->
+                        <!--</div>-->
+                    </div>
+                </li>
+                <!-- Contacts 页签显示内容 -->
+                <!-- 添加 -->
+                <!--<li class="m10t" ng-show="!editCorrespondentList">-->
+                <!--<a ng-click="beginAddCorrespondent()" class="p10">-->
+                <!--<i class="fi-plus size-18 m10r" style="vertical-align: middle;"></i>-->
+                <!--<span class="text-close size-12" translate>Add a new device</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!-- 刪除 -->
+                <!--<li class="m10t" ng-show="!editCorrespondentList">-->
+                <!--<a ng-click="hideRemove = !hideRemove" class="p10">-->
+                <!--<i class="fi-minus size-18 m10r" style="vertical-align: middle;"></i>-->
+                <!--<span class="text-close size-12" translate>Remove a device</span>-->
+                <!--</a>-->
+                <!--</li>-->
+            </ul>
+            <!-- 添加 -->
+            <div class="chatremovename" ng-show="!editCorrespondentList" translate>
+                <a ng-click="beginAddCorrespondent()" translate>
+                    <text translate>Add device</text>
+                </a>
+            </div>
+            <!-- 刪除 -->
+            <div class="chatremovename" id="chatdelete" ng-show="!editCorrespondentList" translate>
+                <a ng-click="hideRemove = !hideRemove" translate>
+                    <!--<i class="fi-minus size-18 m10r" style="vertical-align: middle;"></i>-->
+                    <text ng-show="!editCorrespondentList && hideRemove" translate>Remove device</text>
+                    <text ng-show="!editCorrespondentList && !hideRemove" translate>Yes</text>
+                </a>
+            </div>
+            <div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>
+        </div>
+
+        <!-- DApp store标签对应视图 -->
+        <!--<div class="mtab" ng-class="{'active': mtab == 2}">-->
+        <!--<ul class="no-bullet m0 correspondentList">-->
+        <!--<li class="line-b" ng-repeat="bot in bots" style="padding: 10px 10px 5px 10px">-->
+        <!--<div ng-click="showBot(bot)" class="pointer">-->
+        <!--<span class="bot_name">{{bot.name}}</span>-->
+        <!--<div class="right text-gray">-->
+        <!--<i class="icon-arrow-right3 size-24"-->
+        <!--ng-show="!editCorrespondentList && hideRemove"></i>-->
+        <!--</div>-->
+        <!--<div class="right label tu radius light-gray" ng-if="bot.isPaired" translate-->
+        <!--style="margin-top: 5px">Added-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--<div class="text-warning size-12 m10b" ng-show="botsError">{{botsError|translate}}</div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>
+

@@ -1,0 +1,296 @@
+/*css为clearfix，清除浮动*/
+.chatclearfix{overflow: hidden;}
+.chatclearfix:before,
+.chatclearfix:after{
+    content: "";
+    height: 0;
+    line-height: 0;dynamic="messageEvent.message"
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+.chatclearfix:after{clear:both;}
+.chatclearfix{
+    *zoom:1;/*IE/7/6*/
+}
+.chatbgcolorheight{width:100%;height:20px;background-color:#eceff5;}
+.chatbackstate{width: 16px !important;height: 16px !important;margin-top: -2px  !important;margin-left: 4px  !important;margin-right: 4px  !important;}
+.chatacolorfff{color:#fff !important;}
+.chatacolorred{color:red !important;}
+.chattabbarhonem{font-size: 18px !important;color:#fff !important;}
+.pleft18{padding-left:18px;}
+button{font-size: 16px !important;}
+/*顶部三点*/
+.chattopdotimg{position: absolute;top: 10px;right: 12px;font-size:20px !important;curson:pointer;z-index:0;width:25px;}
+.chattabtitle{height:45px;line-height:45px;text-align: center;background-color: #246d98;font-size:16px;color:#fff;}
+.chattabtitle h1{font-size:18px !important;color:#fff !important;}
+.middle.tab-bar-section.chattabbar{width: 100%;height:45px;padding:0;left: 0;right: 0;}
+.chattabbar .mtab-title{border: none;background-color:#fff;border-radius:0;}
+.chattabbar .mtab-title.active{border-bottom: 1px solid #2fa1d2;color:#2fa1d2;border-radius:0;}
+.chat-tab-view{position: static !important;background-color: #fff;padding-bottom: 0 !important;}
+.chat-tab-view ul{padding:0 18px;}
+.chat-tab-view li:last-child{border: none;}
+.chatli,.chataddrname,.chat-rigth-jt{height:56px;}
+.chataddrname{line-height:56px;float: left;}
+.chatarrow{margin-top:20px;width: 18px;}
+.chatxiaoxicountgs{margin-top: 18px;}
+.chatdeletebtn{
+    /*margin-top: 12px;margin-top:0.75rem;*/
+    margin-right:0 !important;height: 56px;line-height: 56px;}
+.chatdeletebtn img{width:20px;}
+/*.chat-rigth-jt{margin-right: 22px;margin-right:1.4rem;}*/
+.chat-rigth-jt i{display: block;height:56px;line-height:56px;}
+/*移除设备*/
+.chatremovename{width: 100%;padding:0 18px;padding-top:30px;background-color: #eceff5;}
+.chatremovename a{display: block;width: 100%;height:45px;line-height:45px;text-align: center;color: #fff;background-color: #246d98;
+    border-radius: 22px;margin: 0 auto;}
+#chatdelete{padding-top:20px;}
+#chatdelete a{background-color: #eceff6;border:1px solid #246d98;color: #236D97;}
+#chatdelete a:hover{color: #fff;background-color: #246d98;}
+/*聊天会话*/
+.chatcurchattop{height:45px;line-height:45px;text-align: center;background-color: #246d98 !important;font-size:16px;font-size: 1rem;
+    color:#fff;border: none;position: fixed;top: 0;left: 0;width: 100%;}
+.chatcurchattop .left-small a,.chatcurchattop .right-small a{height: 2.8125rem;height:45px;width: 4.7rem;width:75.2px;display:block;}
+.chatcurchattop .left-small a{text-align: left;color:#fff !important;}
+.chatcurchattop .right-small a{text-align: right;}
+.chatcurchattop .left-small a i{margin-left: 8px;}
+.chatcurchattop .right-small a i{font-size: 20px;margin-right: 12px;color: #fff;}
+/*.chatcurchattop .left-small a img,.chatcurchattop .right-small a img{width:20px;height: 20px;}*/
+/*.chatcurchattop .left-small a img{margin-left: 12px;margin-top: -20px;}*/
+/*.chatcurchattop .right-small a img{margin-right: 12px;margin-top: -12px;}*/
+.chatcurchattop section .chatcurchattitle{color: #fff;font-size: 18px;}
+.chatcuredit{width:20px;    margin-right: 12px;}
+/*底部输入框*/
+/*#mychatcurform{height:49px;height: 3.0625rem;background-color:#eceff5;position: fixed;left:0;bottom:88px;border: 1px solid #c8d2de;padding-top:8px;padding-left:12px;*/
+/*padding-right:12px;}*/
+/*.chatboardbtn{width: 28px;height:28px;width:1.75rem;height:1.75rem;margin-top:2px;}*/
+/*#mychatcurform .chatcurtextinput{height:32px;height:2rem;line-height:32px;line-height:2rem;border-radius:6px;margin-top:0;}*/
+/*#mychatcurform .chatcursubmitbtn{backgroud-color: #246d98;border-radius: 4px;height:32px;height:2rem;line-height:32px;line-height:2rem;margin:0;width:56px;width:3.5rem;*/
+/*padding:0;}*/
+#mychatcurform{display:flex;height:112px;background-color:#eceff5;position:fixed;left:0;bottom:-56px;border:1px solid #c8d2de;padding-top:12px;width:100%;}
+.chatboardbtn{width:28px;height:28px;margin-top:2px;float:left;font-size: 28px !important;margin-left: 6px;margin-right: -2px;color:#7a7d84;flex-shrink:0;}
+#mychatcurform .chatcurtextinput{height:32px;line-height:32px;border-radius:4px;margin-top:0;border:none;width:100%;margin:0 8px;}
+#mychatcurform .chatcursubmitbtn{float:right;background-color:#246d98;border-radius:4px;height:32px;line-height:32px;margin:0;width:72px;padding:0;border:none;
+    margin-right: 12px;color:#fff;font-size:14px;}
+/*底部弹出框*/
+#drop{border: 1px solid #e2e2e2 !important;border-radius: 4px  !important;padding:7.5px !important;}
+#drop .dropup-item{height:46px;line-height: 46px;border-bottom: 1px solid #EDF0F3;width: 100%;text-align: center;}
+#drop  .dropup-item:last-child{border: none;}
+/*请求付款点击的页面*/
+.chatfkcurform{background-color:#eceff5;padding-top:8px;width:100%;}
+.chatfkcurdiv{height: 50px;width:100%;display:flex;background: #fff;}
+.chatfkboardbtn{margin-left:12px;margin-right:6px;height: 50px;line-height: 50px;flex-shrink: 0;}
+.chatfkcurinputdiv{width: 100%;}
+.chatfkcurinput{width: 100% !important;height: 50px !important;line-height: 50px !important;border:none !important;border-radius:6px;color:red !important;font-size: 16px !important;margin:0!important; padding:0 8px!important;}
+.chatfkmodel{font-size: 16px;color:#abacb0;width: 100%;text-align: center;padding:36px;}
+.chatfkmodel .chatfkmodelnumber{font-size:42px;color:#000;word-break: break-all;}
+.chatfkcura{margin-right:12px;flex-shrink: 0;}
+.chatfkcura a{height: 50px;line-height: 50px;display: block;text-align: center;color:#999999;font-size:16px;}
+.chatfkcura .eceff5color{color:#eceff5;}
+.chatcurfksubmitbtn{background-color: #246d98; display:block;width:100%;height:45px;line-height:45px;text-align:center;color:#fff;background-color:#246d98;border-radius:22.4px;margin:0 auto;
+    padding: 0;}
+/*请求付款头部*/
+.chattopbar{ position: static;padding: 0;height:45px;}
+.chattopbar .chattopbardiv{width: 100%;text-align: center;height:45px;line-height: 45px;}
+.chattopbar .chattopbarimg{position: absolute;left:12px;height:45px;line-height: 45px;}
+/*对话设置页面*/
+.chatmysetting{height:45px;line-height: 45px;text-align: center;background-color: #246d98 !important;font-size:16px;font-size: 1rem;
+    color:#fff;border: none;position: fixed;top: 0;left: 0;width: 100%;}
+.chatmysettingtitle{color: #fff !important;font-size: 18px !important;}
+.chatmysetting .left-small a{height: 2.8125rem;height:45px;width: 4.7rem;width:75.2px;display:block;text-align: left;color:#fff !important;}
+.chatmysetting .left-small a i{margin-left:8px;}
+.chatmysetting .left-small a img{width:20px;height: 20px;margin-left: 12px;margin-top: -20px;}
+.chatsettingaddr,.chatsettingrename{background-color:#fff;padding:10px;padding-left: 18px;display: flex;flex-direction: row ;}
+.chatsettingaddr img,.chatsettingrename img{width:18px;height:18px;flex-shrink:0;margin-top: 8px;}
+.chatsettingaddr i,.chatsettingrename i{color:#2ea1d0;}
+.chatsettingaddr .chatsettingtitle,.chatsettingrename .chatsettingtitle{height:30px;line-height:34px;}
+.chatsettingaddr .chatsettingtitle,.chatsettingrename .chatsettingtitle{text-align: left;margin-left: 10px;flex-shrink:0;margin-right: 8px;}
+.chatsettingaddr .chatsettingtitle{color:#b0b0b0;}
+.chatsettingaddrtext{flex:1; text-align: right; word-break: break-all;margin-top: 5px;font-size:12px;font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;}
+.chatsettingrename input{padding: 0 !important; margin: 0 !important; text-align: right;border:none  !important;flex:1;}
+.chatsaverecords{width:100%;height:50px;line-height:50px;padding:0;border-radius:38px;border:1px solid;}
+.chatclearrecords{width:100%;height:50px;line-height:50px;padding:0;border-radius:38px;background-color:#eceff5;color:#246d98;border:1px solid #246d98;}
+.chatsettingbtn{padding-left: 16px;padding-right: 16px;margin-top: 30px;}
+/*删除聊天记录*/
+.reveal-modal{background-color: #eceff5;}/*这个类不是自己改的*/
+.chatdeletecordsdiv{margin:20px;background-color:#fff; margin-top: 67px;padding: 36px;    padding-top: 68px;margin-bottom:16px;padding-bottom:44px;}
+.chatdeletecordsdiv .chatdeletecordsimg,.chatdeletecordsdiv .chatdeletecordstext{width: 100%;}
+.chatdeletecordsdiv .chatdeletecordsimg{margin:0 auto; }
+.chatdeletecordsdiv .chatdeletecordsimg img{width: 58px;height: 58px;}
+.chatdeletecordsdiv .chatdeletecordsimg i {font-size: 68px;color: #226d97;}
+.chatdeletecordsdiv .chatdeletecordstext{color:#6A7D90;font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;margin-top: 56px;font-size:18px;}
+.chatdeleterecordbtn{width:100%;space-around ;padding: 14px;}
+.chatdeleterecordbtn .button{height: 50px;line-height: 50px;width:49%;padding:0;border-radius: 34px;}
+.chatdeleterecordbtn .yes_button_class{background-color: #246d98 !important;color:#fff !important;float:left;}
+.chatdeleterecordbtn .cancel_button_class{color:#246d98 !important;border-color: #246d98 !important;background-color:#eceff5;float:right;}
+.chatdeleterecordbtn .cancel_button_class:hover, .chatdeleterecordbtn .cancel_button_class:focus{background-color: rgb(36, 109, 152);    color: #fff !important;}
+/*聊天信息页面聊天部分*/
+.system:before {border-top: none !important;}
+/*弹出层*/
+#chatpop{position: relative;right: 6px;z-index: 1;top:8px;}
+#chatpop .chattriangle{right:14px;}
+/*聊天信息隐藏记录开始*/
+.chatmyycrecords{width:0;height:0;padding:0;border:0;font-size:0;margin:0;}
+
+
+
+/*弹出层*/
+.chatpopUpWindw{background-color: #324e77;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
+.chatpopUpWindw .subDiv{height: auto !important;padding: 0 !important;text-align: left;}
+.chatpopUpWindw .subDiv a{color:#fff !important;display:block;padding:0 20px;font-size:14px;}
+.chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #405a7f;content: '';margin:0 auto;}
+.chattriangle{border-bottom-color:#324e77 !important;}
+.chatpopUpWindw .subDiv img{width:22px; margin-top: -4px;    margin-right: 12px;}
+
+
+/*金额校验*/
+.chatjiaoyan{flex-shrink: 0;}
+.chatjiaoyan .chatyesinvalid{ margin-top: 17px;margin-right: 10px;}
+.chatjiaoyan .chatnotinvalid{ margin-top: 14px;margin-right: 10px; }
+
+/*原来的添加设备页面*/
+.chatadddeviceout{position: static !important;background-color:#fff;}
+.chateightmargin{margin-left: 8px !important;}
+.chatadddeviceout ul{padding:0 0 0 18px;margin-bottom:0 !important;}
+.chatadddeviceout ul .chatclearfix{display: flex;}
+.chatadddeviceout ul .chatadddevicename{width:100%;flex:1;word-break: break-all;padding-top: 18px;}
+.chatadddeviceout ul .chatdeletebtn{padding:0 !important;width:32px;flex-shrink:0;}
+.chatadddeviceout ul .chat-rigth-jt{width:18px;flex-shrink:0;}
+.chatadddeviceout ul li{padding-right:18px !important;}
+
+
+/*添加设备自己的二维码页面*/
+.chatinvietebgfff{background-color:#fff;}
+.chatmarginrlten{margin-top:20px;margin-left: 20px;margin-right:20px;}
+.chatmarginrltentitle{height:46px;line-height: 46px;padding-left: 16px;background-color:#d3e2e9;color:#2ea1d7;text-align:left;}
+.chatcopycode{margin-top:30px;}
+.chatcopycode:after{display: block;content:'';width:96%;border-bottom: 1px solid #eceff6;margin:0 auto;margin-top:30px;}
+.chatdevicecode{padding: 26px 10px;color:#999999;text-align: center;word-break:break-all;font-size:12px;}
+.chatdevicesharebtn,.chatdevicedonebtn{width:100%;border:1px solid #226d97;height:46px;line-height: 46px;border-radius: 26px;padding:0 !important;text-align: center;font-size: 16px;}
+.chatdevicesharebtn{color:#226d97;background-color: #eceff5;margin-bottom: 12px;}
+.chatdevicedonebtn{color:#fff;background-color: #246d98;}
+.chatdevicecodetext{padding: 8px 10px;color:#999999;text-align: center;word-break:break-all;font-size:12px;}
+
+/*添加设备配对页面*/
+
+.chatpairinputdiv{display: flex;align-items: center;padding-left:18px;padding-right:18px;background-color:#fff;height:50px;}
+.chatpairinputdiv span{flex-shrink:0;    margin-right: 4px;color: #c6c6c6;}
+.chatpairinputdiv #code{width:100%;padding:0 !important;margin:0 !important;border:none !important;}
+.chatpairinfodiv{display: flex;padding:10px 18px;}
+.chatpairinfodiv img{    width: 20px; height: 20px; margin-top: 2px; margin-right: 4px;flex-shrink: 0;}
+.chatpairinfodiv div{word-break: break-all;color: #b3b2b8;font-size: 12px;}
+.chatpairbitndiv{width: 100%;  padding: 0 18px;padding-top: 14px;background-color: #eceff5;}
+.pairbtn{background-color:#246d98 !important;width:100%;margin:0;padding:0;display: block;height: 45px;color: #fff;border-radius: 22.4px;border-radius: 1.4rem;margin: 0 auto;
+    border-radius: 26px !important;font-size: 100%;}
+
+/*首页点进去的交易页面*/
+.ptranliflex{display: flex;padding-left: 18px;}
+.ptranliflex img{margin-top:14px;}
+.ptranliflex .pintranliflex{display: flex;padding:14px 0;padding-right:18px;width:100%;}
+.ptranliflex .text-gray{flex-shrink:0;margin-right: 4px;}
+.ptranleftimg{width:20px;height:24px;flex-shrink:0;margin-right: 10px;}
+.tranflexper{margin-left: 10px;width:100%;text-align: right;flex: 1;word-break: break-all;color:#9d9d9d;}
+
+/*交易二维码页面*/
+.chatamounttranqr{margin:0 18px;background-color:#fff;}
+.chatamounttranqr .amounttranqrtitle{height:45px;line-height:45px;color: #2fa1d2;background-color: #d3e2e9;padding-left: 12px;}
+.chatamounttranqr .code{padding-top: 40px;text-align: center;}
+.chatamounttranqr .chatqramount{margin-top:20px;color:#a0a0a0;}
+
+/*receive.html页面*/
+.chatamounttranqrr{margin:0 18px;background-color:#fff;}
+.chatamounttranqrr .amounttranqrtitler{height:45px;line-height:45px;color: #2fa1d2;background-color: #d3e2e9;padding-left: 12px;}
+.chatamounttranqrr .code{padding-top: 40px;text-align: center;}
+
+/*公共button点击去掉效果*/
+button:active{border:none !important;outline: none !important;box-shadow: none !important;}
+button:focus{border:none !important;outline: none !important;box-shadow: none !important;}
+
+
+/*footer  menu字体颜色*/
+.bottombar-item a.active{color:#236d97 !important;}
+
+
+#menuimg-chat{width:30px !important;height:26px !important;    margin-bottom: -2px;}
+#menuimg-settings{width:26px !important;height:26px !important;    margin-bottom: -2px;}
+
+
+/*启动页面的样式  有文字不能删*/
+/*.qdpageone{display: block;background-color:#ffffff !important;width:100%;height:100%;}*/
+/*.qdpagetwo{background-color:#ffffff !important;color:#8d8d8d;position:absolute;top:0;left:0;width:100%;height:100%;}*/
+/*.qdpagetwo > div{margin-top:0 !important;}*/
+/*.qdpageonetr{display: block;text-align: center;color:white;font-size: 32px;padding-top: 150px;}*/
+/*.qdpageoneimg{width:200px;height:76px;margin: 0 auto;}*/
+/*.qdpageonetext{color:#8d8d8d;margin-top:2px;font-size:20px;text-aPlease choose how much data to store in your walletlign: center;}*/
+/*.qdbggrey{background-color: #ffffff;width: 100%;height:100%;position: fixed;top: 0;left: 0;z-index: -1;}*/
+/*.qdpageonefix{position:fixed;bottom:0;left: 0;width:100%;background-color:#eceff6;height:268px;}*/
+/*.qdpageonerbg{height: 50px;width: 100%;background-color:#ffffff;position: absolute;top:0;left: 0;}*/
+/*.qdpageonerdiu{background-color:#ffffff;border-radius: 50%;height:100px;width: 100%;}*/
+/*.qdpageonebtext{padding-top:58px;background-color:#eceff6;color:#335c72;text-align:center;font-size:18px;height:150px;padding-left: 10px;padding-right: 10px;}*/
+
+/*启动页面的样式  没文字*/
+.qdpageone{display: block;background-color:#eceff5 !important;width:100%;height:100%;}
+.qdpagetwo{background-color:#eceff5 !important;color:#8d8d8d;position:absolute;top:0;left:0;width:100%;height:100%;}
+.qdpagetwo > div{margin-top:0 !important;}
+.qdpageonetr{display: block;text-align: center;color:white;font-size: 32px;padding-top: 168px;}
+.qdpageoneimg{width:108px;margin: 0 auto;}
+.qdpageonetext{color:#454545;margin-top:2px;font-size:38px;text-align: center;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+"Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;}
+.qdbggrey{background-color: #eceff5;width: 100%;height:100%;position: fixed;top: 0;left: 0;z-index: -1;}
+
+
+
+
+
+.chatline-t{width:100%;padding:0 10px;}
+.chatline-t:after{display:block;height:1px;width:100%;border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;}
+.ttranlabelb:after{display:block;height:1px;width:100%;border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;}
+
+.chatbottomline{width: 100%;height:1px;padding:0 14px;}
+.chatbottomline:after{display:block;height:1px;width:100%;border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;}
+
+.tchatfkmodel{font-size: 16px;color:#abacb0;width: 100%;text-align: center;padding:26px;}
+.tchatfkmodel .tchatfkmodelnumber{font-size:42px;color:#000;word-break: break-all;margin-right:4px;}
+
+
+
+
+.mimachatdeleterecordbtn{width:100%;padding: 14px;overflow: hidden;padding-bottom:0;}
+.mimachatdeleterecordbtn button{height:45px;margin:0;padding:0;    width: 49%;}
+
+.chatpaddingleffi{padding-left:5px;}
+
+
+/*选择存储数据页面*/
+.chatdatatip{padding: 14px 14px 0 14px;}
+.chatdatatip img{width:20px;height:20px;}
+.chatdatatip p{color: #999999;display:inline-block;}
+.chatdatatip:after{border-bottom: 1px solid #eceff5;content:'';display:block;margin-top:14px;}
+@media screen and (max-width: 360px){
+    .chatdatatip img{margin-top: -44px;margin-right: -10px;}
+    .chatdatatip p{width: 184px;}
+}
+
+/*选择钱包下一步*/
+.chatcreattext{font-size: 14px; color:#282828;padding: 30px 10px 0 10px;margin:0;}
+.chatcreattext:after{width:100%;border-top:1px solid #eceff4;display:block;content:'';margin-top:26px;}
+.chatcnextbtndiv{width:100%;margin-top:30px;padding:0 18px;}
+.chatcnextbtn{background-color:#236d97;border-radius: 26px !important;height:45px;line-height:45px;padding:0 !important;width:100%;margin:0;color:#fff;font-size:16px;}
+.chatccnextbtn{background-color:#236d97;border-radius: 26px !important;height:45px;line-height:45px;padding:0 !important;width:100%;margin:0;color:#fff;font-size:16px;}
+@media screen and (max-width: 330px){
+    .chatccnextbtn{font-size:14px;}
+}
+.chatcnextnote{display:flex;justify-content: flex-start;padding:20px;}
+.chatcnextnote span{flex-shrink: 30px;font-size: 14px;color: #d55b56;margin-top: -2px; margin-right: 10px;}
+.chatcnextnote p{font-size:12px;color: #d55b56;margin-bottom:0;text-align: left;}
+
+
+/*创建钱包删除钱包口令页面*/
+.chatcdeletekl{width:100%;padding:30px 18px;overflow:hidden;}
+.chatcdeletekl .pbutton{height: 45px;line-height: 45px;width:49% !important;padding:0;margin:0;}
+.chatcdeletekl .chatcdelete{background-color: #246d98 !important;color:#fff !important;float:left;}
+.chatcdeletekl .chatcskip{color:#246d98 !important;border-color: #246d98 !important;background-color:#eceff5;float:right;}
+
+/*交易页面地址簿*/
+.text-gray{color:#cdcdcd;}
+.chattranaddaddr li:first-child{margin-top:20px;}

@@ -1,0 +1,57 @@
+<div ng-controller="editCorrespondentDeviceController">
+    <nav class="tab-bar chatmysetting">
+        <section class="left-small">
+            <!--<a-->
+            <!--ng-click="$root.go('correspondentDevices.correspondentDevice')"><i-->
+            <!--class="icon-arrow-left3 icon-back"></i>-->
+            <!--<span class="text-back">{{'Back'|translate}}</span>-->
+            <!--</a>-->
+            <a class="chatpaddingleffi" ng-click="cancel()">
+                <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+                <!--<i class="iconfont icon-fanhui">&nbsp;返回</i>-->
+            </a>
+        </section>
+
+        <section class="middle tab-bar-section">
+            <!--<h1 class="title ellipsis" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">-->
+            <!--{{name}}-->
+            <!--</h1>-->
+            <h1 class="title ellipsis ng-binding" style="color: rgb(255, 255, 255);font-size:18px;">
+                {{name}}
+            </h1>
+        </section>
+    </nav>
+    <div class="text-center">
+        <div class="">
+            <!--<h2 class="text-center m20b" ng-bind-html="title | translate"></h2>-->
+            <!--<div class="large-6 medium-6 small-6 columns">-->
+            <!--<button class="button expand round" ng-disabled="loading" ng-class="yes_button_class" ng-click="ok()">-->
+            <!--<i ng-class="yes_icon"></i> <span translate>{{confirm_label || 'Yes'}}</span>-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--<div class="large-6 medium-6 small-6 columns">-->
+            <!--<button class="button expand round" ng-disabled="loading" ng-class="cancel_button_class" ng-click="cancel()">-->
+            <!--<i class="fi-x"></i> <span class="tu" translate>{{cancel_label || 'Cancel'}}</span>-->
+            <!--</button>-->
+            <!--</div> -->
+            <div class="chatdeletecordsdiv">
+                <div class="chatdeletecordsimg">
+                    <img src="./img/chatdelete.png"/>
+                    <!--<i class="iconfont icon-lajitong"></i>-->
+                </div>
+                <div class="chatdeletecordstext" translate>Are you sure to delete all chats with {{name}}?</div>
+            </div>
+
+            <div class="chatdeleterecordbtn">
+                <button class="button expand round yes_button_class" ng-disabled="loading" ng-class="yes_button_class"
+                        ng-click="ok()" translate>
+                    Yes
+                </button>
+                <button class="button expand round cancel_button_class" ng-disabled="loading"
+                        ng-class="cancel_button_class" ng-click="cancel()" translate>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

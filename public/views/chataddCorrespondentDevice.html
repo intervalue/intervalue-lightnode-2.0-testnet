@@ -1,0 +1,52 @@
+<!-- 顶部导航栏视图 -->
+<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #263b56;">
+    <!-- 左区 -->
+    <section class="left-small" style="background-color: #236d97">
+        <a class="chatpaddingleffi" ng-click="$root.go('^', true); goBackToState = null" class="chatacolorfff">
+            <!--<i class="chateightmargin iconfont icon-fanhui" style="color:#fff;"> &nbsp;返回</i>-->
+            <img src="./img/chatbackstate.png" class="chatbackstate"><span translate class="chatacolorfff">Back</span>
+        </a>
+
+    </section>
+
+    <!-- 右区 -->
+    <section class="right-small" style="background-color: #236d97;height: 45px">
+
+    </section>
+
+    <!-- 中间区 -->
+    <section class="middle tab-bar-section" style="background-color: #236d97">
+        <h1 class="title ellipsis chatmysettingtitle" translate>
+            Add new device
+        </h1>
+    </section>
+</nav>
+
+<div class="chatbgcolorheight"></div>
+<div class="content chatadddeviceout" ng-controller="correspondentDevicesController">
+    <ul class="no-bullet manage">
+        <li class="line-b ng-scope">
+            <div ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice.inviteCorrespondentDevice')" class="pointer chatclearfix">
+                <a class="left removeCorrespondentList chatdeletebtn" >
+                    <img src="./img/chatinvitedevice.png">
+                </a>
+                <div class="chatadddevicename ng-binding" translate>Provide my pairing code</div>
+                <div class="right text-gray chat-rigth-jt">
+                    <img src="./img/chatltyou.png" class="chatarrow" ng-show="!editCorrespondentList &amp;&amp; hideRemove">
+                </div>
+            </div>
+        </li>
+        <li class="line-b ng-scope">
+            <div ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice.acceptCorrespondentInvitation')" class="pointer chatclearfix">
+                <a class="left removeCorrespondentList chatdeletebtn" >
+                    <img src="./img/chatinputcode.png">
+                </a>
+                <div class="chatadddevicename ng-binding" translate>Enter the pairing code</div>
+                <div class="right text-gray chat-rigth-jt">
+                    <img src="./img/chatltyou.png" class="chatarrow" ng-show="!editCorrespondentList &amp;&amp; hideRemove">
+                </div>
+            </div>
+        </li>
+
+    </ul>
+</div>

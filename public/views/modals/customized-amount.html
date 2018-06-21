@@ -1,0 +1,241 @@
+<nav ng-controller="topbarController as topbar" class="tab-bar">
+	<!-- 左区 -->
+	<section class="left-small" style="background-color: #236d97">
+		<a   ng-click="cancel()" class="p10" style="color:#fff;">
+			<img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+		</a>
+	</section>
+
+	<!-- 中间区 -->
+	<section class="middle tab-bar-section" style="background-color: #236d97">
+		<h1 class="title ellipsis"
+			style="color: #FFFFFF;font-size:18px;" translate>
+			Request a specific amount
+		</h1>
+	</section>
+</nav>
+
+<!-- 要求特定金额对应视图 -->
+<div class="modal-content fix-modals-touch">
+	<div class="chatbgcolorheight"></div>
+	<!-- amountInSmallestUnits = true -->
+	<div class="row large-12" ng-show="amountInSmallestUnits" >
+		<div class="chatamounttranqr">
+
+		<h4 class="m0 size-14 amounttranqrtitle"  translate>QR Code</h4>
+
+		<!-- 地址二维码 -->
+		<div class="code" >
+			<div class="box-notification" ng-show="home.addrError">
+				<span class="text-warning">{{home.addrError|translate}}</span>
+			</div>
+			<div class="text-center"
+				 ng-click="home.copyAddress(index.shared_address || home.addr[index.walletId])"
+				 ng-show="home.addr[index.walletId] || home.generatingAddress">
+				<qrcode size="135"
+						data="{{home.protocol}}:{{index.shared_address || home.addr[index.walletId]}}"></qrcode>
+				<div ng-show="home.generatingAddress" style="position:relative; top:-226px; height:0px">
+					<div style="height:220px; width:220px; margin:auto; background: url(img/qr.png) white">
+						<div class="spinner" style="margin-top:80px;margin-bottom: 30px">
+							<div class="rect1"></div>
+							<div class="rect2"></div>
+							<div class="rect3"></div>
+							<div class="rect4"></div>
+							<div class="rect5"></div>
+						</div>
+					</div>
+				</div>
+				<div class="chatqramount">
+					<span translate>Amount</span>&nbsp;&nbsp;<span class="chatacolorred">{{_customAmount}}</span>&nbsp;&nbsp;INVE
+				</div>
+			</div>
+		</div>
+
+		<div class="line-t text-center" style="margin-top: 30px;">
+			<h4 ng-class="{'enable_text_select': !index.isCordova}" class="size-12" style="height: 50px;display: inline-block;line-height: 50px;margin: 0;color:#a0a0a0;">
+				{{index.shared_address || (home.generatingAddress ? '...' :
+				home.addr[index.walletId])}}
+			</h4>
+		</div>
+		</div>
+		<!-- 分享地址 -->
+		<div ng-show="home.addr[index.walletId]" style="margin: 30px 18px 10px 18px;color:#a0a0a0;">
+			<!--<div class="m10t text-center" ng-show="index.isCordova">-->
+				<!--<div class="m10t text-center" ng-show="true">-->
+				<!--<span class="button outline dark-gray tiny round"-->
+					  <!--ng-click="home.shareAddress(home.addr[index.walletId])">-->
+										<!--<i class="fi-share"></i>-->
+										<!--<span translate>Share address</span>-->
+									<!--</span>-->
+			<!--</div>-->
+			<div class="size-12 text-center">
+				<span ng-if="index.shared_address" translate>This address is shared with {{index.shared_address_cosigners}}.</span>
+				<span ng-if="!index.shared_address" translate>Share this wallet address to receive payments.</span>
+				<span ng-if="!index.shared_address && 0" translate>To protect your privacy, new addresses are generated automatically once you use them.</span>
+			</div>
+		</div>
+
+
+		<div ng-show="!index.needsBackup" >
+			<div class="text-center p20h">
+
+				<div ng-show="!agreed" >
+					<button style="width: 100%;height:50px;line-height: 50px;padding: 0;background: #246d98;" class="round  size-16"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
+						Share address
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+		<!--<ul class="no-bullet size-14 m0">
+            <li class="line-b p10 oh text-center">
+                <qrcode size="220" version="6"
+                        data="{{protocol}}:{{addr + '?amount=' + amountInSmallestUnits + asset_param}}"></qrcode>
+                <div class="m10t text-center" ng-show="isCordova">
+                    <span class="button outline dark-gray tiny round"
+                            ng-click="shareAddress('{{protocol}}:' + addr + '?amount=' + amountInSmallestUnits + asset_param)">
+                        <i class="fi-share"></i>
+                        <span translate>Share address</span>
+                    </span>
+                </div>
+            </li>
+        </ul>
+
+        <!-- 详情 -->
+        <!--<h4 class="title m0" translate>Details</h4>-->
+        <!--<ul class="no-bullet size-14 m0">-->
+            <!--<li class="line-b p10 oh">-->
+                <!--<span class="text-gray" translate>Address</span>:-->
+                <!--<span class="right">-->
+                    <!--<span class="text-gray enable_text_select">{{addr}}</span>-->
+                <!--</span>-->
+            <!--</li>-->
+            <!--<li class="line-b p10 oh">-->
+                <!--<span class="text-gray" translate>Amount</span>:-->
+                <!--<span class="right">{{customizedAmountUnit}}</span>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+	</div>
+
+	<!-- amountInSmallestUnits = false -->
+	<div ng-show="!amountInSmallestUnits" class="row">
+		<div class="large-12 large-centered columns">
+			<form name="amountForm" ng-submit="submitForm(amountForm)" novalidate>
+
+				<!-- 金额 -->
+				<div class="chatfkcurform">
+					<!--<div style="float: left;width: 40px">-->
+					<!--<label for="amount" >-->
+					<!--<span style="font-size: 16px" translate>Amount</span>-->
+					<!--</label>-->
+					<!--</div>-->
+					<!--<div class="input" style="float: left;width: 310px;">-->
+					<!--<input type="number" id="amount" name="amount"-->
+					<!--ng-model="_customAmount" valid-amount="{{index.arrBalances[index.assetIndex].asset}}"-->
+					<!--required autocomplete="off">-->
+					<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName}}</a>-->
+					<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === index.BLACKBYTES_ASSET">{{bbUnitName}}</a>-->
+					<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].name">{{index.arrBalances[index.assetIndex].name}}</a>-->
+					<!--<a class="postfix"-->
+					<!--ng-if="index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of-->
+					<!--{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>-->
+					<!--</div>-->
+					<div class="chatfkcurdiv">
+						<div class="chatfkboardbtn" translate>Amount</div>
+
+						<div class="chatfkcurinputdiv" >
+							<input class="chatfkcurinput" type="number" id="amount" name="amount"
+								   ng-model="_customAmount" valid-amount="{{index.arrBalances[index.assetIndex].asset}}"
+								   required autocomplete="off">
+							<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName}}</a>-->
+							<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === index.BLACKBYTES_ASSET">{{bbUnitName}}</a>-->
+							<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].name">{{index.arrBalances[index.assetIndex].name}}</a>-->
+							<!--<a class="postfix"-->
+							<!--ng-if="index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of-->
+							<!--{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>-->
+						</div>
+						<div class="chatfkcura">
+							<a class="" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName}}</a>
+							<a class="eceff5color" ng-if="index.arrBalances[index.assetIndex].asset === index.BLACKBYTES_ASSET">{{bbUnitName}}</a>
+							<a class="eceff5color" ng-if="index.arrBalances[index.assetIndex].name">{{index.arrBalances[index.assetIndex].name}}</a>
+							<a class="eceff5color"
+							   ng-if="index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of
+								{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>
+						</div>
+						<!-- 校验 -->
+						<!--<div class="right chatjiaoyan" ng-hide="amountForm.amount.$pristine && !amountForm.amount.$modelValue ">-->
+						<!--<span class="has-error right size-12 chatnotinvalid" ng-if="amountForm.amount.$invalid" style="color:red;">-->
+						<!--<i class="icon-close-circle size-14" translate>&nbsp;Not valid</i>-->
+						<!--<span clas="vm" translate>Not valid</span>-->
+						<!--</span>-->
+						<!--<small class="text-primary right chatyesinvalid" ng-if="!amountForm.amount.$invalid">-->
+						<!--<i class="icon-checkmark-circle size-14" style="color:green;"></i>-->
+						<!--</small>-->
+						<!--</div>-->
+					</div>
+					<div class="chatfkmodel"><span class="chatfkmodelnumber">{{_customAmount == undefined ? 0 : _customAmount}} </span>INVE</div>
+					<button type="submit" class="chatcurfksubmitbtn" translate>
+					{{buttonLabel}}
+					</button>
+				</div>
+				<!--<div>-->
+					<!--<div style="float: left;width: 40px">-->
+						<!--<label for="amount" >-->
+							<!--<span style="font-size: 16px" translate>Amount</span>-->
+						<!--</label>-->
+					<!--</div>-->
+
+                    <!--<div class="input" style="float: left;width: 310px;">-->
+                        <!--<input type="number" id="amount" name="amount"-->
+                               <!--ng-model="_customAmount" valid-amount="{{index.arrBalances[index.assetIndex].asset}}"-->
+                               <!--required autocomplete="off">-->
+                        <!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName}}</a>-->
+                        <!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === index.BLACKBYTES_ASSET">{{bbUnitName}}</a>-->
+                        <!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].name">{{index.arrBalances[index.assetIndex].name}}</a>-->
+                        <!--<a class="postfix"-->
+                           <!--ng-if="index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of-->
+                            <!--{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!-- 资产 -->
+                <!--<div>-->
+                    <!--<label for="asset">-->
+                        <!--<span translate>Asset</span>-->
+                    <!--</label>-->
+                    <!--<select class="m10t" ng-model="index.assetIndex" id="asset" name="asset"-->
+                            <!--ng-options="index.arrBalances.indexOf(balance) as (balance.asset === 'base' ? 'INVE' : (balance.asset === index.BLACKBYTES_ASSET ? 'blackbytes' : (balance.name || balance.asset))) for balance in index.arrBalances|filter:'base'"></select>-->
+                <!--</div>-->
+                <!--<button type="submit" class="button #2fa1d2 round tiny"-->
+
+					<!--<div class="input" style="float: left;width: 310px;">-->
+						<!--<input type="number" id="amount" name="amount"-->
+							   <!--ng-model="_customAmount" valid-amount="{{index.arrBalances[index.assetIndex].asset}}"-->
+							   <!--required autocomplete="off">-->
+						<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName}}</a>-->
+						<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === index.BLACKBYTES_ASSET">{{bbUnitName}}</a>-->
+						<!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].name">{{index.arrBalances[index.assetIndex].name}}</a>-->
+						<!--<a class="postfix"-->
+						   <!--ng-if="index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of-->
+							<!--{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!-- 资产 -->
+				<!--<div>-->
+				<!--<label for="asset">-->
+				<!--<span translate>Asset</span>-->
+				<!--</label>-->
+				<!--<select class="m10t" ng-model="index.assetIndex" id="asset" name="asset"-->
+				<!--ng-options="index.arrBalances.indexOf(balance) as (balance.asset === 'base' ? 'INVE' : (balance.asset === index.BLACKBYTES_ASSET ? 'blackbytes' : (balance.name || balance.asset))) for balance in index.arrBalances|filter:'base'"></select>-->
+				<!--</div>-->
+				<!--<button type="submit" class="button #2fa1d2 round tiny"-->
+
+						<!--style="width: 100%;margin-top: 115px;"-->
+						<!--translate>-->
+					<!--{{buttonLabel}}-->
+				<!--</button>-->
+			</form>
+		</div>
+	</div>
+</div>

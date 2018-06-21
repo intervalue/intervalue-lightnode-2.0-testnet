@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="stylesheet" type="text/css" href="css/foundation.css">
+  <link rel="stylesheet" type="text/css" href="icons/foundation-icons.css">
+  <link rel="stylesheet" type="text/css" href="css/intervalue.css">
+<link rel="stylesheet" type="text/css" href="../src/css/iconfont.css">
+  <!--<title>InterValue &mdash; smart payments</title>-->
+  <link rel="shortcut icon" href="img/icons/icon-white.ico">
+</head>
+<style>
+    ::-webkit-scrollbar { width: 6px;height:6px;}
+    /* 滚动槽 */::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px #fff;border-radius: 10px;}
+    /* 滚动条滑块 */::-webkit-scrollbar-thumb {border-radius: 10px;background: #c5c5c5;}
+    ::-webkit-scrollbar-thumb:window-inactive {background: rgba(255,0,0,0.4);}
+</style>
+<body ng-cloak class="ng-cloak">
+
+<!-- 钱包主界面 -->
+<div class="page"
+     ng-controller="indexController as index"
+     ng-swipe-disable-mouse
+     ng-swipe-left="index.closeMenu()"
+     ng-swipe-right="index.swipeRight()">
+
+    <div class="off-canvas-wrap" id="off-canvas-wrap">
+        <div class="inner-wrap">
+            <!-- 侧边栏 -->
+            <div ng-include="'views/includes/sidebar.html'" ng-if="index.hasProfile"></div>
+
+            <div notifications="right top"></div>
+			<!-- 密码页面 -->
+            <div ng-include="'views/includes/password.html'" ng-if="index.askPassword"></div>
+			<!-- 提示信息（升级数据库如果有问题也会显示相关信息） -->
+			<div ng-include="'views/includes/alert.html'" ng-if="index.showAlert"></div>
+			<!-- 升级数据库 -->
+            <div ng-include="'views/includes/upgrading_db.html'" ng-if="index.bUpgradingDb"></div>
+            <!-- 主区 -->
+            <div id="sectionContainer">
+                <div id="mainSection" style="background-color: #eceff5">
+                    <!-- 首页、接收、发送、历史记录标签及视图 -->
+                    <section ui-view="main"
+                             style="margin-top: 0px;overflow-y: auto;"
+                             ng-class="{'main': index.hasProfile}"
+                             ng-show="!index.$state.includes('correspondentDevices')" >
+                    </section>
+                    <!-- chat标签及视图 -->
+                    <div ui-view="chat" ng-show="index.$state.includes('correspondentDevices')" class="main"
+                         style="overflow: auto;padding-bottom:0; ng-click="hiderightpop($event)" ></div>
+                </div>
+            </div>
+            <!-- 关闭 -->
+            <a class="close-menu" ng-click="index.closeMenu()"></a>
+
+        </div>
+    </div>
+</div>
+
+<!-- DO NOT DELETE THIS COMMET  -->
+<!-- PLACEHOLDER: PARTIAL CLIENT HTML -->
+
+<script>console.log("starting scripts...");</script>
+<script src="angular.js"></script>
+
+<!-- DO NOT DELETE THIS COMMET  -->
+<!-- PLACEHOLDER: CORDOVA SRIPT -->
+
+<!--
+	grunt命令执行时生成：
+	src: [
+		'angular-bitcore-wallet-client/index.js',
+		'src/js/app.js',
+		'src/js/routes.js',
+		'src/js/directives/*.js',
+		'src/js/filters/*.js',
+		'src/js/models/*.js',
+		'src/js/services/*.js',
+		'src/js/controllers/*.js',
+		'src/js/version.js',
+		'src/js/init.js'
+	],
+-->
+<script src="intervalue.js"></script>
+<script src="../src/js/iconfont.js"></script>
+<script>console.log("done scripts");</script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<div
+        class="topbar-container"
+        ng-include="'views/includes/topbar.html'"
+        ng-init="titleSection='Backups'; goBackToState = true">
+</div>
+
+
+<div class="content preferences" ng-controller="wordsController as wordsC"  style="background: #ECEFF6;">
+    <!--<div class="box-notification" ng-show="wordsC.error">-->
+    <!--<span class="text-warning">-->
+    <!--{{wordsC.error|translate}}-->
+    <!--</span>-->
+    <!--</div>-->
+
+    <!--<div>-->
+    <!--<div class="row">-->
+    <!--<div class="m10t columns size-14 text-gray">-->
+    <!--<span translate>Just the wallet seed is not enough.  With the seed alone, you won't be able to restore multisig wallets and private assets such as blackbytes.</span>-->
+    <!--<br><br>-->
+    <!--<span translate>To be able to restore everything, please create a full backup (find the option in the menu)</span><span ng-if="!wordsC.isCordova"> </span><span ng-if="!wordsC.isCordova" translate>or backup all InterValue data at</span><span ng-if="!wordsC.isCordova"> {{wordsC.appDataDir}}</span>.-->
+    <!--<br><br>-->
+    <!--<span translate>Better yet, use multisig wallets with redundancy, </span>-->
+    <!--<span ng-if="!wordsC.isCordova" translate>e.g. 1-of-2 wallet with one key on this device and another key on your smartphone.</span>-->
+    <!--<span ng-if="wordsC.isCordova" translate>e.g. 1-of-2 wallet with one key on this device and another key on your laptop computer.</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="row m20t" ng-show="wordsC.deleted">-->
+    <!--<div class="columns size-14 text-gray text-center" translate>-->
+    <!--Wallet seed not available.-->
+    <!--</div>-->
+    <!--</div>-->
+    <div ng-show="!wordsC.mnemonicWords || (!wordsC.credentialsEncrypted && wordsC.deleted)">
+        <div class="setdeletecordsdiv">
+            <div class="setdeletecordsimg">
+                <img src="./img/chatdelete.png"/>
+                <!--<i class="iconfont icon-lajitong"></i>-->
+            </div>
+            <div class="setdeletecordstext" translate>The wallet password has been deleted</div>
+        </div>
+    </div>
+    <div ng-show="wordsC.mnemonicWords || (wordsC.credentialsEncrypted && !wordsC.deleted)">
+        <div class="rowbackup">
+            <!--<div class="m10t columns">-->
+            <!--<a class="button outline light-gray expand tiny" ng-click="wordsC.toggle()">-->
+            <!--<i class="fi-widget m3r"></i>-->
+            <!--<switch translate ng-hide="wordsC.show" ng-click="wordsC.toggle()">Show the Wallet Seed Anyway</switch>-->
+            <!--<switch translate ng-hide="!wordsC.show">Hide the Wallet Seed</switch>-->
+            <!--<i ng-if="!wordsC.show" class="icon-arrow-down4"></i>-->
+            <!--<i ng-if="wordsC.show" class="icon-arrow-up4"></i>-->
+            <!--</a>-->
+            <!--</div>-->
+
+            <div class="size-14" style="background: #FFFFFF;border:0px;width: 100%;margin-top: 20px;display:flex;padding: 10px 18px 4px;">
+                <img src="./img/2jishebei.png" style="width:22px;height:22px;margin-right:18px;margin-top:2px;" />
+                <div translate style="font-size: 16px;width:100%;">Show wallet seed</div>
+                <a style="margin-top:4px;" ng-click="wordsC.toggle()">
+                    <switch translate ng-hide="wordsC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Show the Wallet Seed Anyway</switch>
+                    <switch translate ng-hide="!wordsC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Hide the Wallet Seed</switch></a>
+
+            </div>
+        </div>
+
+
+        <div class="rowbackup m10t m10b" ng-show="wordsC.show" >
+            <div class="small-centered  text-gray columns size-12 ">
+                <span translate style="margin-top: 20px;">The wallet password</span><br/>
+
+            </div>
+        </div>
+
+        <div class="rowbackup" ng-show="wordsC.show">
+            <div class="" style="color: #B4B2B3">
+                <div class="p10" style="background:white;-webkit-user-select: text;padding-left: 20px;" ng-class="{'enable_text_select': index.network == 'testnet'}">
+                    <span ng-repeat="word in wordsC.mnemonicWords track by $index"><span style="white-space:nowrap">{{word}}</span><span ng-show="wordsC.useIdeograms">&#x3000;</span> </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="rowbackup m10t m20b" ng-show="wordsC.show">
+            <div class="columns" ng-show="wordsC.mnemonicHasPassphrase">
+          <span class="size-12">
+            <i class="fi-alert"></i>
+            <span translate>
+            WARNING: This seed was created with a passphrase. To recover this wallet both the mnemonic and passphrase are needed.
+            </span>
+          </span>
+            </div>
+        </div>
+
+        <div class="rowbackup" ng-show="wordsC.show">
+            <div class="m10t text-center columns">
+                <div class="size-12" style="color: #E75A47;margin-top: -20px;display:flex;">
+                    <img src="./img/jinggao.png" style="margin-right: 8px; margin-bottom: 2px;width:18px;height:18px;flex-shrink:0;"/>
+                    <span translate style="width:100%;text-align:left;">
+            It is highly recommended that you write your password on paper and have a safe place, do not take screenshots or take photos, and do not use the same password on multiple devices.Once you have written your wallet password, it is recommended to remove the password from the device.
+          </span>
+                </div>
+                <button class="button outline m13t round dark-gray tiny" ng-click="wordsC.delete()" style="width: 100%;border-color:#6195B4;margin-top: 30px;color: #6195B4;height: 46px; font-size: 16px;">
+                    <!--<i class="fi-trash"></i>-->
+                    <span translate>
+              Delete your wallet password
+            </span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="extra-margin-bottom"></div>

@@ -1,0 +1,17 @@
+<div
+        class="topbar-container"
+        ng-include="'views/includes/topbar.html'"
+        ng-init="titleSection='Unit'; goBackToState = true; noColor = true">
+</div>
+
+<!-- 单元数量设置视图 -->
+<div class="content preferences" ng-controller="preferencesUnitController as prefUnit">
+    <ul class="no-bullet m0 ">
+        <!-- 单元数量选项，选定后保存设置，相关页面都更新为设置的单元数量 -->
+        <li ng-repeat="unit in prefUnit.unitOpts" ng-click="prefUnit.save(unit)" class="line-b p20 size-14">
+            <span>{{unit.shortName}}</span>
+            <i class="fi-check size-16 right" ng-show="prefUnit.unitName == unit.shortName"></i>
+        </li>
+    </ul>
+</div>
+<div class="extra-margin-bottom"></div>

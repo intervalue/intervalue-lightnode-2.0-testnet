@@ -1,0 +1,66 @@
+<!-- 顶部导航栏视图 -->
+<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #263b56;" ng-click="hiderightpop($event)">
+    <!-- 左区 -->
+    <section class="left-small" style="background-color: #236d97">
+        <a ng-show="goBackToState"
+           ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi" style="color:#fff;">
+            <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+        </a>
+
+        <a ng-show="closeToHome" class="chatpaddingleffi"
+           ng-click="topbar.goHome(); closeToHome = null" style="color:#fff;">
+            <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+        </a>
+    </section>
+
+    <!-- 右区 -->
+    <section class="right-small" style="background-color: #236d97;height: 45px">
+        <a  class="chatpaddingleffi">
+            <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop" ng-click="showrightpop($event)">
+        </a>
+    </section>
+    <div id="pop" style="position: relative;right:6px;top:-2px;z-index:1;" ng-show="showrightpopvalue" >
+        <div class="triangle " style="right:14px;">
+        </div>
+        <div class="chatpopUpWindw"  style="background-color:#324e77;" >
+            <!-- 扫一扫 -->
+            <div class="subDiv" style="vertical-align: middle" ng-show="true" >
+                <qr-scanner ng-show="index.isComplete" on-scan="topbar.onQrCodeScanned(data)"
+                            before-scan="topbar.onBeforeScan()">
+                    <img src="./img/chatscannner.png"/><span translate>Scanner</span>
+                </qr-scanner>
+            </div>
+
+            <!-- 收款地址 -->
+            <div class="subDiv"  style="vertical-align: middle">
+                <a ng-click="$root.go('receive')">
+                    <img src="./img/chatshoukuan.png"/><span translate>receive address</span>
+                </a>
+            </div>
+
+            <!--添加设备-->
+            <!--<div class="subDiv" >-->
+                <!--<a ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice')" >-->
+                    <!--<img src="./img/chatadddevice.png"/><span translate>Add device</span>-->
+                <!--</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+
+    <!-- 中间区 -->
+    <section class="middle tab-bar-section" style="background-color: #236d97">
+        <h1 class="title ellipsis"
+            style="color: #FFFFFF;font-size:18px;">
+            <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>
+            <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
+                  <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">
+                      <span class="ellipsis" style="max-width: calc(100% - 14px);float: left;">
+                          {{(index.shared_address || index.alias || index.walletName)}}
+                      </span>
+                      <span class="arrow-down" ng-style="{'float': 'left', 'border-top-color': index.backgroundColor}"></span>
+                  </a>
+              </span>
+        </h1>
+    </section>
+</nav>

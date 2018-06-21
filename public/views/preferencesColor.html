@@ -1,0 +1,16 @@
+<div
+        class="topbar-container"
+        ng-include="'views/includes/topbar.html'"
+        ng-init="titleSection='Color'; goBackToState = true">
+</div>
+
+<!-- 钱包颜色设置视图 -->
+<div class="content preferences" ng-controller="preferencesColorController as p">
+    <ul class="no-bullet m0">
+        <li ng-repeat="c in p.colorOpts" ng-click="p.save(c)">
+            <span ng-style="{'color': c}" class="size-16">&block;</span>
+            <i class="fi-check size-16 right" ng-show="p.color == c"></i>
+        </li>
+    </ul>
+</div>
+<div class="extra-margin-bottom"></div>

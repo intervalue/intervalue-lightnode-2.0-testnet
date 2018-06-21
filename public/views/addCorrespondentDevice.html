@@ -1,0 +1,26 @@
+<div
+	style="font-size: 16px"
+ class="topbar-container"
+  ng-include="'views/includes/topbar.html'"
+  ng-init="titleSection='Add a new device'; goBackToState = true; noColor = true; ">
+</div>
+
+
+<div class="content chatadddeviceout">
+<ul class="no-bullet manage size-12">
+	<li>
+		<a ng-click="$root.go('correspondentDevices.addCorrespondentDevice.inviteCorrespondentDevice')">
+			<i class="iconfont icon-erweima left m10t" style="font-size: 20px;color: #f06629;margin-right: 10px"></i>
+			<span style="font-size: 16px" translate>Invite the other device</span><i class="icon-arrow-right3 " style="font-size: 2.5rem;position: absolute;line-height: 50px;right: 5px;height: 45px;margin-top: 0px"></i>
+		</a>
+	</li>
+	<li>
+		<a ng-click="$root.go('correspondentDevices.addCorrespondentDevice.acceptCorrespondentInvitation')">
+			<i class="iconfont icon-bianji left m10t" style="font-size: 20px;color: #4197d3;margin-right: 10px"></i>
+			<span translate style="max-width: 60%;font-size: 16px">Accept invitation from the other device</span><i class="icon-arrow-right3 " style="font-size: 2.5rem;position: absolute;line-height: 50px;right: 5px;height: 45px;margin-top: 0px;"></i>
+		</a>
+	</li>
+
+</ul>
+</div>
+<!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->

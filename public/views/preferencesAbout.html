@@ -1,0 +1,48 @@
+<div
+    class="topbar-container"
+    ng-include="'views/includes/topbar.html'"
+    ng-init="titleSection='About INVE'; goBackToState = true">
+</div>
+
+<!-- 关于InterValue视图 -->
+<div class="content preferences" ng-controller="preferencesAbout as about"  style="background: #ECEFF6;">
+    <h4 translate class="settinth4titlel" style="background: #ECEFF6;">Release Information</h4>
+    <div ng-controller="versionController as v">
+        <ul class="no-bullet m0">
+            <!-- 版本 -->
+            <li class="settintlipaddingl" ng-conf>
+                <span translate style="font-size: 16px;">Version</span>
+                <span class="right text-gray">
+                    v{{v.version}}
+                </span>
+            </li>
+            <!-- 提交哈希值，刘星删除 -->
+            <!--<li ng-conf ng-click="$root.openExternalLink('https://github.com/intervalue/intervalue/tree/'+v.commitHash)">-->
+                <!--<span translate>Commit hash</span>-->
+                <!--<span class="right text-gray">-->
+                    <!--#{{v.commitHash}}-->
+                <!--</span>-->
+            <!--</li>-->
+        </ul>
+    </div>
+
+    <div class="chatbgcolorheight ng-scope"></div>
+    <ul class="no-bullet m0">
+        <!-- 使用条款 -->
+        <li class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.preferencesAbout.disclaimer')">
+            <i class="icon-arrow-right3 size-24 right text-gray"></i>
+            <span translate >Terms of Use</span>
+        </li>
+        <!-- 翻译者，刘星删除 -->
+        <!--<li ng-click="$root.go('preferencesGlobal.preferencesAbout.translators')">-->
+            <!--<i class="icon-arrow-right3 size-24 right text-gray"></i>-->
+            <!--<span translate>Translators</span>-->
+        <!--</li>-->
+        <!-- 会话日志，刘星删除 -->
+        <!--<li ng-conf ng-click="$root.go('preferencesGlobal.preferencesAbout.preferencesLogs')">-->
+            <!--<i class="icon-arrow-right3 size-24 right text-gray"></i>-->
+            <!--<span translate>Session log</span>-->
+        <!--</li>-->
+    </ul>
+
+</div>

@@ -1,0 +1,443 @@
+<!-- 聊天视图 -->
+<div ng-controller="correspondentDeviceController">
+
+    <!--div
+      class="topbar-container"
+      ng-include="'views/includes/topbar.html'"
+      ng-init="titleSection=correspondent.name; goBackToState = true; showCamera = true">
+    </div-->
+
+    <!-- top bar 板块 -->
+    <nav class="tab-bar chatcurchattop">
+        <!-- 返回 -->
+        <section class="left-small">
+            <a class="chatpaddingleffi" ng-click="goToCorrespondentDevices()">
+                <img src="./img/chatbackstate.png" class="chatbackstate" ><span translate>Back</span>
+                <!--<i class="iconfont icon-fanhui">&nbsp;返回</i>-->
+
+                <!--<i class="icon-arrow-left3 icon-back"></i>-->
+                <!--<span class="text-back">{{'Back'|translate}}</span>-->
+            </a>
+        </section>
+        <!-- 设备名作为title -->
+        <section class="middle tab-bar-section" style="overflow: hidden;">
+            <!--<h1 class="title ellipsis" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">-->
+            <!--{{correspondent.name}}-->
+            <!--</h1>-->
+            <h1 class="title ellipsis chatcurchattitle" >
+                {{correspondent.name}}
+            </h1>
+        </section>
+        <!-- 编辑 -->
+        <section class="right-small" ng-click="editCorrespondent()">
+            <a >
+                <img src="./img/chatcureidt.png" class="chatcuredit"/>
+                <!--<i class="iconfont icon-shezhi"></i>-->
+                <!--<span class="text-close" translate>Edit</span>-->
+            </a>
+        </section>
+    </nav>
+
+    <style>
+        .right-side {
+            margin-left: auto;
+            margin-right: 0px;
+        }
+        .left-side {
+            margin-left: 0px;
+            margin-right: auto;
+        }
+        .send-form {
+            position: absolute;
+            width: 100%;
+            padding-bottom: 58px;
+            bottom: 0px;
+            border-top: 1px solid #E9E9EC;
+            background-color: white;
+            z-index: 5;
+            white-space: nowrap;
+            text-align: center;
+        }
+        .send-form .textinput {
+            min-height: 30px;
+            width: 75%;
+            margin: 0 auto;
+            display: inline;
+            vertical-align: middle;
+            margin-top: 8px;
+        }
+        .send-form .chatbutton {
+            padding: 6px 8px 4px 8px;
+            border-radius: 40px;
+            margin: 8px auto;
+        }
+        .send-form .chatbutton i {
+            vertical-align: baseline;
+        }
+        #drop {
+            max-width: 300px;
+            width: auto !important;
+            text-align: left;
+            line-height: 1em;
+            top: -116px  !important;
+            left: 4px  !important;
+        }
+        #recording-drop {
+            max-width: 200px;
+            left: 140px;
+            padding: 15px;
+        }
+        .message-log {
+            position: absolute;
+            width: 100%;
+            bottom: 36px;
+            top: 45px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            /*margin-top: 10px;*/
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            font-size: 13px;
+        }
+        .chat-message {
+            width: 100%;
+            margin-top: 10px;
+        }
+        /*.chat-message:last-child{
+            margin-bottom: 10px;
+        }*/
+        .bubble {
+            padding: 10px 15px;
+            margin: 0px 7px;
+            border-radius: 18px;
+            position: relative;
+            max-width: 80%;
+            text-align: left;
+            /*display: inline-block;*/
+            word-wrap: break-word;
+        }
+        .top-drop-btn, .top-drop-btn:hover, .top-drop-btn:active, .top-drop-btn:focus {
+            padding: 0;
+            background: none;
+        }
+        #top-drop {
+            width: 150px;
+            left: 50%;
+            margin-left: -75px;
+        }
+        /*
+        Chat bubble CSS credits http://codepen.io/samuelkraft/pen/Farhl
+        */
+        .clear {
+            clear: both;
+        }
+        .from-me {
+            color: white;
+            background: #2fa1d3;
+            float: right;
+        }
+        .from-me:before {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            bottom: -2px;
+            right: -7px;
+            height: 20px;
+            border-right: 20px solid #2fa1d3;
+            border-bottom-left-radius: 16px 14px;
+            -webkit-transform: translate(0, -2px);
+            transform: translate(0, -2px);
+        }
+        .from-me:after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            bottom: -2px;
+            right: -56px;
+            width: 26px;
+            height: 20px;
+            background: #eceff5;
+            border-bottom-left-radius: 10px;
+            -webkit-transform: translate(-30px, -2px);
+            transform: translate(-30px, -2px);
+        }
+        .from-me a {
+            color: white;
+        }
+        .bubble a.payment, .bubble a.external-link {
+            text-decoration: underline;
+        }
+        .bubble a.command {
+            line-height: 2;
+        }
+        .from-them {
+            background: #ffffff;
+            color: black;
+            float: left;
+        }
+        .from-them:before {
+            content: "";
+            position: absolute;
+            z-index: 2;
+            bottom: -2px;
+            left: -7px;
+            height: 20px;
+            border-left: 20px solid #ffffff;
+            border-bottom-right-radius: 16px 14px;
+            -webkit-transform: translate(0, -2px);
+            transform: translate(0, -2px);
+        }
+        .from-them:after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            bottom: -2px;
+            left: 4px;
+            width: 26px;
+            height: 20px;
+            background: #eceff5;
+            border-bottom-right-radius: 10px;
+            -webkit-transform: translate(-30px, -2px);
+            transform: translate(-30px, -2px);
+        }
+        .system {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 100%;
+            font-size:12px;
+        }
+        .system span {
+            color: #888;
+            padding: 0 10px;
+            background-color: white;
+        }
+        .system span.padding {
+            padding: 0 10px 0 0;
+        }
+        .system b {
+            background-color: white;
+            border: 1px dashed #888;
+            border-width: 0 0 1px 0;
+            cursor: pointer;
+        }
+        .system:before {
+            border-top: 2px solid #dfdfdf;
+            content: "";
+            margin: 0 auto;
+            /* this centers the line to the full width specified */
+            position: absolute;
+            /* positioning must be absolute here, and relative positioning must be applied to the parent */
+            top: 50%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 95%;
+            z-index: -1;
+        }
+        .switch-line {
+            margin-top: 5px;
+        }
+        .msg-ts {
+            color: #acacac;
+            font-size: 10px;
+            padding-top: 10px;
+            width: 12%;
+        }
+        @media (max-width: 350px) {
+            .msg-ts {
+                font-size: 8px;
+            }
+        }
+        .send-form .textinput::-webkit-input-placeholder {
+            white-space: nowrap;
+        }
+        .dropup-item {
+            correspondentDevice . html
+            display: inline-block;
+            max-width: 100%;
+            padding: 0 15px 0 10px;
+        }
+        .dropup-item-link {
+            padding: 8px 0 !important;
+            display: inline-block !important;
+            max-width: calc(100% - 10px);
+            float: left;
+        }
+        .ellipsis-end {
+            float: left;
+            width: 10px;
+            padding: 8px 0;
+            color: #555555;
+        }
+        .lefttime{
+            float: left !important;
+            text-align: left;
+        }
+        .righttime{
+            float: right !important;
+            text-align: right;
+        }
+    </style>
+
+
+    <div class="onGoingProcess" ng-show="onGoingProcess">
+        <div class="onGoingProcess-content" ng-style="{'background-color':index.backgroundColor}">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            {{onGoingProcess|translate}}...
+        </div>
+    </div>
+
+    <!--div class="columns m20t m20b" -->
+    <!--div ng-click="editCorrespondent()" class="pointer">
+      {{correspondent.name}} ({{correspondent.device_address | limitTo:4}}...)
+      <div class="right text-gray"><i class="icon-arrow-right3 size-24"></i></div>
+      <div class="size-10 text-gray ellipsis">{{correspondent.device_address}}@{{correspondent.hub}}</div>
+    </div-->
+
+    <!--<div id="recording-drop" class="f-dropdown pos-at-cursor" data-dropdown-content>-->
+    <!--<div class="text" ng-if="correspondent.my_record_pref && correspondent.peer_record_pref" translate>-->
+    <!--Both you and {{correspondent.name}} enabled local chat history recording.-->
+    <!--</div>-->
+    <!--<div class="text" ng-if="!(correspondent.my_record_pref && correspondent.peer_record_pref)" translate>-->
+    <!--Either you or {{correspondent.name}} have chat history recording disabled. History is not saved for anyone-->
+    <!--now.-->
+    <!--</div>-->
+    <!--<br>-->
+    <!--<div>-->
+    <!--<switch ng-model="correspondent.my_record_pref" class="green right"></switch>-->
+    <!--<div translate>My recording preference</div>-->
+    <!--</div>-->
+    <!--<div class="clear"></div>-->
+    <!--<div class="switch-line">-->
+    <!--<switch ng-model="correspondent.peer_record_pref" class="green right" disabled="true"></switch>-->
+    <!--<div translate>Their recording preference</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!-- 聊天记录信息展示板块 -->
+    <div class="message-log size-12 enable_text_select" scroll-bottom="messageEvents" when-scrolled="loadMoreHistory"
+         bind-to-height="['bottom','form[name=chatForm]']"
+         ng-mousemove="newMsgCounterEnabled ?'': newMessagesCount[correspondent.device_address] = 0">
+        <div class="chat-message " ng-repeat="messageEvent in messageEvents" >
+            <!--div style="width:100%" ng-style="messageEvent.bIncoming ? {'text-align': 'left'} : {'text-align': 'right'}"-->
+            <!--div style="max-width: 70%; text-align: left; display: inline-block" ng-bind-html="messageEvent.message"></div-->
+            <div ng-class="messageEvent.bIncoming ? 'from-them' : (messageEvent.type == 'system' ? 'system' : 'from-me')"
+                 class="bubble " dynamic="messageEvent.message"></div>
+            <span class=""></span>
+            <div ng-class="(messageEvent.bIncoming ? 'lefttime' : 'righttime')" class="msg-ts "
+                 ng-if="messageEvent.type != 'system'">{{messageEvent.timestamp * 1000 | date:'shortTime'}}
+            </div>
+            <!--/div-->
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- 聊天表单板块 -->
+
+    <form name="chatForm" class="send-form mychatcurform" id="mychatcurform" no-validate
+          ng-mousemove="newMsgCounterEnabled ?'': newMessagesCount[correspondent.device_address] = 0">
+        <div class="text-warning size-12 m10b" ng-show="error">{{error|translate}}</div>
+        <!-- 左侧功能选项anniu -->
+        <!--<button class="chatbutton left"-->
+        <!--dropdown-toggle="#drop" data-options="align:top">-->
+        <!--<i class="size-18 icon-dots-three-horizontal"></i>-->
+        <!--</button>-->
+        <!-- 左侧功能选项anniu -->
+        <img src="./img/chatltmessage.png" class="chatboardbtn left" dropdown-toggle="#drop" id="chatltmessage" data-options="align:top"/>
+
+        <!--<i class="iconfont icon-xiaoxib chatboardbtn left" dropdown-toggle="#drop" data-options="align:top"></i>-->
+        <!-- 左侧功能选项 -->
+        <ul id="drop" class="f-dropdown drop-top drop-up" data-dropdown-content>
+            <!-- 插入我的地址（小额钱包） -->
+            <!--<li class="dropup-item">-->
+            <!--<a class="ellipsis dropup-item-link" ng-click="insertMyAddress()">-->
+            <!--<span translate>-->
+            <!--插入我的地址-->
+            <!--</span> ({{(index.shared_address00 ? 'Shared address '+index.shared_address : (index.alias ||-->
+            <!--index.walletName))}}-->
+            <!--</a>-->
+            <!--<span class="ellipsis-end">)</span>-->
+            <!--</li>-->
+            <!-- 插入我的地址（小额钱包） -->
+            <li class="dropup-item" ng-click="insertMyAddress()" >
+                <span translate>insert my address</span>
+                <!--({{(index.shared_address00 ? 'Shared address '+index.shared_address : (index.alias ||-->
+                <!--index.walletName))}})-->
+            </li>
+            <div class="clear"></div>
+            <!-- 请求付款（小额钱包） -->
+            <!--<li class="dropup-item">-->
+            <!--<a ng-click="requestPayment()" class="ellipsis dropup-item-link">-->
+            <!--<span translate>请求付款</span> ({{(index.shared_address00 ? 'Shared address-->
+            <!--'+index.shared_address : (index.alias || index.walletName))}}-->
+            <!--</a>-->
+            <!--<span class="ellipsis-end">)</span>-->
+            <!--</li>-->
+            <!-- 请求付款（小额钱包） -->
+            <li class="dropup-item" ng-click="requestPayment()" >
+                <span translate>request payment</span>
+                <!--({{(index.shared_address00 ? 'Shared address-->
+                <!--'+index.shared_address : (index.alias || index.walletName))}} )-->
+            </li>
+            <!-- 插入私人profile -->
+            <!--<div class="clear"></div>-->
+            <!--<li class="dropup-item">-->
+            <!--<a ng-click="choosePrivateProfile()" class="ellipsis dropup-item-link">-->
+            <!--<span translate>Insert private profile</span>-->
+            <!--</a>-->
+            <!--</li>-->
+        </ul>
+        <!-- 输入框 -->
+        <!--<textarea rows="1" msd-elastic id="message" name="message" ng-model="message" autofocus required-->
+        <!--ng-enter="send()" class="textinput chatcurtextinput"-->
+        <!--placeholder="{{'Text message to'|translate}} {{correspondent.name}}"></textarea>-->
+        <!--<input  msd-elastic id="message" name="message" ng-model="message" autofocus required-->
+        <!--ng-enter="send()" class="textinput chatcurtextinput"-->
+        <!--placeholder="{{'Send information to'|translate}} {{correspondent.name}}"  />-->
+        <input  msd-elastic id="message" name="message" ng-model="message" autofocus required
+                ng-enter="send()" class="textinput chatcurtextinput"/>
+        <!-- 发送按钮 -->
+        <input type="submit"
+               class="chatbutton right chatcursubmitbtn"
+               ng-disabled="!chatForm.$valid"
+               ng-style="{'background-color':'#246d98'}"
+               ng-click="send()" value="{{'Send'|translate}}"  />
+        <!--<i class="size-18 icon-paperplane"></i>-->
+
+
+
+        <!--<div class="row">
+          <div class="large-4 medium-4 small-4 columns adaptive">
+            <button type="button"
+                   class="button expand round outline dark-gray tiny"
+                   ng-click="insertMyAddress()">Insert my address</button>
+          </div>
+          <div class="large-4 medium-4 small-4 columns adaptive">
+            <button type="button"
+                   class="button expand round outline dark-gray tiny"
+                   ng-click="requestPayment()">Request payment</button>
+          </div>
+          <div class="large-4 medium-4 small-4 columns adaptive">
+            <input type="submit"
+                   class="button expand round"
+                   value="{{'Send'}}"
+                   ng-disabled="!chatForm.$valid"
+                   style="padding-top: 15px; padding-bottom: 15px"
+                   ng-style="{'background-color':backgroundColor}"
+                   ng-click="send()">
+          </div>
+        </div>-->
+    </form>
+    <!--/div-->
+
+
+    <div class="extra-margin-bottom"></div>
+</div>
+<!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->

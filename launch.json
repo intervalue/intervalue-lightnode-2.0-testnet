@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "nwjs DOM debug",
+            "type": "chrome",
+            "request": "launch",
+            "webRoot": "${workspaceRoot}",
+            "runtimeExecutable": "${workspaceRoot}/InterValue.exe",
+            "runtimeArgs": [
+                "${workspaceRoot}",
+                "--remote-debugging-port=9222"
+            ],
+            "breakOnLoad": true,
+            "urlFilter": "chrome-extension://*/_generated_background_page.html",
+            // "urlFilter": "chrome-extension://*/index.html",
+            "sourceMaps": true,
+            "trace": true,
+            "port": 9222
+        }
+    ]
+}

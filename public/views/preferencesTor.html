@@ -1,0 +1,28 @@
+<div
+        class="topbar-container"
+        ng-include="'views/includes/topbar.html'"
+        ng-init="titleSection='TOR'; goBackToState = true">
+</div>
+
+<!-- Tor匿名设置 -->
+<div class="content preferences" ng-controller="preferencesTorController as tor" style="background: #ECEFF6;">
+    <!-- 提交表单 -->
+    <form class="" ng-submit="save(true)" style="background: #ECEFF6;padding-top: 20px;">
+        <!--<div class="chatbgcolorheight ng-scope"></div>-->
+        <div style="margin-bottom: 20px;background: #FFFFFF;height: 50px;border:0px;width: 100%;padding-top: 15px;padding-right: 20px;">
+            <switch name="torEnabled" ng-model="torEnabled" class="green right settingpopbtnl"></switch>
+            <div style="padding-left: 20px;font-size: 16px;padding-right: 20px;">Tor</div>
+        </div>
+        <!--<i class="itb iconfont icon-fuwuqi" style="color:#B097E7;font-size: 25px;"></i>-->
+        <div><i class="itb" style="color:#B097E7;font-size: 25px;margin-top: -10px;"><img src="./img/fuwuqi-icon@3x.png" width="20"/></i><i translate class="ihub" style="margin-top: -7px;font-size: 16px;">Server address</i>
+            <input type="text" style="text-align: right;width: 100%;margin-top: 20px; background: #FFFFFF;height: 50px;border:0px;padding-right: 20px;font-size: 16px;" id="host" name="host" ng-model="socksHost" placeholder="127.0.0.1"></div>
+        <div><i class="itb" style="color:#B097E7;font-size: 25px;margin-top: -10px;"><img src="./img/duankou-icon@3x.png" width="20"/></i><i translate class="ihub" style="margin-top: -7px;font-size: 16px;">Port</i>
+            <div class="text-warning size-12 m10b" ng-show="errorPortInput">{{errorPortInput}}</div>
+            <input type="text" style="text-align: right;width: 100%;margin-top: 20px; background: #FFFFFF;height: 50px;border:0px;padding-right: 20px;font-size: 16px;" id="port" name="port" ng-model="socksPort" placeholder="9150"></div>
+        <div style="width:100%;padding:30px 18px 0 18px;">
+            <input type="submit" style="     width: 100%;    background-color: rgb(36, 109, 152);   border-radius: 26px;color: #fff;
+    font-size: 16px;  padding: 0; height: 46px;    " class="  black " value="{{'Save'|translate}}"
+                   ng-style="{'background-color':'#236D97'}">
+        </div>
+    </form>
+</div>

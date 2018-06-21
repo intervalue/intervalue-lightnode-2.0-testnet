@@ -1,0 +1,178 @@
+<nav class="tab-bar" style="background-color: #246d98">
+  <section class="left-small">
+    <a class="chatpaddingleffi" ng-click="cancel()">
+      <!--<i class="icon-arrow-left3 icon-back"></i>-->
+      <!--<span class="text-back" translate>Back</span>-->
+      <img src="./img/chatbackstate.png" class="chatbackstate"><span translate class="chatacolorfff">Back</span>
+    </a>
+  </section>
+  <section class="middle tab-bar-section">
+    <h1 class="title ellipsis chattabbarhonem" translate>
+      Transaction
+    </h1>
+  </section>
+</nav>
+
+<div class="modal-content fix-modals-touch">
+  <div class="header-modal text-center enable_text_select" style="background-color: #FFFFFF;padding:18px;" >
+    <div class="size-42" ng-show="btx.action != 'invalid'">
+      <span style="display:inline-block;word-break: break-all;" ng-if="btx.action == 'received'">+{{btx.amountTx}}<span style="font-size: 22px;color: #767676">&nbsp;&nbsp;INVE</span></span>
+      <span style="display:inline-block;word-break: break-all;" ng-if="btx.action == 'sent'">-{{btx.amountTx}}<span style="font-size: 22px;color: #767676">&nbsp;&nbsp;INVE</span></span>
+
+      <!--<div class="size-14" ng-if="btx.asset === 'base' && exchangeRates.GBYTE_USD">
+          ≈ {{ btx.action == 'sent' ? '-' : '+'}} ${{ (btx.amount * exchangeRates.GBYTE_USD / 1e9).toLocaleString([], {maximumFractionDigits: 2}) }}
+      </div>-->
+      <!--<div class="size-14" ng-if="btx.asset === BLACKBYTES_ASSET && exchangeRates.GBB_USD">-->
+      <!--≈ {{ btx.action == 'sent' ? '-' : '+'}} ${{ (btx.amount * exchangeRates.GBB_USD / 1e9).toLocaleString([], {maximumFractionDigits: 2}) }}-->
+      <!--</div>-->
+    </div>
+    <div class="size-42" ng-show="btx.action == 'invalid'">
+      -
+    </div>
+  </div>
+  <div class="chatbgcolorheight"></div>
+  <!--  <h4 class="title m0" translate>Details</h4>-->
+
+  <ul class="no-bullet size-14 m0" style="background-color: #FFFFFF" >
+
+    <li ng-if="!btx.hasMultiplesOutputs && btx.addressTo && btx.addressTo != 'N/A'" class="line-b pleft18 oh ptranliflex" ng-click="copyAddress(btx.addressTo)">
+      <!--<i class="iconfont icon-qianbao" style="color: #e676b3;font-size: 16px"></i>-->
+      <img class="ptranleftimg" src="./img/tranto.png" />
+      <span class="text-gray" translate>To</span>
+      <!--<span class="right">-->
+      <!--<span ng-if="btx.merchant">-->
+      <!--<span ng-show="btx.merchant.pr.ca"><i class="fi-lock color-greeni"></i> {{btx.merchant.domain}}</span>-->
+      <!--<span ng-show="!btx.merchant.pr.ca"><i class="fi-unlock color-yellowi"></i> {{btx.merchant.domain}}</span>-->
+      <!--</span>-->
+      <!--<span ng-if="!btx.merchant">-->
+      <!--<span ng-show="btx.labelTo">{{btx.labelTo}}</span>-->
+      <!--<contact ng-show="!btx.labelTo" class="enable_text_select" style="color: #afadad" address="{{btx.addressTo}}"></contact>-->
+      <!--</span>-->
+      <!--</span>-->
+      <span ng-if="btx.merchant" class="tranflexper">
+        <span ng-show="btx.merchant.pr.ca">{{btx.merchant.domain}}</span>
+        <span ng-show="!btx.merchant.pr.ca">{{btx.merchant.domain}}</span>
+      </span>
+      <span ng-if="!btx.merchant" class="tranflexper">
+        <span ng-show="btx.labelTo">{{btx.labelTo}}</span>
+        <contact ng-show="!btx.labelTo" class="enable_text_select" style="color: #afadad" address="{{btx.addressTo}}"></contact>
+      </span>
+    </li>
+
+    <li ng-if="btx.textAddress" class="line-b pleft18 oh ptranliflex" ng-click="copyAddress(btx.textAddress)">
+      <span class="text-gray" translate>To email</span>
+      <span class="right">
+        <contact class="enable_text_select" address="{{btx.textAddress}}"></contact>
+      </span>
+    </li>
+
+    <li ng-show="btx.hasMultiplesOutputs" class="line-b pleft18 oh ptranliflex"
+        ng-click="showMultiplesOutputs = !showMultiplesOutputs">
+      <span class="text-gray" translate>Recipients</span>
+      <span class="right">{{btx.recipientCount}}
+        <i ng-show="showMultiplesOutputs" class="icon-arrow-up3 size-24"></i>
+        <i ng-show="!showMultiplesOutputs" class="icon-arrow-down3 size-24"></i>
+      </span>
+    </li>
+
+    <li ng-if="btx.action == 'received'" class="line-b pleft18 row collapse ptranliflex">
+      <img class="ptranleftimg" style="width:20px;" src="./img/tranfromtwo.png" />
+      <span  class="text-gray" translate>From</span>
+      <div ng-repeat="address in btx.arrPayerAddresses" class="right tranflexper">{{address}}</div>
+    </li>
+
+    <li ng-if="btx.action == 'received'" class="line-b pleft18 row collapse ptranliflex">
+      <img class="ptranleftimg" style="width:20px;" src="./img/tranto.png" />
+      <span  class="text-gray" translate>To</span>
+      <div class="right tranflexper">{{btx.my_address}}</div>
+    </li>
+
+    <div class="line-b" ng-show="btx.hasMultiplesOutputs && showMultiplesOutputs"
+         ng-repeat="output in btx.outputs"
+         ng-include="'views/includes/output.html'">
+    </div>
+
+    <li ng-show="btc.message" class="line-b pleft18 oh ptranliflex">
+      <span class="text-gray" translate>Note</span>
+      <span class="right">{{btx.message}}</span>
+    </li>
+
+    <li ng-if="btx.action == 'invalid'" class="line-b pleft18 oh ptranliflex">
+    <span class="right" translate>
+      This transaction has become invalid; possibly due to a double spend attempt.
+    </span>
+    </li>
+    <li ng-if="btx.time" class="line-b pleft18 oh ptranliflex">
+      <img class="ptranleftimg" style="margin-left: -2px;margin-right: 8px;width: 24px;" src="./img/trandate.png" />
+      <span class="text-gray" translate>Date</span>
+      <span class="right tranflexper">
+      <time>{{ btx.time * 1000 | amDateFormat:'MM/DD/YYYY HH:mm a'}}</time>
+      <time>({{ btx.time * 1000 | amTimeAgo}})</time>
+    </span>
+    </li>
+    <li class="line-b pleft18 ptranliflex" ng-show="btx.action != 'received'">
+      <img class="ptranleftimg" style="width: 24px;height: 24px;margin-right: 8px;margin-left: -2px;" src="./img/tranfee.png" />
+      <span class="text-gray" translate>Fee</span>
+      <span class="right tranflexper">{{btx.feeStr }}</span>
+    </li>
+    <li class="line-b pleft18 row collapse ptranliflex">
+      <img class="ptranleftimg" style="height:20px;" src="./img/tranunit.png" />
+      <span class="text-gray">Unit</span>
+      <!--<div class="right  enable_text_select tranflexper external-link"><a ng-click="openInExplorer()" class=" ">{{btx.unit}}</a></div>-->
+      <div class="right  enable_text_select tranflexper ">{{btx.unit}}</div>
+    </li>
+    <li class="line-b pleft18 oh ptranliflex" ng-if="btx.message && btx.action != 'received'">
+      <span class="text-gray" translate>Note</span>
+      <span class="right">{{btx.message}}</span>
+    </li>
+    <li ng-if="btx.merchant" class="line-b pleft18 oh ptranliflex">
+      <span class="text-gray" translate>Merchant message</span>
+      <span class="right">
+      {{btx.merchant.pr.pd.memo}}
+    </span>
+    </li>
+    <li ng-if="btx.time" class="line-b pleft18 oh ptranliflex">
+      <img class="ptranleftimg" style="height:20px;" src="./img/tranfinality.png" />
+      <span class="text-gray" translate>Finality</span>
+
+      <span class="text-warning tranflexper" style="color:red;" ng-show="!btx.confirmations || btx.confirmations == 0" translate>
+        Pending
+      </span>
+      <span class="tranflexper" ng-show="btx.confirmations" translate>
+        Confirmed
+      </span>
+
+    </li>
+
+    <!--<li ng-if="btx.isTextcoin" class="line-b pleft18 oh ptranliflex">-->
+      <!--&lt;!&ndash;<span class="text-gray" translate>Was claimed?</span>&ndash;&gt;-->
+      <!--<span class="right" >-->
+        <!--&lt;!&ndash;<span class="text-warning"  ng-show="!btx.claimed" translate>&ndash;&gt;-->
+          <!--&lt;!&ndash;not claimed&ndash;&gt;-->
+      <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span ng-show="!btx.claimed && btx.mnemonic" class="external-link">&ndash;&gt;-->
+          <!--&lt;!&ndash;(<a href="#" ng-click="$root.$emit('claimTextcoin', btx.mnemonic.split('-').join(' '));" style="padding: 0; color: inherit;">claim back</a>)&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--<span class="label gray radius" ng-show="btx.claimed" translate>-->
+          <!--claimed by {{btx.claimedByMe?'me':'receiver'|translate}}-->
+        <!--</span>-->
+
+      <!--</span>-->
+    <!--</li>-->
+
+    <!--<li ng-if="btx.isTextcoin && !btx.claimed && btx.mnemonic" class="line-b pleft18 oh ptranliflex">-->
+      <!--<span translate>If the recipient doesn't see your payment, you can</span> <a class="blue-link" style="padding: 0" ng-click="shareAgain()" translate>share again</a>-->
+    <!--</li>-->
+    <!--<li ng-if="btx.isTextcoin && !btx.claimed && btx.mnemonic" class="line-b pleft18 oh ptranliflex">-->
+      <!--<span translate>You can erase the textcoin from your wallet if you have already saved it elsewhere (e.g. as a paper wallet):</span> <a class="blue-link" style="padding: 0" ng-click="eraseTextcoin()" translate>erase textcoin</a>-->
+    <!--</li>-->
+    <li ng-if="btx.action == 'sent' && isPrivate" class="line-b pleft18 oh ptranliflex">
+      <span translate>If the recipient doesn't see your payment, you can</span> <a class="blue-link" style="padding: 0" ng-click="showCorrespondentList()" translate>re-send private payloads</a>
+    </li>
+    <li ng-if="n > 1 && isPrivate" class="line-b pleft18 oh ptranliflex">
+      <span translate>If any of your cosigner devices doesn't see this payment, you can</span> <a class="blue-link" style="padding: 0" ng-click="reSendPrivateMultiSigPayment()" translate>re-send private payloads to cosigners</a>
+    </li>
+  </ul>
+
+
+</div>

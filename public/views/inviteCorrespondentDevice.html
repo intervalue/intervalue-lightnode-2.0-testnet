@@ -1,0 +1,67 @@
+<!--<div-->
+<!--class="topbar-container"-->
+<!--ng-include="'views/includes/topbar.html'"-->
+<!--ng-init="titleSection='Invite new device'|translate; goBackToState = true; showCamera = true; ">-->
+<!--</div>-->
+<nav ng-controller="topbarController as topbar" class="tab-bar ng-scope" >
+	<!-- 左区 -->
+	<section class="left-small" style="background-color: #236d97">
+		<a ng-click="$root.go('^', true); goBackToState = null" class="chatacolorfff chatpaddingleffi">
+			<!--<i class="chateightmargin iconfont icon-fanhui" style="color:#fff;"> &nbsp;返回</i>-->
+			<img src="./img/chatbackstate.png" class="chatbackstate"><span translate class="chatacolorfff">Back</span>
+		</a>
+
+	</section>
+
+	<!-- 右区 -->
+	<!--class="chatacolorfff"-->
+	<div class="right-small chatacolorfff" >
+		<qr-scanner on-scan="topbar.onQrCodeScanned(data)" before-scan="topbar.onBeforeScan()" >
+			<img src="./img/chatscannerd.png" style="margin-right:8px;width:22px;">
+		</qr-scanner>
+	</div>
+
+	<!-- 中间区 -->
+	<section class="middle tab-bar-section" style="background-color: #236d97">
+		<h1 class="title ellipsis chatmysettingtitle" translate>
+			Add device
+		</h1>
+	</section>
+</nav>
+
+<div ng-controller="inviteCorrespondentDeviceController"
+	 style=" overflow: auto;">
+	<div >
+
+		<div class="text-center">
+			<div class=" chatmarginrlten chatinvietebgfff">
+				<div class="chatmarginrltentitle" translate>My pairing code</div>
+				<div ng-click="copyCode()" class="chatcopycode">
+					<qrcode size="150" version="{{qr_version}}" data="{{protocol}}:{{code}}"></qrcode>
+				</div>
+				<div class="chatdevicecode" id="chatdevicecode">{{code}}</div>
+			</div>
+			<div class=" chatmarginrlten">
+				<div class="row">
+					<input type="button"
+						   class="chatdevicesharebtn"
+						   ng-click="shareinviteAddress()"
+						   value="{{'Share pairing code'|translate}}" style="cursor:pointer;">
+				</div>
+				<div class="chatdevicecodetext">
+					<span style="" translate>Scan the above QR code using the other device, or send this pairing code to the other device</span>
+				</div>
+				<!--<div class="row">-->
+					<!--<input type="button "-->
+						   <!--class="chatdevicedonebtn"-->
+						   <!--ng-click="$root.go('^', true); goBackToState = null"-->
+						   <!--value="{{'Done'|translate}}">-->
+				<!--</div>-->
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+<!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->

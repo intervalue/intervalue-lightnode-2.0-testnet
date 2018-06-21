@@ -1,0 +1,25 @@
+<div class="bottom-bar second-bottom-bar  collapse animated slideInRight" ng-class="{ 'slideOutRight': !showPlugins }" ng-if="index.menu.length > 6">
+    <div class="medium-{{index.menuItemSize}} small-{{index.menuItemSize}} columns text-center bottombar-item" ng-repeat="item in index.menu | limitTo: 5 - index.menu.length">
+        <span ng-include="'views/includes/menu-item.html'"></span>
+    </div>
+    <div class="medium-{{index.menuItemSize}} small-{{index.menuItemSize}} columns text-center bottombar-item" ng-repeat="n in index.menu | limitTo: 4 - index.menu.length % 6">
+        <a></a>
+    </div>
+
+    <menu-toggle ng-show="index.menu.length > 6"></menu-toggle>
+</div>
+
+<div class="bottom-bar  collapse" style="background-color: #fcfcfc" ng-click="hiderightpop($event)" id="menuxhid">
+    <div ng-class="{ 'columns': index.menu.length == 5 }">
+        <div class="collapse">
+            <div class="left text-center bottombar-item"
+                 ng-repeat="item in index.menu | limitTo: (index.menu.length > 6 ? 5 : index.menu.length)">
+                <span ng-include="'views/includes/menu-item.html'"></span>
+            </div>
+
+            <menu-toggle ng-show="index.menu.length > 6"></menu-toggle>
+        </div>
+    </div>
+</div>
+
+

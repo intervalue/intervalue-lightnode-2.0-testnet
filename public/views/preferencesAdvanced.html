@@ -1,0 +1,36 @@
+<div 
+  class="topbar-container" 
+  ng-include="'views/includes/topbar.html'"
+  ng-init="titleSection='Advanced'; goBackToState = true">
+</div>
+
+<!-- 钱包高级设置视图 -->
+<div class="content preferences" ng-controller="preferencesAdvancedController as preferences">
+  <ul class="no-bullet m0">
+    <!-- 钱包信息 -->
+    <li  ng-click="$root.go('preferences.preferencesAdvanced.preferencesInformation')">
+      <i class="icon-arrow-right3 size-24 right text-gray"></i>  
+      <div translate>Wallet Information</div>
+    </li>
+
+    <!-- 扫描纸钱包， 刘星删除 -->
+    <!--<li ng-show="index.network == 'livenet'" class="text-capitalize" ng-click="$root.go('preferences.preferencesAdvanced.paperWallet')">-->
+      <!--<i class="icon-arrow-right3 size-24 right text-gray"></i>  -->
+      <!--<div translate>Sweep paper wallet</div>-->
+    <!--</li>-->
+ 
+    <!-- was not adapted from copay -->
+    <!--<li  ng-click="$root.go('preferencesGlobal.export')">-->
+      <!--<i class="icon-arrow-right3 size-24 right text-gray"></i>  -->
+      <!--<div translate>Export Wallet</div>-->
+    <!--</li>-->
+
+    <!-- 删除钱包， 刘星删除 -->
+    <!--<li ng-click="$root.go('preferences.preferencesAdvanced.preferencesDeleteWallet')">-->
+      <!--<i class="icon-arrow-right3 size-24 right text-gray"></i>  -->
+      <!--<div translate>Delete Wallet</div>-->
+    <!--</li>-->
+  </ul>
+</div>
+<div class="extra-margin-bottom"></div>
+

@@ -1,0 +1,34 @@
+
+<!-- 侧边栏视图 -->
+<nav class="sidebar left-off-canvas-menu" >
+	<ul >
+		<!-- 扫一扫 -->
+		<li>
+			<qr-scanner ng-show="index.isComplete" on-scan="topbar.onQrCodeScanned(data)"
+						before-scan="topbar.onBeforeScan()" ><i class="iconfont icon-saomianerweima">&ensp;</i>
+				<div class="tu text-bold" style="display: inline-block">
+					<span class="size-12" translate>Scanner</span>
+				</div>
+			</qr-scanner>
+		</li>
+		<!-- 收款地址 -->
+		<li>
+			<a ng-click="$root.go('receive')" class="oh">
+				<i class="iconfont icon-shoukuan-copy">&ensp;</i>
+				<div class="tu text-bold" style="display: inline-block">
+					<span class="size-12" translate>receive address</span>
+				</div>
+			</a>
+		</li>
+		<!--添加设备-->
+		<li>
+			<a ng-click="$root.go('correspondentDevices.addCorrespondentDevice')" class="oh">
+				<i class="iconfont icon-icon-">&ensp;</i>
+				<div class="tu text-bold" style="display: inline-block">
+					<span class="size-12" translate>Add device</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+
+</nav>

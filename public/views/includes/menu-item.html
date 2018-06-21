@@ -1,0 +1,15 @@
+<!-- 底部tab切換 -->
+<a  ng-click="index.setTab(item, false, 0, true)" ng-class="{'active': index.tab == item.link}" id="menu-{{item.link}}">
+    <!--<i class="iconfont {{item.icon}}"></i>-->
+    <img  ng-if="index.tab == item.link" id=menuimg-{{item.imgid}} src="./img/active{{item.img}}.png" style="width:22px;height:22px;" />
+    <img  ng-if="index.tab !== item.link" id=menuimg-{{item.imgid}} src="./img/{{item.img}}.png" style="width:22px;height:22px;" />
+    <div class="size-10 tu" style="font-size: 10px;    margin-top: 5px;margin-bottom: -6px;">
+        {{ item.title|translate }}
+        <span class="label alert round" ng-if="item.link=='walletHome' && index.pendingTxProposalsCountForUs > 0">
+            {{ index.pendingTxProposalsCountForUs }}
+        </span>
+    </div>
+    <div ng-show="item.title == 'Message' && totalNewMsgCnt > 0" class="badge">
+        {{totalNewMsgCnt}}
+    </div>
+</a>

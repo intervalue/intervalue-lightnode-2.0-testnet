@@ -1,0 +1,27 @@
+{
+  "name": "intervalue",
+  "keywords": [
+    "intervalue",
+    "wallet",
+    "multisignature"
+  ],
+  "dependencies": {
+    "angular": "1.6.10",
+    "angular-foundation": "byteball/angular-foundation",
+    "angular-gettext": "2",
+    "angular-touch": "1.6.10",
+    "angular-carousel": "*",
+    "angular-moment": "1.2.0",
+    "angular-qrcode": "monospaced/angular-qrcode#~6.0.3",
+    "angular-ui-router": "0.2",
+    "angular-ui-switch": "0.1",
+    "animate.css": "3",
+    "fastclick": "1",
+    "foundation": "5",
+    "foundation-icon-fonts": "*",
+    "ng-lodash": "0.2",
+    "qrcode-decoder-js": "*",
+    "angular-elastic": "2",
+    "ui-router-extras": "0.1"
+  }
+}

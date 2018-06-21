@@ -1,0 +1,35 @@
+<nav class="tab-bar">
+  <section class="left-small">
+    <a ng-click="cancel()" class="p10">
+      <span class="text-close" translate>Close</span>
+    </a>
+  </section>
+  <section class="middle tab-bar-section">
+    <h1 class="title ellipsis" ng-style="{'color':color}" translate>
+      Definition of smart address
+    </h1>
+  </section>
+</nav>
+
+<!-- 分享地址定义视图 -->
+<div class="modal-content fix-modals-touch">
+	<div class="row columns m20t" translate>{{address}} can be spent if:</div>
+	<div class="row columns m20t size-14 center enable_text_select" dynamic="humanReadableDefinition"></div>
+	<div class="row columns m20t size-14">
+		<span class="text-gray" translate>Peer:</span>
+		<span>{{shared_address_cosigners}}</span>
+	</div>
+	<div class="row columns size-14">
+		<span class="text-gray" translate>Created:</span>
+		<span>
+		  <time>{{ creation_ts * 1000 | amDateFormat:'MM/DD/YYYY HH:mm a'}}</time>
+		  <time>({{ creation_ts * 1000 | amTimeAgo}})</time>
+		</span>
+	</div>
+	<div class="large-12 large-centered row columns m20t">
+		<button class="button black round expand" ng-style="{'background-color':color}" ng-click="cancel()" translate>
+			Close
+		</button>
+	</div>
+
+</div>

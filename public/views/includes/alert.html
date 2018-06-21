@@ -1,0 +1,24 @@
+<div class="passModalMask">
+ </div>
+
+<div class="alertModal" style="height: 330px;">
+	<span style="position: absolute;right: 10px;top: 0px;color: gray;">
+		<img src="././img/guanbi.png"  width="40" style="padding-top: 1px;" ng-click="index.showAlert.close()"/>
+	</span>
+    <div >
+        <label style="text-align: left;background-color: #E6EEF1;height: 40px;padding-top: 10px;padding-left: 50px;font-size: 10pt;">
+            <span style="color: #4781A4;margin-left: -32px;margin-right: 5px;" translate>Purse back to confirm</span>
+        </label>
+    </div>
+    <div style="padding-top: 40px;text-align: center">
+        <img src="./img/restart.png" width="15%" >
+    </div>
+    <div class="size-14 text-center enable_text_select" style="margin-top: 30px">
+        <span style="padding: 15px"> {{index.showAlert.msg|translate}} </span>
+    </div>
+    <div class="mimachatdeleterecordbtn">
+        <button class="round" style="font-size: 16px;width: 95%;margin-top: 30px" ng-style="{'background-color':'#236D97'}" ng-click="index.showAlert.close()">
+            <span translate >OK</span>
+        </button>
+    </div>
+</div>
