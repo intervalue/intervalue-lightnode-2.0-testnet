@@ -16,8 +16,8 @@ checkOK() {
 cd node_modules/intervaluecore
 babel ./*.js -d babel
 cp -rf babel/* .
-cd ..
-cd ..
+rm -rf babel
+cd ../..
 BUILDDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT="$BUILDDIR/../../intervaluebuilds/project-$1"
 if [ ! -d "$BUILDDIR/../../intervaluebuilds" ]; then
