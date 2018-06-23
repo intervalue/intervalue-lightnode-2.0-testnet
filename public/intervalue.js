@@ -9874,7 +9874,6 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     $rootScope.showrightpop = function($event){
         $event.stopPropagation();           //阻止事件传播，即本次事件不产生连锁反应（不影响父节点和其他节点）
         $rootScope.showrightpopvalue = !$rootScope.showrightpopvalue;
-        console.log($rootScope.showrightpopvalue);
         return $rootScope.showrightpopvalue;
     };
 
@@ -10493,7 +10492,33 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     self.goHome = function () {
         go.walletHome();
     };
-
+    //
+    // self.menu = [{
+    //     'title': gettext('Home'),
+    //     'icon': 'icon-shouye2',
+    //     'img': 'mmtabwalletHome',
+    //     'imgid': 'walletHome',
+    //     'link': 'walletHome'
+    // }, {
+    //     'title': gettext('Transactions'),
+    //     'icon': 'icon-xunhuanbofang',
+    //     'img': 'mmtabsend',
+    //     'imgid': 'send',
+    //     'link': 'send'
+    // }, {
+    //     'title': gettext('Message'),
+    //     'icon': 'icon-duihua',
+    //     'img': 'mmtabchat',
+    //     'imgid': 'chat',
+    //     'new_state': 'correspondentDevices',
+    //     'link': 'chat'
+    // },{
+    //     'title': gettext('Settings'),
+    //     'icon': 'icon-shezhi',
+    //     'img': 'mmtabsettings',
+    //     'imgid': 'settings',
+    //     'link': 'settings'
+    // }];
     self.menu = [{
         'title': gettext('Home'),
         'icon': 'icon-shouye2',
@@ -10507,13 +10532,6 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         'imgid': 'send',
         'link': 'send'
     }, {
-        'title': gettext('Message'),
-        'icon': 'icon-duihua',
-        'img': 'mmtabchat',
-        'imgid': 'chat',
-        'new_state': 'correspondentDevices',
-        'link': 'chat'
-    },{
         'title': gettext('Settings'),
         'icon': 'icon-shezhi',
         'img': 'mmtabsettings',
@@ -15085,7 +15103,8 @@ angular.module('copayApp.controllers').controller('splashController',
     function ($scope, $timeout, $log, configService, profileService, storageService, go, isCordova) {
 		var self = this;
 
-		this.step = isCordova ? 'device_name' : 'wallet_type';
+		// this.step = isCordova ? 'device_name' : 'wallet_type';
+        this.step = 'device_name';
 		this.wallet_type = 'light';
 
         self.gono11 = function () { self.step = 'device_name'; };
@@ -17062,8 +17081,8 @@ angular.module('copayApp.controllers')
 			}, "referrer");
 		}
 	});
-window.version="1.0.0";
-window.commitHash="n/a";
+window.version="2.0.0";
+window.commitHash="d03fd55";
 'use strict';
 
 angular.element(document).ready(function () {

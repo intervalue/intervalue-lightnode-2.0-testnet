@@ -4,11 +4,10 @@
 <!--<div class="passModalMask" style="opacity: 1; padding: 0;"> </div>-->
 
 <!--备份钱包口令-->
-<div class="passModal" style="height: 100%; width: 100%; background: #ECEFF6; border-radius: 0px; position: absolute; left: 0; top: 0;">
+<div class="passModal addcreatepassmodal">
 
     <!--控制器开始-->
-    <div class="splash text-center" ng-controller="createWallet as wordsC"
-         style="height:100%;position: relative;overflow: hidden">
+    <div class="splash text-center addcreatesplash" ng-controller="createWallet as wordsC">
 
         <!--本页面样式-->
         <style>
@@ -105,55 +104,44 @@
 
         <!-- 欢迎页面 -->
         <div ng-if="wordsC.step === 'show_waring'">
-            <div class=" preferences" ng-controller="splashController as splash" style="background: #eceff6;">
-                <div class="chatbgcolorheight ng-scope" style="background-color:#236d97"></div>
+            <div class="preferences addcreatepreferences" ng-controller="splashController as splash">
                 <!-- 标题 -->
-                <div style="background-color: #236d97;height: 100px">
-                    <div class="medium-centered small-centered large-centered columns">
-                        <div style="padding-top: 32px" >
-                            <span class="size-18 text-white center" style="text-transform: none;color: #FFFFFF;" translate>InterValue Wallet</span>
-                            <!--<p class="text-gray size-12 m0 text-white center" donttranslate>Next Generation Globe Value Interenet</p>-->
-                        </div>
-                    </div>
-                </div>
+                <!--<div style="background-color: #236d97;height: 100px">-->
+                    <!--<div class="medium-centered small-centered large-centered columns">-->
+                        <!--<div style="padding-top: 32px" >-->
+                            <!--<span class="size-18 text-white center" style="text-transform: none;color: #FFFFFF;" translate>InterValue Wallet</span>-->
+                            <!--&lt;!&ndash;<p class="text-gray size-12 m0 text-white center" donttranslate>Next Generation Globe Value Interenet</p>&ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!-- 图标 -->
-                <div style="background-color: #eceff5;">
-                        <img style="margin-top: 45px;width:112px;" src="./img/INVE1.png" alt="icon">
-                </div>
+                <img class="addcreateheaderimg" src="./img/INVE1.png" alt="icon">
 
                 <!-- 没有加载完成个人设置信息时，显示设备设置页面 -->
-                <div ng-show="!splash.creatingProfile" style="background-color: #eceff5">
-                    <div class="start-button" style="padding:0 18px;">
+                <div ng-show="!splash.creatingProfile">
+                    <div class="start-button">
 
                         <!-- 已设置设备名时(初次设置完设备名时也会打开下面视图) -->
-                        <div style="margin-top: 48px">
-                            <div>
-                                <p class="text-gray size-12 m0 " style="display: inline;color: #999999;line-height: 16px" translate>Your wallet will be created on this device,</p>
-                            </div>
-                            <div style="margin-top: -7px">
-                                <p class="text-gray size-12 m0 " style="color: #999999;line-height: 16px;margin-top: 4px;" translate>keep it safe.  See your backup options in the Settings menu.</p>
-                            </div>
-                            <div style="margin-top: -7px">
-                                <p class="text-gray size-12 m0 " style="color: #999999;line-height: 16px;margin-top: 8px;" translate>Also in the Settings menu, you will find security options such as setting a password.</p>
-                            </div>
-
+                        <div class="addcreateintro">
+                            <p translate>Your wallet will be created on this device,</p>
+                            <p translate>keep it safe.  See your backup options in the Settings menu.</p>
+                            <p translate>Also in the Settings menu, you will find security options such as setting a password.</p>
                         </div>
 
                         <!-- 没有设置设备名时 -->
-                        <div ng-show="!splash.bDeviceNameSet" style="margin-top: 65px">
+                        <div ng-show="!splash.bDeviceNameSet" class="addcreatedevicename">
                             <!-- 设置设备名 -->
-                           <!-- <label ><span class="text-gray size-14" style="color: #999999;display: inline-block" translate>Please name this device</span></label>
-                            <input type="text" id="deviceName" ng-model="splash.deviceName" class="dark-centered-input" style="font-size: 16px;color: #282828;border-bottom-color:#bed2db ! important;display: inline-block" >-->
+                            <label><span translate>Device Name</span></label>
+                            <input type="text" id="deviceName" ng-model="splash.deviceName" >
 
                             <!-- 创建 -->
-                            <button style="background-color:#236d97;width: 100%;height:45px;line-height:45px;padding:0;border-radius:26px;margin-bottom:2../0px;" ng-click="wordsC.gono00()" class="#236d97 size-16"  translate>
+                            <button ng-click="wordsC.gono00()" translate class="addcreatecwallet">
                                 Creat Wallet
                             </button>
                             <!-- 恢复 -->
-                            <button style="background-color:#236d97;width: 100%;background-color:#eceff5;border:1px solid #236d97;color: #236d97;height:45px;line-height:45px;padding:0;border-radius:26px;margin:0;" ng-click="wordsC.gorukou2()" class=" size-16"  translate>
+                            <button ng-click="wordsC.gorukou2()" translate class="addcreaterwallet">
                                 Restore Wallet
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -162,35 +150,33 @@
 
         <!-- 按钮响应：创建新钱包 start------------------->
         <div ng-if="wordsC.step === 'show_jietu00'">
-            <div style="background: #236d97; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF; ">
+            <div class="addcreatenh">
                 <span>{{'Creat Wallet'|translate}}</span>
 
-                <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'" style="color:#fff; position: absolute; left: 0;width: 60px;">
-                    <i class="icon-arrow-left3  icon-back" style="font-size: 24px; position: absolute; left: 0; top: 10px;"></i>
-                    <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
+                <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'">
+                    <i class="icon-arrow-left3  icon-back"></i>
+                    <span class="text-back">{{'Back'|translate}}</span>
                 </a>
 
-                <a ng-if="recFromSeeddir.scanning" style="color:#fff; position: absolute; left: 0;width: 60px;">
-                    <i class="icon-arrow-left3  icon-back" style="font-size: 24px; position: absolute; left: 0; top: 10px;"></i>
-                    <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
+                <a ng-if="recFromSeeddir.scanning">
+                    <i class="icon-arrow-left3  icon-back"></i>
+                    <span class="text-back">{{'Back'|translate}}</span>
                 </a>
             </div>
-            <div style="padding: 20px 18px 0 18px;">
-                <div style="background-color: #FFFFFF;">
-                    <div style="padding-top: 30px">
-                        <img src="./img/qianbao-iconchat.png" style="width:60px;">
-                    </div>
-                    <!--<a ng-click="wordsC.step = 'show_waring'" style="color:#fff; position: absolute; left: 0;width: 60px;">
-                        &lt;!&ndash;<i class="iconfont icon-qianbao" style="font-size: 48px; position: absolute; left: 176px; top: 30px;color: #236d97"></i>&ndash;&gt;
-                        <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
-                    </a>
-                    <h1 class="icon-beifenr" style="font-size: 110px;color:#333;text-align: center; margin: 0; padding-top: 90px;"></h1>-->
+            <div class="addcreatenb">
+                <div class="addcreatenbimg">
+                    <img src="./img/qianbao-iconchat.png">
+                </div>
+                <!--<a ng-click="wordsC.step = 'show_waring'" style="color:#fff; position: absolute; left: 0;width: 60px;">
+                    &lt;!&ndash;<i class="iconfont icon-qianbao" style="font-size: 48px; position: absolute; left: 176px; top: 30px;color: #236d97"></i>&ndash;&gt;
+                    <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
+                </a>
+                <h1 class="icon-beifenr" style="font-size: 110px;color:#333;text-align: center; margin: 0; padding-top: 90px;"></h1>-->
 
-                    <h1 class="text-center chatcreattext" translate>Create Wallet and Backup Your Seed Phrase</h1>
-                    <div class="chatcnextnote">
-                        <span class="text-back">{{'Note:'|translate}}</span>
-                        <p class="size-12"  translate>We highly recommend you write the Mnemonic words(Backup Phrase) on Paper and keep it in a safe place, anyone get it can access or spend your assets. Also get start with a small amout of assets.</p>
-                    </div>
+                <h1 class="text-center chatcreattext" translate>Create Wallet and Backup Your Seed Phrase</h1>
+                <div class="chatcnextnote">
+                    <span class="text-back">{{'Note:'|translate}}</span>
+                    <p class="size-12"  translate>We highly recommend you write the Mnemonic words(Backup Phrase) on Paper and keep it in a safe place, anyone get it can access or spend your assets. Also get start with a small amout of assets.</p>
                 </div>
             </div>
             <!-- 点击next打开第三步“显示助记词”页面 -->
@@ -203,24 +189,24 @@
         <!-- 按钮响应：创建新钱包 end--------------------->
 
         <!--入口二：恢复原来的钱包----------------------------------------------------------------------------------------------------------------------------------------------------->
-        <div ng-if="wordsC.step === 'rukou2'">
-            <div class=" preferences" ng-controller="recoveryFromSeeddir as recFromSeeddir" style="height: 580px; background: #eceff5;">
+        <div ng-if="wordsC.step === 'rukou2'" class="addcreaterc">
+            <div class=" preferences" ng-controller="recoveryFromSeeddir as recFromSeeddir">
                 <!--恢复成功 弹出一个页面 -->
                 <div ng-include="'views/includes/recoveryAlert.html'" ng-if="recFromSeeddir.showAlert"></div>
                 <!-- 一个模态框 目的是开始恢复时 禁止其他操作 -->
-                <div class="passModalMask" style="opacity: 0.3; padding: 0; background: #000;" ng-if="recFromSeeddir.show"> </div>
+                <div class="passModalMask addcratercmm" ng-if="recFromSeeddir.show"> </div>
 
-                <div style="background: #236d97; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#fff; " translate>
+                <div class="addcreaterch">
                     <span translate>Restore Wallet</span>
 
-                    <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'" style="color:#fff; position: absolute; left: 0;width: 60px;">
-                        <i class="icon-arrow-left3  icon-back" style="font-size: 24px; position: absolute; left: 0; top: 10px;"></i>
-                        <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
+                    <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'">
+                        <i class="icon-arrow-left3  icon-back"></i>
+                        <span class="text-back">{{'Back'|translate}}</span>
                     </a>
 
-                    <a ng-if="recFromSeeddir.scanning" style="color:#fff; position: absolute; left: 0;width: 60px;">
-                        <i class="icon-arrow-left3  icon-back" style="font-size: 24px; position: absolute; left: 0; top: 10px;"></i>
-                        <span class="text-back" style="font-size: 16px;position: absolute; left:20px;" >{{'Back'|translate}}</span>
+                    <a ng-if="recFromSeeddir.scanning">
+                        <i class="icon-arrow-left3  icon-back"></i>
+                        <span class="text-back">{{'Back'|translate}}</span>
                     </a>
                 </div>
 
@@ -237,20 +223,20 @@
                     </div>
                 </div>
 
-                <div class="box-notification" style="background-color: #eceff5" ng-show="recFromSeeddir.error">
-                    <span class="text-warning" style="color: #d55b56 ! important" translate>{{recFromSeeddir.error|translate}}</span>
+                <div class="box-notification"  ng-show="recFromSeeddir.error">
+                    <span class="text-warning addcreatercwarn" translate>{{recFromSeeddir.error|translate}}</span>
                 </div>
 
-                <div style="background-color: #ECEFF6">
+                <div>
                     <!--mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic  mnemonic -->
-                    <form name="settingsDeviceNameForm" class="" style="margin-bottom:0;background-color: #eceff5" onkeydown="if(event.keyCode==13)return false;" >
-                        <label style="margin: 10px 0 8px;text-align: left;padding-left: 18px;font-size: 14px;color: #282828;">
-                            <span class="size-12 color333" translate style="text-transform: capitalize">Your Wallet Seed Phrase:</span>
+                    <form name="settingsDeviceNameForm" onkeydown="if(event.keyCode==13)return false;" >
+                        <label class="addcreaterclt">
+                            <span class="size-12 color333" translate>Your Wallet Seed Phrase:</span>
                         </label>
 
                         <!--  更改为12个输入框  =================================================================================================================================================--->
                         <div ng-if="!index.isCordova">
-                            <div style="padding: 0 5px; ">
+                            <div class="addcreatercinputp">
                                 <!--111-->
                                 <div class="inptWrap">
                                     <input class="inptMnemonic inptMnemonic1" lang="en" ng-model="recFromSeeddir.mnemonic1" ng-change="recFromSeeddir.funReg1()" ng-focus="recFromSeeddir.funReg1()" onkeyup="this.value=this.value.replace(/[^a-z]/g,'');" onchange="this.value=this.value.replace(/[^a-z]/g,'');"  ng-keyup="recFromSeeddir.handleKeyboard1($event)" maxlength="8">
@@ -344,7 +330,7 @@
                             </div>
                         </div>
                         <div ng-if="index.isCordova">
-                            <div style=" height: 120px; padding: 0 5px; margin-bottom:30px;">
+                            <div class="addcreatercinputm">
                                 <!--111-->
                                 <div class="inptWrap">
                                     <input class="inptMnemonic inptMnemonic1" lang="en" ng-model="recFromSeeddir.mnemonic1" ng-change="recFromSeeddir.funReg1()" ng-focus="recFromSeeddir.funReg1()" onkeyup="this.value=this.value.replace(/[^a-z]/g,'');" onchange="this.value=this.value.replace(/[^a-z]/g,'');"  ng-keyup="recFromSeeddir.handleKeyboard1($event)" maxlength="8">
@@ -439,13 +425,13 @@
                         </div>
                         <!--  更改为12个输入框  结束 ----=====================================================================================================================================--->
 
-                        <div class="chatcnextnote" style="padding-top:10px;">
+                        <div class="chatcnextnote">
                             <span class="text-back ng-binding">Note:</span>
                             <p class="size-12" translate="">During the recovery, please be patient and do not shut down the software.</p>
                         </div>
 
                         <!--按钮 点击恢复钱包-->
-                        <div style="padding:0 18px;margin-top:10px;">
+                        <div class="addcreatercbtn">
                             <input
                                 ng-show="!recFromSeeddir.scanning"
                                 ng-disabled="recFromSeeddir.credentialsEncrypted"
@@ -462,9 +448,8 @@
                                     type="submit"
                                     ng-click="recFromSeeddir.recoveryFormdel()"
                                     id="backupDelSeedSubmit"
-                                    class="#236d97 chatccnextbtn"
-                                    value="{{'Restore Wallet and Delete Seed Phrase'|translate}}"
-                                    style="color: #236d97;display: block;background: #eceff5; border: 1px solid #236d97;margin: 20px auto;">
+                                    class="#236d97 chatccnextbtn addcreatercbtnd"
+                                    value="{{'Restore Wallet and Delete Seed Phrase'|translate}}">
 
                             <!--按钮 点击恢复钱包并删除口令 结束-->
 
@@ -485,9 +470,9 @@
         <!--入口二：恢复原来的钱包---------------->
 
         <!-- 第三步：显示钱包口令 start-->
-        <div  ng-if="wordsC.step === 'show_jietu'">
+        <div  ng-if="wordsC.step === 'show_jietu'" class="addcreatepw">
             <!-- 标题 -->
-            <div style="background: #236d97; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF; " translate>Backup Your Seed Phrase</div>
+            <div class="addcreatepwh" translate>Backup Your Seed Phrase</div>
 
             <!--错误信息-->
             <div class="box-notification" ng-show="wordsC.error">
@@ -495,31 +480,28 @@
             </div>
 
             <!-- 警示及说明 -->
-            <div style="padding: 20px 18px 0 18px;">
-                <div style="background-color: #FFFFFF;">
-                    <div style="padding-top: 30px;">
-                        <img src="./img/jingshi-icon@3x.png" width="60px" >
-                    </div>
-                    <!--<h1 class="icon-no" style="margin-top:25px;font-size: 70px;color:#ff5665;text-align: center;"></h1>-->
-                    <h1 class="color333 text-center chatcreattext" style="font-size: 15px; color: #d55b56 ;margin:0 auto;" translate>Don't Screenshot,Please backup the mnemonic words</h1>
-                    <p class="size-14 text-center" style="font-size: 13px;color: #bab7b9;padding:10px 20px;margin-bottom:0;" translate>Those 12 mnemonic words are for recovering you wallet, write down correctly on paper and keep in a safe place.</p>
+            <div class="addcreatepwwarn">
+                <div class="addcreatepwimg">
+                    <img src="./img/jingshi-icon@3x.png" />
                 </div>
+                <h1 class="color333 text-center chatcreattext" translate>Don't Screenshot,Please backup the mnemonic words</h1>
+                <p class="size-14 text-center" translate>Those 12 mnemonic words are for recovering you wallet, write down correctly on paper and keep in a safe place.</p>
             </div>
 
             <!-- 小标题 -->
-            <div style="padding:16px 0 5px 20px;text-align: left;" ><span translate style="font-size: 15px;color: #282828">Wallet Command</span></div>
+            <div class="addcreatepwlt" translate>Wallet Command</div>
 
             <!--显示钱包口令：12个助记词-->
-            <div style="background:#FFFFFF;-webkit-user-select: text; color: #000; border-radius: 3px; line-height:26px;text-align: left;padding:10px 18px;" ng-class="{'enable_text_select': index.network == 'testnet'}">
+            <div class="addcreatepwshow" ng-class="{'enable_text_select': index.network == 'testnet'}">
 				<span ng-repeat="word in wordsC.mnemonicWords track by $index" class=" enable_text_select" >
-					<span style="white-space:nowrap; -webkit-user-select: text;font-size: 15px;color: #999999">{{word}}</span>
+					<span class="addcreatepwpw">{{word}}</span>
 					<span ng-show="wordsC.useIdeograms">&#x3000;</span>
 				</span>
             </div>
 
             <!-- 点击next进入第四步“校验您的钱包口令”页面 -->
-            <div style="padding:0 18px;">
-                <button ng-click="wordsC.showinput()" class="#236d97  size-16 chatcnextbtn" style="margin-top:30px;" translate>
+            <div class="addcreatepwnbtn">
+                <button ng-click="wordsC.showinput()" class="#236d97  size-16 chatcnextbtn" translate>
                     Next
                 </button>
             </div>
@@ -527,13 +509,13 @@
         <!-- 第三步 显示助记词 end-->
 
         <!-- 第四步 校验您的钱包口令 start-->
-        <div ng-if="wordsC.step === 'show_input'" style=" height: 100%;">
-            <div style="background: #236d97; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#fff; " translate>Backup Your Seed Phrase</div>
-            <h1 class="color333; text-center" style="font-size: 14px; color: #282828; margin-top:20px; text-align: left !important;padding-left:18px;" translate>Confirm Your Mnemonic Words</h1>
+        <div ng-if="wordsC.step === 'show_input'" class="addcreatecr">
+            <div class="addcreatecrh" translate>Backup Your Seed Phrase</div>
+            <h1 class="color333; text-center addcreatecrlt" translate>Confirm Your Mnemonic Words</h1>
 
             <!--  更改为12个输入框  =================================================================================================================================================--->
             <div ng-if="!index.isCordova">
-                <div style=" height: 120px;padding:0 18px;">
+                <div class="addcreatecrinputp">
                     <!--111-->
                     <div class="inptWrap">
                         <input class="inptMnemonic inptMnemonic2" lang="en" ng-model="wordsC.mnemonic1" ng-change="wordsC.funReg1()" ng-focus="wordsC.funReg1()" onkeyup="this.value=this.value.replace(/[^a-z]/g,'');" onchange="this.value=this.value.replace(/[^a-z]/g,'');"  ng-keyup="wordsC.handleKeyboard1($event)" maxlength="8">
@@ -629,7 +611,7 @@
                 </div>
             </div>
             <div ng-if="index.isCordova">
-                <div style=" padding: 0 5px;">
+                <div class="addcreatecrinputm">
                     <!--111-->
                     <div class="inptWrap">
                         <input class="inptMnemonic inptMnemonic2" lang="en" ng-model="wordsC.mnemonic1" ng-change="wordsC.funReg1()" ng-focus="wordsC.funReg1()" onkeyup="this.value=this.value.replace(/[^a-z]/g,'');" onchange="this.value=this.value.replace(/[^a-z]/g,'');"  ng-keyup="wordsC.handleKeyboard1($event)" maxlength="8">
@@ -731,63 +713,51 @@
 
             <!--建议删除种子文件-->
             <!-- wordsC.value随每次输入而变化，空格拼接，wordsC.dis()判断wordsC.value与完整口令是否不一致 -->
-            <p  ng-if="wordsC.dis() && wordsC.value" style="text-align: center; color:#d55b56;margin-top: 10px;font-size: 14px" translate>Invalid mnemonic</p>
+            <p  ng-if="wordsC.dis() && wordsC.value" class="addcreatecrfalset" translate>Invalid mnemonic</p>
             <!--点击 上一步-->
             <!-- wordsC.dis()判断wordsC.value与完整口令是否不一致时显示 -->
-            <div style="text-align: center;padding:0 18px;">
-                <button ng-if="wordsC.dis()" ng-click="wordsC.gono()" class="#236d97 size-16" style="background-color:#236d97;width: 100%;margin: 30px 0px 52px 0px;height: 45px;line-height: 45px;color: #fff;
-    padding: 0;border-radius: 26px;" translate>
+            <div class="addcreatecrlstep">
+                <button ng-if="wordsC.dis()" ng-click="wordsC.gono()" class="#236d97 size-16" translate>
                     LastStep
                 </button>
             </div>
 
 
-            <p class="size-14 text-center" style="width: 90%; margin: 20px auto 10px;color:#d55b56; font-weight: bold" ng-if="!wordsC.dis()" translate>Your mnemonic words are correct. To make your wallet safe, we highly recommend you delete mnemonic words from app.</p>
+            <p class="size-14 text-center addcreatecrtruet" ng-if="!wordsC.dis()" translate>Your mnemonic words are correct. To make your wallet safe, we highly recommend you delete mnemonic words from app.</p>
 
             <!--点击删除钱包-->
-            <div style="text-align: center;margin-top: 44px;padding:0 18px;">
-                <button
-                        style="width: 100%; text-align:center; height: 45px; background: #236d97; border-radius: 40px; color: #fff; margin: 0px auto 0; padding: 0;"
-                        ng-click="wordsC.del()"
-                        translate ng-if="!wordsC.dis()" translate>Delete Seed Phrase</button>
+            <div class="addcreatecrdl">
+                <button ng-click="wordsC.del()" translate ng-if="!wordsC.dis()" translate class="addcreatecrdlt">Delete Seed Phrase</button>
                 <!--正确 点击下一步 主页-->
-                <button
-                        style="width: 100%; text-align:center; height: 45px; background: #fff; border-radius: 40px; color: #236d97; padding: 0;margin: 0; margin-top:20px;border: 1px solid #236d97;text-transform: uppercase;"
-                        ng-click="wordsC.haschoosen(); index.splashClick = false"
-                        ng-if="!wordsC.dis()" translate>
+                <button ng-click="wordsC.haschoosen(); index.splashClick = false" ng-if="!wordsC.dis()" translate class="addcreatecrdlf">
                     Skip
                 </button>
             </div>
 
             
             <!--确认要删除么？-->
-            <div style="position: absolute; width: 100%;height: 100%; left:0; top:0;background:#eceff6; " ng-if="wordsC.delseed">
-                <div style="background: #236d97; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF; " translate>Backup Your Seed Phrase</div>
-                <div style="padding: 20px 18px 0 18px;">
-                    <div style="background-color: #FFFFFF">
-                        <div style="padding-top: 30px">
-                            <!--<i class="iconfont icon-lajitong" style="color: #236d97;font-size: 48px"></i>-->
-                            <img src="./img/chatdelete.png" width="60px">
-                        </div>
-                        <h1 class="color333 text-center chatcreattext" style="font-size: 16px; margin:0 auto;" translate>
-                            Are you sure you want to delete the Seed Phrase?
-                        </h1>
-                        <p class="size-14 text-center" style="font-size: 13px;color: #bab7b9;padding:10px 20px;margin-bottom:0;" translate="">It will delete the seed phrase in the app and can not be restored, please be sure that you have the seed phrase back to a safe place</p>
+            <div ng-if="wordsC.delseed" class="addcreatedo">
+                <div class="addcreatedoh" translate>Backup Your Seed Phrase</div>
+                <div class="addcreatedob">
+                    <div class="addcreatedobimg">
+                        <img src="./img/chatdelete.png">
                     </div>
+                    <h1 class="color333 text-center chatcreattext" translate>
+                        Are you sure you want to delete the Seed Phrase?
+                    </h1>
+                    <p class="size-14 text-center" translate="">It will delete the seed phrase in the app and can not be restored, please be sure that you have the seed phrase back to a safe place</p>
                 </div>
                 <div class="chatcdeletekl">
                     <!--点击 确定删除口令 进入钱包-->
-                    <p class="pbutton chatcdelete" style="text-transform: uppercase;" translate ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  Confirm delete </p>
+                    <p class="pbutton chatcdelete" translate ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  Confirm delete </p>
                     <!--点击 跳过删除口令 进入钱包-->
-                    <p class="pbutton chatcskip" translate ng-click="wordsC.haschoosen(); index.splashClick = false " style="color: #236d97; border: 1px solid #236d97;text-transform: uppercase;"> Skip </p>
+                    <p class="pbutton chatcskip" translate ng-click="wordsC.haschoosen(); index.splashClick = false " style=""> Skip </p>
                 </div>
             </div>
         </div>
         <!-- 第四步 校验您的钱包口令 end-->
-
     </div>
     <!--控制器 结束	-->
-
 </div>
 
 

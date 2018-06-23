@@ -1061,8 +1061,8 @@ msgid "Please enter the required fields"
 msgstr "请输入必填字段"
 
 #: public/views/splash.html:82
-msgid "Please name this device"
-msgstr "请为此设备命名"
+msgid "Device Name"
+msgstr "设备名称"
 
 #: public/views/preferencesTor.html:16
 msgid "Port"
@@ -2030,4 +2030,8 @@ msgstr "输入请求金额"
 
 msgid "InterValue Wallet"
 msgstr "InterValue钱包"
+
+msgid "Receiving address"
+msgstr "收款地址"
+
 

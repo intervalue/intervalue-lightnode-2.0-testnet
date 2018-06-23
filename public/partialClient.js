@@ -106,7 +106,7 @@ Utils.formatAmount = function (bytes, unitCode, opts) {
 
 module.exports = Utils;
 
-},{"./constants":1,"lodash":14}],3:[function(require,module,exports){
+},{"./constants":1,"lodash":17}],3:[function(require,module,exports){
 (function (process,global,setImmediate){
 /*!
  * async
@@ -1375,7 +1375,7 @@ module.exports = Utils;
 }());
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("timers").setImmediate)
-},{"_process":16,"timers":17}],4:[function(require,module,exports){
+},{"_process":19,"timers":20}],4:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1903,162 +1903,142 @@ function functionBindPolyfill(context) {
 },{}],5:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
+
 var _ = require('lodash');
 var constants = require('./constants.js');
 var db = require('./db');
 
-function readBalance(wallet, handleBalance){
+function readBalance(wallet, handleBalance) {
 	var walletIsAddress = typeof wallet === 'string' && wallet.length === 32; // ValidationUtils.isValidAddress
 	var join_my_addresses = walletIsAddress ? "" : "JOIN my_addresses USING(address)";
 	var where_condition = walletIsAddress ? "address=?" : "wallet=?";
-	var assocBalances = {base: {stable: 0, pending: 0}};
-	assocBalances[constants.BLACKBYTES_ASSET] = {is_private: 1, stable: 0, pending: 0};
-	db.query(
-		"SELECT asset, is_stable, SUM(amount) AS balance \n\
-		FROM outputs "+join_my_addresses+" CROSS JOIN units USING(unit) \n\
-		WHERE is_spent=0 AND "+where_condition+" AND sequence='good' \n\
-		GROUP BY asset, is_stable",
-		[wallet],
-		function(rows){
-			for (var i=0; i<rows.length; i++){
-				var row = rows[i];
-				var asset = row.asset || "base";
-				if (!assocBalances[asset])
-					assocBalances[asset] = {stable: 0, pending: 0};
-				assocBalances[asset][row.is_stable ? 'stable' : 'pending'] = row.balance;
-			}
-			var my_addresses_join = walletIsAddress ? "" : "my_addresses CROSS JOIN";
-			var using = walletIsAddress ? "" : "USING(address)";
-			db.query(
-				"SELECT SUM(total) AS total FROM ( \n\
-				SELECT SUM(amount) AS total FROM "+my_addresses_join+" witnessing_outputs "+using+" WHERE is_spent=0 AND "+where_condition+" \n\
+	var assocBalances = { base: { stable: 0, pending: 0 } };
+	assocBalances[constants.BLACKBYTES_ASSET] = { is_private: 1, stable: 0, pending: 0 };
+	var sql = "SELECT asset, is_stable, SUM(amount) AS balance \n\
+	FROM outputs " + join_my_addresses + " CROSS JOIN units USING(unit) \n\
+	WHERE is_spent=0 AND " + where_condition + " AND sequence='good' \n\
+	GROUP BY asset, is_stable";
+	db.query(sql, [wallet], function (rows) {
+		for (var i = 0; i < rows.length; i++) {
+			var row = rows[i];
+			var asset = row.asset || "base";
+			if (!assocBalances[asset]) assocBalances[asset] = { stable: 0, pending: 0 };
+			assocBalances[asset][row.is_stable ? 'stable' : 'pending'] = row.balance;
+		}
+		var my_addresses_join = walletIsAddress ? "" : "my_addresses CROSS JOIN";
+		var using = walletIsAddress ? "" : "USING(address)";
+		db.query("SELECT SUM(total) AS total FROM ( \n\
+				SELECT SUM(amount) AS total FROM " + my_addresses_join + " witnessing_outputs " + using + " WHERE is_spent=0 AND " + where_condition + " \n\
 				UNION ALL \n\
-				SELECT SUM(amount) AS total FROM "+my_addresses_join+" headers_commission_outputs "+using+" WHERE is_spent=0 AND "+where_condition+" ) AS t",
-				[wallet,wallet],
-				function(rows) {
-					if(rows.length){
-						assocBalances["base"]["stable"] += rows[0].total;
-					}
-					// add 0-balance assets
-					db.query(
-						"SELECT DISTINCT outputs.asset, is_private \n\
-						FROM outputs "+join_my_addresses+" \n\
+				SELECT SUM(amount) AS total FROM " + my_addresses_join + " headers_commission_outputs " + using + " WHERE is_spent=0 AND " + where_condition + " ) AS t", [wallet, wallet], function (rows) {
+			if (rows.length) {
+				assocBalances["base"]["stable"] += rows[0].total;
+			}
+			// add 0-balance assets
+			db.query("SELECT DISTINCT outputs.asset, is_private \n\
+						FROM outputs " + join_my_addresses + " \n\
 						CROSS JOIN units USING(unit) \n\
 						LEFT JOIN assets ON outputs.asset=assets.unit \n\
-						WHERE "+where_condition+" AND sequence='good'",
-						[wallet],
-						function(rows){
-							for (var i=0; i<rows.length; i++){
-								var row = rows[i];
-								var asset = row.asset || "base";
-								if (!assocBalances[asset])
-									assocBalances[asset] = {stable: 0, pending: 0};
-								assocBalances[asset].is_private = row.is_private;
-							}
-							handleBalance(assocBalances);
-						}
-					);
+						WHERE " + where_condition + " AND sequence='good'", [wallet], function (rows) {
+				for (var i = 0; i < rows.length; i++) {
+					var row = rows[i];
+					var asset = row.asset || "base";
+					if (!assocBalances[asset]) assocBalances[asset] = { stable: 0, pending: 0 };
+					assocBalances[asset].is_private = row.is_private;
 				}
-			);
-		}
-	);
+				handleBalance(assocBalances);
+			});
+		});
+	});
 }
 
-function readOutputsBalance(wallet, handleBalance){
+function readOutputsBalance(wallet, handleBalance) {
 	var walletIsAddress = typeof wallet === 'string' && wallet.length === 32; // ValidationUtils.isValidAddress
 	var join_my_addresses = walletIsAddress ? "" : "JOIN my_addresses USING(address)";
 	var where_condition = walletIsAddress ? "address=?" : "wallet=?";
-	var assocBalances = {base: {stable: 0, pending: 0}};
-	db.query(
-		"SELECT asset, is_stable, SUM(amount) AS balance \n\
-		FROM outputs "+join_my_addresses+" CROSS JOIN units USING(unit) \n\
-		WHERE is_spent=0 AND "+where_condition+" AND sequence='good' \n\
-		GROUP BY asset, is_stable",
-		[wallet],
-		function(rows){
-			for (var i=0; i<rows.length; i++){
-				var row = rows[i];
-				var asset = row.asset || "base";
-				if (!assocBalances[asset])
-					assocBalances[asset] = {stable: 0, pending: 0};
-				assocBalances[asset][row.is_stable ? 'stable' : 'pending'] = row.balance;
-			}
-			handleBalance(assocBalances);
+	var assocBalances = { base: { stable: 0, pending: 0 } };
+	db.query("SELECT asset, is_stable, SUM(amount) AS balance \n\
+		FROM outputs " + join_my_addresses + " CROSS JOIN units USING(unit) \n\
+		WHERE is_spent=0 AND " + where_condition + " AND sequence='good' \n\
+		GROUP BY asset, is_stable", [wallet], function (rows) {
+		for (var i = 0; i < rows.length; i++) {
+			var row = rows[i];
+			var asset = row.asset || "base";
+			if (!assocBalances[asset]) assocBalances[asset] = { stable: 0, pending: 0 };
+			assocBalances[asset][row.is_stable ? 'stable' : 'pending'] = row.balance;
 		}
-	);
+		handleBalance(assocBalances);
+	});
 }
 
-function readSharedAddressesOnWallet(wallet, handleSharedAddresses){
-	db.query("SELECT DISTINCT shared_address FROM my_addresses JOIN shared_address_signing_paths USING(address) WHERE wallet=?", [wallet], function(rows){
-		var arrSharedAddresses = rows.map(function(row){ return row.shared_address; });
-		if (arrSharedAddresses.length === 0)
-			return handleSharedAddresses([]);
-		readSharedAddressesDependingOnAddresses(arrSharedAddresses, function(arrNewSharedAddresses){
+function readSharedAddressesOnWallet(wallet, handleSharedAddresses) {
+	db.query("SELECT DISTINCT shared_address FROM my_addresses JOIN shared_address_signing_paths USING(address) WHERE wallet=?", [wallet], function (rows) {
+		var arrSharedAddresses = rows.map(function (row) {
+			return row.shared_address;
+		});
+		if (arrSharedAddresses.length === 0) return handleSharedAddresses([]);
+		readSharedAddressesDependingOnAddresses(arrSharedAddresses, function (arrNewSharedAddresses) {
 			handleSharedAddresses(arrSharedAddresses.concat(arrNewSharedAddresses));
 		});
 	});
 }
 
-function readSharedAddressesDependingOnAddresses(arrMemberAddresses, handleSharedAddresses){
+function readSharedAddressesDependingOnAddresses(arrMemberAddresses, handleSharedAddresses) {
 	var strAddressList = arrMemberAddresses.map(db.escape).join(', ');
-	db.query("SELECT DISTINCT shared_address FROM shared_address_signing_paths WHERE address IN("+strAddressList+")", function(rows){
-		var arrSharedAddresses = rows.map(function(row){ return row.shared_address; });
-		if (arrSharedAddresses.length === 0)
-			return handleSharedAddresses([]);
+	db.query("SELECT DISTINCT shared_address FROM shared_address_signing_paths WHERE address IN(" + strAddressList + ")", function (rows) {
+		var arrSharedAddresses = rows.map(function (row) {
+			return row.shared_address;
+		});
+		if (arrSharedAddresses.length === 0) return handleSharedAddresses([]);
 		var arrNewMemberAddresses = _.difference(arrSharedAddresses, arrMemberAddresses);
-		if (arrNewMemberAddresses.length === 0)
-			return handleSharedAddresses([]);
-		readSharedAddressesDependingOnAddresses(arrNewMemberAddresses, function(arrNewSharedAddresses){
+		if (arrNewMemberAddresses.length === 0) return handleSharedAddresses([]);
+		readSharedAddressesDependingOnAddresses(arrNewMemberAddresses, function (arrNewSharedAddresses) {
 			handleSharedAddresses(arrNewMemberAddresses.concat(arrNewSharedAddresses));
 		});
 	});
 }
 
-function readSharedBalance(wallet, handleBalance){
+function readSharedBalance(wallet, handleBalance) {
 	var assocBalances = {};
-	readSharedAddressesOnWallet(wallet, function(arrSharedAddresses){
-		if (arrSharedAddresses.length === 0)
-			return handleBalance(assocBalances);
+	readSharedAddressesOnWallet(wallet, function (arrSharedAddresses) {
+		if (arrSharedAddresses.length === 0) return handleBalance(assocBalances);
 		var strAddressList = arrSharedAddresses.map(db.escape).join(', ');
-		db.query(
-			"SELECT asset, address, is_stable, SUM(amount) AS balance \n\
+		db.query("SELECT asset, address, is_stable, SUM(amount) AS balance \n\
 			FROM outputs CROSS JOIN units USING(unit) \n\
-			WHERE is_spent=0 AND sequence='good' AND address IN("+strAddressList+") \n\
+			WHERE is_spent=0 AND sequence='good' AND address IN(" + strAddressList + ") \n\
 			GROUP BY asset, address, is_stable \n\
 			UNION ALL \n\
 			SELECT NULL AS asset, address, 1 AS is_stable, SUM(amount) AS balance FROM witnessing_outputs \n\
-			WHERE is_spent=0 AND address IN("+strAddressList+") GROUP BY address \n\
+			WHERE is_spent=0 AND address IN(" + strAddressList + ") GROUP BY address \n\
 			UNION ALL \n\
 			SELECT NULL AS asset, address, 1 AS is_stable, SUM(amount) AS balance FROM headers_commission_outputs \n\
-			WHERE is_spent=0 AND address IN("+strAddressList+") GROUP BY address",
-			function(rows){
-				for (var i=0; i<rows.length; i++){
-					var row = rows[i];
-					var asset = row.asset || "base";
-					if (!assocBalances[asset])
-						assocBalances[asset] = {};
-					if (!assocBalances[asset][row.address])
-						assocBalances[asset][row.address] = {stable: 0, pending: 0};
-					assocBalances[asset][row.address][row.is_stable ? 'stable' : 'pending'] += row.balance;
-				}
-				handleBalance(assocBalances);
+			WHERE is_spent=0 AND address IN(" + strAddressList + ") GROUP BY address", function (rows) {
+			for (var i = 0; i < rows.length; i++) {
+				var row = rows[i];
+				var asset = row.asset || "base";
+				if (!assocBalances[asset]) assocBalances[asset] = {};
+				if (!assocBalances[asset][row.address]) assocBalances[asset][row.address] = { stable: 0, pending: 0 };
+				assocBalances[asset][row.address][row.is_stable ? 'stable' : 'pending'] += row.balance;
 			}
-		);
+			handleBalance(assocBalances);
+		});
 	});
 }
 
 exports.readBalance = readBalance;
 exports.readOutputsBalance = readOutputsBalance;
 exports.readSharedBalance = readSharedBalance;
-},{"./constants.js":7,"./db":8,"lodash":14}],6:[function(require,module,exports){
+},{"./constants.js":7,"./db":8,"lodash":17}],6:[function(require,module,exports){
 (function (process,__dirname){
 /*jslint node: true */
 "use strict";
+
 require('./enforce_singleton.js');
 
-function mergeExports(anotherModule){
-	for (var key in anotherModule)
+function mergeExports(anotherModule) {
+	for (var key in anotherModule) {
 		exports[key] = anotherModule[key];
+	}
 }
 
 // port we are listening on.  Set to null to disable accepting connections
@@ -2105,12 +2085,11 @@ exports.bIgnoreUnpairRequests = false;
 
 // storage engine: mysql or sqlite
 exports.storage = 'sqlite';
-if (process.browser){
+if (process.browser) {
 	exports.storage = 'sqlite';
 	exports.bLight = true;
 }
 exports.database = {};
-
 
 /*
 There are 3 ways to customize conf in modules that use intervaluecore lib:
@@ -2124,67 +2103,66 @@ The later require()s of this conf will see the modified version.
 This way is not recommended as the code becomes loading order dependent.
 */
 
-if (typeof window === 'undefined' || !window.cordova){ // desktop
-	var desktopApp = require('./desktop_app.js'+'');
-	
+if (typeof window === 'undefined' || !window.cordova) {
+	// desktop
+	var desktopApp = require('./desktop_app.js' + '');
+
 	// merge conf from other modules that include us as lib.  The other module must place its custom conf.js into its root directory
 	var appRootDir = desktopApp.getAppRootDir();
 	var appPackageJson = require(appRootDir + '/package.json');
 	exports.program = appPackageJson.name;
 	exports.program_version = appPackageJson.version;
-	if (appRootDir !== __dirname){
-		try{
+	if (appRootDir !== __dirname) {
+		try {
 			mergeExports(require(appRootDir + '/conf.js'));
 			console.log('merged app root conf from ' + appRootDir + '/conf.js');
+		} catch (e) {
+			console.log("not using app root conf: " + e);
 		}
-		catch(e){
-			console.log("not using app root conf: "+e);
-		}
-	}
-	else
-		console.log("I'm already at the root");
-	
+	} else console.log("I'm already at the root");
+
 	// merge conf from user home directory, if any.
 	// Note that it is json rather than js to avoid code injection
 	var appDataDir = desktopApp.getAppDataDir();
-	try{
+	try {
 		mergeExports(require(appDataDir + '/conf.json'));
 		console.log('merged user conf from ' + appDataDir + '/conf.json');
-	}
-	catch(e){
-		console.log('not using user conf: '+e);
+	} catch (e) {
+		console.log('not using user conf: ' + e);
 	}
 }
 
 // after merging the custom confs, set defaults if they are still not set
-if (exports.storage === 'mysql'){
+if (exports.storage === 'mysql') {
 	exports.database.max_connections = exports.database.max_connections || 30;
 	exports.database.host = exports.database.host || 'localhost';
 	exports.database.name = exports.database.name || 'intervalue';
 	exports.database.user = exports.database.user || 'intervalue';
-}
-else if (exports.storage === 'sqlite'){
+} else if (exports.storage === 'sqlite') {
 	exports.database.max_connections = exports.database.max_connections || 1;
 	exports.database.filename = exports.database.filename || (exports.bLight ? 'intervalue-light.sqlite' : 'intervalue.sqlite');
 }
-
-
 }).call(this,require('_process'),"/node_modules/intervaluecore")
-},{"./enforce_singleton.js":9,"_process":16}],7:[function(require,module,exports){
+},{"./enforce_singleton.js":9,"_process":19}],7:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
 
 exports.COUNT_WITNESSES = 3;
 exports.MAX_WITNESS_LIST_MUTATIONS = 1;
-exports.TOTAL_WHITEBYTES = 1e16;
-exports.MAJORITY_OF_WITNESSES = (exports.COUNT_WITNESSES%2===0) ? (exports.COUNT_WITNESSES/2+1) : Math.ceil(exports.COUNT_WITNESSES/2);
+exports.TOTAL_WHITEBYTES = 2e18;
+exports.MAJORITY_OF_WITNESSES = exports.COUNT_WITNESSES % 2 === 0 ? exports.COUNT_WITNESSES / 2 + 1 : Math.ceil(exports.COUNT_WITNESSES / 2);
 exports.COUNT_MC_BALLS_FOR_PAID_WITNESSING = 100;
 
 exports.version = '1.0dev';
 exports.alt = '3';
 
 exports.GENESIS_UNIT = 'l0GRkJBahv46hC6/HKIF64nWkIHIihy2TcAI3EuOwk8=';
-exports.BLACKBYTES_ASSET = 'WqlNRGo+ubt1kxWETTgFv0Xpni5kf3429TewuPnrEh8=';
+exports.BLACKBYTES_ASSET = 'oJ6qnpOzsmrtTnGWFQ6+M78CiCk7kqAwQYn7HyOWJGQ=';
+//exports.BLACKBYTES_ASSET = 'WqlNRGo+ubt1kxWETTgFv0Xpni5kf3429TewuPnrEh8=';
+
+//exports.GENESIS_UNIT = 'MCzTuJo+sqX+gC+rV9j2VXucwTvYMcqZRlOadenb2Ck=';
+//exports.BLACKBYTES_ASSET = 'RAfakPUv6pd/vNyXFbgwkUDsmxna+Bs5tWOwbr+PZpM=';
+
 
 exports.HASH_LENGTH = 44;
 exports.PUBKEY_LENGTH = 44;
@@ -2205,37 +2183,36 @@ exports.MAX_DATA_FEED_VALUE_LENGTH = 64;
 exports.MAX_AUTHENTIFIER_LENGTH = 4096;
 exports.MAX_CAP = 9e15;
 exports.MAX_COMPLEXITY = 100;
-
 },{}],8:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
+
 var conf = require('./conf.js');
 
-if (conf.storage === 'mysql'){
+if (conf.storage === 'mysql') {
 	var mysql = require('mysql');
 	var mysql_pool_constructor = require('./mysql_pool.js');
-	var pool  = mysql.createPool({
-	//var pool  = mysql.createConnection({
-		connectionLimit : conf.database.max_connections,
-		host     : conf.database.host,
-		user     : conf.database.user,
-		password : conf.database.password,
-		charset  : 'UTF8_UNICODE_CI',
-		database : conf.database.name
+	var pool = mysql.createPool({
+		//var pool  = mysql.createConnection({
+		connectionLimit: conf.database.max_connections,
+		host: conf.database.host,
+		user: conf.database.user,
+		password: conf.database.password,
+		charset: 'UTF8_UNICODE_CI',
+		database: conf.database.name
 	});
 
 	module.exports = mysql_pool_constructor(pool);
-}
-else if (conf.storage === 'sqlite'){
+} else if (conf.storage === 'sqlite') {
 	var sqlitePool = require('./sqlite_pool.js');
 	module.exports = sqlitePool(conf.database.filename, conf.database.max_connections, conf.database.bReadOnly);
 }
 
-function executeInTransaction(doWork, onDone){
-	module.exports.takeConnectionFromPool(function(conn){
-		conn.query("BEGIN", function(){
-			doWork(conn, function(err){
-				conn.query(err ? "ROLLBACK" : "COMMIT", function(){
+function executeInTransaction(doWork, onDone) {
+	module.exports.takeConnectionFromPool(function (conn) {
+		conn.query("BEGIN", function () {
+			doWork(conn, function (err) {
+				conn.query(err ? "ROLLBACK" : "COMMIT", function () {
 					conn.release();
 					onDone(err);
 				});
@@ -2245,21 +2222,19 @@ function executeInTransaction(doWork, onDone){
 }
 
 module.exports.executeInTransaction = executeInTransaction;
-
-},{"./conf.js":6,"./mysql_pool.js":11,"./sqlite_pool.js":13,"mysql":undefined}],9:[function(require,module,exports){
+},{"./conf.js":6,"./mysql_pool.js":11,"./sqlite_pool.js":16,"mysql":undefined}],9:[function(require,module,exports){
 (function (global){
 /*jslint node: true */
 "use strict";
 
-if (global._bInterValueCoreLoaded)
-	throw Error("Looks like you are loading multiple copies of intervaluecore, which is not supported.\nRunnung 'npm dedupe' might help.");
+if (global._bInterValueCoreLoaded) throw Error("Looks like you are loading multiple copies of intervaluecore, which is not supported.\nRunnung 'npm dedupe' might help.");
 
 global._bInterValueCoreLoaded = true;
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],10:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
+
 require('./enforce_singleton.js');
 
 var EventEmitter = require('events').EventEmitter;
@@ -2268,48 +2243,49 @@ var eventEmitter = new EventEmitter();
 eventEmitter.setMaxListeners(20);
 
 module.exports = eventEmitter;
-
 },{"./enforce_singleton.js":9,"events":4}],11:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
+
 var mysql = require('mysql');
 
-module.exports = function(connection_or_pool){
+module.exports = function (connection_or_pool) {
 
 	console.log("constructor");
 	var safe_connection = connection_or_pool;
 	safe_connection.original_query = safe_connection.query;
 	safe_connection.original_release = safe_connection.release;
-	
+
 	// this is a hack to make all errors throw exception that would kill the program
 	safe_connection.query = function () {
 		var last_arg = arguments[arguments.length - 1];
-		var bHasCallback = (typeof last_arg === 'function');
-		if (!bHasCallback){ // no callback
-			last_arg = function(){};
+		var bHasCallback = typeof last_arg === 'function';
+		if (!bHasCallback) {
+			// no callback
+			last_arg = function last_arg() {};
 			//return connection_or_pool.original_query.apply(connection_or_pool, arguments);
 		}
-		var count_arguments_without_callback = bHasCallback ? (arguments.length-1) : arguments.length;
+		var count_arguments_without_callback = bHasCallback ? arguments.length - 1 : arguments.length;
 		var new_args = [];
 		var q;
-		
-		for (var i=0; i<count_arguments_without_callback; i++) // except callback
+
+		for (var i = 0; i < count_arguments_without_callback; i++) {
+			// except callback
 			new_args.push(arguments[i]);
-		
-		// add callback with error handling
-		new_args.push(function(err, results, fields){
-			if (err){
-				console.error("\nfailed query: "+q.sql);
+		} // add callback with error handling
+		new_args.push(function (err, results, fields) {
+			if (err) {
+				console.error("\nfailed query: " + q.sql);
 				/*
-				//console.error("code: "+(typeof err.code));
-				if (false && err.code === 'ER_LOCK_DEADLOCK'){
-					console.log("deadlock, will retry later");
-					setTimeout(function(){
-						console.log("retrying deadlock query "+q.sql+" after timeout ...");
-						connection_or_pool.original_query.apply(connection_or_pool, new_args);
-					}, 100);
-					return;
-				}*/
+    //console.error("code: "+(typeof err.code));
+    if (false && err.code === 'ER_LOCK_DEADLOCK'){
+    	console.log("deadlock, will retry later");
+    	setTimeout(function(){
+    		console.log("retrying deadlock query "+q.sql+" after timeout ...");
+    		connection_or_pool.original_query.apply(connection_or_pool, new_args);
+    	}, 100);
+    	return;
+    }*/
 				throw err;
 			}
 			last_arg(results, fields);
@@ -2321,122 +2297,1131 @@ module.exports = function(connection_or_pool){
 	};
 
 	//safe_connection.escape = connection_or_pool.escape;
-	
-	safe_connection.release = function(){
+
+	safe_connection.release = function () {
 		//console.log("releasing connection");
 		connection_or_pool.original_release();
 	};
 
 	safe_connection.addQuery = function (arr) {
 		var query_args = [];
-		for (var i=1; i<arguments.length; i++) // except first, which is array
+		for (var i = 1; i < arguments.length; i++) {
+			// except first, which is array
 			query_args.push(arguments[i]);
-		arr.push(function(callback){ // add callback for async.series() member tasks
-			if (typeof query_args[query_args.length-1] !== 'function')
-				query_args.push(function(){callback();}); // add mysql callback
-			else{
-				var f = query_args[query_args.length-1];
-				query_args[query_args.length-1] = function(){
-					f.apply(f, arguments);
-					callback();
+		}arr.push(function (callback) {
+			// add callback for async.series() member tasks
+			if (typeof query_args[query_args.length - 1] !== 'function') query_args.push(function () {
+				callback();
+			}); // add mysql callback
+			else {
+					var f = query_args[query_args.length - 1];
+					query_args[query_args.length - 1] = function () {
+						f.apply(f, arguments);
+						callback();
+					};
 				}
-			}
 			safe_connection.query.apply(safe_connection, query_args);
 		});
 	};
 
 	// this is for pool only
-	safe_connection.takeConnectionFromPool = function(handleConnection){
-		connection_or_pool.getConnection(function(err, new_connection) {
-			if (err)
-				throw err;
+	safe_connection.takeConnectionFromPool = function (handleConnection) {
+		connection_or_pool.getConnection(function (err, new_connection) {
+			if (err) throw err;
 			console.log("got connection from pool");
 			handleConnection(new_connection.original_query ? new_connection : module.exports(new_connection));
 		});
 	};
-	
-	safe_connection.getCountUsedConnections = function(){
-		return (safe_connection._allConnections.length - safe_connection._freeConnections.length);
-	};
-	
-	safe_connection.close = function(cb){
-		connection_or_pool.end(cb);
-	};
-	
-	safe_connection.addTime = function(interval){
-		return "NOW() + INTERVAL "+interval;
+
+	safe_connection.getCountUsedConnections = function () {
+		return safe_connection._allConnections.length - safe_connection._freeConnections.length;
 	};
 
-	safe_connection.getNow = function(){
+	safe_connection.close = function (cb) {
+		connection_or_pool.end(cb);
+	};
+
+	safe_connection.addTime = function (interval) {
+		return "NOW() + INTERVAL " + interval;
+	};
+
+	safe_connection.getNow = function () {
 		return "NOW()";
 	};
 
-	safe_connection.getFromUnixTime = function(ts){
-		return "FROM_UNIXTIME("+ts+")";
+	safe_connection.getFromUnixTime = function (ts) {
+		return "FROM_UNIXTIME(" + ts + ")";
 	};
 
-	safe_connection.getRandom = function(){
+	safe_connection.getRandom = function () {
 		return "RAND()";
 	};
 
-	safe_connection.forceIndex = function(index){
-		return "FORCE INDEX ("+ index +")";
+	safe_connection.forceIndex = function (index) {
+		return "FORCE INDEX (" + index + ")";
 	};
 
-	safe_connection.dropTemporaryTable = function(table){
+	safe_connection.dropTemporaryTable = function (table) {
 		return "DROP TEMPORARY TABLE IF EXISTS " + table;
 	};
 
-	safe_connection.getIgnore = function(){
+	safe_connection.getIgnore = function () {
 		return "IGNORE";
 	};
 
-	safe_connection.getUnixTimestamp = function(date){
-		return "UNIX_TIMESTAMP("+date+")";
+	safe_connection.getUnixTimestamp = function (date) {
+		return "UNIX_TIMESTAMP(" + date + ")";
 	};
 
 	return safe_connection;
 };
-
 },{"mysql":undefined}],12:[function(require,module,exports){
+module.exports = require("regenerator-runtime");
+
+},{"regenerator-runtime":13}],13:[function(require,module,exports){
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() { return this })() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = require("./runtime");
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+},{"./runtime":14}],14:[function(require,module,exports){
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration. If the Promise is rejected, however, the
+          // result for this iteration will be rejected with the same
+          // reason. Note that rejections of yielded Promises are not
+          // thrown back into the generator function, as is the case
+          // when an awaited Promise is rejected. This difference in
+          // behavior between yield and await is important, because it
+          // allows the consumer to decide what to do with the yielded
+          // rejection (swallow it and continue, manually .throw it back
+          // into the generator, abandon iteration, whatever). With
+          // await, by contrast, there is no opportunity to examine the
+          // rejection reason outside the generator function, so the
+          // only option is to throw it from the await expression, and
+          // let the generator function handle the exception.
+          result.value = unwrapped;
+          resolve(result);
+        }, reject);
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() { return this })() || Function("return this")()
+);
+
+},{}],15:[function(require,module,exports){
 /*jslint node: true */
 "use strict";
+
+var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+
+var migrateDbSync = function () {
+	var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee(connection) {
+		var result, err, rows, version, arrQueries, cmds;
+		return _regenerator2.default.wrap(function _callee$(_context) {
+			while (1) {
+				switch (_context.prev = _context.next) {
+					case 0:
+						_context.next = 2;
+						return migrateDbResult(connection);
+
+					case 2:
+						result = _context.sent;
+						err = !Array.isArray(result);
+
+						if (!err) {
+							_context.next = 6;
+							break;
+						}
+
+						throw Error("PRAGMA user_version failed: " + err);
+
+					case 6:
+						rows = bCordova ? result.rows : result;
+
+						if (!(rows.length !== 1)) {
+							_context.next = 9;
+							break;
+						}
+
+						throw Error("PRAGMA user_version returned " + rows.length + " rows");
+
+					case 9:
+						version = rows[0].user_version;
+
+						console.log("db version " + version + ", software version " + VERSION);
+
+						if (!(version > VERSION)) {
+							_context.next = 13;
+							break;
+						}
+
+						throw Error("user version " + version + " > " + VERSION + ": looks like you are using a new database with an old client");
+
+					case 13:
+						if (!(version === VERSION)) {
+							_context.next = 15;
+							break;
+						}
+
+						return _context.abrupt('return');
+
+					case 15:
+						arrQueries = [];
+
+						if (version < 1) {
+							arrQueries.push("CREATE INDEX IF NOT EXISTS unitAuthorsIndexByAddressDefinitionChash ON unit_authors(address, definition_chash)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS outputsIsSerial ON outputs(is_serial)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS bySequence ON units(sequence)");
+						}
+						if (version < 2) {
+							arrQueries.push("CREATE UNIQUE INDEX IF NOT EXISTS hcobyAddressMci ON headers_commission_outputs(address, main_chain_index)");
+							arrQueries.push("CREATE UNIQUE INDEX IF NOT EXISTS byWitnessAddressMci ON witnessing_outputs(address, main_chain_index)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS inputsIndexByAddressTypeToMci ON inputs(address, type, to_main_chain_index)");
+							arrQueries.push("DELETE FROM known_bad_joints");
+						}
+						if (version < 5) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS push_registrations (registrationId TEXT, device_address TEXT NOT NULL, PRIMARY KEY (device_address))");
+						}
+						if (version < 6) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS chat_messages ( \n\
+				id INTEGER PRIMARY KEY, \n\
+				correspondent_address CHAR(33) NOT NULL, \n\
+				message LONGTEXT NOT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				is_incoming INTEGER(1) NOT NULL, \n\
+				type CHAR(15) NOT NULL DEFAULT 'text', \n\
+				FOREIGN KEY (correspondent_address) REFERENCES correspondent_devices(device_address) \n\
+			)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS chatMessagesIndexByDeviceAddress ON chat_messages(correspondent_address, id)");
+							arrQueries.push("ALTER TABLE correspondent_devices ADD COLUMN my_record_pref INTEGER DEFAULT 1");
+							arrQueries.push("ALTER TABLE correspondent_devices ADD COLUMN peer_record_pref INTEGER DEFAULT 1");
+							arrQueries.push("DELETE FROM known_bad_joints");
+						}
+						if (version < 8) {
+							arrQueries.push("CREATE INDEX IF NOT EXISTS bySequence ON units(sequence)");
+							arrQueries.push("DELETE FROM known_bad_joints");
+						}
+						if (version < 9) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS watched_light_units (peer VARCHAR(100) NOT NULL, unit CHAR(44) NOT NULL, creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (peer, unit))");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS wlabyUnit ON watched_light_units(unit)");
+						}
+						if (version < 10) {
+							arrQueries.push("BEGIN TRANSACTION");
+							arrQueries.push("ALTER TABLE chat_messages RENAME TO chat_messages_old");
+							arrQueries.push("CREATE TABLE IF NOT EXISTS chat_messages ( \n\
+				id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n\
+				correspondent_address CHAR(33) NOT NULL, \n\
+				message LONGTEXT NOT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				is_incoming INTEGER(1) NOT NULL, \n\
+				type CHAR(15) NOT NULL DEFAULT 'text', \n\
+				FOREIGN KEY (correspondent_address) REFERENCES correspondent_devices(device_address) ON DELETE CASCADE \n\
+			)");
+							arrQueries.push("INSERT INTO chat_messages SELECT * FROM chat_messages_old");
+							arrQueries.push("DROP TABLE chat_messages_old");
+							arrQueries.push("CREATE INDEX chatMessagesIndexByDeviceAddress ON chat_messages(correspondent_address, id);");
+							arrQueries.push("COMMIT");
+							arrQueries.push("DELETE FROM known_bad_joints");
+							arrQueries.push("DELETE FROM unhandled_joints");
+							arrQueries.push("DELETE FROM dependencies");
+							arrQueries.push("DELETE FROM hash_tree_balls");
+							arrQueries.push("DELETE FROM catchup_chain_balls");
+						}
+						if (version < 11) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS bots ( \n\
+				id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n\
+				rank INTEGER NOT NULL DEFAULT 0, \n\
+				name VARCHAR(100) NOT NULL UNIQUE, \n\
+				pairing_code VARCHAR(200) NOT NULL, \n\
+				description LONGTEXT NOT NULL \n\
+			);");
+						}
+						if (version < 12) arrQueries.push("DELETE FROM known_bad_joints");
+						if (version < 13) {
+							arrQueries.push("ALTER TABLE unit_authors ADD COLUMN _mci INT NULL");
+							arrQueries.push("PRAGMA user_version=13");
+						}
+						if (version < 14) {
+							arrQueries.push("UPDATE unit_authors SET _mci=(SELECT main_chain_index FROM units WHERE units.unit=unit_authors.unit)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS unitAuthorsIndexByAddressMci ON unit_authors(address, _mci)");
+						}
+						if (version < 15) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS asset_metadata ( \n\
+				asset CHAR(44) NOT NULL PRIMARY KEY, \n\
+				metadata_unit CHAR(44) NOT NULL, \n\
+				registry_address CHAR(32) NULL, \n\
+				suffix VARCHAR(20) NULL, \n\
+				name VARCHAR(20) NULL, \n\
+				decimals TINYINT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				UNIQUE (name, registry_address), \n\
+				FOREIGN KEY (asset) REFERENCES assets(unit), \n\
+				FOREIGN KEY (metadata_unit) REFERENCES units(unit) \n\
+			)");
+						}
+						if (version < 16) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS sent_mnemonics ( \n\
+				unit CHAR(44) NOT NULL, \n\
+				address CHAR(32) NOT NULL, \n\
+				mnemonic VARCHAR(107) NOT NULL, \n\
+				textAddress VARCHAR(120) NOT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				FOREIGN KEY (unit) REFERENCES units(unit) \n\
+			)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS sentByAddress ON sent_mnemonics(address)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS sentByUnit ON sent_mnemonics(unit)");
+							arrQueries.push("DELETE FROM known_bad_joints");
+						}
+						if (version < 17) {
+							arrQueries.push("CREATE TABLE IF NOT EXISTS private_profiles ( \n\
+				private_profile_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n\
+				unit CHAR(44) NOT NULL, \n\
+				payload_hash CHAR(44) NOT NULL, \n\
+				attestor_address CHAR(32) NOT NULL, \n\
+				address CHAR(32) NOT NULL, \n\
+				src_profile TEXT NOT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				FOREIGN KEY (unit) REFERENCES units(unit) \n\
+			)");
+							arrQueries.push("CREATE TABLE IF NOT EXISTS private_profile_fields ( \n\
+				private_profile_id INTEGER NOT NULL , \n\
+				`field` VARCHAR(50) NOT NULL, \n\
+				`value` VARCHAR(50) NOT NULL, \n\
+				blinding CHAR(16) NOT NULL, \n\
+				creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, \n\
+				UNIQUE (private_profile_id, `field`), \n\
+				FOREIGN KEY (private_profile_id) REFERENCES private_profiles(private_profile_id) \n\
+			)");
+							arrQueries.push("CREATE INDEX IF NOT EXISTS ppfByField ON private_profile_fields(`field`)");
+						}
+						arrQueries.push("PRAGMA user_version=" + VERSION);
+						eventBus.emit('started_db_upgrade');
+						if (typeof window === 'undefined') console.error("=== will upgrade the database, it can take some time");
+						eventBus.emit('finished_db_upgrade');
+						cmds = connection.buildFromStrings(arrQueries);
+						_context.next = 37;
+						return connection.executeBatch(cmds);
+
+					case 37:
+						if (typeof window === 'undefined') console.error("=== db upgrade finished");
+
+					case 38:
+					case 'end':
+						return _context.stop();
+				}
+			}
+		}, _callee, this);
+	}));
+
+	return function migrateDbSync(_x) {
+		return _ref.apply(this, arguments);
+	};
+}();
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _asyncToGenerator(fn) {
+	return function () {
+		var gen = fn.apply(this, arguments);return new Promise(function (resolve, reject) {
+			function step(key, arg) {
+				try {
+					var info = gen[key](arg);var value = info.value;
+				} catch (error) {
+					reject(error);return;
+				}if (info.done) {
+					resolve(value);
+				} else {
+					return Promise.resolve(value).then(function (value) {
+						step("next", value);
+					}, function (err) {
+						step("throw", err);
+					});
+				}
+			}return step("next");
+		});
+	};
+}
+
 var eventBus = require('./event_bus.js');
 
 var VERSION = 17;
 
 var async = require('async');
-var bCordova = (typeof window === 'object' && window.cordova);
+var bCordova = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && window.cordova;
 
-function migrateDb(connection, onDone){
-	connection.db[bCordova ? 'query' : 'all']("PRAGMA user_version", function(err, result){
-		if (err)
-			throw Error("PRAGMA user_version failed: "+err);
+function migrateDb(connection, onDone) {
+	connection.db[bCordova ? 'query' : 'all']("PRAGMA user_version", function (err, result) {
+		if (err) throw Error("PRAGMA user_version failed: " + err);
 		var rows = bCordova ? result.rows : result;
-		if (rows.length !== 1)
-			throw Error("PRAGMA user_version returned "+rows.length+" rows");
+		if (rows.length !== 1) throw Error("PRAGMA user_version returned " + rows.length + " rows");
 		var version = rows[0].user_version;
-		console.log("db version "+version+", software version "+VERSION);
-		if (version > VERSION)
-			throw Error("user version "+version+" > "+VERSION+": looks like you are using a new database with an old client");
-		if (version === VERSION)
-			return onDone();
+		console.log("db version " + version + ", software version " + VERSION);
+		if (version > VERSION) throw Error("user version " + version + " > " + VERSION + ": looks like you are using a new database with an old client");
+		if (version === VERSION) return onDone();
 		var arrQueries = [];
-		if (version < 1){
+		if (version < 1) {
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS unitAuthorsIndexByAddressDefinitionChash ON unit_authors(address, definition_chash)");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS outputsIsSerial ON outputs(is_serial)");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS bySequence ON units(sequence)");
 		}
-		if (version < 2){
+		if (version < 2) {
 			connection.addQuery(arrQueries, "CREATE UNIQUE INDEX IF NOT EXISTS hcobyAddressMci ON headers_commission_outputs(address, main_chain_index)");
 			connection.addQuery(arrQueries, "CREATE UNIQUE INDEX IF NOT EXISTS byWitnessAddressMci ON witnessing_outputs(address, main_chain_index)");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS inputsIndexByAddressTypeToMci ON inputs(address, type, to_main_chain_index)");
 			connection.addQuery(arrQueries, "DELETE FROM known_bad_joints");
 		}
-		if (version < 5){
+		if (version < 5) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS push_registrations (registrationId TEXT, device_address TEXT NOT NULL, PRIMARY KEY (device_address))");
 		}
-		if (version < 6){
+		if (version < 6) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS chat_messages ( \n\
 				id INTEGER PRIMARY KEY, \n\
 				correspondent_address CHAR(33) NOT NULL, \n\
@@ -2455,11 +3440,11 @@ function migrateDb(connection, onDone){
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS bySequence ON units(sequence)");
 			connection.addQuery(arrQueries, "DELETE FROM known_bad_joints");
 		}
-		if(version < 9){
+		if (version < 9) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS watched_light_units (peer VARCHAR(100) NOT NULL, unit CHAR(44) NOT NULL, creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (peer, unit))");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS wlabyUnit ON watched_light_units(unit)");
 		}
-		if(version < 10){
+		if (version < 10) {
 			connection.addQuery(arrQueries, "BEGIN TRANSACTION");
 			connection.addQuery(arrQueries, "ALTER TABLE chat_messages RENAME TO chat_messages_old");
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS chat_messages ( \n\
@@ -2490,17 +3475,16 @@ function migrateDb(connection, onDone){
 				description LONGTEXT NOT NULL \n\
 			);");
 		}
-		if (version < 12)
-			connection.addQuery(arrQueries, "DELETE FROM known_bad_joints");
-		if (version < 13){
+		if (version < 12) connection.addQuery(arrQueries, "DELETE FROM known_bad_joints");
+		if (version < 13) {
 			connection.addQuery(arrQueries, "ALTER TABLE unit_authors ADD COLUMN _mci INT NULL");
 			connection.addQuery(arrQueries, "PRAGMA user_version=13");
 		}
-		if (version < 14){
+		if (version < 14) {
 			connection.addQuery(arrQueries, "UPDATE unit_authors SET _mci=(SELECT main_chain_index FROM units WHERE units.unit=unit_authors.unit)");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS unitAuthorsIndexByAddressMci ON unit_authors(address, _mci)");
 		}
-		if (version < 15){
+		if (version < 15) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS asset_metadata ( \n\
 				asset CHAR(44) NOT NULL PRIMARY KEY, \n\
 				metadata_unit CHAR(44) NOT NULL, \n\
@@ -2514,7 +3498,7 @@ function migrateDb(connection, onDone){
 				FOREIGN KEY (metadata_unit) REFERENCES units(unit) \n\
 			)");
 		}
-		if (version < 16){
+		if (version < 16) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS sent_mnemonics ( \n\
 				unit CHAR(44) NOT NULL, \n\
 				address CHAR(32) NOT NULL, \n\
@@ -2527,7 +3511,7 @@ function migrateDb(connection, onDone){
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS sentByUnit ON sent_mnemonics(unit)");
 			connection.addQuery(arrQueries, "DELETE FROM known_bad_joints");
 		}
-		if (version < 17){
+		if (version < 17) {
 			connection.addQuery(arrQueries, "CREATE TABLE IF NOT EXISTS private_profiles ( \n\
 				private_profile_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \n\
 				unit CHAR(44) NOT NULL, \n\
@@ -2549,73 +3533,733 @@ function migrateDb(connection, onDone){
 			)");
 			connection.addQuery(arrQueries, "CREATE INDEX IF NOT EXISTS ppfByField ON private_profile_fields(`field`)");
 		}
-		connection.addQuery(arrQueries, "PRAGMA user_version="+VERSION);
+		connection.addQuery(arrQueries, "PRAGMA user_version=" + VERSION);
 		eventBus.emit('started_db_upgrade');
-		if (typeof window === 'undefined')
-			console.error("=== will upgrade the database, it can take some time");
-		async.series(arrQueries, function(){
+		if (typeof window === 'undefined') console.error("=== will upgrade the database, it can take some time");
+		async.series(arrQueries, function () {
 			eventBus.emit('finished_db_upgrade');
-			if (typeof window === 'undefined')
-				console.error("=== db upgrade finished");
+			if (typeof window === 'undefined') console.error("=== db upgrade finished");
 			onDone();
 		});
 	});
 }
 
+function migrateDbResult(connection) {
+	return new Promise(function (resolve, reject) {
+		connection.db[bCordova ? 'query' : 'all']("PRAGMA user_version", function (err, result) {
+			if (err) {
+				resolve(err);
+			} else {
+				resolve(result);
+			}
+		});
+	});
+}
+
 exports.migrateDb = migrateDb;
-},{"./event_bus.js":10,"async":3}],13:[function(require,module,exports){
+exports.migrateDbSync = migrateDbSync;
+},{"./event_bus.js":10,"async":3,"babel-runtime/regenerator":12}],16:[function(require,module,exports){
 (function (__dirname){
 /*jslint node: true */
 "use strict";
+
+var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+	return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+} : function (obj) {
+	return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+};
+
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _asyncToGenerator(fn) {
+	return function () {
+		var gen = fn.apply(this, arguments);return new Promise(function (resolve, reject) {
+			function step(key, arg) {
+				try {
+					var info = gen[key](arg);var value = info.value;
+				} catch (error) {
+					reject(error);return;
+				}if (info.done) {
+					resolve(value);
+				} else {
+					return Promise.resolve(value).then(function (value) {
+						step("next", value);
+					}, function (err) {
+						step("throw", err);
+					});
+				}
+			}return step("next");
+		});
+	};
+}
+
 var _ = require('lodash');
 var async = require('async');
 var sqlite_migrations = require('./sqlite_migrations');
 var EventEmitter = require('events').EventEmitter;
 
-var bCordova = (typeof window === 'object' && window.cordova);
+var bCordova = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object' && window.cordova;
 var sqlite3;
 var path;
 var cordovaSqlite;
 
-if (bCordova){
+if (bCordova) {
 	// will error before deviceready
 	//cordovaSqlite = window.cordova.require('cordova-sqlite-plugin.SQLite');
-}
-else{
-	sqlite3 = require('sqlite3');//.verbose();
-	path = require('./desktop_app.js'+'').getAppDataDir() + '/';
-	console.log("path="+path);
+} else {
+	sqlite3 = require('sqlite3'); //.verbose();
+	path = require('./desktop_app.js' + '').getAppDataDir() + '/';
+	console.log("path=" + path);
 }
 
-module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
+module.exports = function (db_name, MAX_CONNECTIONS, bReadOnly) {
+	var connectSync = function () {
+		var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
+			var db, connection;
+			return _regenerator2.default.wrap(function _callee$(_context) {
+				while (1) {
+					switch (_context.prev = _context.next) {
+						case 0:
+							console.log("opening new db connection");
+							_context.next = 3;
+							return openDbSync();
 
-	function openDb(cb){
-		if (bCordova){
+						case 3:
+							db = _context.sent;
+
+							console.log("opened db");
+
+							connection = {
+								db: db,
+								bInUse: true,
+
+								release: function release() {
+									//console.log("released connection");
+									this.bInUse = false;
+									if (arrQueue.length === 0) return;
+									var connectionHandler = arrQueue.shift();
+									this.bInUse = true;
+									connectionHandler(this);
+								},
+
+								query: function query() {
+									if (!this.bInUse) throw Error("this connection was returned to the pool");
+
+									var sql = arguments[0];
+									//console.log("======= query: "+sql);
+									var bSelect = !!sql.match(/^SELECT/i);
+									var count_arguments_without_callback = arguments.length;
+									var new_args = [];
+									var self = this;
+
+									for (var i = 0; i < count_arguments_without_callback; i++) {
+										// except the final callback
+										new_args.push(arguments[i]);
+									}if (count_arguments_without_callback === 1) // no params
+										new_args.push([]);
+									expandArrayPlaceholders(new_args);
+
+									// add callback with error handling
+									new_args.push(function (err, result) {
+										//console.log("query done: "+sql);
+										if (err) {
+											console.error("\nfailed query:", new_args);
+											throw Error(err + "\n" + sql + "\n" + new_args[1].map(function (param) {
+												if (param === null) return 'null';if (param === undefined) return 'undefined';return param;
+											}).join(', '));
+										}
+										// note that sqlite3 sets nonzero this.changes even when rows were matched but nothing actually changed (new values are same as old)
+										// this.changes appears to be correct for INSERTs despite the documentation states the opposite
+										if (!bSelect && !bCordova) result = { affectedRows: this.changes, insertId: this.lastID };
+										if (bSelect && bCordova) // note that on android, result.affectedRows is 1 even when inserted many rows
+											result = result.rows || [];
+										//console.log("changes="+this.changes+", affected="+result.affectedRows);
+										var consumed_time = Date.now() - start_ts;
+										if (consumed_time > 25) console.log("long query took " + consumed_time + "ms:\n" + new_args.filter(function (a, i) {
+											return i < new_args.length - 1;
+										}).join(", ") + "\nload avg: " + require('os').loadavg().join(', '));
+									});
+
+									var start_ts = Date.now();
+									if (bCordova) {
+										return new Promise(function (resolve, reject) {
+											db.query(new_args[0], new_args[1], function (err, rows) {
+												console.log(new_args[0], new_args[1]);
+												if (err) {
+													reject(err);
+												} else {
+													resolve(rows);
+												}
+											});
+										});
+									} else {
+										if (bSelect) {
+											return new Promise(function (resolve, reject) {
+												db.all(new_args[0], new_args[1], function (err, rows) {
+													console.log(new_args[0], new_args[1]);
+													if (err) {
+														reject(err);
+													} else {
+														resolve(rows);
+													}
+												});
+											});
+										} else {
+											return new Promise(function (resolve, reject) {
+												db.run(new_args[0], new_args[1], function (err, rows) {
+													console.log(new_args[0], new_args[1]);
+													if (err) {
+														reject(err);
+													} else {
+														resolve(rows);
+													}
+												});
+											});
+										}
+									}
+								},
+
+								buildFromStrings: buildFromStrings,
+								executeBatch: executeBatch,
+								addQuery: addQuery,
+								escape: escape,
+								addTime: addTime,
+								getNow: getNow,
+								getUnixTimestamp: getUnixTimestamp,
+								getFromUnixTime: getFromUnixTime,
+								getRandom: getRandom,
+								getIgnore: getIgnore,
+								forceIndex: forceIndex,
+								dropTemporaryTable: dropTemporaryTable
+
+							};
+
+							console.log(connection);
+							_context.next = 9;
+							return connection.query("PRAGMA foreign_keys = 1");
+
+						case 9:
+							_context.next = 11;
+							return connection.query("PRAGMA busy_timeout=30000");
+
+						case 11:
+							_context.next = 13;
+							return connection.query("PRAGMA journal_mode=WAL");
+
+						case 13:
+							_context.next = 15;
+							return connection.query("PRAGMA synchronous=NORMAL");
+
+						case 15:
+							_context.next = 17;
+							return connection.query("PRAGMA temp_store=MEMORY");
+
+						case 17:
+							_context.next = 19;
+							return sqlite_migrations.migrateDbSync(connection);
+
+						case 19:
+							return _context.abrupt('return', connection);
+
+						case 20:
+						case 'end':
+							return _context.stop();
+					}
+				}
+			}, _callee, this);
+		}));
+
+		return function connectSync() {
+			return _ref.apply(this, arguments);
+		};
+	}();
+
+	var takeConnectionFromPoolSync = function () {
+		var _ref2 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+			var i, connection;
+			return _regenerator2.default.wrap(function _callee3$(_context3) {
+				while (1) {
+					switch (_context3.prev = _context3.next) {
+						case 0:
+							if (bReady) {
+								_context3.next = 5;
+								break;
+							}
+
+							console.log("takeConnectionFromPool will wait for ready");
+							_context3.next = 4;
+							return eventEmitter.once('ready', _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+								return _regenerator2.default.wrap(function _callee2$(_context2) {
+									while (1) {
+										switch (_context2.prev = _context2.next) {
+											case 0:
+												console.log("db is now ready");
+												_context2.next = 3;
+												return takeConnectionFromPoolSync();
+
+											case 3:
+											case 'end':
+												return _context2.stop();
+										}
+									}
+								}, _callee2, this);
+							})));
+
+						case 4:
+							return _context3.abrupt('return');
+
+						case 5:
+							i = 0;
+
+						case 6:
+							if (!(i < arrConnectionSyncs.length)) {
+								_context3.next = 13;
+								break;
+							}
+
+							if (arrConnectionSyncs[i].bInUse) {
+								_context3.next = 10;
+								break;
+							}
+
+							//console.log("reusing previously opened connection");
+							arrConnectionSyncs[i].bInUse = true;
+							return _context3.abrupt('return', arrConnectionSyncs[i]);
+
+						case 10:
+							i++;
+							_context3.next = 6;
+							break;
+
+						case 13:
+							_context3.next = 15;
+							return connectSync();
+
+						case 15:
+							connection = _context3.sent;
+
+							arrConnectionSyncs.push(connection);
+							return _context3.abrupt('return', connection);
+
+						case 18:
+						case 'end':
+							return _context3.stop();
+					}
+				}
+			}, _callee3, this);
+		}));
+
+		return function takeConnectionFromPoolSync() {
+			return _ref2.apply(this, arguments);
+		};
+	}();
+
+	// takes a connection from the pool, executes the single query on this connection, and immediately releases the connection
+	var toList = function () {
+		var _ref4 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee4(sql) {
+			for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+				args[_key - 1] = arguments[_key];
+			}
+
+			var connection, rows;
+			return _regenerator2.default.wrap(function _callee4$(_context4) {
+				while (1) {
+					switch (_context4.prev = _context4.next) {
+						case 0:
+							_context4.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context4.sent;
+							_context4.next = 5;
+							return connection.query(sql, args);
+
+						case 5:
+							rows = _context4.sent;
+
+							connection.release();
+							return _context4.abrupt('return', rows);
+
+						case 8:
+						case 'end':
+							return _context4.stop();
+					}
+				}
+			}, _callee4, this);
+		}));
+
+		return function toList(_x) {
+			return _ref4.apply(this, arguments);
+		};
+	}();
+
+	var execute = function () {
+		var _ref5 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee5(sql) {
+			for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+				args[_key2 - 1] = arguments[_key2];
+			}
+
+			var connection, result;
+			return _regenerator2.default.wrap(function _callee5$(_context5) {
+				while (1) {
+					switch (_context5.prev = _context5.next) {
+						case 0:
+							_context5.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context5.sent;
+							_context5.next = 5;
+							return connection.query(sql, args);
+
+						case 5:
+							result = _context5.sent;
+
+							connection.release();
+							return _context5.abrupt('return', result);
+
+						case 8:
+						case 'end':
+							return _context5.stop();
+					}
+				}
+			}, _callee5, this);
+		}));
+
+		return function execute(_x2) {
+			return _ref5.apply(this, arguments);
+		};
+	}();
+
+	var executeBatch = function () {
+		var _ref6 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee6(cmds) {
+			var connection, i;
+			return _regenerator2.default.wrap(function _callee6$(_context6) {
+				while (1) {
+					switch (_context6.prev = _context6.next) {
+						case 0:
+							_context6.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context6.sent;
+							_context6.prev = 3;
+							i = 0;
+
+						case 5:
+							if (!(i < cmds.length)) {
+								_context6.next = 11;
+								break;
+							}
+
+							_context6.next = 8;
+							return connection.query(cmds[i].sql, cmds[i].args);
+
+						case 8:
+							i++;
+							_context6.next = 5;
+							break;
+
+						case 11:
+							_context6.next = 16;
+							break;
+
+						case 13:
+							_context6.prev = 13;
+							_context6.t0 = _context6['catch'](3);
+
+							console.log(_context6.t0.toString());
+
+						case 16:
+							_context6.prev = 16;
+
+							connection.release();
+							return _context6.finish(16);
+
+						case 19:
+						case 'end':
+							return _context6.stop();
+					}
+				}
+			}, _callee6, this, [[3, 13, 16, 19]]);
+		}));
+
+		return function executeBatch(_x3) {
+			return _ref6.apply(this, arguments);
+		};
+	}();
+
+	var executeTrans = function () {
+		var _ref7 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee7(cmds) {
+			var connection, i;
+			return _regenerator2.default.wrap(function _callee7$(_context7) {
+				while (1) {
+					switch (_context7.prev = _context7.next) {
+						case 0:
+							_context7.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context7.sent;
+							_context7.prev = 3;
+							_context7.next = 6;
+							return connection.query("BEGIN TRANSACTION");
+
+						case 6:
+							i = 0;
+
+						case 7:
+							if (!(i < cmds.length)) {
+								_context7.next = 13;
+								break;
+							}
+
+							_context7.next = 10;
+							return connection.query(cmds[i].sql, cmds[i].args);
+
+						case 10:
+							i++;
+							_context7.next = 7;
+							break;
+
+						case 13:
+							_context7.next = 15;
+							return connection.query("COMMIT");
+
+						case 15:
+							_context7.next = 22;
+							break;
+
+						case 17:
+							_context7.prev = 17;
+							_context7.t0 = _context7['catch'](3);
+
+							console.log(_context7.t0.toString());
+							_context7.next = 22;
+							return connection.query("ROLLBACK");
+
+						case 22:
+							_context7.prev = 22;
+
+							connection.release();
+							return _context7.finish(22);
+
+						case 25:
+						case 'end':
+							return _context7.stop();
+					}
+				}
+			}, _callee7, this, [[3, 17, 22, 25]]);
+		}));
+
+		return function executeTrans(_x4) {
+			return _ref7.apply(this, arguments);
+		};
+	}();
+
+	var first = function () {
+		var _ref8 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee8(sql) {
+			for (var _len4 = arguments.length, args = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+				args[_key4 - 1] = arguments[_key4];
+			}
+
+			var connection, rows;
+			return _regenerator2.default.wrap(function _callee8$(_context8) {
+				while (1) {
+					switch (_context8.prev = _context8.next) {
+						case 0:
+							_context8.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context8.sent;
+							_context8.next = 5;
+							return connection.query.apply(connection, [sql].concat(args));
+
+						case 5:
+							rows = _context8.sent;
+
+							connection.release();
+							return _context8.abrupt('return', rows == null || rows.length == 0 ? null : rows[0]);
+
+						case 8:
+						case 'end':
+							return _context8.stop();
+					}
+				}
+			}, _callee8, this);
+		}));
+
+		return function first(_x5) {
+			return _ref8.apply(this, arguments);
+		};
+	}();
+
+	var single = function () {
+		var _ref9 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee9(sql) {
+			for (var _len5 = arguments.length, args = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+				args[_key5 - 1] = arguments[_key5];
+			}
+
+			var connection, rows, pro;
+			return _regenerator2.default.wrap(function _callee9$(_context9) {
+				while (1) {
+					switch (_context9.prev = _context9.next) {
+						case 0:
+							_context9.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context9.sent;
+							_context9.next = 5;
+							return connection.query.apply(connection, [sql].concat(args));
+
+						case 5:
+							rows = _context9.sent;
+
+							connection.release();
+
+							if (!(rows == null || rows.length == 0)) {
+								_context9.next = 11;
+								break;
+							}
+
+							return _context9.abrupt('return', null);
+
+						case 11:
+							_context9.t0 = _regenerator2.default.keys(rows[0]);
+
+						case 12:
+							if ((_context9.t1 = _context9.t0()).done) {
+								_context9.next = 17;
+								break;
+							}
+
+							pro = _context9.t1.value;
+							return _context9.abrupt('return', rows[0][pro]);
+
+						case 17:
+						case 'end':
+							return _context9.stop();
+					}
+				}
+			}, _callee9, this);
+		}));
+
+		return function single(_x6) {
+			return _ref9.apply(this, arguments);
+		};
+	}();
+
+	var SingleList = function () {
+		var _ref10 = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee10(sql) {
+			for (var _len6 = arguments.length, args = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
+				args[_key6 - 1] = arguments[_key6];
+			}
+
+			var connection, rows, proName, pro;
+			return _regenerator2.default.wrap(function _callee10$(_context10) {
+				while (1) {
+					switch (_context10.prev = _context10.next) {
+						case 0:
+							_context10.next = 2;
+							return takeConnectionFromPoolSync();
+
+						case 2:
+							connection = _context10.sent;
+							_context10.next = 5;
+							return connection.query.apply(connection, [sql].concat(args));
+
+						case 5:
+							rows = _context10.sent;
+
+							connection.release();
+
+							if (!(rows == null || rows.length == 0)) {
+								_context10.next = 11;
+								break;
+							}
+
+							return _context10.abrupt('return', []);
+
+						case 11:
+							proName = null;
+							_context10.t0 = _regenerator2.default.keys(rows[0]);
+
+						case 13:
+							if ((_context10.t1 = _context10.t0()).done) {
+								_context10.next = 19;
+								break;
+							}
+
+							pro = _context10.t1.value;
+
+							proName = pro;
+							return _context10.abrupt('break', 19);
+
+						case 19:
+							return _context10.abrupt('return', rows.select(function (p) {
+								return p[proName];
+							}));
+
+						case 20:
+						case 'end':
+							return _context10.stop();
+					}
+				}
+			}, _callee10, this);
+		}));
+
+		return function SingleList(_x7) {
+			return _ref10.apply(this, arguments);
+		};
+	}();
+
+	function openDbSync() {
+		return new Promise(function (resolve, reject) {
+			if (bCordova) {
+				var db = new cordovaSqlite(db_name);
+				db.open();
+				resolve(db);
+			} else {
+				resolve(new sqlite3.Database(path + db_name, bReadOnly ? sqlite3.OPEN_READONLY : sqlite3.OPEN_READWRITE));
+			}
+		});
+	}
+
+	function openDb(cb) {
+		if (bCordova) {
 			var db = new cordovaSqlite(db_name);
 			db.open(cb);
 			return db;
-		}
-		else
-			return new sqlite3.Database(path + db_name, bReadOnly ? sqlite3.OPEN_READONLY : sqlite3.OPEN_READWRITE, cb);
+		} else return new sqlite3.Database(path + db_name, bReadOnly ? sqlite3.OPEN_READONLY : sqlite3.OPEN_READWRITE, cb);
 	}
 
 	var eventEmitter = new EventEmitter();
 	var bReady = false;
 	var arrConnections = [];
+	var arrConnectionSyncs = [];
 	var arrQueue = [];
 
-	function connect(handleConnection){
+	function connect(handleConnection) {
 		console.log("opening new db connection");
-		var db = openDb(function(err){
-			if (err)
-				throw Error(err);
+		var db = openDb(function (err) {
+			if (err) throw Error(err);
 			console.log("opened db");
-			connection.query("PRAGMA foreign_keys = 1", function(){
-				connection.query("PRAGMA busy_timeout=30000", function(){
-					connection.query("PRAGMA journal_mode=WAL", function(){
-						connection.query("PRAGMA synchronous=NORMAL", function(){
-							connection.query("PRAGMA temp_store=MEMORY", function(){
-								sqlite_migrations.migrateDb(connection, function(){
+			connection.query("PRAGMA foreign_keys = 1", function () {
+				connection.query("PRAGMA busy_timeout=30000", function () {
+					connection.query("PRAGMA journal_mode=WAL", function () {
+						connection.query("PRAGMA synchronous=NORMAL", function () {
+							connection.query("PRAGMA temp_store=MEMORY", function () {
+								sqlite_migrations.migrateDb(connection, function () {
 									handleConnection(connection);
 								});
 							});
@@ -2624,69 +4268,67 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 				});
 			});
 		});
-		
+
 		var connection = {
 			db: db,
 			bInUse: true,
-			
-			release: function(){
+
+			release: function release() {
 				//console.log("released connection");
 				this.bInUse = false;
-				if (arrQueue.length === 0)
-					return;
+				if (arrQueue.length === 0) return;
 				var connectionHandler = arrQueue.shift();
 				this.bInUse = true;
 				connectionHandler(this);
 			},
-			
-			query: function(){
-				if (!this.bInUse)
-					throw Error("this connection was returned to the pool");
+
+			query: function query() {
+				if (!this.bInUse) throw Error("this connection was returned to the pool");
 				var last_arg = arguments[arguments.length - 1];
-				var bHasCallback = (typeof last_arg === 'function');
+				var bHasCallback = typeof last_arg === 'function';
 				if (!bHasCallback) // no callback
-					last_arg = function(){};
+					last_arg = function last_arg() {};
 
 				var sql = arguments[0];
 				//console.log("======= query: "+sql);
 				var bSelect = !!sql.match(/^SELECT/i);
-				var count_arguments_without_callback = bHasCallback ? (arguments.length-1) : arguments.length;
+				var count_arguments_without_callback = bHasCallback ? arguments.length - 1 : arguments.length;
 				var new_args = [];
 				var self = this;
 
-				for (var i=0; i<count_arguments_without_callback; i++) // except the final callback
+				for (var i = 0; i < count_arguments_without_callback; i++) {
+					// except the final callback
 					new_args.push(arguments[i]);
-				if (count_arguments_without_callback === 1) // no params
+				}if (count_arguments_without_callback === 1) // no params
 					new_args.push([]);
 				expandArrayPlaceholders(new_args);
-				
+
 				// add callback with error handling
-				new_args.push(function(err, result){
+				new_args.push(function (err, result) {
 					//console.log("query done: "+sql);
-					if (err){
+					if (err) {
 						console.error("\nfailed query:", new_args);
-						throw Error(err+"\n"+sql+"\n"+new_args[1].map(function(param){ if (param === null) return 'null'; if (param === undefined) return 'undefined'; return param;}).join(', '));
+						throw Error(err + "\n" + sql + "\n" + new_args[1].map(function (param) {
+							if (param === null) return 'null';if (param === undefined) return 'undefined';return param;
+						}).join(', '));
 					}
 					// note that sqlite3 sets nonzero this.changes even when rows were matched but nothing actually changed (new values are same as old)
 					// this.changes appears to be correct for INSERTs despite the documentation states the opposite
-					if (!bSelect && !bCordova)
-						result = {affectedRows: this.changes, insertId: this.lastID};
+					if (!bSelect && !bCordova) result = { affectedRows: this.changes, insertId: this.lastID };
 					if (bSelect && bCordova) // note that on android, result.affectedRows is 1 even when inserted many rows
 						result = result.rows || [];
 					//console.log("changes="+this.changes+", affected="+result.affectedRows);
 					var consumed_time = Date.now() - start_ts;
-					if (consumed_time > 25)
-						console.log("long query took "+consumed_time+"ms:\n"+new_args.filter(function(a, i){ return (i<new_args.length-1); }).join(", ")+"\nload avg: "+require('os').loadavg().join(', '));
+					if (consumed_time > 25) console.log("long query took " + consumed_time + "ms:\n" + new_args.filter(function (a, i) {
+						return i < new_args.length - 1;
+					}).join(", ") + "\nload avg: " + require('os').loadavg().join(', '));
 					last_arg(result);
 				});
-				
+
 				var start_ts = Date.now();
-				if (bCordova)
-					this.db.query.apply(this.db, new_args);
-				else
-					bSelect ? this.db.all.apply(this.db, new_args) : this.db.run.apply(this.db, new_args);
+				if (bCordova) this.db.query.apply(this.db, new_args);else bSelect ? this.db.all.apply(this.db, new_args) : this.db.run.apply(this.db, new_args);
 			},
-			
+
 			addQuery: addQuery,
 			escape: escape,
 			addTime: addTime,
@@ -2697,7 +4339,7 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 			getIgnore: getIgnore,
 			forceIndex: forceIndex,
 			dropTemporaryTable: dropTemporaryTable
-			
+
 		};
 		arrConnections.push(connection);
 	}
@@ -2707,121 +4349,151 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 	function addQuery(arr) {
 		var self = this;
 		var query_args = [];
-		for (var i=1; i<arguments.length; i++) // except first, which is array
+		for (var i = 1; i < arguments.length; i++) {
+			// except first, which is array
 			query_args.push(arguments[i]);
-		arr.push(function(callback){ // add callback for async.series() member tasks
-			if (typeof query_args[query_args.length-1] !== 'function')
-				query_args.push(function(){callback();}); // add callback
-			else{
-				var f = query_args[query_args.length-1];
-				query_args[query_args.length-1] = function(){ // add callback() call to the end of the function
-					f.apply(f, arguments);
-					callback();
+		}arr.push(function (callback) {
+			// add callback for async.series() member tasks
+			if (typeof query_args[query_args.length - 1] !== 'function') query_args.push(function () {
+				callback();
+			}); // add callback
+			else {
+					var f = query_args[query_args.length - 1];
+					query_args[query_args.length - 1] = function () {
+						// add callback() call to the end of the function
+						f.apply(f, arguments);
+						callback();
+					};
 				}
-			}
 			self.query.apply(self, query_args);
 		});
 	}
-	
-	function takeConnectionFromPool(handleConnection){
 
-		if (!bReady){
+	function takeConnectionFromPool(handleConnection) {
+
+		if (!bReady) {
 			console.log("takeConnectionFromPool will wait for ready");
-			eventEmitter.once('ready', function(){
+			eventEmitter.once('ready', function () {
 				console.log("db is now ready");
 				takeConnectionFromPool(handleConnection);
 			});
 			return;
 		}
-		
+
 		// first, try to find a free connection
-		for (var i=0; i<arrConnections.length; i++)
-			if (!arrConnections[i].bInUse){
+		for (var i = 0; i < arrConnections.length; i++) {
+			if (!arrConnections[i].bInUse) {
 				//console.log("reusing previously opened connection");
 				arrConnections[i].bInUse = true;
 				return handleConnection(arrConnections[i]);
 			}
-
-		// second, try to open a new connection
-		if (arrConnections.length < MAX_CONNECTIONS)
-			return connect(handleConnection);
+		} // second, try to open a new connection
+		if (arrConnections.length < MAX_CONNECTIONS) return connect(handleConnection);
 
 		// third, queue it
 		//console.log("queuing");
 		arrQueue.push(handleConnection);
 	}
-	
-	function onDbReady(){
-		if (bCordova && !cordovaSqlite)
-			cordovaSqlite = window.cordova.require('cordova-sqlite-plugin.SQLite');
+
+	function onDbReady() {
+		if (bCordova && !cordovaSqlite) cordovaSqlite = window.cordova.require('cordova-sqlite-plugin.SQLite');
 		bReady = true;
 		eventEmitter.emit('ready');
 	}
-	
-	function getCountUsedConnections(){
+
+	function getCountUsedConnections() {
 		var count = 0;
-		for (var i=0; i<arrConnections.length; i++)
-			if (arrConnections[i].bInUse)
-				count++;
-		return count;
+		for (var i = 0; i < arrConnections.length; i++) {
+			if (arrConnections[i].bInUse) count++;
+		}return count;
+	}
+
+	function getCountUsedConnectionSyncs() {
+		var count = 0;
+		for (var i = 0; i < arrConnectionSyncs.length; i++) {
+			if (arrConnectionSyncs[i].bInUse) count++;
+		}return count;
 	}
 
 	// takes a connection from the pool, executes the single query on this connection, and immediately releases the connection
-	function query(){
+	function query() {
 		//console.log(arguments[0]);
 		var args = arguments;
-		takeConnectionFromPool(function(connection){
+		takeConnectionFromPool(function (connection) {
 			var last_arg = args[args.length - 1];
-			var bHasCallback = (typeof last_arg === 'function');
+			var bHasCallback = typeof last_arg === 'function';
 			if (!bHasCallback) // no callback
-				last_arg = function(){};
+				last_arg = function last_arg() {};
 
-			var count_arguments_without_callback = bHasCallback ? (args.length-1) : args.length;
+			var count_arguments_without_callback = bHasCallback ? args.length - 1 : args.length;
 			var new_args = [];
 
-			for (var i=0; i<count_arguments_without_callback; i++) // except callback
+			for (var i = 0; i < count_arguments_without_callback; i++) {
+				// except callback
 				new_args.push(args[i]);
-			// add callback that releases the connection before calling the supplied callback
-			new_args.push(function(rows){
+			} // add callback that releases the connection before calling the supplied callback
+			new_args.push(function (rows) {
 				connection.release();
 				last_arg(rows);
 			});
 			connection.query.apply(connection, new_args);
 		});
 	}
-	
-	function close(cb){
-		if (!cb)
-			cb = function(){};
+
+	function addCmd(cmds, sql) {
+		for (var _len3 = arguments.length, args = Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+			args[_key3 - 2] = arguments[_key3];
+		}
+
+		cmds.push({ sql: sql, args: args });
+	}
+
+	function buildFromStrings(arr) {
+		var cmds = [];
+		for (var i = 0; i < arr.length; i++) {
+			addCmd(cmds, arr[i]);
+		}
+		return cmds;
+	}
+
+	function close(cb) {
+		if (!cb) cb = function cb() {};
 		bReady = false;
-		if (arrConnections.length === 0)
-			return cb();
+		if (arrConnections.length === 0) return cb();
 		arrConnections[0].db.close(cb);
 		arrConnections.shift();
 	}
 
-	// interval is string such as -8 SECOND
-	function addTime(interval){
-		return "datetime('now', '"+interval+"')";
+	function closeSync(cb) {
+		if (!cb) cb = function cb() {};
+		bReady = false;
+		if (arrConnectionSyncs.length === 0) return cb();
+		arrConnectionSyncs[0].db.closeSync(cb);
+		arrConnectionSyncs.shift();
 	}
 
-	function getNow(){
+	// interval is string such as -8 SECOND
+	function addTime(interval) {
+		return "datetime('now', '" + interval + "')";
+	}
+
+	function getNow() {
 		return "datetime('now')";
 	}
 
-	function getUnixTimestamp(date){
-		return "strftime('%s', "+date+")";
+	function getUnixTimestamp(date) {
+		return "strftime('%s', " + date + ")";
 	}
 
-	function getFromUnixTime(ts){
-		return "datetime("+ts+", 'unixepoch')";
+	function getFromUnixTime(ts) {
+		return "datetime(" + ts + ", 'unixepoch')";
 	}
 
-	function getRandom(){
+	function getRandom() {
 		return "RANDOM()";
 	}
 
-	function forceIndex(index){
+	function forceIndex(index) {
 		return "INDEXED BY " + index;
 	}
 
@@ -2831,28 +4503,34 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 
 	// note that IGNORE behaves differently from mysql.  In particular, if you insert and forget to specify a NOT NULL colum without DEFAULT value, 
 	// sqlite will ignore while mysql will throw an error
-	function getIgnore(){
+	function getIgnore() {
 		return "OR IGNORE";
 	}
 
-	function escape(str){
-		if (typeof str === 'string')
-			return "'"+str.replace(/'/g, "''")+"'";
-		else if (Array.isArray(str))
-			return str.map(function(member){ return escape(member); }).join(",");
-		else
-			throw Error("escape: unknown type "+(typeof str));
+	function escape(str) {
+		if (typeof str === 'string') return "'" + str.replace(/'/g, "''") + "'";else if (Array.isArray(str)) return str.map(function (member) {
+			return escape(member);
+		}).join(",");else throw Error("escape: unknown type " + (typeof str === 'undefined' ? 'undefined' : _typeof(str)));
 	}
-	
-	
+
 	createDatabaseIfNecessary(db_name, onDbReady);
 
 	var pool = {};
 	pool.query = query;
+	pool.toList = toList;
+	pool.first = first;
+	pool.single = single;
+	pool.execute = execute;
+	pool.SingleList = SingleList;
+	pool.executeTrans = executeTrans;
+	pool.executeBatch = executeBatch;
 	pool.addQuery = addQuery;
 	pool.takeConnectionFromPool = takeConnectionFromPool;
 	pool.getCountUsedConnections = getCountUsedConnections;
 	pool.close = close;
+	pool.addCmd = addCmd;
+	pool.buildFromStrings = buildFromStrings;
+	pool.closeSync = closeSync;
 	pool.escape = escape;
 	pool.addTime = addTime;
 	pool.getNow = getNow;
@@ -2862,140 +4540,132 @@ module.exports = function(db_name, MAX_CONNECTIONS, bReadOnly){
 	pool.getIgnore = getIgnore;
 	pool.forceIndex = forceIndex;
 	pool.dropTemporaryTable = dropTemporaryTable;
-	
+
 	return pool;
 };
 
 // expands IN(?) into IN(?,?,?) and flattens parameter array
 // the function modifies first two memebers of the args array in place
 // will misbehave if there are ? in SQL comments
-function expandArrayPlaceholders(args){
+function expandArrayPlaceholders(args) {
 	var sql = args[0];
 	var params = args[1];
-	if (!Array.isArray(params) || params.length === 0)
-		return;
+	if (!Array.isArray(params) || params.length === 0) return;
 	var assocLengthsOfArrayParams = {};
-	for (var i=0; i<params.length; i++)
-		if (Array.isArray(params[i])){
-			if (params[i].length === 0)
-				throw Error("empty array in query params");
+	for (var i = 0; i < params.length; i++) {
+		if (Array.isArray(params[i])) {
+			if (params[i].length === 0) throw Error("empty array in query params");
 			assocLengthsOfArrayParams[i] = params[i].length;
 		}
-	if (Object.keys(assocLengthsOfArrayParams).length === 0)
-		return;
+	}if (Object.keys(assocLengthsOfArrayParams).length === 0) return;
 	var arrParts = sql.split('?');
-	if (arrParts.length - 1 !== params.length)
-		throw Error("wrong parameter count");
+	if (arrParts.length - 1 !== params.length) throw Error("wrong parameter count");
 	var expanded_sql = "";
-	for (var i=0; i<arrParts.length; i++){
+	for (var i = 0; i < arrParts.length; i++) {
 		expanded_sql += arrParts[i];
-		if (i === arrParts.length-1) // last part
+		if (i === arrParts.length - 1) // last part
 			break;
 		var len = assocLengthsOfArrayParams[i];
 		if (len) // array
-			expanded_sql += _.fill(Array(len), "?").join(",");
-		else
-			expanded_sql += "?";
+			expanded_sql += _.fill(Array(len), "?").join(",");else expanded_sql += "?";
 	}
 	var flattened_params = _.flatten(params);
 	args[0] = expanded_sql;
 	args[1] = flattened_params;
 }
 
-
-function getParentDirPath(){
-	switch(window.cordova.platformId){
-		case 'ios': 
+function getParentDirPath() {
+	switch (window.cordova.platformId) {
+		case 'ios':
 			return window.cordova.file.applicationStorageDirectory + '/Library';
-		case 'android': 
+		case 'android':
 		default:
 			return window.cordova.file.applicationStorageDirectory;
 	}
 }
 
-function getDatabaseDirName(){
-	switch(window.cordova.platformId){
-		case 'ios': 
+function getDatabaseDirName() {
+	switch (window.cordova.platformId) {
+		case 'ios':
 			return 'LocalDatabase';
-		case 'android': 
+		case 'android':
 		default:
 			return 'databases';
 	}
 }
 
-function getDatabaseDirPath(){
+function getDatabaseDirPath() {
 	return getParentDirPath() + '/' + getDatabaseDirName();
 }
 
+function createDatabaseIfNecessary(db_name, onDbReady) {
 
-function createDatabaseIfNecessary(db_name, onDbReady){
-	
-	console.log('createDatabaseIfNecessary '+db_name);
+	console.log('createDatabaseIfNecessary ' + db_name);
 	var initial_db_filename = 'initial.' + db_name;
 
 	// on mobile platforms, copy initial sqlite file from app root to data folder where we can open it for writing
-	if (bCordova){
+	if (bCordova) {
 		console.log("will wait for deviceready");
-		document.addEventListener("deviceready", function onDeviceReady(){
+		document.addEventListener("deviceready", function onDeviceReady() {
 			console.log("deviceready handler");
-			console.log("data dir: "+window.cordova.file.dataDirectory);
-			console.log("app dir: "+window.cordova.file.applicationDirectory);
-			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function onFileSystemSuccess(fs){
-				window.resolveLocalFileSystemURL(getDatabaseDirPath() + '/' + db_name, function(fileEntry){
+			console.log("data dir: " + window.cordova.file.dataDirectory);
+			console.log("app dir: " + window.cordova.file.applicationDirectory);
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function onFileSystemSuccess(fs) {
+				window.resolveLocalFileSystemURL(getDatabaseDirPath() + '/' + db_name, function (fileEntry) {
 					console.log("database file already exists");
 					onDbReady();
-				}, function onSqliteNotInited(err) { // file not found
+				}, function onSqliteNotInited(err) {
+					// file not found
 					console.log("will copy initial database file");
-					window.resolveLocalFileSystemURL(window.cordova.file.applicationDirectory + "/www/" + initial_db_filename, function(fileEntry) {
+					window.resolveLocalFileSystemURL(window.cordova.file.applicationDirectory + "/www/" + initial_db_filename, function (fileEntry) {
 						console.log("got initial db fileentry");
 						// get parent dir
-						window.resolveLocalFileSystemURL(getParentDirPath(), function(parentDirEntry) {
+						window.resolveLocalFileSystemURL(getParentDirPath(), function (parentDirEntry) {
 							console.log("resolved parent dir");
-							parentDirEntry.getDirectory(getDatabaseDirName(), {create: true}, function(dbDirEntry){
+							parentDirEntry.getDirectory(getDatabaseDirName(), { create: true }, function (dbDirEntry) {
 								console.log("resolved db dir");
-								fileEntry.copyTo(dbDirEntry, db_name, function(){
+								fileEntry.copyTo(dbDirEntry, db_name, function () {
 									console.log("copied initial cordova database");
 									onDbReady();
-								}, function(err){
-									throw Error("failed to copyTo: "+JSON.stringify(err));
+								}, function (err) {
+									throw Error("failed to copyTo: " + JSON.stringify(err));
 								});
-							}, function(err){
-								throw Error("failed to getDirectory databases: "+JSON.stringify(err));
+							}, function (err) {
+								throw Error("failed to getDirectory databases: " + JSON.stringify(err));
 							});
-						}, function(err){
-							throw Error("failed to resolveLocalFileSystemURL of parent dir: "+JSON.stringify(err));
+						}, function (err) {
+							throw Error("failed to resolveLocalFileSystemURL of parent dir: " + JSON.stringify(err));
 						});
-					}, function(err){
-						throw Error("failed to getFile: "+JSON.stringify(err));
+					}, function (err) {
+						throw Error("failed to getFile: " + JSON.stringify(err));
 					});
 				});
-			}, function onFailure(err){
-				throw Error("failed to requestFileSystem: "+err);
+			}, function onFailure(err) {
+				throw Error("failed to requestFileSystem: " + err);
 			});
 		}, false);
-	}
-	else{ // copy initial db to app folder
-		var fs = require('fs'+'');
-		fs.stat(path + db_name, function(err, stats){
-			console.log("stat "+err);
+	} else {
+		// copy initial db to app folder
+		var fs = require('fs' + '');
+		fs.stat(path + db_name, function (err, stats) {
+			console.log("stat " + err);
 			if (!err) // already exists
 				return onDbReady();
 			console.log("will copy initial db");
 			var mode = parseInt('700', 8);
-			var parent_dir = require('path'+'').dirname(path);
-			fs.mkdir(parent_dir, mode, function(err){
-				console.log('mkdir '+parent_dir+': '+err);
-				fs.mkdir(path, mode, function(err){
-					console.log('mkdir '+path+': '+err);
+			var parent_dir = require('path' + '').dirname(path);
+			fs.mkdir(parent_dir, mode, function (err) {
+				console.log('mkdir ' + parent_dir + ': ' + err);
+				fs.mkdir(path, mode, function (err) {
+					console.log('mkdir ' + path + ': ' + err);
 					fs.createReadStream(__dirname + '/' + initial_db_filename).pipe(fs.createWriteStream(path + db_name)).on('finish', onDbReady);
 				});
 			});
 		});
 	}
 }
-
 }).call(this,"/node_modules/intervaluecore")
-},{"./sqlite_migrations":12,"async":3,"events":4,"lodash":14,"os":15,"sqlite3":undefined}],14:[function(require,module,exports){
+},{"./sqlite_migrations":15,"async":3,"babel-runtime/regenerator":12,"events":4,"lodash":17,"os":18,"sqlite3":undefined}],17:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -20104,7 +21774,7 @@ function createDatabaseIfNecessary(db_name, onDbReady){
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 exports.endianness = function () { return 'LE' };
 
 exports.hostname = function () {
@@ -20155,7 +21825,7 @@ exports.homedir = function () {
 	return '/'
 };
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -20341,7 +22011,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function (setImmediate,clearImmediate){
 var nextTick = require('process/browser.js').nextTick;
 var apply = Function.prototype.apply;
@@ -20420,7 +22090,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
   delete immediateIds[id];
 };
 }).call(this,require("timers").setImmediate,require("timers").clearImmediate)
-},{"process/browser.js":16,"timers":17}],18:[function(require,module,exports){
+},{"process/browser.js":19,"timers":20}],21:[function(require,module,exports){
 var lodash = require('lodash');
 var _dir, _fs;
 
@@ -20530,7 +22200,7 @@ exports.init = init;
 exports.get = get;
 exports.set = set;
 
-},{"lodash":14}],19:[function(require,module,exports){
+},{"lodash":17}],22:[function(require,module,exports){
 var BLACKBYTES_ASSET = require('intervaluecore/constants').BLACKBYTES_ASSET;
 var balances = require('intervaluecore/balances');
 var utils = require('../../angular-bitcore-wallet-client/bitcore-wallet-client/lib/common/utils');
@@ -20913,4 +22583,4 @@ var swipeListener = new _swipeListener();
 function getFromId(id) {
 	return document.getElementById(id);
 }
-},{"../../angular-bitcore-wallet-client/bitcore-wallet-client/lib/common/utils":2,"./fileStorage":18,"intervaluecore/balances":5,"intervaluecore/constants":7}]},{},[19]);
+},{"../../angular-bitcore-wallet-client/bitcore-wallet-client/lib/common/utils":2,"./fileStorage":21,"intervaluecore/balances":5,"intervaluecore/constants":7}]},{},[22]);

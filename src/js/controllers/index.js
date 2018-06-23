@@ -33,7 +33,6 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     $rootScope.showrightpop = function($event){
         $event.stopPropagation();           //阻止事件传播，即本次事件不产生连锁反应（不影响父节点和其他节点）
         $rootScope.showrightpopvalue = !$rootScope.showrightpopvalue;
-        console.log($rootScope.showrightpopvalue);
         return $rootScope.showrightpopvalue;
     };
 
