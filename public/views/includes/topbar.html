@@ -1,7 +1,7 @@
 <!-- 顶部导航栏视图 -->
-<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #263b56;" ng-click="hiderightpop($event)">
+<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #3B3B3B;" ng-click="hiderightpop($event)">
     <!-- 左区 -->
-    <section class="left-small" style="background-color: #236d97">
+    <section class="left-small">
         <a ng-show="goBackToState"
            ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi" style="color:#fff;">
             <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
@@ -14,7 +14,7 @@
     </section>
 
     <!-- 右区 -->
-    <section class="right-small" style="background-color: #236d97;height: 45px">
+    <section class="right-small" style="height: 45px">
         <a  class="chatpaddingleffi">
             <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop" ng-click="showrightpop($event)">
         </a>
@@ -49,7 +49,7 @@
 
 
     <!-- 中间区 -->
-    <section class="middle tab-bar-section" style="background-color: #236d97">
+    <section class="middle tab-bar-section">
         <h1 class="title ellipsis"
             style="color: #FFFFFF;font-size:18px;">
             <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>

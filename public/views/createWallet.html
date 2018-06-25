@@ -4,7 +4,7 @@
 <!--<div class="passModalMask" style="opacity: 1; padding: 0;"> </div>-->
 
 <!--备份钱包口令-->
-<div class="passModal addcreatepassmodal">
+<div class="passModal addcreatepassmodal" >
 
     <!--控制器开始-->
     <div class="splash text-center addcreatesplash" ng-controller="createWallet as wordsC">
@@ -511,8 +511,10 @@
         <!-- 第四步 校验您的钱包口令 start-->
         <div ng-if="wordsC.step === 'show_input'" class="addcreatecr">
             <div class="addcreatecrh" translate>Backup Your Seed Phrase</div>
-            <h1 class="color333; text-center addcreatecrlt" translate>Confirm Your Mnemonic Words</h1>
-
+            <div class="addcreatecrtext">
+                <h1 class="color333; text-center addcreatecrlt" translate>Please enter the password in order to confirm that your backup password is correct</h1>
+                <h1 class="color333; text-center addcreatecrlt" translate>Please use <span>English input method</span> to ensure that <span>there is only</span> one English space between the words</h1>
+            </div>
             <!--  更改为12个输入框  =================================================================================================================================================--->
             <div ng-if="!index.isCordova">
                 <div class="addcreatecrinputp">
@@ -723,7 +725,7 @@
             </div>
 
 
-            <p class="size-14 text-center addcreatecrtruet" ng-if="!wordsC.dis()" translate>Your mnemonic words are correct. To make your wallet safe, we highly recommend you delete mnemonic words from app.</p>
+            <p class="size-14 text-center addcreatecrtruet" ng-if="!wordsC.dis()"><span translate>Your mnemonic words are correct. To make your wallet safe, </span><span translate>we highly recommend you delete mnemonic words from app.</span></p>
 
             <!--点击删除钱包-->
             <div class="addcreatecrdl">

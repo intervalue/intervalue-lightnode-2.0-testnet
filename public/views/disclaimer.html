@@ -21,10 +21,10 @@
 	</div>
 
 	<div class="ontent-setup-disclaimer p20b adddsmain" >
-		<h4 class="m0 center adddsh" ng-show="!index.hasProfile">
-			<img src="./img/INVE.png" alt="icon">
-			<div translate>InterValue Terms of Use</div>
-		</h4>
+		<div class="m0 center adddsh" ng-show="!index.hasProfile">
+			<h1 translate>InterValue</h1>
+			<h2 translate>InterValue Terms of Use</h2>
+		</div>
 		<div class="adddsb">
 			<div class="adddsbtext">
 				<ul>
@@ -49,7 +49,7 @@
 			</div>
 
 			<!-- 初次配置显示同意按钮 -->
-			<div ng-show="!agreed" >
+			<div ng-show="!agreed" class="adddsbagreebtn">
 				<button class="#236d97 round tiny adddsbagree"  ng-click="agree()" ng-disabled="loading" translate>
 					Agree
 				</button>

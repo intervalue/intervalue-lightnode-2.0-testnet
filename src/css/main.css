@@ -157,13 +157,14 @@ h4.title a {
 
 
 .preferences ul {
-  font-size:14px;
+  font-size: 14px;
   background: white;
+  padding: 0 0 0 20px;
 }
 
 .preferences ul li, ul.whopays li, ul.profile-entries li {
-  padding:13px 20px;
-  border-bottom: 1px solid #E9E9EC;
+  padding: 13px 20px 13px 0;
+  border-bottom: 1px solid #EDEEF0;
 }
 
 #send ul.whopays li:first-child {
@@ -308,7 +309,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
 
 .page, .main {
   height:100%;
-  background-color: #fff;
+  background-color: #F9FAFC;
 }
 
 .button.small.side-bar {
@@ -325,7 +326,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
 }
 
 .main {
-  background-color: #eceff6;
+  background-color: #F9FAFC;
   padding: 0 0 58px 0;
   position: relative;
 }

@@ -97,7 +97,7 @@
 
 
                 <!-- banner背景图 -->
-                <div class="amount" style="padding: 0 8px;background-color:#236d97;margin-top: -20px;min-height: 150px;height:auto;"
+                <div class="amount" style="padding: 0 8px;background-color:#3B3B3B;margin-top: -20px;min-height: 150px;height:auto;"
                      ng-swipe-right="index.suspendSwipe()">
                     <div ng-if="!index.anyOnGoingProcess || 1" style="position: relative;">
                         <div ng-show="index.updateError" ng-click='index.openWallet(); index.updateTxHistory()'>
@@ -116,13 +116,13 @@
                                 ng-show="!index.updateError && index.walletScanStatus != 'error'"
                                 ng-repeat="balance in index.arrBalances|filter:'base'">
                                 <!-- 过滤base页 -->
-                                <div style="padding:0;margin-top:14px;" ng-click='index.updateAll(); index.updateHistoryFromNetwork()'>
+                                <div style="padding:0;" ng-click='index.updateAll(); index.updateHistoryFromNetwork()'>
                                     <!-- banner显示金额信息 -->
-                                    <strong style="font-size: 50px;color: #FFFFFF;word-break: break-all;line-height: 56px;" ng-if="balance.totalStr ">
+                                    <strong style="font-size: 45px;color: #FFFFFF;word-break: break-all;line-height: 56px;" ng-if="balance.totalStr ">
                                         {{balance.totalStrWithoutUnit}}
                                     </strong>
                                     <div>
-                                        <span style="font-size: 26px;color: #5ba6d0">INVE</span>
+                                        <span style="font-size: 18px;color: #FFF">INVE</span>
                                     </div>
                                     <!-- 资产数额字符串为空，则直接显示资产金额本地字符串 -->
                                     <div ng-if="!balance.totalStr">
@@ -945,7 +945,7 @@
                 <div class="chatbgcolorheight ng-scope"></div>
                 <ul class="no-bullet m0 ">
                     <!-- 设备名 -->
-                    <!--<li class="settintlipaddingl clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesDeviceName')">-->
+                    <!--<li class="clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesDeviceName')">-->
                         <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
                             <!--<img src="./img/shebei-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
                             <!--<div translate style="font-size: 16px;">Device name</div>-->
@@ -956,7 +956,7 @@
                         <!--</div>-->
                     <!--</li>-->
                     <!-- Hub -->
-                    <!--<li class="settintlipaddingl clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesHub')">-->
+                    <!--<li class="clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesHub')">-->
                         <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
                             <!--<img src="./img/hub-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
                             <!--<div translate style="font-size: 16px;">Hub</div>-->
@@ -967,7 +967,7 @@
                         <!--</div>-->
                     <!--</li>-->
                     <!-- TOR匿名　ng-show="!index.isCordova" -->
-                    <!--<li ng-show="!index.isCordova"  class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.preferencesTor')">-->
+                    <!--<li ng-show="!index.isCordova"  class=" ng-click="$root.go('preferencesGlobal.preferencesTor')">-->
                         <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">-->
                             <!--<span translate>{{prefGlobal.torEnabled?'On':'Off'}}</span>-->
                             <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
@@ -978,15 +978,12 @@
                         <!--</div>-->
                     <!--</li>-->
                     <!-- 语言设定 -->
-                    <li class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.preferencesLanguage')">
+                    <li ng-click="$root.go('preferencesGlobal.preferencesLanguage')">
                         <div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">
                             {{prefGlobal.currentLanguageName|translate}}
                             <img src="./img/settinglyou.png" class="settingarrowl right" >
                         </div>
-                        <div >
-                            <div style="float: left;padding-right: 15px;"><img src="./img/yuyan-icon@3x.png" width="20"/></div>
-                            <div translate style="font-size: 16px;">Language</div>
-                        </div>
+                        <div translate class="addwsltitle">Language</div>
                     </li>
                     <!-- INVE数量单位 -->
                     <!--<li ng-click="$root.go('preferencesGlobal.preferencesUnit')">-->
@@ -1017,9 +1014,9 @@
                 <!--</li>-->
                 <!--</ul>-->
                 <!-- 收款地址 -->
-                <h4 translate class="settinth4titlel" style="background: #ECEFF6;">Receiving address</h4>
+                <h4 translate class="settinth4titlel">Receiving address</h4>
                 <ul class="no-bullet m0 enable_text_select">
-                    <li class="settintlipaddingl">
+                    <li>
                         <div style="word-break: break-all;font-size: 14px;">{{index.shared_address || (home.generatingAddress ? '...' :
                             home.addr[index.walletId])}}</div>
                     </li>
@@ -1027,44 +1024,41 @@
                 <!-- 设备地址 -->
                 <!--<h4 translate class="settinth4titlel" style="background: #ECEFF6;">Device address</h4>-->
                 <!--<ul class="no-bullet m0 enable_text_select">-->
-                    <!--<li class="settintlipaddingl">-->
+                    <!--<li">-->
                         <!--<div style="word-break: break-all;font-size: 14px;">{{prefGlobal.myDeviceAddress}}</div>-->
                     <!--</li>-->
                 <!--</ul>-->
 
                 <!--支出限制（密码保护）-->
-                <h4 translate class="settinth4titlel" style="background: #ECEFF6;">Safety Payment</h4>
+                <h4 translate class="settinth4titlel">Safety Payment</h4>
                 <ul class="no-bullet m0">
-                    <li class="settintlipaddingl">
+                    <li>
                         <switch id="network-name" name="encrypt"  ng-model="encrypt" style="margin-top:2px !important;" class="green right settingpopbtnl" ></switch>
-                        <div ><div style="float: left;padding-right: 18px;margin-top: -5px;"><img style="width: 18px;height: 24px;margin-top: 4px;" src="./img/mima-icon@3x.png" width="18"/></div>
-                            <div translate style="font-size: 16px;">Request Password</div></div>
+                        <div translate class="addwsltitle">Request Password</div>
                     </li>
                 </ul>
                 <!-- 备份钱包口令 -->
-                <h4 translate class="settinth4titlel" style="background: #ECEFF6;">Backups</h4>
-                <ul class="no-bullet m0">
-                    <li class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.backup')" ng-hide="index.isPrivKeyExternal">
-                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
-        <span class="text-warning" ng-show="index.needsBackup">
-          <i class="fi-alert"></i><span translate>Still not done</span>
-        </span>
-                            <img src="./img/settinglyou.png" class="settingarrowl right" >
-                        </div>
-                        <div ><div style="float: left;padding-right: 15px;"><img src="./img/yaochi-icon@3x.png" width="20"/></div>
-                            <div translate style="font-size: 16px;">Backup wallet seed</div></div>
-                    </li>
-                </ul>
+                <!--<h4 translate class="settinth4titlel">Backups</h4>-->
+                <!--<ul class="no-bullet m0">-->
+                    <!--<li ng-click="$root.go('preferencesGlobal.backup')" ng-hide="index.isPrivKeyExternal">-->
+                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
+                            <!--<span class="text-warning" ng-show="index.needsBackup">-->
+                                <!--<i class="fi-alert"></i><span translate>Still not done</span>-->
+                            <!--</span>-->
+                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
+                        <!--</div>-->
+                        <!--<div translate class="addwsltitle">Backup wallet seed</div>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <!-- 使用口令恢复钱包 -->
-                <ul class="no-bullet m0">
-                    <li class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">
-                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
-                            <img src="./img/settinglyou.png" class="settingarrowl right" >
-                        </div>
-                        <div ><div style="float: left;padding-right: 15px;"><img src="./img/huifu-icon@3x.png" width="20"/></div>
-                            <div translate style="font-size: 16px;">Recovery from seed</div></div>
-                    </li>
-                </ul>
+                <!--<ul class="no-bullet m0">-->
+                    <!--<li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">-->
+                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
+                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
+                        <!--</div>-->
+                        <!--<div translate class="addwsltitle">Recovery from seed</div>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <!-- 完整备份钱包文件 -->
                 <!--<ul class="no-bullet m0">-->
                 <!--<li ng-click="$root.go('preferencesGlobal.export')" ng-hide="index.isPrivKeyExternal">-->
@@ -1084,13 +1078,12 @@
                 <!--</li>-->
                 <!--</ul>-->
                 <!-- 关于InterValue -->
-                <div class="chatbgcolorheight ng-scope" style="background: #ECEFF6;"></div>
+                <div class="chatbgcolorheight ng-scope"></div>
                 <ul class="no-bullet m0">
-                    <li class="settintlipaddingl"  ng-click="$root.go('preferencesGlobal.preferencesAbout')">
+                    <li ng-click="$root.go('preferencesGlobal.preferencesAbout')">
                         <img src="./img/settinglyou.png" class="settingarrowl right" style="margin-right: -7px;">
                         <!--<i class="icon-arrow-right3 size-24 right text-gray settintcolorl"></i>-->
-                        <div ><div style="float: left;padding-right: 15px;"><img src="./img/guanyu-icon@3x.png" width="20"/></div>
-                            <div translate style="font-size: 16px;">About INVE</div></div>
+                        <div translate class="addwsltitle">About INVE</div>
                     </li>
                 </ul>
             </div>

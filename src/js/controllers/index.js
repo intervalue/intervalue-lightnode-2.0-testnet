@@ -823,13 +823,8 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 var el = angular.element(document.querySelector('.tab-in.tab-view'));
                 el.removeClass('tab-in').addClass('tab-out');
                 var old = document.getElementById('menu-' + self.tab);
-                var oldimg = document.getElementById('menuimg-' + self.tab);
-                var chatimg = document.getElementById('menuimg-chat');
                 if (old) {
                     old.className = '';
-                }
-                if (oldimg) {
-                    oldimg.src= './img/mmtab'+self.tab+'.png';
                 }
             }
 
@@ -837,13 +832,8 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 var el = angular.element(document.getElementById(tab));
                 el.removeClass('tab-out').addClass('tab-in');
                 var newe = document.getElementById('menu-' + tab);
-                var neweimg = document.getElementById('menuimg-' + tab);
-                var chatimg = document.getElementById('menuimg-chat');
                 if (newe) {
                     newe.className = 'active';
-                }
-                if (neweimg) {
-                    neweimg.src= './img/activemmtab'+tab+'.png';
                 }
             }
 
