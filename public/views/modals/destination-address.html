@@ -5,12 +5,10 @@
         <!-- 左区 -->
         <section class="left-small"  style="font-size: 16px!important; color: #fff!important;">
             <a ng-show="!editAddressbook && !addAddressbookEntry" ng-click="cancel()" class="chatpaddingleffi">
-                <img src="./img/chatbackstate.png" style="width: 16px !important;height: 16px !important;margin-top: -3px  !important;margin-left: 3px  !important;margin-right: -1px  !important;">
-                <span  style="color: #fff" translate>Back</span>
+                <img src="./img/chatbackstate.png" class="chatbackstate">
             </a>
             <a ng-show="addAddressbookEntry" ng-click="newAddress = ''; toggleAddAddressbookEntry()" class="chatpaddingleffi">
-                <img src="./img/chatbackstate.png" style="width: 16px !important;height: 16px !important;margin-top: -3px  !important;margin-left: 3px  !important;margin-right: -1px  !important;">
-                <span l style="color: #fff" translate>Back</span>
+                <img src="./img/chatbackstate.png" class="chatbackstate">
             </a>
         </section>
 
@@ -22,13 +20,13 @@
         </section>
 
         <!-- 右区：编辑、完成、二维码 -->
-        <section class="right-small" ng-show="!selectedWalletsOpt"  style="font-size: 16px!important; color: #fff!important;">
+        <section class="right-small" ng-show="!selectedWalletsOpt" >
             <!-- 非编辑状态且不是添加地址时，显示编辑功能 -->
-            <a ng-show="!editAddressbook && !addAddressbookEntry" href class="chatpaddingleffi" ng-click="toggleEditAddressbook()" style="color: #fff;">
+            <a ng-show="!editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()" style="color: #3B3B3B;font-size:18px;">
                 <span  translate style="margin-right: 15px;">Edit</span>
             </a>
             <!-- 编辑状态且不是添加地址时，显示完成功能 -->
-            <a ng-show="editAddressbook && !addAddressbookEntry" href class="chatpaddingleffi" ng-click="toggleEditAddressbook()" style="color: #fff; margin-right: 15px;">
+            <a ng-show="editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()" style="color: #3B3B3B; margin-right: 15px;font-size:18px;">
                 <span translate>Done</span>
             </a>
             <!-- 添加地址页面时，显示扫一扫功能 -->
@@ -78,7 +76,7 @@
             <!-- 非添加地址页面时，显示收款地址列表 -->
             <ul ng-show="!addAddressbookEntry" class="no-bullet m0 chattranaddaddr" ng-init="listEntries()">
                 <!-- 收款地址列表 -->
-                <li class="line-b" ng-repeat="(addr, label) in list" style="background-color: #fff;padding:4px 18px;">
+                <li class="line-b" ng-repeat="(addr, label) in list" style="background-color: #fff;padding:4px 0;">
                     <div ng-click="selectAddressbook(addr)">
                         {{label}}
                         <div class="size-10 text-gray ellipsis">{{addr}}</div>
@@ -87,7 +85,7 @@
                     <a ng-show="selectedAddressbook[addr]" class="removeAddressbook" ng-click="remove(addr)" translate>Remove</a>
                     <!-- 编辑状态，则可选定地址 -->
                     <a class="selectAddressbook" ng-show="editAddressbook"
-                       ng-click="remove(addr)" style="float: right;position: relative;top: -48px;left: 21px;" >
+                       ng-click="remove(addr)" >
                         <img src="img/lajitong-icon@3x.png" width="20" >
                     </a>
                     <!--ng-click="toggleSelectAddressbook(addr)" style="float: right;position: relative;top: -48px;left: 21px;" >-->
@@ -153,8 +151,8 @@
                         <!--style="border: 1px solid #236d97;color: #236d97;height: 44px;padding: 9px">-->
                         <!--</div>-->
                         <div class="dealingdeleterecordbtn">
-                            <input type="submit" class="button round dealingsave"  value="{{'Save'|translate}}"  ng-disabled="!addressbookForm.$valid"  ng-click="newAddress = ''; add(addressbook)">
-                            <input type="button" class="button outline dark-gray round dealingcancer" ng-click="newAddress = ''; toggleAddAddressbookEntry()" value="{{'Cancel'|translate}}">
+                            <button type="submit" class="addblackbutton50"  ng-disabled="!addressbookForm.$valid"  ng-click="newAddress = ''; add(addressbook)" translate>Save</button>
+                            <button type="button" class="addwhitebutton50" ng-click="newAddress = ''; toggleAddAddressbookEntry()" translate>Cancel</button>
                         </div>
                     </div>
                 </form>

@@ -174,7 +174,7 @@
                 </div> <!-- amount -->
 
                 <!-- 交易记录添加到home首页 修改代码 -->
-                <div style="width:100%;overflow: auto;height: 375px;background-color: #eceff6">
+                <div style="width:100%;overflow: auto;height: 375px;">
 
                     <!--判断isCordova 电脑端   电脑端添加init初始化交易历史  -->
                     <div ng-if="!index.isCordova" id="history" class="history" ng-init="index.updateTxHistory()">
@@ -824,9 +824,8 @@
                                 <div class=""
                                      ng-class="{'small-6 medium-6 large-6':!home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)}"
                                      style="width:100%;">
-                                    <button type="submit" class=" black round "
+                                    <button type="submit" class="addblackbutton"
                                             ng-disabled="home.current_payment_key || sendPaymentForm.$invalid || home.blockUx || index.isOffline || !index.isEnoughSignersSelected()"
-                                            style="width:100%; height: 45px;padding: 0;opacity: 1;background-color: #236d97; "
                                             translate>
                                         Send
                                     </button>
@@ -1059,14 +1058,14 @@
                     </li>
                 </ul>
                 <!-- 使用口令恢复钱包 -->
-                <ul class="no-bullet m0">
-                    <li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">
-                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
-                            <img src="./img/settinglyou.png" class="settingarrowl right" >
-                        </div>
-                        <div translate class="addwsltitle">Recovery from seed</div>
-                    </li>
-                </ul>
+                <!--<ul class="no-bullet m0">-->
+                    <!--<li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">-->
+                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
+                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
+                        <!--</div>-->
+                        <!--<div translate class="addwsltitle">Recovery from seed</div>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <!-- 完整备份钱包文件 -->
                 <!--<ul class="no-bullet m0">-->
                 <!--<li ng-click="$root.go('preferencesGlobal.export')" ng-hide="index.isPrivKeyExternal">-->

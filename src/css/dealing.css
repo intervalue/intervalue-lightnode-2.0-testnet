@@ -115,7 +115,7 @@
 
 
 .dealingdeleterecordbtn{width:100%;padding:0 18px;overflow:hidden;}
-.dealingdeleterecordbtn input{height: 45px;line-height: 45px;width:49% !important;padding:0;margin:0;}
-.dealingdeleterecordbtn .dealingsave{background-color: #246d98 !important;color:#fff !important;float:right;}
-.dealingdeleterecordbtn .dealingcancer{color:#246d98 !important;border-color: #246d98 !important;background-color:#eceff5;float:left;}
-.dealingdeleterecordbtn .dealingcancer:hover, .dealingdeleterecordbtn .dealingcancer:focus{background-color: rgb(36, 109, 152) !important;    color: #fff !important;}
+/*.dealingdeleterecordbtn input{height: 45px;line-height: 45px;width:49% !important;padding:0;margin:0;}*/
+/*.dealingdeleterecordbtn .dealingsave{background-color: #246d98 !important;color:#fff !important;float:right;}*/
+/*.dealingdeleterecordbtn .dealingcancer{color:#246d98 !important;border-color: #246d98 !important;background-color:#eceff5;float:left;}*/
+/*.dealingdeleterecordbtn .dealingcancer:hover, .dealingdeleterecordbtn .dealingcancer:focus{background-color: rgb(36, 109, 152) !important;    color: #fff !important;}*/

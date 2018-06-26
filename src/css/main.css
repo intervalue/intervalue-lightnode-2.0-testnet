@@ -130,10 +130,6 @@ h4.title a {
   font-size: 12px;
 }
 
-.preferences {
-  background: #f1f3f5;
-}
-
 .preferences form {
   background: white;
   padding-top:10px;
@@ -554,6 +550,7 @@ ul.manage li {
 .p70l {padding-left: 70px;}
 .p5h {padding: 0 5px;}
 .p20h {padding: 0 20px;}
+.p18h {padding: 0 18px;}
 .p20v {padding: 20px 0;}
 .p25l {padding-left: 25px;}
 .p15 {padding:15px;}
