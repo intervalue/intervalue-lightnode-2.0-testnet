@@ -17,7 +17,7 @@
 .chatbackstate{width: 20px !important;height: 14px !important;margin-top: -2px  !important;margin-right: 4px  !important;}
 .chatacolorfff{color:#fff !important;}
 .chatacolorred{color:red !important;}
-.chattabbarhonem{font-size: 18px !important;color:#fff !important;}
+.chattabbarhonem{font-size: 18px !important;color:#3B3B3B !important;}
 .pleft18{padding-left:18px;}
 /*顶部三点*/
 .chattopdotimg{position: absolute;top: 14px;right: 18px;font-size:20px !important;cursor:pointer;z-index:0;width:18px;}
@@ -181,12 +181,12 @@
     border-radius: 26px !important;font-size: 100%;}
 
 /*首页点进去的交易页面*/
-.ptranliflex{display: flex;padding-left: 18px;}
+.ptranliflex{padding: 10px 18px;}
 .ptranliflex img{margin-top:14px;}
 .ptranliflex .pintranliflex{display: flex;padding:14px 0;padding-right:18px;width:100%;}
-.ptranliflex .text-gray{flex-shrink:0;margin-right: 4px;}
+.ptranliflex .addtxltitle{font-size: 12px;color:#999999;}
 .ptranleftimg{width:20px;height:24px;flex-shrink:0;margin-right: 10px;}
-.tranflexper{margin-left: 10px;width:100%;text-align: right;flex: 1;word-break: break-all;color:#9d9d9d;}
+.tranflexper{width:100%;text-align: left;word-break: break-all;color:#3B3B3B;font-size: 12px;}
 
 /*交易二维码页面*/
 .chatamounttranqr{margin:0 18px;background-color:#fff;}
@@ -198,6 +198,8 @@
 .chatamounttranqrr .addreceiveimgpr{position: relative;height:34px;}
 .chatamounttranqrr .addreceiveimgpr .addreceiveimg{width: 50px;height:50px;position: absolute;top:-25px;left: 50%;transform: translateX(-50%);background: #ffffff;border-radius:50%;box-shadow:0px 0px 5px 0px rgba(179,179,179,0.5);text-align: center;
     padding-top: 8px;box-sizing: border-box;}
+.chatamounttranqrr .addreceiveimgpr .addcusamountimg{width: 50px;height:50px;position: absolute;top:-25px;left: 50%;transform: translateX(-50%);background: #ffffff;border-radius:50%;box-shadow:0px 0px 5px 0px rgba(179,179,179,0.5);text-align: center;
+    padding-top: 11px;box-sizing: border-box;}
 .chatamounttranqrr .amounttranqrtitler{color: #999999;text-align: center;font-size:14px;}
 .chatamounttranqrr .code{padding-top: 36px;text-align: center;}
 
@@ -393,9 +395,13 @@ padding: 0;border-radius: 3px;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .addcreatedob p{font-size: 13px;color: #bab7b9;padding:10px 20px;margin-bottom:0;}
 /*inve2.0 walletHome.html page setting*/
 .addwsltitle{font-size: 16px;font-weight: bold;color:#3B3B3B;}
-
-
-
+/*inve2.0 tx-details.html page setting*/
+.addtxdmodal{padding:0 18px;}
+.receivedheadermodal{width: 100%;background-color: #57C17B;padding: 18px 18px 7px 18px;position: relative;margin-top: 20px;box-shadow:0px 0px 16px 0px rgba(87,193,123,0.5);color:#fff;}
+.sentheadermodal{width: 100%;background-color: #EA6C4C;padding: 18px 18px 7px 18px;position: relative;margin-top: 20px;box-shadow:0px 0px 18px 0px rgba(234,108,76,0.51);color:#fff;}
+.receivedheadermodal .addmodalamount,.sentheadermodal .addmodalamount{display:inline-block;word-break: break-all;margin-bottom: 10px;}
+/*inve2.0 receive.html*/
+.addcodeh4{display: inline-block;margin: 0;color:#a0a0a0;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
 
 
 

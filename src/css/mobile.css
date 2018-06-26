@@ -174,11 +174,12 @@ _:-ms-fullscreen, :root .main {
 .amount {
   width: 100%;
   text-align: center;
-  padding: 0rem 1rem 0.5rem 1rem;
   margin-bottom: 0px;
   color: #fff;
-  background-color: #236d97;
-  height: 98px;
+  padding: 0 8px;
+  background-color:#3B3B3B;
+  min-height: 150px;
+  height:auto;
 }
 
 .amount a{

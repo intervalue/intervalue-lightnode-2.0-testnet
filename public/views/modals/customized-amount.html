@@ -22,7 +22,7 @@
 	<div class="row large-12" ng-show="amountInSmallestUnits" >
 		<div class="chatamounttranqr chatamounttranqrr">
 			<div class="size-14 addreceiveimgpr">
-				<div class="addreceiveimg"><img src="./img/addreceivingamount.png" /></div>
+				<div class="addcusamountimg"><img src="./img/addreceivingamount.png" /></div>
 			</div>
 			<div class="amounttranqrtitler" ><span translate>Amount</span>：<span>{{_customAmount}}</span>&nbsp;&nbsp;INVE</div>
 
@@ -51,7 +51,7 @@
 		</div>
 
 		<div class="text-center" >
-			<h4 ng-class="{'enable_text_select': !index.isCordova}" class="size-12" style="display: inline-block;margin: 0;color:#3B3B3B;padding: 26px 10px;margin-top: 10px;">
+			<h4 ng-class="{'enable_text_select': !index.isCordova}" class="addcodeh4">
 				{{index.shared_address || (home.generatingAddress ? '...' :
 				home.addr[index.walletId])}}
 			</h4>

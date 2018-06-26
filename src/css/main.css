@@ -360,6 +360,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
   border-radius: 2px;
   background: #F2F5F8;
   margin: 0 auto;
+  margin-bottom:20px;
 }
 
 .box-notification .box-icon {
@@ -656,12 +657,6 @@ input[type=number]::-webkit-outer-spin-button {
 
 .tx-proposal i.active {
   background-color: #A02F23;
-}
-
-.header-modal {
-  width: 100%;
-  padding: 0.8rem;
-  position: relative;
 }
 
 .label {

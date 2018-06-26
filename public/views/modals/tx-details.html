@@ -1,9 +1,9 @@
-<nav class="tab-bar" style="background-color: #246d98">
+<nav class="tab-bar" style="background-color: #fff">
   <section class="left-small">
     <a class="chatpaddingleffi" ng-click="cancel()">
       <!--<i class="icon-arrow-left3 icon-back"></i>-->
       <!--<span class="text-back" translate>Back</span>-->
-      <img src="./img/chatbackstate.png" class="chatbackstate"><span translate class="chatacolorfff">Back</span>
+      <img src="./img/chatbackstate.png" class="chatbackstate">
     </a>
   </section>
   <section class="middle tab-bar-section">
@@ -13,12 +13,26 @@
   </section>
 </nav>
 
-<div class="modal-content fix-modals-touch">
-  <div class="header-modal text-center enable_text_select" style="background-color: #FFFFFF;padding:18px;" >
+<div class="modal-content fix-modals-touch addtxdmodal">
+  <div class="text-center enable_text_select receivedheadermodal" ng-if="btx.action == 'received'">
     <div class="size-42" ng-show="btx.action != 'invalid'">
-      <span style="display:inline-block;word-break: break-all;" ng-if="btx.action == 'received'">+{{btx.amountTx}}<span style="font-size: 22px;color: #767676">&nbsp;&nbsp;INVE</span></span>
-      <span style="display:inline-block;word-break: break-all;" ng-if="btx.action == 'sent'">-{{btx.amountTx}}<span style="font-size: 22px;color: #767676">&nbsp;&nbsp;INVE</span></span>
-
+      <div class="addmodalamount">+{{btx.amountTx}}</div>
+      <div class="size-14">INVE</div>
+      <!--<div class="size-14" ng-if="btx.asset === 'base' && exchangeRates.GBYTE_USD">
+          ≈ {{ btx.action == 'sent' ? '-' : '+'}} ${{ (btx.amount * exchangeRates.GBYTE_USD / 1e9).toLocaleString([], {maximumFractionDigits: 2}) }}
+      </div>-->
+      <!--<div class="size-14" ng-if="btx.asset === BLACKBYTES_ASSET && exchangeRates.GBB_USD">-->
+      <!--≈ {{ btx.action == 'sent' ? '-' : '+'}} ${{ (btx.amount * exchangeRates.GBB_USD / 1e9).toLocaleString([], {maximumFractionDigits: 2}) }}-->
+      <!--</div>-->
+    </div>
+    <div class="size-42" ng-show="btx.action == 'invalid'">
+      -
+    </div>
+  </div>
+  <div class="text-center enable_text_select sentheadermodal" ng-if="btx.action == 'sent'">
+    <div class="size-42" ng-show="btx.action != 'invalid'">
+      <div class="addmodalamount">-{{btx.amountTx}}</div>
+      <div class="size-14">INVE</div>
       <!--<div class="size-14" ng-if="btx.asset === 'base' && exchangeRates.GBYTE_USD">
           ≈ {{ btx.action == 'sent' ? '-' : '+'}} ${{ (btx.amount * exchangeRates.GBYTE_USD / 1e9).toLocaleString([], {maximumFractionDigits: 2}) }}
       </div>-->
@@ -33,12 +47,10 @@
   <div class="chatbgcolorheight"></div>
   <!--  <h4 class="title m0" translate>Details</h4>-->
 
-  <ul class="no-bullet size-14 m0" style="background-color: #FFFFFF" >
+  <ul class="no-bullet size-14 m0" style="background-color: #FFFFFF;box-shadow:0px 0px 3px 0px rgba(0,0,0,0.12);user-select:text;-webkit-user-select:text;" >
 
     <li ng-if="!btx.hasMultiplesOutputs && btx.addressTo && btx.addressTo != 'N/A'" class="line-b pleft18 oh ptranliflex" ng-click="copyAddress(btx.addressTo)">
-      <!--<i class="iconfont icon-qianbao" style="color: #e676b3;font-size: 16px"></i>-->
-      <img class="ptranleftimg" src="./img/tranto.png" />
-      <span class="text-gray" translate>To</span>
+      <span class="addtxltitle" translate>To</span>
       <!--<span class="right">-->
       <!--<span ng-if="btx.merchant">-->
       <!--<span ng-show="btx.merchant.pr.ca"><i class="fi-lock color-greeni"></i> {{btx.merchant.domain}}</span>-->
@@ -49,18 +61,18 @@
       <!--<contact ng-show="!btx.labelTo" class="enable_text_select" style="color: #afadad" address="{{btx.addressTo}}"></contact>-->
       <!--</span>-->
       <!--</span>-->
-      <span ng-if="btx.merchant" class="tranflexper">
+      <div ng-if="btx.merchant" class="tranflexper">
         <span ng-show="btx.merchant.pr.ca">{{btx.merchant.domain}}</span>
         <span ng-show="!btx.merchant.pr.ca">{{btx.merchant.domain}}</span>
-      </span>
-      <span ng-if="!btx.merchant" class="tranflexper">
+      </div>
+      <div ng-if="!btx.merchant" class="tranflexper">
         <span ng-show="btx.labelTo">{{btx.labelTo}}</span>
         <contact ng-show="!btx.labelTo" class="enable_text_select" style="color: #afadad" address="{{btx.addressTo}}"></contact>
-      </span>
+      </div>
     </li>
 
     <li ng-if="btx.textAddress" class="line-b pleft18 oh ptranliflex" ng-click="copyAddress(btx.textAddress)">
-      <span class="text-gray" translate>To email</span>
+      <span class="addtxltitle" translate>To email</span>
       <span class="right">
         <contact class="enable_text_select" address="{{btx.textAddress}}"></contact>
       </span>
@@ -68,7 +80,7 @@
 
     <li ng-show="btx.hasMultiplesOutputs" class="line-b pleft18 oh ptranliflex"
         ng-click="showMultiplesOutputs = !showMultiplesOutputs">
-      <span class="text-gray" translate>Recipients</span>
+      <span class="taddtxltitle" translate>Recipients</span>
       <span class="right">{{btx.recipientCount}}
         <i ng-show="showMultiplesOutputs" class="icon-arrow-up3 size-24"></i>
         <i ng-show="!showMultiplesOutputs" class="icon-arrow-down3 size-24"></i>
@@ -76,14 +88,12 @@
     </li>
 
     <li ng-if="btx.action == 'received'" class="line-b pleft18 row collapse ptranliflex">
-      <img class="ptranleftimg" style="width:20px;" src="./img/tranfromtwo.png" />
-      <span  class="text-gray" translate>From</span>
+      <span  class="addtxltitle" translate>From</span>
       <div ng-repeat="address in btx.arrPayerAddresses" class="right tranflexper">{{address}}</div>
     </li>
 
     <li ng-if="btx.action == 'received'" class="line-b pleft18 row collapse ptranliflex">
-      <img class="ptranleftimg" style="width:20px;" src="./img/tranto.png" />
-      <span  class="text-gray" translate>To</span>
+      <span  class="addtxltitle" translate>To</span>
       <div class="right tranflexper">{{btx.my_address}}</div>
     </li>
 
@@ -93,7 +103,7 @@
     </div>
 
     <li ng-show="btc.message" class="line-b pleft18 oh ptranliflex">
-      <span class="text-gray" translate>Note</span>
+      <span class="addtxltitle" translate>Note</span>
       <span class="right">{{btx.message}}</span>
     </li>
 
@@ -103,44 +113,40 @@
     </span>
     </li>
     <li ng-if="btx.time" class="line-b pleft18 oh ptranliflex">
-      <img class="ptranleftimg" style="margin-left: -2px;margin-right: 8px;width: 24px;" src="./img/trandate.png" />
-      <span class="text-gray" translate>Date</span>
-      <span class="right tranflexper">
+      <span class="addtxltitle" translate>Date</span>
+      <div class="right tranflexper">
       <time>{{ btx.time * 1000 | amDateFormat:'MM/DD/YYYY HH:mm a'}}</time>
       <time>({{ btx.time * 1000 | amTimeAgo}})</time>
-    </span>
+    </div>
     </li>
     <li class="line-b pleft18 ptranliflex" ng-show="btx.action != 'received'">
-      <img class="ptranleftimg" style="width: 24px;height: 24px;margin-right: 8px;margin-left: -2px;" src="./img/tranfee.png" />
-      <span class="text-gray" translate>Fee</span>
-      <span class="right tranflexper">{{btx.feeStr }}</span>
+      <span class="addtxltitle" translate>Fee</span>
+      <div class="right tranflexper">{{btx.feeStr }}</div>
     </li>
     <li class="line-b pleft18 row collapse ptranliflex">
-      <img class="ptranleftimg" style="height:20px;" src="./img/tranunit.png" />
-      <span class="text-gray">Unit</span>
+      <span class="addtxltitle">Unit</span>
       <!--<div class="right  enable_text_select tranflexper external-link"><a ng-click="openInExplorer()" class=" ">{{btx.unit}}</a></div>-->
       <div class="right  enable_text_select tranflexper ">{{btx.unit}}</div>
     </li>
     <li class="line-b pleft18 oh ptranliflex" ng-if="btx.message && btx.action != 'received'">
-      <span class="text-gray" translate>Note</span>
+      <span class="addtxltitle" translate>Note</span>
       <span class="right">{{btx.message}}</span>
     </li>
     <li ng-if="btx.merchant" class="line-b pleft18 oh ptranliflex">
-      <span class="text-gray" translate>Merchant message</span>
+      <span class="addtxltitle" translate>Merchant message</span>
       <span class="right">
       {{btx.merchant.pr.pd.memo}}
     </span>
     </li>
     <li ng-if="btx.time" class="line-b pleft18 oh ptranliflex">
-      <img class="ptranleftimg" style="height:20px;" src="./img/tranfinality.png" />
-      <span class="text-gray" translate>Finality</span>
+      <span class="addtxltitle" translate>Finality</span>
 
-      <span class="text-warning tranflexper" style="color:red;" ng-show="!btx.confirmations || btx.confirmations == 0" translate>
+      <div class="text-warning tranflexper" style="color:red;" ng-show="!btx.confirmations || btx.confirmations == 0" translate>
         Pending
-      </span>
-      <span class="tranflexper" ng-show="btx.confirmations" translate>
+      </div>
+      <div class="tranflexper" ng-show="btx.confirmations" translate>
         Confirmed
-      </span>
+      </div>
 
     </li>
 

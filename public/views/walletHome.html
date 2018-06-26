@@ -97,7 +97,7 @@
 
 
                 <!-- banner背景图 -->
-                <div class="amount" style="padding: 0 8px;background-color:#3B3B3B;min-height: 150px;height:auto;"
+                <div class="amount" style=""
                      ng-swipe-right="index.suspendSwipe()">
                     <div ng-if="!index.anyOnGoingProcess || 1" style="position: relative;">
                         <div ng-show="index.updateError" ng-click='index.openWallet(); index.updateTxHistory()'>
@@ -130,7 +130,7 @@
                                         <div class="of-asset">of {{balance.asset}}</div>
                                     </div>
                                     <!-- 确认中，则显示确认中资产数额字符串 -->
-                                    <div class="size-14 secondrow" ng-if="balance.pending" style="background-color: #194c6a;height:24px;  width:100%;margin-top: 17px; ">
+                                    <div class="size-14 secondrow" ng-if="balance.pending" style="background-color: #3B3B3B;height:24px;  width:100%;margin-top: 17px; ">
                                         <span translate>Including pending confirmation</span>:
                                         <span ng-if="balance.pendingStr">{{balance.pendingStr}}</span>
                                         <span ng-if="!balance.pendingStr">{{balance.pending.toLocaleString()}}</span>
