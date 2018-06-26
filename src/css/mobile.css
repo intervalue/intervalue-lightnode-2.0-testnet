@@ -95,7 +95,7 @@ _:-ms-fullscreen, :root .main {
 }
 
 .tab-bar {
-  background: #246d98;
+  background: #FFF;
   z-index: 5;
 }
 
@@ -644,7 +644,7 @@ to prevent collapsing during animation*/
   top: 45px;
   padding-bottom: 33px;
   -webkit-transform: translate3d(0,0,0);
-  background: #eceff6;
+  background: #F9FAFC;
 }
 
 body.modal-open {

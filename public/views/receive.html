@@ -68,7 +68,7 @@
 
 			</div>
 			<!-- 分享地址 -->
-			<div ng-show="home.addr[index.walletId]" style="margin: 24px 18px 12px 18px;color:#3B3B3B;">
+			<div ng-show="home.addr[index.walletId] && index.isCordova" style="margin: 24px 18px -8px 18px;color:#3B3B3B;">
 				<!--<div class="m10t text-center" ng-show="index.isCordova">-->
 				<!--<div class="m10t text-center" ng-show="true">-->
 				<!--<span class="button outline dark-gray tiny round"-->
@@ -98,14 +98,14 @@
 
 		<div class="text-center p20h">
 
-			<div ng-show="!agreed" >
-				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px;" class="size-14"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
+			<div ng-show="!agreed && index.isCordova" >
+				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px;margin:0;margin-top:20px;" class="size-14"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
 					Share address
 				</button>
 			</div>
 
 			<div ng-show="!agreed" >
-				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #FFFFFF;border: 1px solid #3B3B3B;color: #3B3B3B;border-radius: 3px;" class="m19t size-14"  ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
+				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #FFFFFF;border: 1px solid #3B3B3B;color: #3B3B3B;border-radius: 3px;margin:0;margin-top:20px;" class="m19t size-14"  ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
 					Request a specific amount
 				</button>
 			</div>

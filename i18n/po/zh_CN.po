@@ -152,7 +152,7 @@ msgstr "此外，不要忘记删除你的口令私钥"
 #: public/views/walletHome.html:420
 #: public/views/walletHome.html:431
 msgid "Amount"
-msgstr "金额"
+msgstr "数额"
 
 #: public/views/modals/vote.html:22
 msgid "Answer:"

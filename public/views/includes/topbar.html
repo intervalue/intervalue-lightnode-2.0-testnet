@@ -1,5 +1,5 @@
 <!-- 顶部导航栏视图 -->
-<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #fff;" ng-click="hiderightpop($event)">
+<nav ng-controller="topbarController as topbar" class="tab-bar"  ng-click="hiderightpop($event)">
     <!-- 左区 -->
     <section class="left-small">
         <a ng-show="goBackToState"
@@ -48,8 +48,8 @@
 
     <!-- 中间区 -->
     <section class="middle tab-bar-section">
-        <h1 class="title ellipsis"
-            style="color: #3B3B3B;font-size:18px;">
+        <h1 class="title ellipsis size-18"
+            style="color: #3B3B3B;">
             <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>
             <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
                   <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">
