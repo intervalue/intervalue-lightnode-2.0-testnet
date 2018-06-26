@@ -88,8 +88,6 @@
     bottom: 0;
     left: 14px;}
 .indexbottomline:last-child:after{display:block;height:0;width:cacl(100%-14px);border-bottom:none;content: '';margin:0 auto;left:14px;}
-.last-transactions-content{border:none !important;}
-.last-transactions-content:after{display:block;height:1px;width:100%;border-bottom:1px solid #E9E9EC;content: '';margin:0 auto;    margin-top: 12px;}
 
 
 

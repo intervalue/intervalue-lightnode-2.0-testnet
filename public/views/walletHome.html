@@ -32,8 +32,8 @@
 
 <!-- 顶部导航栏 -->
 <!--<div class="topbar-container"-->
-     <!--ng-include="'views/includes/topbar.html'"-->
-     <!--ng-init="showCamera = false;">-->
+<!--ng-include="'views/includes/topbar.html'"-->
+<!--ng-init="showCamera = false;">-->
 <!--</div>-->
 
 <!-- 钱包主页面：首页、发送、接收、历史记录、会话 -->
@@ -110,13 +110,13 @@
                             <br><span translate>Tap to retry</span>
                         </div>
 
-                        <ul class="clearfix" style="margin:0;" rn-carousel-transition="hexagon" rn-carousel-index="index.assetIndex"
+                        <ul class="clearfix"  rn-carousel-transition="hexagon" rn-carousel-index="index.assetIndex"
                             rn-carousel-controls>
                             <li class="clearfix" style="position:static;" ng-click='index.onClick()'
                                 ng-show="!index.updateError && index.walletScanStatus != 'error'"
                                 ng-repeat="balance in index.arrBalances|filter:'base'">
                                 <!-- 过滤base页 -->
-                                <div style="padding:0;" ng-click='index.updateAll(); index.updateHistoryFromNetwork()'>
+                                <div class="p40b p20t" ng-click='index.updateAll(); index.updateHistoryFromNetwork()'>
                                     <!-- banner显示金额信息 -->
                                     <strong style="font-size: 45px;color: #FFFFFF;word-break: break-all;line-height: 56px;" ng-if="balance.totalStr ">
                                         {{balance.totalStrWithoutUnit}}
@@ -174,146 +174,26 @@
                 </div> <!-- amount -->
 
                 <!-- 交易记录添加到home首页 修改代码 -->
-                <div style="width:100%;overflow: auto;height: 375px;">
-
-                    <!--判断isCordova 电脑端   电脑端添加init初始化交易历史  -->
-                    <div ng-if="!index.isCordova" id="history" class="history" ng-init="index.updateTxHistory()">
-                        <div class="row m20t" ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
-                            <div class="large-12 columns">
-                                <div class="oh text-center">
+                <div class="addwhhometran">
+                    <div class="addwhhometranin bgwhite">
+                        <!--判断isCordova 电脑端   电脑端添加init初始化交易历史  -->
+                        <div ng-if="!index.isCordova" id="history" class="history p30t p30b" ng-init="index.updateTxHistory()">
+                            <div ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
+                                <div>
+                                    <div class="oh text-center">
             				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory()'>
               					<p class="size-12 m10b db text-gray" translate>Could not fetch transaction history</p>
               					<button class="outline round light-gray tiny" translate>Tap to retry</button>
             				</span>
 
-                                    <span ng-if="!index.txHistoryError" translate>
+                                        <span ng-if="!index.txHistoryError" translate>
               					No transactions yet
             				</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">
-                            <div class="columns large-12 medium-12 small-12">
-                                <div class="spinner">
-                                    <div class="rect1"></div>
-                                    <div class="rect2"></div>
-                                    <div class="rect3"></div>
-                                    <div class="rect4"></div>
-                                    <div class="rect5"></div>
-                                </div>
-                            </div>
-
-                            <div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">
-                                Initial transaction history synchronization can take some minutes for wallets with many transactions.
-                                <br/>
-                                Please stand by.
-                            </div>
-
-                            <div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">
-                                <b>{{index.txProgress}}</b>
-                                <span translate>
-							Transactions
-							<br>
-							Downloaded
-						</span>
-                            </div>
-                        </div>
-
-                        <div ng-show="index.txHistory[0]" style="padding-top: 15px;">
-
-                            <div ng-repeat="btx in index.txHistory" ng-click="home.openTxModal(btx)" class="balance.totalStr  collapse last-transactions-content" style=" position: relative;background-color: #FFFFFF;padding:14px 14px;padding-right:0;padding-bottom: 0;padding-left: 20px;">
-
-                                <!--交易的 a四种状态  -->
-                                <!--<div class="large-3 medium-3 small-3 columns">-->
-                                <div class=" small-3 columns"style="margin-left: -2px;width: 20%;">
-                                    <!--已收到  确认+收到 -->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="btx.action == 'received' && btx.confirmations"
-                                            translate>
-										Received
-									</span>
-                                    <!--已发送  确认+发送-->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="btx.action == 'sent' && btx.confirmations"
-                                            translate>
-										Sent
-									</span>
-                                    <!--收到+发送  待确认-->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="!btx.confirmations || btx.confirmations == 0"
-                                            translate>
-										Pending
-									</span>
-
-                                    <!--移动资产-->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class=" tu  radius"
-                                            ng-show="btx.action == 'moved' && btx.confirmations"
-                                            translate>
-										Moved
-									</span>
-
-                                    <!--移动资产 结束-->
-                                    <span style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;" class="label tu warning radius" ng-show="btx.action == 'invalid'" translate>
-										Invalid
-									</span>
-                                </div>
-
-
-                                <!--交易的 四种状态 对应四种符号-->
-                                <!--<div class="large-4 medium-4 small-4 columns m5r" style="padding:3px 0 0 10px;font-weight: bold;width: 140px; ">-->
-                                <div class="large-4 medium-4 small-4 columns m5r" style="width: 55%; position: absolute; left: 100px;  ">
-									<span class="size-15" style="padding-left: 3px;">
-										<span ng-if="btx.action == 'received'" style="position: absolute; left: 10px;color: #F55C01;margin-top: -1px;">+</span>
-										<span ng-if="btx.action == 'sent'" style="position: absolute; left: 10px;color: #5FB534;margin-top: -1px;font-weight:bold;">-</span>
-										<span class="size-12" ng-if="btx.action == 'invalid'" translate style="position: absolute; left: 0;"> (possible double spend) </span>
-
-                                        <!--金额-->
-										<span ng-if="btx.action == 'received'" style="margin-left: 1px;color: #F55C01;">  {{btx.amountTx}} <span style="color: #9F9F9F;margin-top: 2px;font-size: 11px;">INVE</span>  </span>
-										<span ng-if="btx.action == 'sent'" style="margin-left: 1px;color: #5FB534;">  {{btx.amountTx}} <span style="color: #9F9F9F;margin-top: 2px;font-size: 11px;">INVE</span>  </span>
-									</span>
-                                </div>
-
-                                <!--交易发生时间-->
-                                <!--<div class="large-3 medium-3 small-3 columns text-right " style=" width: 108px;">-->
-                                <div class="large-3 medium-3 small-3 columns text-right " style=" position: absolute; right: 33px; width: 110px;color: #999999;">
-                                    <div class="m5t text-gray" style="margin-right: -6px;margin-top: 5px;font-size: 12px;line-height:12px;">
-                                        <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
-                                        <span translate class="text-warning" ng-show="!btx.time && (!btx.confirmations || btx.confirmations == 0)"> Unconfirmed  </span>
                                     </div>
                                 </div>
-
-
-                                <!--右箭头-->
-                                <!--<div class="large-1 medium-1 small-1 columns text-right" style="width: 10px; float: right;">-->
-                                <div class="text-gray settintcolorl" style="float:right;">
-                                    <img src="./img/settinglyou.png" class="settingarrowl right" style="padding-top: 2px;margin-right:14px;">
-                                </div>
-
-                                <!--添加清楚浮动fix bug-->
-                                <div style="clear: both;"></div>
-                                <div class="size-15 text-gray columns m5t" ng-if="btx.message || btx.addressTo">
-                                    <div ng-show="btx.message">
-                                        <span translate>Note</span>
-                                        : {{btx.message}}
-                                    </div>
-
-                                    <!--<div ng-show="!btx.message">-->
-                                    <!--<span translate>To</span>-->
-                                    <!--: {{index.addressbook[btx.addressTo] || btx.addressTo}}-->
-                                    <!--</div>-->
-                                </div>
                             </div>
 
-                            <div class="row m20t text-center" ng-show="index.historyRendering">
+                            <div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">
                                 <div class="columns large-12 medium-12 small-12">
                                     <div class="spinner">
                                         <div class="rect1"></div>
@@ -323,159 +203,256 @@
                                         <div class="rect5"></div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row m20t">
-                                <div class="large-6 medium-6 small-6 columns" style="width: 100%;">
-                                    <button type="submit" class="button black round expand" ng-show="index.historyShowShowAll"
-                                            ng-click="index.showAllHistory()"
-                                            style="background: transparent;color: #0095ff;font-size: 12px;padding: 10px;border: 1px solid #0095ff;" translate>
-                                        Show all
-                                    </button>
+                                <div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">
+                                    Initial transaction history synchronization can take some minutes for wallets with many transactions.
+                                    <br/>
+                                    Please stand by.
                                 </div>
 
-                                <!-- 判断isCordova 电脑端下载CSV文件 -->
-                                <!--<div class="large-6 medium-6 small-6 columns" ng-show="!index.isCordova">-->
-                                <!--<input id="export_file" type="file" nwsaveas="INVE-{{index.alias || index.walletName}}.csv" accept=".csv" style="display:none">-->
-                                <!--<a class="button outline round" ng-click="index.csvHistory();" style="color: #0095ff;border: 1px solid #0095ff;font-size: 12px;padding: 10px;width: 100%;">-->
-                                <!--<i class="fi-page-export-csv"></i>-->
-                                <!--<span translate>Download CSV file</span>-->
-                                <!--</a>-->
-                                <!--</div>-->
+                                <div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">
+                                    <b>{{index.txProgress}}</b>
+                                    <span translate>
+							Transactions
+							<br>
+							Downloaded
+						</span>
+                                </div>
+                            </div>
+
+                            <div ng-show="index.txHistory[0]">
+
+                                <div ng-repeat="btx in index.txHistory" ng-click="home.openTxModal(btx)" class="balance.totalStr  collapse addwhtransrepe" >
+                                    <div style="flex-shrink:0;margin-right: 18px;">
+                                        <!--交易的 a四种状态  -->
+                                        <div>
+                                            <!--已收到  确认+收到 -->
+                                            <span
+                                                    class="tu radius addwhfourzt addwhfourztget"
+                                                    ng-show="btx.action == 'received' && btx.confirmations"
+                                                    translate>GET</span>
+                                            <!--已发送  确认+发送-->
+                                            <span
+                                                    class="tu radius addwhfourzt addwhfourztsent"
+                                                    ng-show="btx.action == 'sent' && btx.confirmations"
+                                                    translate>SENT</span>
+                                            <!--收到+发送  待确认-->
+                                            <span
+                                                    class="tu radius addwhfourzt"
+                                                    ng-show="!btx.confirmations || btx.confirmations == 0"
+                                                    translate>Pending</span>
+
+                                            <!--移动资产-->
+                                            <span
+                                                    class="tu radius addwhfourzt"
+                                                    ng-show="btx.action == 'moved' && btx.confirmations"
+                                                    translate>Moved</span>
+
+                                            <!--移动资产 结束-->
+                                            <span class="label tu warning radius addwhfourzt" ng-show="btx.action == 'invalid'" translate>Invalid</span>
+                                        </div>
+                                        <!--交易发生时间-->
+                                        <!--<div class="large-3 medium-3 small-3 columns text-right " style=" width: 108px;">-->
+                                        <div>
+                                            <div class="m5t text-gray" style="margin-right: -6px;margin-top: 5px;font-size: 12px;line-height:12px;">
+                                                <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
+                                                <span translate class="text-warning" ng-show="!btx.time && (!btx.confirmations || btx.confirmations == 0)"> Unconfirmed  </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--交易的 四种状态 对应四种符号-->
+                                    <!--<div class="large-4 medium-4 small-4 columns m5r" style="padding:3px 0 0 10px;font-weight: bold;width: 140px; ">-->
+                                    <div>
+                                        <div class="size-12" ng-if="btx.action == 'invalid'" translate> (possible double spend) </div>
+                                        <!--金额-->
+                                        <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
+                                    </div>
+
+
+
+
+                                    <!--右箭头-->
+                                    <!--<div class="large-1 medium-1 small-1 columns text-right" style="width: 10px; float: right;">-->
+                                    <!--<div class="text-gray settintcolorl" style="float:right;">-->
+                                    <!--<img src="./img/settinglyou.png" class="settingarrowl right" style="padding-top: 2px;margin-right:14px;">-->
+                                    <!--</div>-->
+
+                                    <!--添加清楚浮动fix bug-->
+                                    <div class="size-15 text-gray columns m5t" ng-if="btx.message || btx.addressTo">
+                                        <div ng-show="btx.message">
+                                            <span translate>Note</span>
+                                            : {{btx.message}}
+                                            : {{btx.message}}
+                                        </div>
+
+                                        <!--<div ng-show="!btx.message">-->
+                                        <!--<span translate>To</span>-->
+                                        <!--: {{index.addressbook[btx.addressTo] || btx.addressTo}}-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                                <div class="row m20t text-center" ng-show="index.historyRendering">
+                                    <div class="columns large-12 medium-12 small-12">
+                                        <div class="spinner">
+                                            <div class="rect1"></div>
+                                            <div class="rect2"></div>
+                                            <div class="rect3"></div>
+                                            <div class="rect4"></div>
+                                            <div class="rect5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m20t" ng-show="index.historyShowShowAll">
+                                    <button type="submit" class="addblackbutton"
+                                            ng-click="index.showAllHistory()"
+                                            translate>
+                                        Show all
+                                    </button>
+
+                                    <!-- 判断isCordova 电脑端下载CSV文件 -->
+                                    <!--<div class="large-6 medium-6 small-6 columns" ng-show="!index.isCordova">-->
+                                    <!--<input id="export_file" type="file" nwsaveas="INVE-{{index.alias || index.walletName}}.csv" accept=".csv" style="display:none">-->
+                                    <!--<a class="button outline round" ng-click="index.csvHistory();" style="color: #0095ff;border: 1px solid #0095ff;font-size: 12px;padding: 10px;width: 100%;">-->
+                                    <!--<i class="fi-page-export-csv"></i>-->
+                                    <!--<span translate>Download CSV file</span>-->
+                                    <!--</a>-->
+                                    <!--</div>-->
+                                </div>
                             </div>
                         </div>
-                        <div class="extra-margin-bottom"></div>
-                    </div>
-                    <!--判断isCordova  电脑端  结束-->
-
-
-                    <!--判断isCordova  移动端-->
-                    <div ng-if="index.isCordova" id="history" class="history">
-                        <div class="row m20t" ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
-                            <div class="large-12 columns">
-                                <div class="oh text-center">
+                        <!--判断isCordova  电脑端  结束-->
+                        <!--判断isCordova  移动端-->
+                        <div ng-if="index.isCordova" id="history" class="history p30t p30b">
+                            <div class="row m20t" ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
+                                <div class="large-12 columns">
+                                    <div class="oh text-center">
             				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory()'>
               					<p class="size-12 m10b db text-gray" translate>Could not fetch transaction history</p>
               					<button class="outline round light-gray tiny" translate>Tap to retry</button>
             				</span>
 
-                                    <span ng-if="!index.txHistoryError" translate>
+                                        <span ng-if="!index.txHistoryError" translate>
               					No transactions yet
             				</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">
-                            <div class="columns large-12 medium-12 small-12">
-                                <div class="spinner">
-                                    <div class="rect1"></div>
-                                    <div class="rect2"></div>
-                                    <div class="rect3"></div>
-                                    <div class="rect4"></div>
-                                    <div class="rect5"></div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">
-                                Initial transaction history synchronization can take some minutes for wallets with many transactions.
-                                <br/>
-                                Please stand by.
-                            </div>
+                            <div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">
+                                <div class="columns large-12 medium-12 small-12">
+                                    <div class="spinner">
+                                        <div class="rect1"></div>
+                                        <div class="rect2"></div>
+                                        <div class="rect3"></div>
+                                        <div class="rect4"></div>
+                                        <div class="rect5"></div>
+                                    </div>
+                                </div>
 
-                            <div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">
-                                <b>{{index.txProgress}}</b>
-                                <span translate>
+                                <div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">
+                                    Initial transaction history synchronization can take some minutes for wallets with many transactions.
+                                    <br/>
+                                    Please stand by.
+                                </div>
+
+                                <div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">
+                                    <b>{{index.txProgress}}</b>
+                                    <span translate>
 							Transactions
 							<br>
 							Downloaded
 						</span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div ng-show="index.txHistory[0]" style="padding-top: 15px;">
+                            <div ng-show="index.txHistory[0]" style="padding-top: 15px;">
 
-                            <div ng-repeat="btx in index.txHistory" ng-click="home.openTxModal(btx)" class="balance.totalStr  collapse last-transactions-content" style=" position: relative;background-color: #FFFFFF;padding:14px 14px;padding-right:0;padding-bottom: 0;padding-left: 20px;">
+                                <div ng-repeat="btx in index.txHistory" ng-click="home.openTxModal(btx)" class="balance.totalStr  collapse last-transactions-content" style=" position: relative;background-color: #FFFFFF;padding:14px 14px;padding-right:0;padding-bottom: 0;padding-left: 20px;">
 
-                                <!--交易的 四种状态  -->
-                                <!--<div class="large-3 medium-3 small-3 columns">-->
-                                <div class=" small-3 columns"style="margin-left: -2px;width: 20%;">
-                                    <!--已收到  确认+收到 -->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="btx.action == 'received' && btx.confirmations"
-                                            translate>
+                                    <!--交易的 四种状态  -->
+                                    <!--<div class="large-3 medium-3 small-3 columns">-->
+                                    <div class=" small-3 columns"style="margin-left: -2px;width: 20%;">
+                                        <!--已收到  确认+收到 -->
+                                        <span
+                                                style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
+                                                class="tu radius"
+                                                ng-show="btx.action == 'received' && btx.confirmations"
+                                                translate>
 										Received
 									</span>
-                                    <!--已发送  确认+发送-->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="btx.action == 'sent' && btx.confirmations"
-                                            translate>
+                                        <!--已发送  确认+发送-->
+                                        <span
+                                                style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
+                                                class="tu radius"
+                                                ng-show="btx.action == 'sent' && btx.confirmations"
+                                                translate>
 										Sent
 									</span>
-                                    <!--收到+发送  待确认-->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu radius"
-                                            ng-show="!btx.confirmations || btx.confirmations == 0"
-                                            translate>
+                                        <!--收到+发送  待确认-->
+                                        <span
+                                                style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
+                                                class="tu radius"
+                                                ng-show="!btx.confirmations || btx.confirmations == 0"
+                                                translate>
 										Pending
 									</span>
-                                <!--<div class=" small-3 columns" style="margin-left: 15px;width: 20%">-->
-                                    <!--&lt;!&ndash; 已收到 &ndash;&gt;-->
-                                    <!--<span-->
-                                            <!--style="font-size: 16px; width: 90px;padding: 6px 0;margin-left: -15px;"-->
-                                            <!--class="tu radius bg0745bc"-->
-                                            <!--ng-show="btx.action == 'received' && btx.confirmations"-->
-                                            <!--translate>-->
-								<!--Received-->
-							<!--</span>-->
-                                    <!--&lt;!&ndash; 已收到 结束&ndash;&gt;-->
+                                        <!--<div class=" small-3 columns" style="margin-left: 15px;width: 20%">-->
+                                        <!--&lt;!&ndash; 已收到 &ndash;&gt;-->
+                                        <!--<span-->
+                                        <!--style="font-size: 16px; width: 90px;padding: 6px 0;margin-left: -15px;"-->
+                                        <!--class="tu radius bg0745bc"-->
+                                        <!--ng-show="btx.action == 'received' && btx.confirmations"-->
+                                        <!--translate>-->
+                                        <!--Received-->
+                                        <!--</span>-->
+                                        <!--&lt;!&ndash; 已收到 结束&ndash;&gt;-->
 
 
-                                    <!--&lt;!&ndash; 已发送 &ndash;&gt;-->
-                                    <!--<span-->
-                                            <!--style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"-->
-                                            <!--class="tu bga1a1a1 radius"-->
-                                            <!--ng-show="btx.action == 'sent' && btx.confirmations"-->
-                                            <!--translate>-->
-								<!--Sent-->
-							<!--</span>-->
-                                    <!--&lt;!&ndash; 已发送 结束&ndash;&gt;-->
+                                        <!--&lt;!&ndash; 已发送 &ndash;&gt;-->
+                                        <!--<span-->
+                                        <!--style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"-->
+                                        <!--class="tu bga1a1a1 radius"-->
+                                        <!--ng-show="btx.action == 'sent' && btx.confirmations"-->
+                                        <!--translate>-->
+                                        <!--Sent-->
+                                        <!--</span>-->
+                                        <!--&lt;!&ndash; 已发送 结束&ndash;&gt;-->
 
 
-                                    <!--&lt;!&ndash; 待确认 &ndash;&gt;-->
-                                    <!--<span-->
-                                            <!--style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"-->
-                                            <!--class="tu bgred radius"-->
-                                            <!--ng-show="!btx.confirmations || btx.confirmations == 0"-->
-                                            <!--translate>-->
-								<!--Pending-->
-							<!--</span>-->
-                                    <!-- 待确认 结束-->
+                                        <!--&lt;!&ndash; 待确认 &ndash;&gt;-->
+                                        <!--<span-->
+                                        <!--style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"-->
+                                        <!--class="tu bgred radius"-->
+                                        <!--ng-show="!btx.confirmations || btx.confirmations == 0"-->
+                                        <!--translate>-->
+                                        <!--Pending-->
+                                        <!--</span>-->
+                                        <!-- 待确认 结束-->
 
 
-                                    <!-- 移动资产 -->
-                                    <span
-                                            style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
-                                            class="tu light-gray radius"
-                                            ng-show="btx.action == 'moved' && btx.confirmations"
-                                            translate>
+                                        <!-- 移动资产 -->
+                                        <span
+                                                style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;"
+                                                class="tu light-gray radius"
+                                                ng-show="btx.action == 'moved' && btx.confirmations"
+                                                translate>
 								Moved
 							</span>
-                                    <!-- 移动资产 结束-->
+                                        <!-- 移动资产 结束-->
 
 
-                                    <span style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;" class="tu warning radius" ng-show="btx.action == 'invalid'" translate>Invalid</span>
-                                </div>
+                                        <span style="font-size: 16px;width: 90px;padding: 6px 0;margin-left: -15px;" class="tu warning radius" ng-show="btx.action == 'invalid'" translate>Invalid</span>
+                                    </div>
 
 
 
-                                <!--交易的 四种状态 对应四种符号-->
-                                <div class="large-4 medium-4 small-4 columns m5r"  style="width: 55%; position: absolute; left: 110px; padding-top:2px; ">
+                                    <!--交易的 四种状态 对应四种符号-->
+                                    <div class="large-4 medium-4 small-4 columns m5r"  style="width: 55%; position: absolute; left: 110px; padding-top:2px; ">
 							<span class="size-14" style="padding-left: 3px;">
 								       <span ng-if="btx.action == 'received'" style="position: absolute; left: 10px;color: #F55C01;margin-top: 5px;">+</span>
 										<span ng-if="btx.action == 'sent'" style="position: absolute; left: 10px;color: #5FB534;margin-top: 5px;">-</span>
@@ -486,70 +463,72 @@
 										<span ng-if="btx.action == 'received'" style="margin-left: 1px;color: #F55C01;margin-top: -1px;">  {{btx.amountTx}} <span style="color: #9F9F9F;margin-top: 2px;font-size: 11px;">INVE</span>  </span>
 										<span ng-if="btx.action == 'sent'" style="margin-left: 1px;color: #5FB534;margin-top: -1px;">  {{btx.amountTx}} <span style="color: #9F9F9F;margin-top: 2px;font-size: 11px;">INVE</span>  </span>
 							</span>
-                                </div>
-
-                                <!--交易时间-->
-                                <div class="large-3 medium-3 small-3 columns text-right " style=" position: absolute; right: 33px; width: 110px;color: #999999;">
-                                    <div class="m5t text-gray" style="margin-right: -6px;margin-top: 5px;font-size: 12px;line-height:12px;">
-                                        <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
-                                        <span translate class="text-warning" ng-show="!btx.time && (!btx.confirmations || btx.confirmations == 0)"> Unconfirmed  </span>
-                                    </div>
-                                </div>
-
-                                <!--右箭头-->
-                                <div class="right text-gray settintcolorl" style="float:right;">
-                                    <img src="./img/settinglyou.png" class="settingarrowl right" style="padding-top: 2px;margin-right:14px;">
-                                </div>
-
-                                <!--添加清楚浮动fix bug-->
-                                <div style="clear: both;"></div>
-
-                                <div class="size-14 text-gray columns m5t" ng-if="btx.message || btx.addressTo">
-                                    <div ng-show="btx.message">
-                                        <span translate>Note</span>
-                                        : {{btx.message}}
                                     </div>
 
-                                    <!--<div ng-show="!btx.message">-->
+                                    <!--交易时间-->
+                                    <div class="large-3 medium-3 small-3 columns text-right " style=" position: absolute; right: 33px; width: 110px;color: #999999;">
+                                        <div class="m5t text-gray" style="margin-right: -6px;margin-top: 5px;font-size: 12px;line-height:12px;">
+                                            <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
+                                            <span translate class="text-warning" ng-show="!btx.time && (!btx.confirmations || btx.confirmations == 0)"> Unconfirmed  </span>
+                                        </div>
+                                    </div>
+
+                                    <!--右箭头-->
+                                    <!--<div class="right text-gray settintcolorl" style="float:right;">-->
+                                    <!--<img src="./img/settinglyou.png" class="settingarrowl right" style="padding-top: 2px;margin-right:14px;">-->
+                                    <!--</div>-->
+
+                                    <!--添加清楚浮动fix bug-->
+                                    <div style="clear: both;"></div>
+
+                                    <div class="size-14 text-gray columns m5t" ng-if="btx.message || btx.addressTo">
+                                        <div ng-show="btx.message">
+                                            <span translate>Note</span>
+                                            : {{btx.message}}
+                                        </div>
+
+                                        <!--<div ng-show="!btx.message">-->
                                         <!--<span translate>To</span>-->
                                         <!--: {{index.addressbook[btx.addressTo] || btx.addressTo}}-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+
+                                <div class="row m20t text-center" ng-show="index.historyRendering">
+                                    <div class="columns large-12 medium-12 small-12">
+                                        <div class="spinner">
+                                            <div class="rect1"></div>
+                                            <div class="rect2"></div>
+                                            <div class="rect3"></div>
+                                            <div class="rect4"></div>
+                                            <div class="rect5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row m20t">
+                                    <div class="large-6 medium-6 small-6 columns">
+                                        <button type="submit" class="button black round expand" ng-show="index.historyShowShowAll"
+                                                ng-click="index.showAllHistory()"
+                                                style="background: transparent;color: #0095ff;font-size: 12px;padding: 10px;border: 1px solid #0095ff;" translate>
+                                            Show all
+                                        </button>
+                                    </div>
+
+                                    <!-- 判断isCordova 电脑端下载CSV文件 -->
+                                    <!--<div class="large-6 medium-6 small-6 columns" ng-show="!index.isCordova">-->
+                                    <!--<input id="export_file" type="file" nwsaveas="INVE-{{index.alias || index.walletName}}.csv" accept=".csv" style="display:none">-->
+                                    <!--<a class="button outline round" ng-click="index.csvHistory();" style="color: #0095ff;border: 1px solid #0095ff;font-size: 12px;padding: 10px;width: 100%;">-->
+                                    <!--<i class="fi-page-export-csv"></i>-->
+                                    <!--<span translate>Download CSV file</span>-->
+                                    <!--</a>-->
                                     <!--</div>-->
                                 </div>
                             </div>
-
-                            <div class="row m20t text-center" ng-show="index.historyRendering">
-                                <div class="columns large-12 medium-12 small-12">
-                                    <div class="spinner">
-                                        <div class="rect1"></div>
-                                        <div class="rect2"></div>
-                                        <div class="rect3"></div>
-                                        <div class="rect4"></div>
-                                        <div class="rect5"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row m20t">
-                                <div class="large-6 medium-6 small-6 columns">
-                                    <button type="submit" class="button black round expand" ng-show="index.historyShowShowAll"
-                                            ng-click="index.showAllHistory()"
-                                            style="background: transparent;color: #0095ff;font-size: 12px;padding: 10px;border: 1px solid #0095ff;" translate>
-                                        Show all
-                                    </button>
-                                </div>
-
-                                <!-- 判断isCordova 电脑端下载CSV文件 -->
-                                <!--<div class="large-6 medium-6 small-6 columns" ng-show="!index.isCordova">-->
-                                <!--<input id="export_file" type="file" nwsaveas="INVE-{{index.alias || index.walletName}}.csv" accept=".csv" style="display:none">-->
-                                <!--<a class="button outline round" ng-click="index.csvHistory();" style="color: #0095ff;border: 1px solid #0095ff;font-size: 12px;padding: 10px;width: 100%;">-->
-                                <!--<i class="fi-page-export-csv"></i>-->
-                                <!--<span translate>Download CSV file</span>-->
-                                <!--</a>-->
-                                <!--</div>-->
-                            </div>
                         </div>
+                        <!--判断isCordova  移动端  结束-->
                     </div>
-                    <!--判断isCordova  移动端  结束-->
+
                 </div> <!-- END History -->
             </div> <!-- oh -->
 
@@ -566,14 +545,13 @@
                     <b>{{index.lockedBalanceStr}} </b>
                 </div>
             </div>
-            <div class="extra-margin-bottom"></div>
         </div> <!-- END WalletHome -->
 
         <!-- 主界面Tranctions(tab)视图 -->
         <div id="send" class="send tab-view" ng-init="assetIndexSelectorValue=0;home.shownForm='payment'">
             <div class="topbar-container"
-            ng-include="'views/includes/topbar.html'"
-            ng-init="showCamera = false;">
+                 ng-include="'views/includes/topbar.html'"
+                 ng-init="showCamera = false;">
             </div>
             <!-- 进度状态信息：在线、任意index进度状态 -->
             <div class="onGoingProcess" ng-show="index.anyOnGoingProcess && !index.isOffline">
@@ -691,11 +669,11 @@
                                               ng-change="_amount=(_addresses | sumNumbers)"></textarea>
                                 </div>
                                 <!--<div ng-if="home.deviceAddressIsKnown()"-->
-                                     <!--style="font-size: 11px; font-weight: bold; margin-top: -1.5rem; margin-bottom: 1.5rem; float: left;">-->
-                                    <!--<a ng-click="home.openBindModal()" style="position: relative;top: 15px;right: -20px;">-->
-                                        <!--<span ng-if="!home.binding" translate>Bind the payment to a condition</span>-->
-                                        <!--<span ng-if="home.binding" translate>This payment is bound to a condition</span>-->
-                                    <!--</a>-->
+                                <!--style="font-size: 11px; font-weight: bold; margin-top: -1.5rem; margin-bottom: 1.5rem; float: left;">-->
+                                <!--<a ng-click="home.openBindModal()" style="position: relative;top: 15px;right: -20px;">-->
+                                <!--<span ng-if="!home.binding" translate>Bind the payment to a condition</span>-->
+                                <!--<span ng-if="home.binding" translate>This payment is bound to a condition</span>-->
+                                <!--</a>-->
                                 <!--</div>-->
                                 <div ng-if="!index.arrBalances[index.assetIndex].is_private && !home.blockUx && !home.lockAddress && home.canSendExternalPayment()"
                                      style="font-size: 11px; font-weight: bold; margin-top: -1.5rem; margin-bottom: 1.5rem; float: right;">
@@ -953,36 +931,36 @@
                 <ul class="no-bullet m0 ">
                     <!-- 设备名 -->
                     <!--<li class="clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesDeviceName')">-->
-                        <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
-                            <!--<img src="./img/shebei-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
-                            <!--<div translate style="font-size: 16px;">Device name</div>-->
-                        <!--</div>-->
-                        <!--<div class="right text-gray settintcolorl" style="display: flex;justify-content: flex-end;text-align: right;width:100%;margin-right: -7px;font-size: 16px;">-->
-                            <!--<div style="word-break: break-all;">{{prefGlobal.deviceName}}</div>-->
-                            <!--<img src="./img/settinglyou.png" style="width:18px;height:18px;flex-shrink: 0;" class="settingarrowl right" >-->
-                        <!--</div>-->
+                    <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
+                    <!--<img src="./img/shebei-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
+                    <!--<div translate style="font-size: 16px;">Device name</div>-->
+                    <!--</div>-->
+                    <!--<div class="right text-gray settintcolorl" style="display: flex;justify-content: flex-end;text-align: right;width:100%;margin-right: -7px;font-size: 16px;">-->
+                    <!--<div style="word-break: break-all;">{{prefGlobal.deviceName}}</div>-->
+                    <!--<img src="./img/settinglyou.png" style="width:18px;height:18px;flex-shrink: 0;" class="settingarrowl right" >-->
+                    <!--</div>-->
                     <!--</li>-->
                     <!-- Hub -->
                     <!--<li class="clearfix" style="display:flex;" ng-click="$root.go('preferencesGlobal.preferencesHub')">-->
-                        <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
-                            <!--<img src="./img/hub-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
-                            <!--<div translate style="font-size: 16px;">Hub</div>-->
-                        <!--</div>-->
-                        <!--<div class="right text-gray settintcolorl" style="display: flex;justify-content: flex-end;text-align: right;width:100%;margin-right: -7px;font-size: 16px;">-->
-                            <!--<div style="word-break: break-all;">{{prefGlobal.hub}}</div>-->
-                            <!--<img src="./img/settinglyou.png" style="width:18px;height:18px;flex-shrink: 0;" class="settingarrowl right" >-->
-                        <!--</div>-->
+                    <!--<div style="float: left;display:flex;    margin-right: 10px;flex-shrink:0;">-->
+                    <!--<img src="./img/hub-icon@3x.png" style="width: 20px;height: 18px;margin-right: 15px;margin-top: 3px;"/>-->
+                    <!--<div translate style="font-size: 16px;">Hub</div>-->
+                    <!--</div>-->
+                    <!--<div class="right text-gray settintcolorl" style="display: flex;justify-content: flex-end;text-align: right;width:100%;margin-right: -7px;font-size: 16px;">-->
+                    <!--<div style="word-break: break-all;">{{prefGlobal.hub}}</div>-->
+                    <!--<img src="./img/settinglyou.png" style="width:18px;height:18px;flex-shrink: 0;" class="settingarrowl right" >-->
+                    <!--</div>-->
                     <!--</li>-->
                     <!-- TOR匿名　ng-show="!index.isCordova" -->
                     <!--<li ng-show="!index.isCordova"  class=" ng-click="$root.go('preferencesGlobal.preferencesTor')">-->
-                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">-->
-                            <!--<span translate>{{prefGlobal.torEnabled?'On':'Off'}}</span>-->
-                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
-                        <!--</div>-->
-                        <!--<div >-->
-                            <!--<div style="float: left;padding-right: 15px;"><img src="./img/niming-icon@3x.png" width="20"/></div>-->
-                            <!--<div translate style="font-size: 16px;">TOR</div>-->
-                        <!--</div>-->
+                    <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">-->
+                    <!--<span translate>{{prefGlobal.torEnabled?'On':'Off'}}</span>-->
+                    <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
+                    <!--</div>-->
+                    <!--<div >-->
+                    <!--<div style="float: left;padding-right: 15px;"><img src="./img/niming-icon@3x.png" width="20"/></div>-->
+                    <!--<div translate style="font-size: 16px;">TOR</div>-->
+                    <!--</div>-->
                     <!--</li>-->
                     <!-- 语言设定 -->
                     <li ng-click="$root.go('preferencesGlobal.preferencesLanguage')">
@@ -1023,17 +1001,17 @@
                 <!-- 收款地址 -->
                 <!--<h4 translate class="settinth4titlel">Receiving address</h4>-->
                 <!--<ul class="no-bullet m0 enable_text_select">-->
-                    <!--<li>-->
-                        <!--<div style="word-break: break-all;font-size: 14px;">{{index.shared_address || (home.generatingAddress ? '...' :-->
-                            <!--home.addr[index.walletId])}}</div>-->
-                    <!--</li>-->
+                <!--<li>-->
+                <!--<div style="word-break: break-all;font-size: 14px;">{{index.shared_address || (home.generatingAddress ? '...' :-->
+                <!--home.addr[index.walletId])}}</div>-->
+                <!--</li>-->
                 <!--</ul>-->
                 <!-- 设备地址 -->
                 <!--<h4 translate class="settinth4titlel" style="background: #ECEFF6;">Device address</h4>-->
                 <!--<ul class="no-bullet m0 enable_text_select">-->
-                    <!--<li">-->
-                        <!--<div style="word-break: break-all;font-size: 14px;">{{prefGlobal.myDeviceAddress}}</div>-->
-                    <!--</li>-->
+                <!--<li">-->
+                <!--<div style="word-break: break-all;font-size: 14px;">{{prefGlobal.myDeviceAddress}}</div>-->
+                <!--</li>-->
                 <!--</ul>-->
 
                 <!--支出限制（密码保护）-->
@@ -1059,12 +1037,12 @@
                 </ul>
                 <!-- 使用口令恢复钱包 -->
                 <!--<ul class="no-bullet m0">-->
-                    <!--<li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">-->
-                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
-                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
-                        <!--</div>-->
-                        <!--<div translate class="addwsltitle">Recovery from seed</div>-->
-                    <!--</li>-->
+                <!--<li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">-->
+                <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
+                <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
+                <!--</div>-->
+                <!--<div translate class="addwsltitle">Recovery from seed</div>-->
+                <!--</li>-->
                 <!--</ul>-->
                 <!-- 完整备份钱包文件 -->
                 <!--<ul class="no-bullet m0">-->
@@ -1106,5 +1084,4 @@
 
     </div>
 </div>
-<div class="extra-margin-bottom"></div>
 <div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>

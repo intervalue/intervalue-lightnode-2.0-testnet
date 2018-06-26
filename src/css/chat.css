@@ -319,6 +319,8 @@ button.disabled, button[disabled], .button.disabled, .button[disabled]{font-size
 button:hover, button:focus, .button:hover, .button:focus {background-color: #007095; border:1px solid #007095 !important;}
 button.disabled:hover, button.disabled:focus, button[disabled]:hover, button[disabled]:focus, .button.disabled:hover, .button.disabled:focus, .button[disabled]:hover, .button[disabled]:focus{
     background-color: #eee !important; border: 1px solid #eee !important;}
+.bgwhite{background: #fff;}
+ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 /*inve2.0 creatWallet.html page select*/
 .addcreatepassmodal{height: 100%; width: 100% !important; background: #fff !important; border-radius: 0px !important; position: absolute !important; left: 0 !important; top: 0 !important;}
 .addcreatesplash{height:100%;position: relative;background: #fff;}
@@ -395,6 +397,16 @@ padding: 0;border-radius: 3px;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .addcreatedob p{font-size: 13px;color: #bab7b9;padding:10px 20px;margin-bottom:0;}
 /*inve2.0 walletHome.html page setting*/
 .addwsltitle{font-size: 16px;font-weight: bold;color:#3B3B3B;}
+/*inve2.0 walletHome.html page index*/
+.addwhhometran{width:100%;overflow: auto;margin-top:-30px;padding:0 18px;height: calc(100vh - 176px);}
+.addwhhometranin{width: 100%;height:100%;box-shadow:0px 0px 3px 0px rgba(0,0,0,0.12);border-radius:3px 3px 0px 0px;overflow: auto;}
+.addwhtransrepe{padding: 13px 15px;cursor:pointer;border-bottom: 1px solid #EDEEF0;display: flex;justify-content: space-between;}
+.addwhfourzt{color:#fff;font-size:12px;padding:3px 14px;border-radius: 22px;}
+.addwhfourztget{background: #57C17B;}
+.addwhfourztsent{background: #EA6C4C;}
+.addwhtransgetam{color:#57C17B;font-size: 23px;word-break: break-word;}
+.addwhtranssentam{color:#EA6C4C;font-size: 23px;word-break: break-word;}
+.addwhtransgetam span,addwhtranssentam span{color: #999999;font-size: 12px;}
 /*inve2.0 tx-details.html page setting*/
 .addtxdmodal{padding:0 18px;}
 .receivedheadermodal{width: 100%;background-color: #57C17B;padding: 18px 18px 7px 18px;position: relative;margin-top: 20px;box-shadow:0px 0px 16px 0px rgba(87,193,123,0.5);color:#fff;}

@@ -415,9 +415,9 @@ ul.tx-copayers {
 }
 
 .last-transactions-content {
-  padding: 1.5rem 1rem;
+  padding: 14px 20px 15px 8px;
   cursor:pointer;
-  border-bottom: 1px solid #E4E8EC;
+  border-bottom: 1px solid #EDEEF0;
 }
 
 .sign-action {
@@ -558,6 +558,10 @@ ul.manage li {
 .p20 {padding:20px;}
 .p10 {padding:10px;}
 .p10b {padding-bottom:10px;}
+.p30b {padding-bottom:30px;}
+.p40b {padding-bottom:40px;}
+.p20t {padding-top:20px;}
+.p30t {padding-top:30px;}
 .p45t {padding-top:45px;}
 .p60t {padding-top:60px;}
 .m60t {margin-top:60px;}
