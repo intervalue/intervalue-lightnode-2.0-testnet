@@ -327,7 +327,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
 
 .main {
   background-color: #F9FAFC;
-  padding: 0 0 58px 0;
   position: relative;
 }
 
@@ -365,7 +364,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
   border-radius: 2px;
   background: #F2F5F8;
   margin: 0 auto;
-  margin-bottom: 1.6rem;
 }
 
 .box-notification .box-icon {
@@ -940,9 +938,3 @@ button.warning:focus,
   background-color: #ED4A43;
   color: #fff;
 }
-
-/* WHITE */
-button.white,
-button.white:hover,
-button.white:focus,
-.button.w

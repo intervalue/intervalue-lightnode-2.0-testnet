@@ -4,7 +4,7 @@ angular.module('copayApp.controllers').controller('preferencesHubController',
     function ($scope, $timeout, configService, go, autoUpdatingWitnessesList) {
         var config = configService.getSync();
         var initHubEdit = false;
-        this.hub = config.hub || 'ec2-13-125-47-101.ap-northeast-2.compute.amazonaws.com/bb';     // 默认Hub设置
+        this.hub = config.hub || 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb';     // 默认Hub设置
 
         this.currentAutoUpdWitnessesList = autoUpdatingWitnessesList.autoUpdate;
         $scope.autoUpdWitnessesList = autoUpdatingWitnessesList.autoUpdate;

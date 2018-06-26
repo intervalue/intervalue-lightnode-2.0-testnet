@@ -1,26 +1,24 @@
 <!-- 顶部导航栏视图 -->
-<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #3B3B3B;" ng-click="hiderightpop($event)">
+<nav ng-controller="topbarController as topbar" class="tab-bar" style="background-color: #fff;" ng-click="hiderightpop($event)">
     <!-- 左区 -->
     <section class="left-small">
         <a ng-show="goBackToState"
            ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi" style="color:#fff;">
-            <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+            <img src="./img/chatbackstate.png" class="chatbackstate">
         </a>
 
         <a ng-show="closeToHome" class="chatpaddingleffi"
-           ng-click="topbar.goHome(); closeToHome = null" style="color:#fff;">
-            <img src="./img/chatbackstate.png" class="chatbackstate"><span translate>Back</span>
+           ng-click="topbar.goHome(); closeToHome = null" style="color:#3B3B3B;">
+            <img src="./img/chatbackstate.png" class="chatbackstate">
         </a>
     </section>
 
     <!-- 右区 -->
     <section class="right-small" style="height: 45px">
-        <a  class="chatpaddingleffi">
-            <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop" ng-click="showrightpop($event)">
-        </a>
+          <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop" ng-click="showrightpop($event)">
     </section>
     <div id="pop" style="position: relative;right:6px;top:-2px;z-index:1;" ng-show="showrightpopvalue" >
-        <div class="triangle " style="right:14px;">
+        <div class="triangle ">
         </div>
         <div class="chatpopUpWindw"  style="background-color:#324e77;" >
             <!-- 扫一扫 -->
@@ -51,7 +49,7 @@
     <!-- 中间区 -->
     <section class="middle tab-bar-section">
         <h1 class="title ellipsis"
-            style="color: #FFFFFF;font-size:18px;">
+            style="color: #3B3B3B;font-size:18px;">
             <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>
             <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
                   <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">

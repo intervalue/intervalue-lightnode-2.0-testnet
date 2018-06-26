@@ -5,7 +5,7 @@
 </div>
 
 
-<div ng-controller="walletHomeController as home" style="background-color: #eceff5" ng-click="hiderightpop($event)">
+<div ng-controller="walletHomeController as home" ng-click="hiderightpop($event)">
 	<div class="chatbgcolorheight"></div>
 	<!-- 如果需要备份，则... -->
 	<div ng-show="index.needsBackup" class="p60t row text-center">
@@ -27,13 +27,15 @@
 	</div>
 	<!-- 如果不需要备份，则... -->
 	<div ng-show="!index.needsBackup">
-		<div >
-			<div class="large-12">
-				<div class="chatamounttranqrr">
-					<!-- 我的钱包地址 -->
-					<h2 class="size-14 amounttranqrtitler"  translate>My INVE address</h2>
+		<div>
+			<div class="chatamounttranqrr">
+				<!-- 我的钱包地址 -->
+				<div class="size-14 addreceiveimgpr">
+                    <div class="addreceiveimg"><img src="./img/addreceiving.png" /></div>
+				</div>
+				<div class="amounttranqrtitler" translate>My INVE address</div>
 				<!-- 地址二维码 -->
-				<div class="code">
+				<div class="code size-12">
 					<div class="box-notification" ng-show="home.addrError">
 						<span class="text-warning">{{home.addrError|translate}}</span>
 					</div>
@@ -56,9 +58,8 @@
 					</div>
 				</div>
 
-				<div class="text-center" style="margin-top: 30px;">
-					<div class="chatline-t"></div>
-					<h4 ng-class="{'enable_text_select': !index.isCordova}" class="size-12" style="display: inline-block;margin: 0;color:#a0a0a0;word-break: break-all;padding: 26px 10px;">
+				<div class="text-center">
+					<h4 ng-class="{'enable_text_select': !index.isCordova}" class="size-14" style="display: inline-block;margin: 0;color:#a0a0a0;word-break: break-all;padding: 26px 10px;margin-top:10px;">
 						{{index.shared_address || (home.generatingAddress ? '...' :
 						home.addr[index.walletId])}}
 					</h4>
@@ -66,21 +67,20 @@
 
 
 			</div>
-				<!-- 分享地址 -->
-				<div ng-show="home.addr[index.walletId]" style="margin: 30px 18px 10px 18px;color:#a0a0a0;">
-					<!--<div class="m10t text-center" ng-show="index.isCordova">-->
-						<!--<div class="m10t text-center" ng-show="true">-->
-						<!--<span class="button outline dark-gray tiny round"-->
-							  <!--ng-click="home.shareAddress(home.addr[index.walletId])">-->
-										<!--<i class="fi-share"></i>-->
-										<!--<span translate>Share address</span>-->
-									<!--</span>-->
-					<!--</div>-->
-					<div class="size-12 text-center">
-						<span ng-if="index.shared_address" translate>This address is shared with {{index.shared_address_cosigners}}.</span>
-						<span ng-if="!index.shared_address" translate>Share this wallet address to receive payments.</span>
-						<span ng-if="!index.shared_address && 0" translate>To protect your privacy, new addresses are generated automatically once you use them.</span>
-					</div>
+			<!-- 分享地址 -->
+			<div ng-show="home.addr[index.walletId]" style="margin: 24px 18px 12px 18px;color:#3B3B3B;">
+				<!--<div class="m10t text-center" ng-show="index.isCordova">-->
+				<!--<div class="m10t text-center" ng-show="true">-->
+				<!--<span class="button outline dark-gray tiny round"-->
+				<!--ng-click="home.shareAddress(home.addr[index.walletId])">-->
+				<!--<i class="fi-share"></i>-->
+				<!--<span translate>Share address</span>-->
+				<!--</span>-->
+				<!--</div>-->
+				<div class="size-14 text-center">
+					<span ng-if="index.shared_address" translate>This address is shared with {{index.shared_address_cosigners}}.</span>
+					<span ng-if="!index.shared_address" translate>Share this wallet address to receive payments.</span>
+					<span ng-if="!index.shared_address && 0" translate>To protect your privacy, new addresses are generated automatically once you use them.</span>
 				</div>
 			</div>
 		</div>
@@ -99,13 +99,13 @@
 		<div class="text-center p20h">
 
 			<div ng-show="!agreed" >
-				<button style="width: 100%;height:50px;line-height: 50px;padding: 0;background-color: #246d98;" class="round  size-16"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
+				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px;" class="size-14"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
 					Share address
 				</button>
 			</div>
 
 			<div ng-show="!agreed" >
-				<button style="width: 100%;height:50px;line-height: 50px;padding: 0;background-color: #FFFFFF;border: 1px solid #2fa1d2;color: #2fa1d2" class="round tiny m19t size-16"  ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
+				<button style="width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #FFFFFF;border: 1px solid #3B3B3B;color: #3B3B3B;border-radius: 3px;" class="m19t size-14"  ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
 					Request a specific amount
 				</button>
 			</div>

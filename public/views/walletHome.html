@@ -31,10 +31,10 @@
 </style>
 
 <!-- 顶部导航栏 -->
-<div class="topbar-container"
-     ng-include="'views/includes/topbar.html'"
-     ng-init="showCamera = false;">
-</div>
+<!--<div class="topbar-container"-->
+     <!--ng-include="'views/includes/topbar.html'"-->
+     <!--ng-init="showCamera = false;">-->
+<!--</div>-->
 
 <!-- 钱包主页面：首页、发送、接收、历史记录、会话 -->
 <div ng-controller="walletHomeController as home" ng-click="hiderightpop($event)">
@@ -97,7 +97,7 @@
 
 
                 <!-- banner背景图 -->
-                <div class="amount" style="padding: 0 8px;background-color:#3B3B3B;margin-top: -20px;min-height: 150px;height:auto;"
+                <div class="amount" style="padding: 0 8px;background-color:#3B3B3B;min-height: 150px;height:auto;"
                      ng-swipe-right="index.suspendSwipe()">
                     <div ng-if="!index.anyOnGoingProcess || 1" style="position: relative;">
                         <div ng-show="index.updateError" ng-click='index.openWallet(); index.updateTxHistory()'>
@@ -571,6 +571,10 @@
 
         <!-- 主界面Tranctions(tab)视图 -->
         <div id="send" class="send tab-view" ng-init="assetIndexSelectorValue=0;home.shownForm='payment'">
+            <div class="topbar-container"
+            ng-include="'views/includes/topbar.html'"
+            ng-init="showCamera = false;">
+            </div>
             <!-- 进度状态信息：在线、任意index进度状态 -->
             <div class="onGoingProcess" ng-show="index.anyOnGoingProcess && !index.isOffline">
                 <div class="onGoingProcess-content" style="height: 38px;margin-bottom: -20px;padding-left: 19px;padding-top: 6px;color: #999;font-size: 13px;">
@@ -941,6 +945,10 @@
 
         <!-- 主界面wallet(tab)视图 -->
         <div id="settings" class="wallet tab-view" >
+            <div class="topbar-container"
+                 ng-include="'views/includes/topbar.html'"
+                 ng-init="showCamera = false;">
+            </div>
             <div class="preferences" ng-controller="preferencesGlobalController as prefGlobal" ng-init="prefGlobal.init()" >
                 <div class="chatbgcolorheight ng-scope"></div>
                 <ul class="no-bullet m0 ">
@@ -1014,13 +1022,13 @@
                 <!--</li>-->
                 <!--</ul>-->
                 <!-- 收款地址 -->
-                <h4 translate class="settinth4titlel">Receiving address</h4>
-                <ul class="no-bullet m0 enable_text_select">
-                    <li>
-                        <div style="word-break: break-all;font-size: 14px;">{{index.shared_address || (home.generatingAddress ? '...' :
-                            home.addr[index.walletId])}}</div>
-                    </li>
-                </ul>
+                <!--<h4 translate class="settinth4titlel">Receiving address</h4>-->
+                <!--<ul class="no-bullet m0 enable_text_select">-->
+                    <!--<li>-->
+                        <!--<div style="word-break: break-all;font-size: 14px;">{{index.shared_address || (home.generatingAddress ? '...' :-->
+                            <!--home.addr[index.walletId])}}</div>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <!-- 设备地址 -->
                 <!--<h4 translate class="settinth4titlel" style="background: #ECEFF6;">Device address</h4>-->
                 <!--<ul class="no-bullet m0 enable_text_select">-->
@@ -1038,27 +1046,27 @@
                     </li>
                 </ul>
                 <!-- 备份钱包口令 -->
-                <!--<h4 translate class="settinth4titlel">Backups</h4>-->
-                <!--<ul class="no-bullet m0">-->
-                    <!--<li ng-click="$root.go('preferencesGlobal.backup')" ng-hide="index.isPrivKeyExternal">-->
-                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
-                            <!--<span class="text-warning" ng-show="index.needsBackup">-->
-                                <!--<i class="fi-alert"></i><span translate>Still not done</span>-->
-                            <!--</span>-->
-                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
-                        <!--</div>-->
-                        <!--<div translate class="addwsltitle">Backup wallet seed</div>-->
-                    <!--</li>-->
-                <!--</ul>-->
+                <h4 translate class="settinth4titlel">Backups</h4>
+                <ul class="no-bullet m0">
+                    <li ng-click="$root.go('preferencesGlobal.backup')" ng-hide="index.isPrivKeyExternal">
+                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
+                            <span class="text-warning" ng-show="index.needsBackup">
+                                <i class="fi-alert"></i><span translate>Still not done</span>
+                            </span>
+                            <img src="./img/settinglyou.png" class="settingarrowl right" >
+                        </div>
+                        <div translate class="addwsltitle">Backup wallet seed</div>
+                    </li>
+                </ul>
                 <!-- 使用口令恢复钱包 -->
-                <!--<ul class="no-bullet m0">-->
-                    <!--<li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">-->
-                        <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;">-->
-                            <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
-                        <!--</div>-->
-                        <!--<div translate class="addwsltitle">Recovery from seed</div>-->
-                    <!--</li>-->
-                <!--</ul>-->
+                <ul class="no-bullet m0">
+                    <li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">
+                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
+                            <img src="./img/settinglyou.png" class="settingarrowl right" >
+                        </div>
+                        <div translate class="addwsltitle">Recovery from seed</div>
+                    </li>
+                </ul>
                 <!-- 完整备份钱包文件 -->
                 <!--<ul class="no-bullet m0">-->
                 <!--<li ng-click="$root.go('preferencesGlobal.export')" ng-hide="index.isPrivKeyExternal">-->
