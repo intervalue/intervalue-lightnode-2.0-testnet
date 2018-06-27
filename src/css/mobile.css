@@ -398,13 +398,12 @@ ul.correspondentList li a.removeCorrespondentList {
 
 .modal-content ul li a.selectAddressbook {
   font-size: 18px;
-  padding: 13px 14px;
+  padding: 8px 14px;
   color: red;
-  margin-right: 10px;
   float: right;
   position: relative;
-  top: -50px;
-  left: 10px;
+  top: -46px;
+  left: 17px;
   background: #EB6D4D;
 }
 
@@ -649,7 +648,6 @@ to prevent collapsing during animation*/
   bottom: 0;
   width: 100%;
   top: 45px;
-  padding-bottom: 33px;
   -webkit-transform: translate3d(0,0,0);
   background: #F9FAFC;
 }

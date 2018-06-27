@@ -40,7 +40,7 @@
 
     <!-- 主视图 -->
     <div class="modal-content fix-modals-touch">
-        <div ng-show="selectedWalletsOpt">
+        <div ng-show="selectedWalletsOpt" class="p18h">
             <div class="onGoingProcess" ng-if="gettingAddress">
                 <div class="onGoingProcess-content dealingadd" ng-style="{'background-color':'#222'}" >
                     <div class="spinner">
@@ -72,36 +72,43 @@
         </div>
 
         <!-- 收款地址管理 -->
-        <div ng-show="!selectedWalletsOpt">
-            <!-- 非添加地址页面时，显示收款地址列表 -->
-            <ul ng-show="!addAddressbookEntry" class="no-bullet m0 chattranaddaddr" ng-init="listEntries()">
-                <!-- 收款地址列表 -->
-                <li class="line-b" ng-repeat="(addr, label) in list" style="background-color: #fff;padding:4px 0;">
-                    <div ng-click="selectAddressbook(addr)">
-                        {{label}}
-                        <div class="size-10 text-gray ellipsis">{{addr}}</div>
-                    </div>
-                    <!-- 选定地址，则可以删除 -->
-                    <a ng-show="selectedAddressbook[addr]" class="removeAddressbook" ng-click="remove(addr)" translate>Remove</a>
-                    <!-- 编辑状态，则可选定地址 -->
-                    <a class="selectAddressbook" ng-show="editAddressbook"
-                       ng-click="remove(addr)" >
-                        <img src="img/lajitong-icon@3x.png" width="20" >
-                    </a>
-                    <!--ng-click="toggleSelectAddressbook(addr)" style="float: right;position: relative;top: -48px;left: 21px;" >-->
-                </li>
-                <!-- 非编辑状态，则显示“添加地址”入口 -->
-                <li ng-show="!editAddressbook" style="background-color: #fff;margin-top:20px;">
-                    <a ng-click="toggleAddAddressbookEntry()" class="p10 dealingherf" style="padding: 10px 17px;">
-                        <span class="text-close size-12" style="font-size: 16px;color: #282828" translate>Add a new entry</span>
-                        <span ng-show="!list[newAddress] && newAddress">({{newAddress}})</span>
-                        <img src="img/add.png"  style="float: right;width:26px;" >
-                    </a>
-                </li>
-            </ul>
+        <div ng-show="!selectedWalletsOpt" >
+            <div class="p18h">
+                <!-- 非添加地址页面时，显示收款地址列表 -->
+                <ul ng-show="!addAddressbookEntry" class="no-bullet m0 bgwhite chattranaddaddr addboxshadow" ng-init="listEntries()"  >
+                    <!-- 非编辑状态，则显示“添加地址”入口 -->
+                    <li ng-show="!editAddressbook" style="background-color: #fff;margin-top:20px;">
+                        <a ng-click="toggleAddAddressbookEntry()" class="p10 dealingherf" style="padding: 10px 0;">
+                            <span class="text-close size-12" style="font-size: 16px;color: #282828" translate>Add a new entry</span>
+                            <span ng-show="!list[newAddress] && newAddress">({{newAddress}})</span>
+                            <img src="img/add.png"  style="float: right;width:26px;" >
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="p18h">
+                <ul ng-show="!addAddressbookEntry" class="no-bullet m0 bgwhite chattranaddaddr addboxshadow" ng-init="listEntries()" style="height:calc(100vh - 130px);overflow: auto;margin-top:20px !important;" >
+                    <!-- 收款地址列表 -->
+                    <li class="line-b" ng-repeat="(addr, label) in list">
+                        <div ng-click="selectAddressbook(addr)">
+                            {{label}}
+                            <div class="size-10 text-gray ellipsis">{{addr}}</div>
+                        </div>
+                        <!-- 选定地址，则可以删除 -->
+                        <a ng-show="selectedAddressbook[addr]" class="removeAddressbook" ng-click="remove(addr)" translate>Remove</a>
+                        <!-- 编辑状态，则可选定地址 -->
+                        <a class="selectAddressbook" ng-show="editAddressbook"
+                           ng-click="remove(addr)" >
+                            <img src="img/lajitong-icon@3x.png" width="20" >
+                        </a>
+                        <!--ng-click="toggleSelectAddressbook(addr)" style="float: right;position: relative;top: -48px;left: 21px;" >-->
+                    </li>
+                </ul>
+            </div>
+
 
             <!-- 添加收款地址页面 -->
-            <div ng-show="addAddressbookEntry">
+            <div ng-show="addAddressbookEntry" style="height:calc(100vh - 60px);background-color: #fff;" >
                 <form name="addressbookForm" class="p10" no-validate style="padding: 0;">
                     <!-- 校验及错误信息 -->
                     <div class="text-warning size-12 m10b" ng-show="error" style="padding-left:20px;">{{error|translate}}</div>
@@ -115,18 +122,25 @@
                         <!--</small>-->
                     </span>
                     <!-- 地址 -->
-                    <div class="dealinginput">
-                        <img src="img/qianbao-icon@3x.png" style="   width:20px;height:20px;margin-right: 0.8rem;">
-                        <span style="font-size: 16px;"translate>Address</span>
-                        <input type="text" id="address" name="address" ng-model="addressbook.address"
-                               placeholder="{{'Wallet address'|translate}}" valid-address required>
+
+                    <div class="m20t p18h">
+                        <md-input-container class="addmdinputcon">
+                            <label class="addmdlabels" for="address" translate>Wallet address</label>
+                            <input class="addmdinputsnoimg md-input" type="text" id="address" name="address"
+                                   ng-model="addressbook.address" valid-address required>
+                        </md-input-container>
+                        <!--<input type="text" id="address" name="address" ng-model="addressbook.address"-->
+                               <!--placeholder="{{'Wallet address'|translate}}" valid-address required>-->
                     </div>
                     <!-- 名称 -->
-                    <div class="dealinginput">
-                        <img src="img/biaoqian-icon@3x.png" style="   width:20px;height:20px;margin-right: 0.8rem;">
-                        <span style="font-size: 16px;" translate>Label</span>
-                        <input type="text" id="label" name="label" ng-model="addressbook.label"
-                               placeholder="{{'Name of the contact'|translate}}" required>
+                    <div class="m15t p18h">
+                        <md-input-container class="addmdinputcon">
+                            <label class="addmdlabels" for="label" translate>Name of the contact</label>
+                            <input class="addmdinputsnoimg md-input" type="text" id="label" name="label"
+                                   ng-model="addressbook.label" required>
+                        </md-input-container>
+                        <!--<input type="text" id="label" name="label" ng-model="addressbook.label"-->
+                               <!--placeholder="{{'Name of the contact'|translate}}" required>-->
                     </div>
                     <!-- 按钮 -->
                     <div class="" style="margin-top:30px;">

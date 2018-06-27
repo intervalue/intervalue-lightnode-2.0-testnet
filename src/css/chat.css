@@ -291,8 +291,9 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 
 /*交易页面地址簿*/
 .text-gray{color:#cdcdcd;}
-.chattranaddaddr{padding:0 18px;}
-.chattranaddaddr li:first-child{margin-top:20px;}
+.chattranaddaddr li{padding:0 18px;}
+/*.chattranaddaddr li:first-child{margin-top:20px;}*/
+.chattranaddaddr li:last{border:none;}
 
 /*inve2.0 disclaimer.html*/
 .adddsmain{background-color: #3B3B3B;position:static;margin-top: 20px;}
@@ -424,10 +425,11 @@ padding: 0;border-radius: 3px;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .addmdinputimg{position: absolute;top: -2px;right: 3px;}
 .addmdlabels{font-size: 16px;color:#3B3B3B;bottom:105%;}
 .addmdinputs{padding-right:46px !important;padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
-.addmdinputsnoimg{padding-bottom: 10px !important;margin-bottom:0 !important;}
+.addmdinputsnoimg{padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 md-input-container .md-errors-spacer{min-height:0 !important;}
 .color999999{color:#999999;}
 .color777777{color:#777777;}
+.addboxshadow{box-shadow:0px 0px 3px 0px rgba(160,160,160,0.32);}
 
 
 
