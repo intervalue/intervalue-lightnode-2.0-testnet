@@ -48,8 +48,7 @@
 
     <!-- 中间区 -->
     <section class="middle tab-bar-section">
-        <h1 class="title ellipsis size-18"
-            style="color: #3B3B3B;">
+        <h1 class="title ellipsis size-18">
             <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>
             <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
                   <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">

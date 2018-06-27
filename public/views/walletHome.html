@@ -238,13 +238,13 @@
                                                     translate>SENT</span>
                                             <!--收到+发送  待确认-->
                                             <span
-                                                    class="tu radius addwhfourzt"
+                                                    class="tu radius addwhfourzt addwhfourztsent"
                                                     ng-show="!btx.confirmations || btx.confirmations == 0"
                                                     translate>Pending</span>
 
                                             <!--移动资产-->
                                             <span
-                                                    class="tu radius addwhfourzt"
+                                                    class="tu radius addwhfourzt addwhfourztsent"
                                                     ng-show="btx.action == 'moved' && btx.confirmations"
                                                     translate>Moved</span>
 
@@ -281,18 +281,18 @@
                                     <!--</div>-->
 
                                     <!--添加清楚浮动fix bug-->
-                                    <div class="size-15 text-gray columns m5t" ng-if="btx.message || btx.addressTo">
-                                        <div ng-show="btx.message">
-                                            <span translate>Note</span>
-                                            : {{btx.message}}
-                                            : {{btx.message}}
-                                        </div>
-
-                                        <!--<div ng-show="!btx.message">-->
-                                        <!--<span translate>To</span>-->
-                                        <!--: {{index.addressbook[btx.addressTo] || btx.addressTo}}-->
+                                    <!--<div class="size-15 text-gray columns m5t" ng-if="btx.message || btx.addressTo">-->
+                                        <!--<div ng-show="btx.message">-->
+                                            <!--<span translate>Note</span>-->
+                                            <!--: {{btx.message}}-->
+                                            <!--: {{btx.message}}-->
                                         <!--</div>-->
-                                    </div>
+
+                                        <!--&lt;!&ndash;<div ng-show="!btx.message">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<span translate>To</span>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;: {{index.addressbook[btx.addressTo] || btx.addressTo}}&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
                                 </div>
 
                                 <div class="row m20t text-center" ng-show="index.historyRendering">
@@ -553,6 +553,7 @@
                  ng-include="'views/includes/topbar.html'"
                  ng-init="showCamera = false;">
             </div>
+            <div class="chatbgcolorheight"></div>
             <!-- 进度状态信息：在线、任意index进度状态 -->
             <div class="onGoingProcess" ng-show="index.anyOnGoingProcess && !index.isOffline">
                 <div class="onGoingProcess-content" style="height: 38px;margin-bottom: -20px;padding-left: 19px;padding-top: 6px;color: #999;font-size: 13px;">
@@ -578,8 +579,8 @@
                 </div>
             </div>
             <!-- 金额/全部发送板块 -->
-            <div class="m20t" ng-show="home.shownForm=='payment'">
-                <div class="large-12 large-centered columns">
+            <div ng-show="home.shownForm=='payment'" class="p18h">
+                <div>
                     <form name="sendPaymentForm" ng-submit="home.submitPayment()"
                           ng-disabled="home.blockUx || home.onGoingProcess" novalidate>
                         <div class="box-notification" ng-show="home.error" ng-click="home.resetError()">
@@ -596,7 +597,7 @@
                         <!-- 发送目标地址或邮箱视图 -->
                         <div class="mtab" ng-class="{'active': mtab == 1}"
                              ng-init="mtab = 1; home.send_multiple = false;">
-                            <div ng-hide="home.hideAddress" style="background-color: #fff;height: 93px;">
+                            <div ng-hide="home.hideAddress">
                                 <!--<div class="row collapse" style="padding-top: 5px;min-height: 24px;">-->
                                 <!--<div class="row collapse">-->
                                 <!--<label for="address" class="left"-->
@@ -624,49 +625,56 @@
                                 <!--</small>-->
                                 <!--</span>-->
                                 <!--</div>-->
+                                <!-- 地址簿或邮箱编辑框 -->
+                                <div class="input">
+                                    <md-input-container class="addmdinputcon">
+                                        <label class="addmdlabels" for="address">{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}</label>
+                                        <input class="addmdinputs md-input" ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"
+                                               type="text" id="address" name="address"
+                                               ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
+                                               ng-model="_address" ng-required valid-address-or-email
+                                               ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
-                                <div class="large-12 medium-12 ">
-                                    <!-- label -->
-                                    <label for="address" class="ttranlabelb" style="height: 45px;padding:0 14px;">
-                                        <!-- 地址 -->
-                                        <span  translate style="font-size: 16px;display: inline-block;height:45px;line-height: 45px; ">Address</span>
+                                        <input class="addmdinputs md-input" ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"
+                                               type="text" id="address" name="address"
+                                               ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
+                                               ng-model="_address" ng-required valid-address
+                                               ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
-                                        <!-- 打开地址簿 -->
-                                        <a class="size-12 m0 text-gray "
+                                        <textarea class="addmdinputs" ng-if="home.send_multiple" class="md-input" type="text" id="addresses" name="address" name="addresses"
+                                                  placeholder="Wallet address, amount {{index.arrBalances[index.assetIndex].asset === 'base' ? 'in ' + home.unitName : 'of ' + (index.arrBalances[index.assetIndex].name || index.arrBalances[index.assetIndex].asset.substr(0,4) | limitTo:16)}}&#10;M7G2CZDBV7FWH2QMWUNXQ4MSLIZPHX3U, 100000&#10;5OJ2RQ3AG7RLS6HFDAKOZGBZE6HKUWAZ, 5000&#10;not more than 120 rows"
+                                                  ng-model="_addresses" required
+                                                  valid-addresses="{{index.arrBalances[index.assetIndex].asset}}" rows="4" msd-elastic="\n"
+                                                  ng-change="_amount=(_addresses | sumNumbers)"></textarea>
+                                        <a class="addmdinputimg"
                                            ng-hide="home.blockUx || home.lockAddress || home.send_multiple"
-                                           ng-click="openDestinationAddressModal(index.otherWallets, _address)"
-                                           style="float: right;margin-top: 10px;"
-                                        >
+                                           ng-click="openDestinationAddressModal(index.otherWallets, _address)">
                                             <!--<i class="icon-wallet size-18"-->
                                             <!--style="margin-right: -3px;vertical-align: baseline;"></i>-->
                                             <img src="img/geren-icon@3x.png" width="20">
                                         </a>
-                                    </label>
-                                </div>
+                                    </md-input-container>
+                                    <!--<input ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"-->
+                                           <!--class="m0" type="text" id="address" name="address"-->
+                                           <!--ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"-->
+                                           <!--ng-attr-placeholder="{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}"-->
+                                           <!--ng-model="_address" ng-required valid-address-or-email-->
+                                           <!--ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)"-->
+                                           <!--style="border-bottom: none;padding-left: 14px; background-color: #fff">-->
 
-                                <!-- 地址簿或邮箱编辑框 -->
-                                <div class="input">
-                                    <input ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"
-                                           class="m0" type="text" id="address" name="address"
-                                           ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
-                                           ng-attr-placeholder="{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}"
-                                           ng-model="_address" ng-required valid-address-or-email
-                                           ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)"
-                                           style="border-bottom: none;padding-left: 14px; background-color: #fff">
+                                    <!--<input ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"-->
+                                           <!--class="m0" type="text" id="address" name="address"-->
+                                           <!--ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"-->
+                                           <!--ng-attr-placeholder="{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}"-->
+                                           <!--ng-model="_address" ng-required valid-address-->
+                                           <!--ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">-->
 
-                                    <input ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"
-                                           class="m0" type="text" id="address" name="address"
-                                           ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
-                                           ng-attr-placeholder="{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}"
-                                           ng-model="_address" ng-required valid-address
-                                           ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
-
-                                    <textarea ng-if="home.send_multiple" class="m0" type="text" name="addresses"
-                                              placeholder="Wallet address, amount {{index.arrBalances[index.assetIndex].asset === 'base' ? 'in ' + home.unitName : 'of ' + (index.arrBalances[index.assetIndex].name || index.arrBalances[index.assetIndex].asset.substr(0,4) | limitTo:16)}}&#10;M7G2CZDBV7FWH2QMWUNXQ4MSLIZPHX3U, 100000&#10;5OJ2RQ3AG7RLS6HFDAKOZGBZE6HKUWAZ, 5000&#10;not more than 120 rows"
-                                              ng-model="_addresses" required
-                                              valid-addresses="{{index.arrBalances[index.assetIndex].asset}}"
-                                              style="margin-bottom: 25px" rows="4" msd-elastic="\n"
-                                              ng-change="_amount=(_addresses | sumNumbers)"></textarea>
+                                    <!--<textarea ng-if="home.send_multiple" class="m0" type="text" name="addresses"-->
+                                              <!--placeholder="Wallet address, amount {{index.arrBalances[index.assetIndex].asset === 'base' ? 'in ' + home.unitName : 'of ' + (index.arrBalances[index.assetIndex].name || index.arrBalances[index.assetIndex].asset.substr(0,4) | limitTo:16)}}&#10;M7G2CZDBV7FWH2QMWUNXQ4MSLIZPHX3U, 100000&#10;5OJ2RQ3AG7RLS6HFDAKOZGBZE6HKUWAZ, 5000&#10;not more than 120 rows"-->
+                                              <!--ng-model="_addresses" required-->
+                                              <!--valid-addresses="{{index.arrBalances[index.assetIndex].asset}}"-->
+                                              <!--style="margin-bottom: 25px" rows="4" msd-elastic="\n"-->
+                                              <!--ng-change="_amount=(_addresses | sumNumbers)"></textarea>-->
                                 </div>
                                 <!--<div ng-if="home.deviceAddressIsKnown()"-->
                                 <!--style="font-size: 11px; font-weight: bold; margin-top: -1.5rem; margin-bottom: 1.5rem; float: left;">-->
@@ -734,75 +742,87 @@
                             </div>
                         </div>
 
-                        <div  ng-hide="home.hideAmount">
-                            <div class=" " style="background-color:#fff;margin-top:20px;">
-
+                        <div  ng-hide="home.hideAmount" class="m15t">
+                            <div>
                                 <div>
-                                    <div class="fikrdl-asterisk" style="width: 100%;display: flex;height: 45px;">
-                                        <!-- label -->
-                                        <label for="amount" style="flex-shrink: 0; margin-top: 12px; margin-right: 8px;">
-                                            <!-- 金额 -->
-                                            <span translate ng-if="!home.send_multiple" style=" font-size: 16px;margin-left:16px;">Amount</span>
-                                            <span translate ng-if="home.send_multiple" style=" font-size: 16px;margin-left:16px;">Total amount</span>
+                                    <md-input-container class="addmdinputcon">
+                                        <label class="addmdlabels" for="amount">
+                                            <span translate ng-if="!home.send_multiple">Amount</span>
+                                            <span translate ng-if="home.send_multiple">Total amount</span>
                                         </label>
-                                        <!-- 编辑框 -->
-                                        <!--<div class="inputamount" style="width: 100%;">-->
-                                        <input type="" id="amount"
+                                        <input class="addmdinputs" type="" id="amount"
                                                ng-disabled="home.blockUx || home.lockAmount || home.bSendAll"
                                                name="amount"
-                                               ng-attr-placeholder="{{(home.bSendAll ? (index.arrBalances[index.assetIndex].asset === 'base' ? 'All minus fees' : 'All') : 'Input amount INVE')|translate}}"
                                                ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount"
                                                valid-amount="{{index.arrBalances[index.assetIndex].asset}}"
-                                               ng-required="!home.bSendAll && !home.send_multiple" autocomplete="off"
+                                               autocomplete="off"
                                                ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)"
-                                               style="padding:0;margin-top: 8px;width:100%;height: 32px;line-height: 32px;background-color: #ffffff;font-size:14px;margin-left: 5px;font-family: Hiragino,Helvetica Neue,Helvetica,Arial,sans-serif;">
-                                        <a ng-if="index.arrBalances.length > 0 && index.arrBalances[index.assetIndex].asset === 'base'" style="color: #fff!important;display: none;">{{home.unitName}}</a>
-                                        <a ng-if="index.arrBalances.length > 0 && index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name" style="color: #fff!important;">of
-                                            {{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>
-                                        <!--</div>-->
-                                        <!--<span style="text-transform: none;font-size: 16px;flex-shrink: 0;padding-top: 10px;margin-right: 15px;margin-left:4px;">INVE</span>-->
-                                        <!-- 全部发送 -->
-                                        <a ng-click="home.setSendAll()" ng-show="!home.bSendAll && !home.lockAmount"
-                                           style="text-transform: none;font-size: 16px;flex-shrink: 0;padding-top: 10px;margin-right:14px;color:#61b7da;" translate>ALL</a>
-                                        <div class="right"
-                                             ng-hide="sendPaymentForm.amount.$pristine && !sendPaymentForm.amount.$modelValue "
-                                             style="margin-top: 15px;flex-shrink: 0;"
-                                        >
-                                            <!--<span class="has-error right size-12" ng-if="sendPaymentForm.amount.$invalid" style="    margin-top: -4px;margin-right:4px;">-->
-                                            <!--<i class="icon-close-circle size-14"></i>-->
-                                            <!--<span class="vm" translate>Not valid</span>-->
-                                            <!--</span>-->
-                                            <!--<small class="text-primary right" ng-if="!sendPaymentForm.amount.$invalid" style="margin-right:4px;">-->
-                                            <!--<i class="icon-checkmark-circle size-14"></i>-->
-                                            <!--</small>-->
+                                               ng-required="!home.bSendAll && !home.send_multiple" autocomplete="off">
+                                        <div  ng-repeat="balance in index.arrBalances|filter:'base'" class="addmdinputimg">
+										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 16" translate class="color777777 size-18">
+											    INVE
+										    </span>
+                                            <!-- 资产数额字符串不超过16个字符, 显示不带单位资产数额和名称 -->
+                                            <div ng-if="balance.totalStr && balance.totalStr.length > 26" class="color777777 size-18">
+                                                {{balance.name}}
+                                            </div>
+                                            <!-- 资产数额字符串为空，则直接显示资产金额本地字符串 -->
+                                            <div ng-if="!balance.totalStr" class="color777777 size-18">
+                                                of {{balance.asset}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="chatbottomline" ></div>
+                                    </md-input-container>
                                     <!-- 获取钱包余额-->
-                                    <div style="width: 100%;padding:10px 16px;" ng-repeat="balance in index.arrBalances|filter:'base'">
-										<span style="font-size: 14px;color: #6A7D90;word-break: break-all;" ng-if="balance.totalStr && balance.totalStr.length <= 16" translate>
-											<span translate>Available balance</span>:&nbsp;&nbsp;&nbsp{{balance.totalAvail}}&nbsp;&nbsp;&nbsp; INVE
-										</span>
+                                    <div  ng-repeat="balance in index.arrBalances|filter:'base'" class="m10t">
+										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 16" translate class="size-12 color999999">
+											    <span translate >Available balance</span>:&nbsp;&nbsp;&nbsp{{balance.totalAvail}}
+										    </span>
                                         <!-- 资产数额字符串不超过16个字符, 显示不带单位资产数额和名称 -->
                                         <div ng-if="balance.totalStr && balance.totalStr.length > 26">
-                                            <div><strong class="size-36">{{balance.totalStrWithoutUnit}}</strong></div>
-                                            <div class="of-asset-name">{{balance.name}}</div>
+                                            <div><strong class="size-12 color999999">{{balance.totalStrWithoutUnit}}</strong></div>
                                         </div>
                                         <!-- 资产数额字符串为空，则直接显示资产金额本地字符串 -->
                                         <div ng-if="!balance.totalStr">
-                                            <div><strong class="size-36">{{balance.total.toLocaleString()}}</strong></div>
-                                            <div class="of-asset">of {{balance.asset}}</div>
+                                            <div><strong class="size-12 color999999">{{balance.total.toLocaleString()}}</strong></div>
                                         </div>
+                                        <!--<a class="p18l" ng-if="index.arrBalances.length > 0 && index.arrBalances[index.assetIndex].asset === 'base'">{{home.unitName}}</a>-->
+                                        <!--<a class="p18l" ng-if="index.arrBalances.length > 0 && index.arrBalances[index.assetIndex].asset !== 'base' && index.arrBalances[index.assetIndex].asset !== index.BLACKBYTES_ASSET && !index.arrBalances[index.assetIndex].name">of-->
+                                            <!--{{index.arrBalances[index.assetIndex].asset.substr(0,4)}}</a>-->
+                                        <!--</div>-->
+                                        <!--<span style="text-transform: none;font-size: 16px;flex-shrink: 0;padding-top: 10px;margin-right: 15px;margin-left:4px;">INVE</span>-->
+                                        <!-- 全部发送 -->
+                                        <a class="p18l addwhtranall" ng-click="home.setSendAll()" ng-show="!home.bSendAll && !home.lockAmount" translate>ALL</a>
+                                    </div>
+                                    <!-- 编辑框 -->
+                                    <!--<input type="" id="amount"-->
+                                           <!--ng-disabled="home.blockUx || home.lockAmount || home.bSendAll"-->
+                                           <!--name="amount"-->
+                                           <!--ng-attr-placeholder="{{(home.bSendAll ? (index.arrBalances[index.assetIndex].asset === 'base' ? 'All minus fees' : 'All') : 'Input amount INVE')|translate}}"-->
+                                           <!--ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount"-->
+                                           <!--valid-amount="{{index.arrBalances[index.assetIndex].asset}}"-->
+                                           <!--ng-required="!home.bSendAll && !home.send_multiple" autocomplete="off"-->
+                                           <!--ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)"-->
+                                           <!--style="padding:0;margin-top: 8px;width:100%;height: 32px;line-height: 32px;background-color: #ffffff;font-size:14px;margin-left: 5px;font-family: Hiragino,Helvetica Neue,Helvetica,Arial,sans-serif;">-->
+                                    <div class="right"
+                                         ng-hide="sendPaymentForm.amount.$pristine && !sendPaymentForm.amount.$modelValue ">
+                                        <!--<span class="has-error right size-12" ng-if="sendPaymentForm.amount.$invalid" style="    margin-top: -4px;margin-right:4px;">-->
+                                        <!--<i class="icon-close-circle size-14"></i>-->
+                                        <!--<span class="vm" translate>Not valid</span>-->
+                                        <!--</span>-->
+                                        <!--<small class="text-primary right" ng-if="!sendPaymentForm.amount.$invalid" style="margin-right:4px;">-->
+                                        <!--<i class="icon-checkmark-circle size-14"></i>-->
+                                        <!--</small>-->
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="tchatfkmodel"><span class="tchatfkmodelnumber ">{{_amount == undefined ? 0 : _amount}}</span>INVE</div>
+                            <!--<div class="tchatfkmodel"><span class="tchatfkmodelnumber ">{{_amount == undefined ? 0 : _amount}}</span>INVE</div>-->
                             <div class="" ng-show="!home.onGoingProcess">
                                 <!-- 发送按钮 -->
                                 <div class=""
                                      ng-class="{'small-6 medium-6 large-6':!home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)}"
                                      style="width:100%;">
-                                    <button type="submit" class="addblackbutton"
+                                    <button type="submit" class="addblackbutton m32t"
                                             ng-disabled="home.current_payment_key || sendPaymentForm.$invalid || home.blockUx || index.isOffline || !index.isEnoughSignersSelected()"
                                             translate>
                                         Send
@@ -824,8 +844,8 @@
                 </div>
             </div>
 
-            <div ng-show="home.shownForm=='data' && index.isSingleAddress">
-                <div class="large-12 large-centered" style="padding:0 18px;">
+            <div ng-show="home.shownForm=='data' && index.isSingleAddress"  class="p18h">
+                <div>
                     <form name="sendDataForm" ng-submit="home.submitData()"
                           ng-disabled="home.blockUx || home.onGoingProcess" novalidate
                           ng-init="home.feedvaluespairs=[{}]">
@@ -909,7 +929,7 @@
                     </form>
                 </div>
             </div>
-            <div ng-show="home.shownForm=='data' && !index.isSingleAddress">
+            <div ng-show="home.shownForm=='data' && !index.isSingleAddress"  class="p18h">
                 <div class="large-12 large-centered columns" style="padding-top: 10px" translate>
                     To be able to send arbitrary data into INVE network, please switch to a single-address wallet
                     first or create one.

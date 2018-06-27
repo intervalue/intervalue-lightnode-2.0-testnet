@@ -77,7 +77,11 @@ module.exports = function (grunt) {
 					'bower_components/angular-carousel/dist/angular-carousel.js',
 					'bower_components/angular-ui-switch/angular-ui-switch.js',
 					'bower_components/angular-elastic/elastic.js',
-					'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
+                    'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
+                    'bower_components/angular-animate/angular-animate.js',
+                    'bower_components/angular-aria/angular-aria.js',
+                    'bower_components/angular-messages/angular-messages.js',
+                    'bower_components/angular-material/angular-material.js',
 				],
 				dest: 'public/angular.js'
 			},
@@ -108,7 +112,7 @@ module.exports = function (grunt) {
 					'bower_components/angular-ui-switch/angular-ui-switch.css',
 					'bower_components/angular-carousel/dist/angular-carousel.css'
 				],
-				dest: 'public/css/foundation.css',
+				dest: 'public/css/foundation.css'
 			}
 		},
 		uglify: {

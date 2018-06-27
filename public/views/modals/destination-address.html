@@ -92,12 +92,10 @@
                 </li>
                 <!-- 非编辑状态，则显示“添加地址”入口 -->
                 <li ng-show="!editAddressbook" style="background-color: #fff;margin-top:20px;">
-                    <a ng-click="toggleAddAddressbookEntry()" class="p10 dealingherf" style="padding: 10px 19px;">
-                        <!--<i class="fi-plus size-18 m10r"></i>-->
-                        <img src="img/add.png" width="24"style="margin-top: -3px;margin-right: 0.5rem;" >
+                    <a ng-click="toggleAddAddressbookEntry()" class="p10 dealingherf" style="padding: 10px 17px;">
                         <span class="text-close size-12" style="font-size: 16px;color: #282828" translate>Add a new entry</span>
                         <span ng-show="!list[newAddress] && newAddress">({{newAddress}})</span>
-                        <img  class="chatarrow" src="img/chatltyou.png"  style="margin-top: 3px;float: right" >
+                        <img src="img/add.png"  style="float: right;width:26px;" >
                     </a>
                 </li>
             </ul>

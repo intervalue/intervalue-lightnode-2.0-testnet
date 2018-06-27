@@ -748,12 +748,10 @@
                         Are you sure you want to delete the Seed Phrase?
                     </h1>
                     <p class="size-14 text-center" translate="">It will delete the seed phrase in the app and can not be restored, please be sure that you have the seed phrase back to a safe place</p>
-                </div>
-                <div class="chatcdeletekl">
                     <!--点击 确定删除口令 进入钱包-->
-                    <p class="pbutton chatcdelete" translate ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  Confirm delete </p>
+                    <button class="pbutton addblackbutton m20t" translate ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  Confirm delete </button>
                     <!--点击 跳过删除口令 进入钱包-->
-                    <p class="pbutton chatcskip" translate ng-click="wordsC.haschoosen(); index.splashClick = false " style=""> Skip </p>
+                    <button class="pbutton addwhitebutton m20t" translate ng-click="wordsC.haschoosen(); index.splashClick = false " style=""> Skip </button>
                 </div>
             </div>
         </div>

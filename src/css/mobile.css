@@ -100,9 +100,9 @@ _:-ms-fullscreen, :root .main {
 }
 
 .tab-bar h1 {
-  color: #7A8C9E;
+  color: #3B3B3B;
   font-weight: 500;
-  font-size: 14px;
+  font-size:18px;
   display: inline-block;
 }
 
