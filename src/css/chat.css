@@ -279,8 +279,8 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
     .chatccnextbtn{font-size:14px;}
 }
 .chatcnextnote{display:flex;justify-content: flex-start;padding:20px 0;padding-top:10px;}
-.chatcnextnote span{flex-shrink: 30px;font-size: 14px;color: #d55b56;margin-top: -2px; margin-right: 10px;}
-.chatcnextnote p{font-size:12px;color: #d55b56;margin-bottom:0;text-align: left;}
+.chatcnextnote span{flex-shrink: 30px;font-size: 14px;color: #EC7051;margin-top: -2px; margin-right: 10px;}
+.chatcnextnote p{font-size:12px;color: #EC7051;margin-bottom:0;text-align: left;}
 
 
 /*创建钱包删除钱包口令页面*/
@@ -309,11 +309,11 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 
 
 .addwhitebutton{font-size: 14px;width: 100%; height: 45px; line-height: 45px; padding: 0; background-color: #FFFFFF; border: 1px solid #3B3B3B;
-    color: #3B3B3B; border-radius: 3px !important; margin: 0;}
-.addblackbutton{font-size: 14px;width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;}
+    color: #3B3B3B; border-radius: 3px !important; margin: 0;font-family: inherit;}
+.addblackbutton{font-size: 14px;width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;font-family: inherit;}
 .addwhitebutton50{float:right;font-size: 14px;width: 49%; height: 45px; line-height: 45px; padding: 0; background-color: #FFFFFF; border: 1px solid #3B3B3B;
-    color: #3B3B3B; border-radius: 3px !important; margin: 0;}
-.addblackbutton50{float:left;font-size: 14px;width: 49%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;}
+    color: #3B3B3B; border-radius: 3px !important; margin: 0;font-family: inherit;}
+.addblackbutton50{float:left;font-size: 14px;width: 49%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;font-family: inherit;}
 button.disabled, button[disabled], .button.disabled, .button[disabled]{font-size: 14px;height: 45px; line-height: 45px; padding: 0; background-color: #eee !important; border: 1px solid #eee;
     color: #3B3B3B !important; border-radius: 3px !important; margin: 0;}
 button:hover, button:focus, .button:hover, .button:focus {background-color: #007095; border:1px solid #007095 !important;}
@@ -336,9 +336,9 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatedevicename label{margin:0;}
 .addcreatedevicename label span{font-size: 13px;color:#9697A3;}
 .addcreatedevicename #deviceName{font-size: 19px;color:#232638;border:none;text-align: center;margin:0;margin:12px 0 36px 0;padding:0;}
-.addcreatedevicename button{width:100%;height:45px;padding:0;margin:0;font-size:14px;border-radius:3px;}
-.addcreatedevicename .addcreatecwallet{color:#fff;background:rgba(59,59,59,1);box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);margin-bottom:15px;}
-.addcreatedevicename .addcreaterwallet{background:rgba(255,255,255,1);box-shadow:0px 0px 7px 0px rgba(90,90,90,0.18);border:1px solid rgba(59,59,59,1);color:#3B3B3B;}
+/*.addcreatedevicename button{width:100%;height:45px;padding:0;margin:0;font-size:14px;border-radius:3px;}*/
+/*.addcreatedevicename .addcreatecwallet{color:#fff;background:rgba(59,59,59,1);box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);margin-bottom:15px;}*/
+/*.addcreatedevicename .addcreaterwallet{background:rgba(255,255,255,1);box-shadow:0px 0px 7px 0px rgba(90,90,90,0.18);border:1px solid rgba(59,59,59,1);color:#3B3B3B;}*/
 /*inve2.0 creatWallet.html page create*/
 .addcreatenh{background: #3B3B3B; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF; }
 .addcreatenh a{color:#fff; position: absolute; left: 0;width: 60px;}
@@ -369,8 +369,6 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatecrinputm{padding: 0 5px;}
 .addcreatecrfalset{text-align: center; color:#EB6F50;margin-top: 10px;font-size: 14px;}
 .addcreatecrlstep{text-align: center;padding:0 18px;}
-.addcreatecrlstep button{background-color:#3B3B3B;width: 100%;margin: 30px 0px 52px 0px;height: 45px;line-height: 45px;color: #fff;
-padding: 0;border-radius: 3px;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .addcreatecrtruet{width: 90%; margin: 20px auto 10px;font-size:14px;}
 .addcreatecrtruet span:first-child{color:#2B2B2B;}
 .addcreatecrtruet span:last-child{color:#EB6F50;}
@@ -430,7 +428,7 @@ md-input-container .md-errors-spacer{min-height:0 !important;}
 .color999999{color:#999999;}
 .color777777{color:#777777;}
 .addboxshadow{box-shadow:0px 0px 3px 0px rgba(160,160,160,0.32);}
-
+*{outline:none !important;}
 
 
 

@@ -6,12 +6,13 @@
 
 <!-- 语言设置视图 -->
 <div class="content preferences" ng-controller="preferencesLanguageController as prefLang"  style="background: #ECEFF6;">
+    <div class="chatbgcolorheight"></div>
     <ul class="no-bullet m0 " style="margin-top: 20px;">
         <li ng-repeat="lang in prefLang.availableLanguages"
             ng-click="prefLang.save(lang.isoCode)" class="line-b p20 size-14">
             <span style="font-size: 16px;">{{lang.name}}</span>
             <i class=" size-16 right" ng-show="index.defaultLanguageIsoCode == lang.isoCode"><img
-                    src="./img/guoxuan.png"  width="25"/></i>
+                    src="./img/guoxuan.png"  width="16"/></i>
         </li>
     </ul>
 </div>

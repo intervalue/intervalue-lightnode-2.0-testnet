@@ -50,12 +50,12 @@
 
 			<!-- 初次配置显示同意按钮 -->
 			<div ng-show="!agreed" class="adddsbagreebtn">
-				<button class="#236d97 round tiny adddsbagree"  ng-click="agree()" ng-disabled="loading" translate>
+				<button class="addwhitebutton m20t"  ng-click="agree()" ng-disabled="loading" translate>
 					Agree
 				</button>
 			</div>
 			<!-- 已配置过但是没有个人配置信息，则显示后退 -->
-			<button ng-show="agreed && !index.hasProfile" class="#236d97 round tiny m15t adddsbback" ng-click="agree()" translate>
+			<button ng-show="agreed && !index.hasProfile" class="addwhitebutton m20t" ng-click="agree()" translate>
 				Go back
 			</button>
 		</div>

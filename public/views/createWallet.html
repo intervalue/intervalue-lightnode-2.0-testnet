@@ -135,11 +135,11 @@
                             <input type="text" id="deviceName" ng-model="splash.deviceName" >
 
                             <!-- 创建 -->
-                            <button ng-click="wordsC.gono00()" translate class="addcreatecwallet">
+                            <button ng-click="wordsC.gono00()" translate class="addblackbutton">
                                 Creat Wallet
                             </button>
                             <!-- 恢复 -->
-                            <button ng-click="wordsC.gorukou2()" translate class="addcreaterwallet">
+                            <button ng-click="wordsC.gorukou2()" translate class="addwhitebutton m20t">
                                 Restore Wallet
                             </button>
                         </div>
@@ -181,7 +181,7 @@
             </div>
             <!-- 点击next打开第三步“显示助记词”页面 -->
             <div class="chatcnextbtndiv">
-                <button ng-click="wordsC.gono()" class="#236d97 size-16 chatcnextbtn"  translate>
+                <button ng-click="wordsC.gono()" class="addblackbutton"  translate>
                     Next
                 </button>
             </div>
@@ -501,7 +501,7 @@
 
             <!-- 点击next进入第四步“校验您的钱包口令”页面 -->
             <div class="addcreatepwnbtn">
-                <button ng-click="wordsC.showinput()" class="#236d97  size-16 chatcnextbtn" translate>
+                <button ng-click="wordsC.showinput()" class="addblackbutton" translate>
                     Next
                 </button>
             </div>
@@ -719,7 +719,7 @@
             <!--点击 上一步-->
             <!-- wordsC.dis()判断wordsC.value与完整口令是否不一致时显示 -->
             <div class="addcreatecrlstep">
-                <button ng-if="wordsC.dis()" ng-click="wordsC.gono()" class="#236d97 size-16" translate>
+                <button ng-if="wordsC.dis()" ng-click="wordsC.gono()" class="addblackbutton" translate>
                     LastStep
                 </button>
             </div>
@@ -729,9 +729,9 @@
 
             <!--点击删除钱包-->
             <div class="addcreatecrdl">
-                <button ng-click="wordsC.del()" translate ng-if="!wordsC.dis()" translate class="addcreatecrdlt">Delete Seed Phrase</button>
+                <button ng-click="wordsC.del()" translate ng-if="!wordsC.dis()" translate class="addblackbutton">Delete Seed Phrase</button>
                 <!--正确 点击下一步 主页-->
-                <button ng-click="wordsC.haschoosen(); index.splashClick = false" ng-if="!wordsC.dis()" translate class="addcreatecrdlf">
+                <button ng-click="wordsC.haschoosen(); index.splashClick = false" ng-if="!wordsC.dis()" translate class="addwhitebutton m20t">
                     Skip
                 </button>
             </div>
