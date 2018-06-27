@@ -989,8 +989,11 @@ msgid "Offer a contract"
 msgstr "签定合约"
 
 #: public/views/backup.html:87
+msgid "Once you have written your wallet password, it is recommended to remove the password from the device."
+msgstr "一旦您写下钱包口令，建议把口令从设备中删除。"
+
 msgid "It is highly recommended that you write your password on paper and have a safe place, do not take screenshots or take photos, and do not use the same password on multiple devices.Once you have written your wallet password, it is recommended to remove the password from the device."
-msgstr "强烈建议您将口令写在纸上并存在安全的地方，不要截图或拍照，也不要在多个设备上使用相同的口令。一旦您写下钱包口令，建议把口令从设备中删除。"
+msgstr "强烈建议您将口令写在纸上并存在安全的地方，不要截图或拍照，也不要在多个设备上使用相同的口令。"
 
 #: public/views/recoveryFromSeed.html:41
 msgid "Only single-sig wallets can be recovered."
@@ -1141,6 +1144,9 @@ msgstr "接收"
 
 #: public/views/walletHome.html:576
 msgid "Received"
+msgstr "收到"
+
+msgid "GET"
 msgstr "收到"
 
 #: public/views/includes/transaction.html:15
@@ -1340,6 +1346,9 @@ msgstr "正在发送..."
 
 #: public/views/walletHome.html:578
 msgid "Sent"
+msgstr "已发送"
+
+msgid "SENT"
 msgstr "已发送"
 
 #: public/views/preferencesAbout.html:38

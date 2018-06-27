@@ -5,12 +5,12 @@
 </div>
 
 <!-- 关于InterValue视图 -->
-<div class="content preferences" ng-controller="preferencesAbout as about"  style="background: #ECEFF6;">
-    <h4 translate class="settinth4titlel" style="background: #ECEFF6;">Release Information</h4>
+<div class="content preferences" ng-controller="preferencesAbout as about">
+    <h4 translate class="settinth4titlel">Release Information</h4>
     <div ng-controller="versionController as v">
         <ul class="no-bullet m0">
             <!-- 版本 -->
-            <li class="settintlipaddingl" ng-conf>
+            <li ng-conf>
                 <span translate style="font-size: 16px;">Version</span>
                 <span class="right text-gray">
                     v{{v.version}}
@@ -29,7 +29,7 @@
     <div class="chatbgcolorheight ng-scope"></div>
     <ul class="no-bullet m0">
         <!-- 使用条款 -->
-        <li class="settintlipaddingl" ng-click="$root.go('preferencesGlobal.preferencesAbout.disclaimer')">
+        <li ng-click="$root.go('preferencesGlobal.preferencesAbout.disclaimer')">
             <i class="icon-arrow-right3 size-24 right text-gray"></i>
             <span translate >Terms of Use</span>
         </li>
