@@ -51,7 +51,7 @@
 		</div>
 
 		<div class="text-center" >
-			<h4 ng-class="{'enable_text_select': !index.isCordova}" class="addcodeh4">
+			<h4 ng-class="{'enable_text_select': index.isCordova}" class="addcodeh4">
 				{{index.shared_address || (home.generatingAddress ? '...' :
 				home.addr[index.walletId])}}
 			</h4>
@@ -59,7 +59,7 @@
 		</div>
 		<!-- 分享地址 -->
 		<div>
-			<div ng-show="home.addr[index.walletId]  && index.isCordova" style="margin: 30px 18px 10px 18px;color:#a0a0a0;">
+			<div ng-show="home.addr[index.walletId] && index.isCordova" style="color:#a0a0a0;" class="m32t p18h">
 				<!--<div class="m10t text-center" ng-show="index.isCordova">-->
 				<!--<div class="m10t text-center" ng-show="true">-->
 				<!--<span class="button outline dark-gray tiny round"-->
@@ -76,11 +76,11 @@
 			</div>
 
 
-			<div ng-show="!index.needsBackup  && index.isCordova" >
+			<div ng-show="!index.needsBackup && index.isCordova" >
 				<div class="text-center p18h">
 
 					<div ng-show="!agreed" >
-						<button class="addblackbutton"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
+						<button class="addblackbutton m32t"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
 							Share address
 						</button>
 					</div>
