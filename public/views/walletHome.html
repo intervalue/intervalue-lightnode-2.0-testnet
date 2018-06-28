@@ -255,7 +255,7 @@
                                         <!--<div class="large-3 medium-3 small-3 columns text-right " style=" width: 108px;">-->
                                         <div>
                                             <div class="m5t text-gray" style="margin-right: -6px;margin-top: 5px;font-size: 12px;line-height:12px;">
-                                                <time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
+                                                <img src="./img/addwhtrtime.png" class="addwhtrtime" /><time ng-if="btx.time">{{btx.time * 1000 | amTimeAgo}}</time>
                                                 <span translate class="text-warning" ng-show="!btx.time && (!btx.confirmations || btx.confirmations == 0)"> Unconfirmed  </span>
                                             </div>
                                         </div>
@@ -264,7 +264,7 @@
 
                                     <!--交易的 四种状态 对应四种符号-->
                                     <!--<div class="large-4 medium-4 small-4 columns m5r" style="padding:3px 0 0 10px;font-weight: bold;width: 140px; ">-->
-                                    <div>
+                                    <div class="p4t">
                                         <div class="size-12" ng-if="btx.action == 'invalid'" translate> (possible double spend) </div>
                                         <!--金额-->
                                         <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
