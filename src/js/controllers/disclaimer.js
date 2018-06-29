@@ -25,19 +25,21 @@ angular.module('copayApp.controllers').controller('disclaimerController',
                 self.wallet_type = 'light';
                 var bLight = (self.wallet_type === 'light');	//是否轻节点
                 var fs = require('fs' + '');
-                var desktopApp = require('intervaluecore/desktop_app.js');
-                var appDataDir = desktopApp.getAppDataDir();
-                var userConfFile = appDataDir + '/conf.json';
-                fs.writeFile(userConfFile, JSON.stringify({bLight: bLight}, null, '\t'), 'utf8', function (err) {
-                    if (err)
-                        throw Error('failed to write conf.json: ' + err);
-                    var conf = require('intervaluecore/conf.js');
-                    if (!conf.bLight)
-                        throw Error("Failed to switch to light, please restart the app");
-                    $timeout(function () {
-                        $scope.$apply();
+                if (!isCordova){
+                    var desktopApp = require('intervaluecore/desktop_app.js');
+                    var appDataDir = desktopApp.getAppDataDir();
+                    var userConfFile = appDataDir + '/conf.json';
+                    fs.writeFile(userConfFile, JSON.stringify({bLight: bLight}, null, '\t'), 'utf8', function (err) {
+                        if (err)
+                            throw Error('failed to write conf.json: ' + err);
+                        var conf = require('intervaluecore/conf.js');
+                        if (!conf.bLight)
+                            throw Error("Failed to switch to light, please restart the app");
+                        $timeout(function () {
+                            $scope.$apply();
+                        });
                     });
-                });
+                }
                 //splash.js   light
                 //splash.js   profile
                 $scope.index.splashClick=true;
