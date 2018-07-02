@@ -327,7 +327,7 @@
                         </div>
                         <!--判断isCordova  电脑端  结束-->
                         <!--判断isCordova  移动端-->
-                        <div ng-if="index.isCordova" id="history" class="history p30t p30b">
+                        <div ng-if="index.isCordova" id="history" class="history p30t p30b" ng-init="index.updateTxHistory()">
                             <div class="row m20t" ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
                                 <div class="large-12 columns">
                                     <div class="oh text-center">
