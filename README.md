@@ -57,6 +57,11 @@ All app bundles will be placed at `../intervaluebuilds` dir, so create it first:
 ### Android
 
 - Install Android SDK
+
+- `npm install babel-cli@6.26.0 -g`
+- `npm install babel-plugin-transform-runtime@6.23.0`
+- `npm install babel-preset-es2015@6.24.1`
+- `npm install babel-preset-stage-3@6.24.1`
 - Run `make android-debug`
 -	In case of could not find gradle wrapper within android sdk error, download Android SDK tools package v25:
 -	http://dl-ssl.google.com/android/repository/tools_r25.2.5-macosx.zip
