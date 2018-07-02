@@ -58,7 +58,8 @@ var modules = [
   'copayApp.controllers',
   'copayApp.directives',
   'copayApp.addons',
-  'ct.ui.router.extras'
+  'ct.ui.router.extras',
+  'ngMaterial'
 ];
 
 var copayApp = window.copayApp = angular.module('copayApp', modules);
@@ -2420,7 +2421,7 @@ angular.module('copayApp.services').factory('configService', function (storageSe
             totalCosigners: 6
         },
 
-        hub: (constants.alt === '2' && isTestnet) ? 'ec2-13-125-47-101.ap-northeast-2.compute.amazonaws.com/bb-test' : 'ec2-13-125-47-101.ap-northeast-2.compute.amazonaws.com/bb',
+        hub: (constants.alt === '2' && isTestnet) ? 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb-test' : 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb',
 
         // requires bluetooth permission on android
         //deviceName: /*isCordova ? cordova.plugins.deviceName.name : */require('os').hostname(),
@@ -9291,8 +9292,8 @@ angular.module('copayApp.controllers').controller('createWallet',
 'use strict';
 
 angular.module('copayApp.controllers').controller('disclaimerController',
-  function($scope, $timeout, storageService, applicationService, gettextCatalog, isCordova, uxLanguage, go, $rootScope) {
-
+  function($scope, $timeout, storageService, applicationService, gettextCatalog, isCordova, uxLanguage, go, $rootScope, profileService) {
+    var self = this;
 	if (!isCordova && process.platform === 'win32' && navigator.userAgent.indexOf('Windows NT 5.1') >= 0)
 		$rootScope.$emit('Local/ShowAlert', "Windows XP is not supported", 'fi-alert', function() {
 			process.exit();
@@ -9304,13 +9305,60 @@ angular.module('copayApp.controllers').controller('disclaimerController',
       }
       $scope.loading = true;
       $timeout(function() {
-        storageService.setDisclaimerFlag(function(err) {
+        storageService.setDisclaimerFlag(function(err,noWallet) {
             $timeout(function() {
                 if (isCordova)
                     window.plugins.spinnerDialog.hide();
                 // why reload the page?
                 //applicationService.restart();
-                go.walletHome();
+                // go.walletHome();
+                //splash.js  light
+                self.wallet_type = 'light';
+                var bLight = (self.wallet_type === 'light');	//是否轻节点
+                var fs = require('fs' + '');
+                if (!isCordova){
+                    var desktopApp = require('intervaluecore/desktop_app.js');
+                    var appDataDir = desktopApp.getAppDataDir();
+                    var userConfFile = appDataDir + '/conf.json';
+                    fs.writeFile(userConfFile, JSON.stringify({bLight: bLight}, null, '\t'), 'utf8', function (err) {
+                        if (err)
+                            throw Error('failed to write conf.json: ' + err);
+                        var conf = require('intervaluecore/conf.js');
+                        if (!conf.bLight)
+                            throw Error("Failed to switch to light, please restart the app");
+                        $timeout(function () {
+                            $scope.$apply();
+                        });
+                    });
+                }
+                //splash.js   light
+                //splash.js   profile
+                $scope.index.splashClick=true;
+                if (self.creatingProfile)		//是否完成
+                    return console.log('already creating profile');
+                self.creatingProfile = true;
+
+                //设置状态标识，用于解决创建钱包生成口令后，没有进行口令校验的情况下，关闭app再次打开app可以跳过校验直接进入首页的bug
+                storageService.hashaschoosen(1, function (err) {});
+
+                $timeout(function () {
+                    //首次登录,创建钱包
+                    profileService.create({noWallet: noWallet}, function (err) {
+                        if (err) {
+                            self.creatingProfile = false;
+                            $log.warn(err);
+                            self.error = err;
+                            $timeout(function () {
+                                $scope.$apply();
+                            });
+                            /*$timeout(function() {
+                                self.create(noWallet);
+                            }, 3000);*/
+                        }
+                        go.path('createWallet');
+                    });
+                }, 100);
+                //splash.js   profile
             }, 1000);
         });
       }, 100);
@@ -10664,13 +10712,8 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 var el = angular.element(document.querySelector('.tab-in.tab-view'));
                 el.removeClass('tab-in').addClass('tab-out');
                 var old = document.getElementById('menu-' + self.tab);
-                var oldimg = document.getElementById('menuimg-' + self.tab);
-                var chatimg = document.getElementById('menuimg-chat');
                 if (old) {
                     old.className = '';
-                }
-                if (oldimg) {
-                    oldimg.src= './img/mmtab'+self.tab+'.png';
                 }
             }
 
@@ -10678,13 +10721,8 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 var el = angular.element(document.getElementById(tab));
                 el.removeClass('tab-out').addClass('tab-in');
                 var newe = document.getElementById('menu-' + tab);
-                var neweimg = document.getElementById('menuimg-' + tab);
-                var chatimg = document.getElementById('menuimg-chat');
                 if (newe) {
                     newe.className = 'active';
-                }
-                if (neweimg) {
-                    neweimg.src= './img/activemmtab'+tab+'.png';
                 }
             }
 
@@ -12478,7 +12516,7 @@ angular.module('copayApp.controllers').controller('preferencesHubController',
     function ($scope, $timeout, configService, go, autoUpdatingWitnessesList) {
         var config = configService.getSync();
         var initHubEdit = false;
-        this.hub = config.hub || 'ec2-13-125-47-101.ap-northeast-2.compute.amazonaws.com/bb';     // 默认Hub设置
+        this.hub = config.hub || 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb';     // 默认Hub设置
 
         this.currentAutoUpdWitnessesList = autoUpdatingWitnessesList.autoUpdate;
         $scope.autoUpdWitnessesList = autoUpdatingWitnessesList.autoUpdate;
@@ -17082,7 +17120,7 @@ angular.module('copayApp.controllers')
 		}
 	});
 window.version="2.0.0";
-window.commitHash="d03fd55";
+window.commitHash="3294380";
 'use strict';
 
 angular.element(document).ready(function () {
