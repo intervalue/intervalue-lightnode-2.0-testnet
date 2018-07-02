@@ -2001,6 +2001,9 @@ msgstr "我们保留更新此申明的权利。"
  msgid "available balance"
  msgstr "可用余额"
 
+ msgid "Available balance"
+ msgstr "可用余额"
+
  msgid "Input amount INVE"
  msgstr "输入转款数量INVE"
 
