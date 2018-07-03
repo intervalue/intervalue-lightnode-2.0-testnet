@@ -1,0 +1,19 @@
+#ide
+.idea
+.vscode
+
+# version
+src/js/version.js
+
+#package-lock.json
+package-lock.json
+
+#public
+public/angular.js
+public/intervalue.js
+public/partialClient.js
+
+
+#node_modules
+node_modules
+bower_components
