@@ -4,21 +4,21 @@
   ng-init="titleSection='Witnesses'; goBackToState = true">
 </div>
 
-<div class="content preferences" ng-controller="preferencesWitnessesController as wc">
-	<ul class="no-bullet m0">
-		<li>
-			<switch name="autoUpdWitnessesList" ng-model="autoUpdWitnessesList" class="green right"></switch>
-			<div translate>Auto-update the witness list from the hub</div>
-		</li>
-	</ul>
-    <ul class="no-bullet m0" ng-class="{'autoUpdatingWitnessesList' : autoUpdWitnessesList}">
-      <li ng-repeat="witness in wc.witnesses" ng-click="wc.edit(witness)">
-        <i class="icon-arrow-right3 size-24 right text-gray"></i>
-        {{witness}}
-      </li>
-    </ul>
+<!--<div class="content preferences" ng-controller="preferencesWitnessesController as wc">-->
+	<!--<ul class="no-bullet m0">-->
+		<!--<li>-->
+			<!--<switch name="autoUpdWitnessesList" ng-model="autoUpdWitnessesList" class="green right"></switch>-->
+			<!--<div translate>Auto-update the witness list from the hub</div>-->
+		<!--</li>-->
+	<!--</ul>-->
+    <!--&lt;!&ndash;<ul class="no-bullet m0" ng-class="{'autoUpdatingWitnessesList' : autoUpdWitnessesList}">&ndash;&gt;-->
+      <!--&lt;!&ndash;<li ng-repeat="witness in wc.witnesses" ng-click="wc.edit(witness)">&ndash;&gt;-->
+        <!--&lt;!&ndash;<i class="icon-arrow-right3 size-24 right text-gray"></i>&ndash;&gt;-->
+        <!--&lt;!&ndash;{{witness}}&ndash;&gt;-->
+      <!--&lt;!&ndash;</li>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
 
-</div>
+<!--</div>-->
 <style>
   .autoUpdatingWitnessesList{
     color: #C1C1C1;

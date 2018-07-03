@@ -357,16 +357,16 @@ angular
 					},
 				}
 			})
-			.state('preferencesGlobal.preferencesHub', {
-				url: '/hub',
-				walletShouldBeComplete: false,
-				needProfile: false,
-				views: {
-					'main@': {
-						templateUrl: 'views/preferencesHub.html'
-					},
-				}
-			})
+			// .state('preferencesGlobal.preferencesHub', {
+			// 	url: '/hub',
+			// 	walletShouldBeComplete: false,
+			// 	needProfile: false,
+			// 	views: {
+			// 		'main@': {
+			// 			templateUrl: 'views/preferencesHub.html'
+			// 		},
+			// 	}
+			// })
 			.state('preferencesGlobal.preferencesTor', {
 				url: '/tor',
 				templateUrl: 'views/preferencesTor.html',
@@ -422,27 +422,27 @@ angular
 
 				}
 			})
-			.state('preferencesGlobal.preferencesWitnesses', {
-				url: '/witnesses',
-				templateUrl: 'views/preferencesWitnesses.html',
-				walletShouldBeComplete: true,
-				needProfile: true,
-				views: {
-					'main@': {
-						templateUrl: 'views/preferencesWitnesses.html'
-					},
-				}
-			})
-			.state('preferencesGlobal.preferencesWitnesses.preferencesEditWitness', {
-				url: '/edit',
-				walletShouldBeComplete: true,
-				needProfile: true,
-				views: {
-					'main@': {
-						templateUrl: 'views/preferencesEditWitness.html'
-					},
-				}
-			})
+			// .state('preferencesGlobal.preferencesWitnesses', {
+			// 	url: '/witnesses',
+			// 	templateUrl: 'views/preferencesWitnesses.html',
+			// 	walletShouldBeComplete: true,
+			// 	needProfile: true,
+			// 	views: {
+			// 		'main@': {
+			// 			templateUrl: 'views/preferencesWitnesses.html'
+			// 		},
+			// 	}
+			// })
+			// .state('preferencesGlobal.preferencesWitnesses.preferencesEditWitness', {
+			// 	url: '/edit',
+			// 	walletShouldBeComplete: true,
+			// 	needProfile: true,
+			// 	views: {
+			// 		'main@': {
+			// 			templateUrl: 'views/preferencesEditWitness.html'
+			// 		},
+			// 	}
+			// })
 			.state('preferencesGlobal.backup', {
 				url: '/backup',
 				templateUrl: 'views/backup.html',

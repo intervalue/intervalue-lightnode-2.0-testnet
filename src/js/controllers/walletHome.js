@@ -6,7 +6,7 @@ var breadcrumbs = require('intervaluecore/breadcrumbs.js');
 var ValidationUtils = require('intervaluecore/validation_utils.js');
 
 angular.module('copayApp.controllers')
-	.controller('walletHomeController', function ($scope, $rootScope, $timeout, $filter, $modal, $log, notification, isCordova, profileService, lodash, configService, storageService, gettext, gettextCatalog, nodeWebkit, addressService, confirmDialog, animationService, addressbookService, correspondentListService, newVersion, autoUpdatingWitnessesList) {
+	.controller('walletHomeController', function ($scope, $rootScope, $timeout, $filter, $modal, $log, notification, isCordova, profileService, lodash, configService, storageService, gettext, gettextCatalog, nodeWebkit, addressService, confirmDialog, animationService, addressbookService, correspondentListService, newVersion) {
 
 		var self = this;
 		var home = this;

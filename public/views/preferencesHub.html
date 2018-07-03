@@ -4,29 +4,29 @@
         ng-init="titleSection='Hub'; goBackToState = true">
 </div>
 
-<!-- Hub设置视图 -->
-<div class="content preferences" ng-controller="preferencesHubController as prefHub"  style="background: #ECEFF6;">
-    <!--<div class="chatbgcolorheight ng-scope"></div>-->
-    <!-- 表单 -->
-    <form name="settingsHubForm" ng-submit="prefHub.save()" class="" style="background: #ECEFF6;">
+<!--&lt;!&ndash; Hub设置视图 &ndash;&gt;-->
+<!--<div class="content preferences" ng-controller="preferencesHubController as prefHub"  style="background: #ECEFF6;">-->
+    <!--&lt;!&ndash;<div class="chatbgcolorheight ng-scope"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash; 表单 &ndash;&gt;-->
+    <!--<form name="settingsHubForm" ng-submit="prefHub.save()" class="" style="background: #ECEFF6;">-->
 
-        <div style="display: flex;background: #fff;margin:10px 0 20px;padding:13px 18px;">
-            <img src="./img/Hub-icon@3x.png" style="margin-right:15px;width:20px;height:20px;flex-shrink: 0;" />
-            <div translate style="flex-shrink: 0;font-size: 16px;margin-right: 10px;">Hub URL</div>
-            <input type="text"  style="padding:0;height:auto;margin:0;text-align: right;width: 100%;border:0px;font-size: 16px;" id="hub" name="hub" ng-model="prefHub.hub"></div>
-        <div class="" style="background: #FFFFFF;border:0px;width: 100%;padding-top: 15px;padding-right: 20px;padding-bottom: 10px;">
-            <switch  name="autoUpdWitnessesList"  ng-model="autoUpdWitnessesList" class="green right settingpopbtnl"></switch>
-            <div translate style="padding-left: 20px;font-size: 16px;">Auto-update the witness list from this hub</div>
-        </div>
-        <div style="width:100%;padding:30px 18px 0 18px;">
-            <input type="submit" style="     width: 100%;    background-color: rgb(36, 109, 152);   border-radius: 26px;color: #fff;
-    font-size: 16px;  padding: 0; height: 46px;    " class="  black " value="{{'Save'|translate}}"
-                   ng-style="{'background-color':'#236D97'}">
-        </div>
-    </form>
-    <!-- 显示信息 -->
-    <div class="size-12 text-center" translate style="color: #AEAFB1;padding: 0 18px;margin-top: -10px;">The hub for receiving messages from other devices.
-    </div>
-</div>
+        <!--<div style="display: flex;background: #fff;margin:10px 0 20px;padding:13px 18px;">-->
+            <!--<img src="./img/Hub-icon@3x.png" style="margin-right:15px;width:20px;height:20px;flex-shrink: 0;" />-->
+            <!--<div translate style="flex-shrink: 0;font-size: 16px;margin-right: 10px;">Hub URL</div>-->
+            <!--<input type="text"  style="padding:0;height:auto;margin:0;text-align: right;width: 100%;border:0px;font-size: 16px;" id="hub" name="hub" ng-model="prefHub.hub"></div>-->
+        <!--<div class="" style="background: #FFFFFF;border:0px;width: 100%;padding-top: 15px;padding-right: 20px;padding-bottom: 10px;">-->
+            <!--<switch  name="autoUpdWitnessesList"  ng-model="autoUpdWitnessesList" class="green right settingpopbtnl"></switch>-->
+            <!--<div translate style="padding-left: 20px;font-size: 16px;">Auto-update the witness list from this hub</div>-->
+        <!--</div>-->
+        <!--<div style="width:100%;padding:30px 18px 0 18px;">-->
+            <!--<input type="submit" style="     width: 100%;    background-color: rgb(36, 109, 152);   border-radius: 26px;color: #fff;-->
+    <!--font-size: 16px;  padding: 0; height: 46px;    " class="  black " value="{{'Save'|translate}}"-->
+                   <!--ng-style="{'background-color':'#236D97'}">-->
+        <!--</div>-->
+    <!--</form>-->
+    <!--&lt;!&ndash; 显示信息 &ndash;&gt;-->
+    <!--<div class="size-12 text-center" translate style="color: #AEAFB1;padding: 0 18px;margin-top: -10px;">The hub for receiving messages from other devices.-->
+    <!--</div>-->
+<!--</div>-->
 
 <div class="extra-margin-bottom"></div>

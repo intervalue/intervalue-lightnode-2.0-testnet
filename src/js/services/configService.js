@@ -59,7 +59,7 @@ angular.module('copayApp.services').factory('configService', function (storageSe
             totalCosigners: 6
         },
 
-        hub: (constants.alt === '2' && isTestnet) ? 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb-test' : 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb',
+        // hub: (constants.alt === '2' && isTestnet) ? 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb-test' : 'ec2-13-125-109-255.ap-northeast-2.compute.amazonaws.com/bb',
 
         // requires bluetooth permission on android
         //deviceName: /*isCordova ? cordova.plugins.deviceName.name : */require('os').hostname(),
@@ -200,8 +200,8 @@ angular.module('copayApp.services').factory('configService', function (storageSe
             if (!_config.pushNotifications) {
                 _config.pushNotifications = defaultConfig.pushNotifications;
             }
-            if (!_config.hub)
-                _config.hub = defaultConfig.hub;
+            // if (!_config.hub)
+            //     _config.hub = defaultConfig.hub;
             if (!_config.deviceName)
                 _config.deviceName = defaultConfig.getDeviceName();
 
