@@ -108,8 +108,9 @@ angular.module('copayApp.services').factory('configService', function (storageSe
                 },
                 windows: {},
             }
-        },
-        autoUpdateWitnessesList: true
+        }
+        // ,
+        // autoUpdateWitnessesList: true
     };
 
     var configCache = null;
