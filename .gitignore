@@ -11,6 +11,7 @@ package-lock.json
 #public
 public/angular.js
 public/intervalue.js
+public/css/intervalue.css
 public/partialClient.js
 
 
