@@ -246,48 +246,48 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				var index = (is_change ? assocMaxAddressIndexes[currentWalletIndex].change : assocMaxAddressIndexes[currentWalletIndex].main) + i;
 				arrTmpAddresses.push(objectHash.getChash160(["sig", {"pubkey": wallet_defined_by_keys.derivePubkey(xPubKey, 'm/' + is_change + '/' + index)}]));
 			}
-			myWitnesses.readMyWitnesses(function (arrWitnesses) {
-				network.requestFromLightVendor('light/get_history', {
-					addresses: arrTmpAddresses,
-					witnesses: arrWitnesses
-				}, function (ws, request, response) {
-					if (response && response.error) {
-						var breadcrumbs = require('intervaluecore/breadcrumbs.js');
-						breadcrumbs.add('Error scanForAddressesAndWalletsInLightClient: ' + response.error);
-						self.error = 'When scanning an error occurred, please try again later.';
-						self.scanning = false;
-
-						// 定义模态框 出错后 模态框不显示
-						self.show = false;
-
-						$timeout(function () {
-							$rootScope.$apply();
-						});
-						return;
-					}
-					if (Object.keys(response).length) {
-						lastUsedWalletIndex = currentWalletIndex;
-						if (is_change) {
-							assocMaxAddressIndexes[currentWalletIndex].change += 20;
-						} else {
-							assocMaxAddressIndexes[currentWalletIndex].main += 20;
-						}
-						checkAndAddCurrentAddresses(is_change);
-					} else {
-						if (is_change) {
-							if (assocMaxAddressIndexes[currentWalletIndex].change === 0 && assocMaxAddressIndexes[currentWalletIndex].main === 0) delete assocMaxAddressIndexes[currentWalletIndex];
-							currentWalletIndex++;
-							if (currentWalletIndex - lastUsedWalletIndex > 3) {
-								cb(assocMaxAddressIndexes);
-							} else {
-								setCurrentWallet();
-							}
-						} else {
-							checkAndAddCurrentAddresses(1);
-						}
-					}
-				});
-			});
+			// myWitnesses.readMyWitnesses(function (arrWitnesses) {
+			// 	network.requestFromLightVendor('light/get_history', {
+			// 		addresses: arrTmpAddresses,
+			// 		witnesses: arrWitnesses
+			// 	}, function (ws, request, response) {
+			// 		if (response && response.error) {
+			// 			var breadcrumbs = require('intervaluecore/breadcrumbs.js');
+			// 			breadcrumbs.add('Error scanForAddressesAndWalletsInLightClient: ' + response.error);
+			// 			self.error = 'When scanning an error occurred, please try again later.';
+			// 			self.scanning = false;
+            //
+			// 			// 定义模态框 出错后 模态框不显示
+			// 			self.show = false;
+            //
+			// 			$timeout(function () {
+			// 				$rootScope.$apply();
+			// 			});
+			// 			return;
+			// 		}
+			// 		if (Object.keys(response).length) {
+			// 			lastUsedWalletIndex = currentWalletIndex;
+			// 			if (is_change) {
+			// 				assocMaxAddressIndexes[currentWalletIndex].change += 20;
+			// 			} else {
+			// 				assocMaxAddressIndexes[currentWalletIndex].main += 20;
+			// 			}
+			// 			checkAndAddCurrentAddresses(is_change);
+			// 		} else {
+			// 			if (is_change) {
+			// 				if (assocMaxAddressIndexes[currentWalletIndex].change === 0 && assocMaxAddressIndexes[currentWalletIndex].main === 0) delete assocMaxAddressIndexes[currentWalletIndex];
+			// 				currentWalletIndex++;
+			// 				if (currentWalletIndex - lastUsedWalletIndex > 3) {
+			// 					cb(assocMaxAddressIndexes);
+			// 				} else {
+			// 					setCurrentWallet();
+			// 				}
+			// 			} else {
+			// 				checkAndAddCurrentAddresses(1);
+			// 			}
+			// 		}
+			// 	});
+			// });
 		}
 
 		function setCurrentWallet() {
