@@ -637,7 +637,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
                         device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
                         createWallets(arrWalletIndexes, function () {
-                            createAddress(0, arrWalletIndexes[0], function () {
+                            // createAddress(0, arrWalletIndexes[0], function () {
                                 self.scanning = false;
                                 $scope.index.showneikuang = false;
 
@@ -656,7 +656,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                                     else if (process.exit) // nwjs
                                         process.exit();
                                 });
-                            });
+                            // });
                         });
                     });
                 });
