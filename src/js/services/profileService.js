@@ -28,7 +28,7 @@ angular.module('copayApp.services')
                 return this.Utils.formatAmount(amount, config.unitCode, opts);
             } else if (root.assetMetadata[asset]) {
                 var decimals = root.assetMetadata[asset].decimals || 0;
-                return (amount / Math.pow(10, decimals)).toLocaleString([], {maximumFractionDigits: decimals});
+                return (amount / Math.pow(10, decimals)).toLocaleString([], { maximumFractionDigits: decimals });
             } else {
                 return amount;
             }
@@ -466,7 +466,7 @@ angular.module('copayApp.services')
             var walletId = walletClient.credentials.walletId;
 
             // check if exists
-            var w = lodash.find(root.profile.credentials, {'walletId': walletId});
+            var w = lodash.find(root.profile.credentials, { 'walletId': walletId });
             if (w)
                 return cb(gettext('Wallet already in InterValue' + ": ") + w.walletName);
 
@@ -475,11 +475,12 @@ angular.module('copayApp.services')
 
             // assign wallet color based on first character of walletId
             var color = configService.colorOpts[walletId.charCodeAt(0) % configService.colorOpts.length];
-            var configOpts = {colorFor: {}};
+            var configOpts = { colorFor: {} };
             configOpts.colorFor[walletId] = color;
             configService.set(configOpts, function (err) {
                 root.setAndStoreFocus(walletId, function () {
                     storageService.storeProfile(root.profile, function (err) {
+                        root.setSingleAddressFlag(true);
                         var config = configService.getSync();
                         return cb(err, walletId);
                     });
