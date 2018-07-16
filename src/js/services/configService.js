@@ -75,7 +75,7 @@ angular.module('copayApp.services').factory('configService', function (storageSe
             spendUnconfirmed: false,
             reconnectDelay: 5000,
             idleDurationMin: 4,
-            singleAddress: false,
+            singleAddress: true,
             settings: {
                 unitName: 'INVE',
                 unitValue: 1000000,
