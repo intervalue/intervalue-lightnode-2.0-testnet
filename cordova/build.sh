@@ -57,7 +57,7 @@ echo "Project directory is $PROJECT"
 if [ ! -d $PROJECT ]; then
 	cd $BUILDDIR
 	echo "${OpenColor}${Green}* Creating project... ${CloseColor}"
-	cordova create ../../intervaluebuilds/project-$1 org.intervalue.wallet InterValue-2.0-testnet
+	cordova create ../../intervaluebuilds/project-$1 org.intervalue.wallet InterValue-2.0.0-testnet
 	checkOK
 
 	cd $PROJECT
