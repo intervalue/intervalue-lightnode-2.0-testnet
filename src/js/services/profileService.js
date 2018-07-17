@@ -47,7 +47,8 @@ angular.module('copayApp.services')
         };
 
         root.formatAmountNoSeparators = function (amount, asset, opts) {
-            return root.formatAmount(amount, asset, opts).replace(",", "");
+            // return root.formatAmount(amount, asset, opts).replace(",", "");
+            return root.formatAmount(amount, asset, opts).replace(/,/g, "");
         };
         //
         root.formatAmountWithUnitNoSeparators = function (amount, asset, opts) {
