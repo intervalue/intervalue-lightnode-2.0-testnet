@@ -407,7 +407,7 @@ angular.module('copayApp.controllers')
 
 		//
 		this.openCustomizedAmountModal = function (addr) {
-            $rootScope.modalOpened = true;
+			$rootScope.modalOpened = true;
 			$rootScope.closeToHome = false;
 			var self = this;
 			var fc = profileService.focusedClient;
@@ -601,7 +601,7 @@ angular.module('copayApp.controllers')
 
 			// on touchdown elements
 			$log.debug('Binding touchstart elements...');
-			['hamburger', 'menu-walletHome', 'menu-send', 'menu-receive', 'menu-history'].forEach(function (id) {
+			['hamburger', 'menu-walletHome', 'menu-send', 'menu-receive', 'menu-history', 'menu-settings'].forEach(function (id) {
 				var e = document.getElementById(id);
 				if (e) e.addEventListener('touchstart', function () {
 					try {
@@ -728,9 +728,9 @@ angular.module('copayApp.controllers')
 			if (!asset || asset == "base") {
 				amount -= constants.TEXTCOIN_CLAIM_FEE;
 				if (network.exchangeRates['GBYTE_USD']) {
-					usd_amount_str = " (≈" + ((amount / 1e9) * network.exchangeRates['GBYTE_USD']).toLocaleString([], {maximumFractionDigits: 2}) + " USD)";
+					usd_amount_str = " (≈" + ((amount / 1e9) * network.exchangeRates['GBYTE_USD']).toLocaleString([], { maximumFractionDigits: 2 }) + " USD)";
 				}
-				amount = (amount / 1e9).toLocaleString([], {maximumFractionDigits: 9});
+				amount = (amount / 1e9).toLocaleString([], { maximumFractionDigits: 9 });
 				asset = "GB";
 			} else {
 				//indexScope.arrBalances[$scope.index.assetIndex]
@@ -794,7 +794,7 @@ angular.module('copayApp.controllers')
 				m.addClass(animationService.modalAnimated.slideOutDown);
 			});
 		};
-//开始交易
+		//开始交易
 		this.submitPayment = function () {
 			//判断余额是否为0
 			if ($scope.index.arrBalances.length === 0)
@@ -802,7 +802,7 @@ angular.module('copayApp.controllers')
 			var fc = profileService.focusedClient;
 			var unitValue = this.unitValue;
 			var bbUnitValue = this.bbUnitValue;
-//判断是否手机设备
+			//判断是否手机设备
 			if (isCordova && this.isWindowsPhoneApp) {
 				this.hideAddress = false;
 				this.hideAmount = false;
@@ -813,30 +813,30 @@ angular.module('copayApp.controllers')
 				return console.log('form is gone');
 
 			if (self.bSendAll)
-			    //金额验证
+				//金额验证
 				form.amount.$setValidity('validAmount', true);
 			if ($scope.mtab == 2 && !form.address.$modelValue) { // clicked 'share via message' button
-			    //地址验证
+				//地址验证
 				form.address.$setValidity('validAddressOrEmail', true);
 			}
 			if (form.$invalid) {
-			    //验证未通过,无法发送交易
+				//验证未通过,无法发送交易
 				this.error = gettext('Unable to send transaction proposal');
 				return;
 			}
-             //判断钱包是否设置交易密码
+			//判断钱包是否设置交易密码
 			if (fc.isPrivKeyEncrypted()) {
-			    //如果加密
+				//如果加密
 				profileService.unlockFC(null, function (err) {
 					if (err)
-					    //如果验证密码错误
+						//如果验证密码错误
 						return self.setSendError(err.message);
 					//验证密码正确
 					return self.submitPayment();
 				});
 				return;
 			}
-            //??是否多重签名
+			//??是否多重签名
 			var comment = form.comment.$modelValue;
 
 			// ToDo: use a credential's (or fc's) function for this
@@ -866,11 +866,11 @@ angular.module('copayApp.controllers')
 					else if (assetInfo.decimals)
 						amount *= Math.pow(10, assetInfo.decimals);
 					amount = Math.round(amount);
-					outputs.push({address: address, amount: +amount});
+					outputs.push({ address: address, amount: +amount });
 				});
 				var current_payment_key = form.addresses.$modelValue.replace(/[^a-zA-Z0-9]/g, '');
 			} else {
-			    //获取交易地址
+				//获取交易地址
 				var address = form.address.$modelValue;
 				var recipient_device_address = assocDeviceAddressesByPaymentAddress[address];
 				//获取交易金额
@@ -1039,7 +1039,7 @@ angular.module('copayApp.controllers')
 						});
 					}
 					else
-					//执行发送交易
+						//执行发送交易
 						composeAndSend(address);
 
 					// compose and send
@@ -1076,8 +1076,8 @@ angular.module('copayApp.controllers')
 									opts.base_outputs = outputs;
 							}
 						} else {
-							opts.asset_outputs = [{address: to_address, amount: amount}];
-							opts.base_outputs = [{address: to_address, amount: constants.TEXTCOIN_ASSET_CLAIM_FEE}];
+							opts.asset_outputs = [{ address: to_address, amount: amount }];
+							opts.base_outputs = [{ address: to_address, amount: constants.TEXTCOIN_ASSET_CLAIM_FEE }];
 						}
 						fc.sendMultiPayment(opts, function (err, unit, mnemonics) {
 							// if multisig, it might take very long before the callback is called
@@ -1095,9 +1095,9 @@ angular.module('copayApp.controllers')
 								else if (err.match(/no funded/))
 									err = "Not enough spendable funds, make sure all your funds are confirmed";
 								else if (err.match(/connection closed/))
-									err = gettextCatalog.getString('[internal] connection closed') ;
+									err = gettextCatalog.getString('[internal] connection closed');
 								else if (err.match(/funds from/))
-									err = err.substring(err.indexOf("from")+4, err.indexOf("for")) + gettextCatalog.getString(err.substr(0,err.indexOf("from"))) + gettextCatalog.getString(". It needs at least ")  + parseInt(err.substring(err.indexOf("for")+3, err.length)) / 1000000 + "INVE";
+									err = err.substring(err.indexOf("from") + 4, err.indexOf("for")) + gettextCatalog.getString(err.substr(0, err.indexOf("from"))) + gettextCatalog.getString(". It needs at least ") + parseInt(err.substring(err.indexOf("for") + 3, err.length)) / 1000000 + "INVE";
 								return self.setSendError(err);
 							}
 							var binding = self.binding;
@@ -1126,7 +1126,7 @@ angular.module('copayApp.controllers')
 								// var mnemonic = mnemonics[address];
 								// if (opts.send_all && asset === "base")
 								// 	amount = assetInfo.stable;
-                                //
+								//
 								// if (isEmail) {
 								// 	self.openShareTextcoinModal(address.slice("textcoin:".length), mnemonic, amount, asset, false);
 								// } else {
@@ -1142,7 +1142,7 @@ angular.module('copayApp.controllers')
 
 
 								// $rootScope.$emit('Local/SetTab', 'walletHome');
-                                return self.setSendError("Wallet address is incorrect");
+								return self.setSendError("Wallet address is incorrect");
 							}
 							else // redirect to history
 								$rootScope.$emit('Local/SetTab', 'walletHome');
@@ -1531,11 +1531,11 @@ angular.module('copayApp.controllers')
 			if (assetInfo.asset === 'base') {
 				this._amount = null;
 				// this.bSendAll = true;
-                assetInfo.total = assetInfo.stable + assetInfo.pending;
+				assetInfo.total = assetInfo.stable + assetInfo.pending;
 
-                form.amount.$setViewValue(profileService.formatAmountNoSeparators(((assetInfo.total-2000) > 0 ? (assetInfo.total-2000) : 0), 'base'));
-                form.amount.$setValidity('validAmount', true);
-                form.amount.$render();
+				form.amount.$setViewValue(profileService.formatAmountNoSeparators(((assetInfo.total - 2000) > 0 ? (assetInfo.total - 2000) : 0), 'base'));
+				form.amount.$setValidity('validAmount', true);
+				form.amount.$render();
 
 			}
 			else {
