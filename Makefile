@@ -48,7 +48,6 @@ android-debug:
 	cordova/build.sh ANDROID --dbgjs --clear
 	cd ../intervaluebuilds/project-ANDROID && cordova build android 2>&1 >/dev/null
 	mv ../intervaluebuilds/project-ANDROID/platforms/android/build/outputs/apk/android-debug.apk ../intervaluebuilds/InterValue-2.0.1-testnet.apk
-	cd ../intervaluebuilds && zip -r project-ANDROID.zip project-ANDROID
 
 
 android-debug-fast:
