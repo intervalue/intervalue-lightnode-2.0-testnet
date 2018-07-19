@@ -3,7 +3,6 @@
 var modules = [
   'ui.router',
   'angularMoment',
-  'angular-carousel',
   'mm.foundation',
   'monospaced.qrcode',
   'monospaced.elastic',
