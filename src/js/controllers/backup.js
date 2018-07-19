@@ -470,7 +470,7 @@ angular.module('copayApp.controllers').controller('wordsController', function ($
 
 
 	// 删除口令
-	self.delete = function () {
+	self.deleteback = function () {
 		confirmDialog.show(msg, function (ok) {
 			if (ok) {
 				fc.clearMnemonic();
