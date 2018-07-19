@@ -397,14 +397,14 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 /*inve2.0 walletHome.html page index*/
 .addwhhometran{width:100%;overflow: auto;margin-top:-30px;padding:0 18px;height: calc(100vh - 170px);}
 .addwhhometranin{width: 100%;height:100%;box-shadow:0px 0px 3px 0px rgba(0,0,0,0.12);border-radius:3px 3px 0px 0px;overflow: auto;}
-.addwhtransrepe{padding: 13px 15px;cursor:pointer;border-bottom: 1px solid #EDEEF0;display: flex;justify-content: space-between;}
+.addwhtransrepe{padding: 13px 15px;cursor:pointer;border-bottom: 1px solid #EDEEF0;display: flex;justify-content: space-between;align-items:center;}
 .addwhfourzt{color:#fff;font-size:12px;padding:3px 14px;border-radius: 22px;}
 .addwhfourztget{background: #57C17B;}
 .addwhfourztsent{background: #EA6C4C;}
 .addwhfourothersent{background: #3B3B3B;}
-.addwhtransgetam{color:#57C17B;font-size: 23px;word-break: break-word;}
-.addwhtranssentam{color:#EA6C4C;font-size: 23px;word-break: break-word;}
-.addwhtransgetam span,.addwhtranssentam span{color: #999999;font-size: 12px;}
+.addwhtransgetam{color:#57C17B;font-size: 23px;word-break: break-word;display: flex;align-items:center;line-height: 24px;}
+.addwhtranssentam{color:#EA6C4C;font-size: 23px;word-break: break-word;display: flex;align-items:center;line-height: 24px;}
+.addwhtransgetam span,.addwhtranssentam span{color: #999999;font-size: 12px;flex-shrink: 0;margin-left: 4px;}
 /*inve2.0 walletHome.html page transaction*/
 #send{background:#fff;}
 .addwhtranall{font-size:12px;color:rgba(0,122,255,1);}
