@@ -1533,7 +1533,7 @@ angular.module('copayApp.controllers')
 				// this.bSendAll = true;
 				assetInfo.total = assetInfo.stable + assetInfo.pending;
 
-				form.amount.$setViewValue(profileService.formatAmountNoSeparators(((assetInfo.total - 2000) > 0 ? (assetInfo.total - 2000) : 0), 'base'));
+				form.amount.$setViewValue(profileService.formatAmountNoSeparators(((assetInfo.total - 2000) > 0 ? (assetInfo.total - 2000) : 0), 'base', { dontRound: true }));
 				form.amount.$setValidity('validAmount', true);
 				form.amount.$render();
 
