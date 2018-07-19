@@ -54,7 +54,8 @@
             <!--</div>-->
 
             <div class="size-14" style="background: #FFFFFF;border:0px;width: 100%;display:flex;padding: 10px 18px 4px;">
-                <div translate style="font-size: 16px;width:100%;">Show wallet seed</div>
+                <div translate style="font-size: 16px;width:100%;" ng-hide="wordsC.show">Show wallet seed</div>
+                <div translate style="font-size: 16px;width:100%;" ng-hide="!wordsC.show">Hide wallet seed</div>
                 <a style="margin-top:4px;" ng-click="wordsC.toggle()">
                     <switch translate ng-hide="wordsC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Show the Wallet Seed Anyway</switch>
                     <switch translate ng-hide="!wordsC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Hide the Wallet Seed</switch>

@@ -29,6 +29,12 @@ msgstr "-- 选择多重签名账户 --"
 msgid "About INVE"
 msgstr "关于InterValue"
 
+msgid "Show wallet seed"
+msgstr "显示钱包口令"
+
+msgid "Hide wallet seed"
+msgstr "隐藏钱包口令"
+
 #: public/views/correspondentDevices.html:45
 msgid "DApp store"
 msgstr "DApp商店"
