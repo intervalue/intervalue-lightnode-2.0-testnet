@@ -427,7 +427,11 @@ md-input-container .md-errors-spacer{min-height:0 !important;}
 *{outline:none !important;}
 .htcalc65{height: calc(100vh - 65px);}
 .addwhtrtime{margin-right: 4px;margin-top: -2px;}
-
+.ablock{display: block;}
+.ablock:hover{color:#fff;}
+.md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover{
+    background:#007095 !important;
+}
 
 
 
