@@ -138,6 +138,7 @@ h4.title a {
 
 .preferences .switch {
   top:-5px !important;
+  transition: 0s;
 }
 
 

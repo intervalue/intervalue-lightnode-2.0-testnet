@@ -3,19 +3,21 @@
     <!-- 左区 -->
     <section class="left-small">
         <a ng-show="goBackToState"
-           ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi" style="color:#fff;">
+           ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi" style="color:#fff;height:100%;display:block;">
             <img src="./img/chatbackstate.png" class="chatbackstate">
         </a>
 
         <a ng-show="closeToHome" class="chatpaddingleffi"
-           ng-click="topbar.goHome(); closeToHome = null" style="color:#3B3B3B;">
+           ng-click="topbar.goHome(); closeToHome = null" style="color:#fff;height:100%;display:block;">
             <img src="./img/chatbackstate.png" class="chatbackstate">
         </a>
     </section>
 
     <!-- 右区 -->
     <section class="right-small" style="height: 45px">
-          <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop" ng-click="showrightpop($event)">
+        <a ng-click="showrightpop($event)" style="color:#fff;height:100%;display:block;">
+            <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop">
+        </a>
     </section>
     <div id="pop" style="position: relative;right:6px;top:-2px;z-index:1;" ng-show="showrightpopvalue" >
         <div class="triangle ">

@@ -112,13 +112,13 @@ _:-ms-fullscreen, :root .main {
 }
 
 .left-small {
-  width: 4.7rem;
+  width: 56px;
   line-height: 2.95rem;
   border-right: none;
 }
 
 .right-small {
-  width: 4.7rem;
+  width: 56px;
   text-align: right;
   line-height: 2.7rem;
   border-left: none;
