@@ -265,7 +265,7 @@
                                     <!--交易的 四种状态 对应四种符号-->
                                     <!--<div class="large-4 medium-4 small-4 columns m5r" style="padding:3px 0 0 10px;font-weight: bold;width: 140px; ">-->
                                     <div>
-                                        <div class="size-12" ng-if="btx.action == 'invalid'" translate> (possible double spend) </div>
+                                        <div class="size-1onGoingProcess-content2" ng-if="btx.action == 'invalid'" translate> (possible double spend) </div>
                                         <!--金额-->
                                         <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
                                         <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
@@ -520,7 +520,7 @@
             <div class="chatbgcolorheight"></div>
             <!-- 进度状态信息：在线、任意index进度状态 -->
             <div class="onGoingProcess" ng-show="index.anyOnGoingProcess && !index.isOffline">
-                <div class="onGoingProcess-content" style="height: 38px;margin-bottom: -20px;padding-left: 19px;padding-top: 6px;color: #999;font-size: 13px;">
+                <div class="onGoingProcess-content" style="height: 38px;padding-left: 19px;color: #999;font-size: 13px;line-height: 38px;">
                     <div class="spinner">
                         <div class="rect1"></div>
                         <div class="rect2"></div>
