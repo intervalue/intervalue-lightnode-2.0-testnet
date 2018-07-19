@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="org.intervalue.wallet"
-  version="2.0.2"
+  version="2.0.0"
   android-versionCode="1062"
-  ios-CFBundleVersion="2.0.2">
-    <name>InterValue-2.0.2-testnet</name>
+  ios-CFBundleVersion="2.0.0">
+    <name>InterValue-2.0-testnet</name>
     <description>
       InterValue wallet for testnet.
     </description>
     <author email="intervalue@inve.one" href="https://inve.one">
-        InterValue-2.0.2-testnet
+        InterValue-2.0-testnet
     </author>
     <content src="index.html" />
     <access origin="*" />

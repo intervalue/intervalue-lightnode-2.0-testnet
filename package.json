@@ -1,8 +1,8 @@
 {
-  "name": "InterValue-2.0.2-testnet",
+  "name": "InterValue-2.0-testnet",
   "description": "Smart payments made simple",
-  "author": "InterValue-2.0.2-testnet",
-  "version": "2.0.2",
+  "author": "InterValue-2.0-testnet",
+  "version": "2.0.0",
   "keywords": [
     "wallet",
     "intervalue",
@@ -12,7 +12,7 @@
   ],
   "main": "public/index.html",
   "window": {
-    "title": "InterValue-2.0.2-testnet",
+    "title": "InterValue-2.0-testnet",
     "icon": "./public/img/icons/icon-white-256.png",
     "show": true,
     "visible": true,
