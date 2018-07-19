@@ -759,7 +759,7 @@
                                                ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)"
                                                ng-required="!home.bSendAll && !home.send_multiple" autocomplete="off">
                                         <div  ng-repeat="balance in index.arrBalances|filter:'base'" class="addmdinputimg">
-										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 16" translate class="color777777 size-18">
+										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 26" translate class="color777777 size-18">
 											    INVE
 										    </span>
                                             <!-- 资产数额字符串不超过16个字符, 显示不带单位资产数额和名称 -->
@@ -774,7 +774,7 @@
                                     </md-input-container>
                                     <!-- 获取钱包余额-->
                                     <div  ng-repeat="balance in index.arrBalances|filter:'base'" class="m10t">
-										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 16" translate class="size-12 color999999">
+										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 26" translate class="size-12 color999999">
 											    <span translate >Available balance</span>:&nbsp;&nbsp;&nbsp{{balance.totalAvail}}
 										    </span>
                                         <!-- 资产数额字符串不超过16个字符, 显示不带单位资产数额和名称 -->
