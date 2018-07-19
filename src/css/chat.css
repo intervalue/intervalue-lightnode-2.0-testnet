@@ -272,7 +272,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 @media screen and (max-width: 330px){
     .chatccnextbtn{font-size:14px;}
 }
-.chatcnextnote{display:flex;justify-content: flex-start;padding:10px 0 0;}
+.chatcnextnote{display:flex;justify-content: flex-start;padding:10px 18px 0;}
 .chatcnextnote span{flex-shrink: 30px;font-size: 14px;color: #EC7051;margin-top: -2px; margin-right: 10px;}
 .chatcnextnote p{font-size:12px;color: #EC7051;margin-bottom:0;text-align: left;}
 
@@ -388,7 +388,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatercwarn{color: #d55b56 ! important;}
 .addcreaterclt{margin: 10px 0 8px;text-align: left;padding-left: 18px;font-size: 14px;color: #282828;}
 .addcreaterclt span{text-transform: capitalize;}
-.addcreatercinputp{padding: 0 5px;}
+.addcreatercinputp{padding: 0 18px;}
 .addcreatercinputm{height: 120px; padding: 0 5px; margin-bottom:30px;}
 .addcreatercbtn{padding:0 18px;margin-top:10px;}
 .addcreatercbtnd{color: #3B3B3B;display: block;background: #fff; border: 1px solid #3B3B3B;margin: 20px auto;}
