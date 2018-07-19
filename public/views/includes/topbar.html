@@ -24,7 +24,7 @@
         </div>
         <div class="chatpopUpWindw"  style="background-color:#324e77;" >
             <!-- 扫一扫 -->
-            <div class="subDiv" style="vertical-align: middle" ng-show="true" >
+            <div class="subDiv" style="vertical-align: middle" ng-if="index.isCordova">
                 <qr-scanner ng-show="index.isComplete" on-scan="topbar.onQrCodeScanned(data)"
                             before-scan="topbar.onBeforeScan()">
                     <img src="./img/chatscannner.png"/><span translate>Scanner</span>
