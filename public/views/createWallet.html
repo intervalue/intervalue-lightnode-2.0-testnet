@@ -157,13 +157,11 @@
                 <span>{{'Creat Wallet'|translate}}</span>
 
                 <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'">
-                    <i class="icon-arrow-left3  icon-back"></i>
-                    <span class="text-back">{{'Back'|translate}}</span>
+                    <img src="./img/chatbackstate2.png" class="chatbackstate">
                 </a>
 
                 <a ng-if="recFromSeeddir.scanning">
-                    <i class="icon-arrow-left3  icon-back"></i>
-                    <span class="text-back">{{'Back'|translate}}</span>
+                    <img src="./img/chatbackstate2.png" class="chatbackstate">
                 </a>
             </div>
             <div class="addcreatenb">
@@ -176,8 +174,8 @@
                 </a>
                 <h1 class="icon-beifenr" style="font-size: 110px;color:#333;text-align: center; margin: 0; padding-top: 90px;"></h1>-->
 
-                <h1 class="text-center chatcreattext" translate>Create Wallet and Backup Your Seed Phrase</h1>
-                <div class="chatcnextnote">
+                <h1 class="text-center chatcreattext color333" translate>Create Wallet and Backup Your Seed Phrase</h1>
+                <div class="chatcnextnote p10lr">
                     <span class="text-back">{{'Note:'|translate}}</span>
                     <p class="size-12"  translate>We highly recommend you write the Mnemonic words(Backup Phrase) on Paper and keep it in a safe place, anyone get it can access or spend your assets. Also get start with a small amout of assets.</p>
                 </div>
@@ -203,13 +201,11 @@
                     <span translate>Restore Wallet</span>
 
                     <a ng-if="!recFromSeeddir.scanning" ng-click="wordsC.step = 'show_waring'">
-                        <i class="icon-arrow-left3  icon-back"></i>
-                        <span class="text-back">{{'Back'|translate}}</span>
+                        <img src="./img/chatbackstate2.png" class="chatbackstate">
                     </a>
 
                     <a ng-if="recFromSeeddir.scanning">
-                        <i class="icon-arrow-left3  icon-back"></i>
-                        <span class="text-back">{{'Back'|translate}}</span>
+                        <img src="./img/chatbackstate2.png" class="chatbackstate">
                     </a>
                 </div>
 
@@ -441,7 +437,7 @@
                                 type="submit"
                                 id="backupSubmit"
                                 ng-click="recFromSeeddir.recoveryForm()"
-                                class="#236d97  chatccnextbtn"
+                                class="#236d97  chatccnextbtn m32t"
                                 value="{{'Restore Wallet from Seed Phrase'|translate}}"
                                 >
                             <!--按钮 点击恢复钱包并删除口令-->
