@@ -24,10 +24,10 @@
             <div id="chatpop" style="top:-50px;" ng-show="showrightpopvalue" >
                 <div class="triangle chattriangle">
                 </div>
-                <div class="chatpopUpWindw" >
+                <div class="chatpopUpWindw" ng-controller="topbarController as topbar">
                     <!-- 扫一扫 -->
                     <div class="subDiv" style="vertical-align: middle" ng-show="true" >
-                        <qr-scanner on-scan="topbar.onQrCodeScanned(data)"
+                        <qr-scanner ng-show="index.isComplete" on-scan="topbar.onQrCodeScanned(data)"
                                     before-scan="topbar.onBeforeScan()">
                             <img src="./img/chatscannner.png"/><span translate>Scanner</span>
                         </qr-scanner>
