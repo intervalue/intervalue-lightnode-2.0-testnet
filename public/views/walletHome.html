@@ -832,10 +832,9 @@
                                      ng-show="!home.blockUx && !home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)"
                                      style="width: 100%; margin-bottom: 0;"
                                 >
-                                    <a ng-click="home.resetForm(sendPaymentForm)"
-                                       class="button  outline dark-gray round"
-                                       style="width: 100%; height: 44px; display: block; padding: 0; margin: 0; margin-bottom: 20px; padding-top: 10px;"
-                                       translate>Cancel</a>
+                                    <button ng-click="home.resetForm(sendPaymentForm)"
+                                       class="addwhitebutton m20t"
+                                       translate>Cancel</button>
                                 </div>
                             </div>
                         </div>
