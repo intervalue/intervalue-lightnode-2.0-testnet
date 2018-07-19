@@ -178,7 +178,7 @@
                     <div class="addwhhometranin bgwhite">
                         <!--判断isCordova 电脑端   电脑端添加init初始化交易历史  -->
                         <div ng-if="!index.isCordova" id="history" class="history p30t p30b" ng-init="index.updateTxHistory()">
-                            <div ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]">
+                            <div ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]" style="margin-top: -26px;">
                                 <div>
                                     <div class="oh text-center">
             				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory()'>
@@ -186,7 +186,7 @@
               					<button class="outline round light-gray tiny" translate>Tap to retry</button>
             				</span>
 
-                                        <span ng-if="!index.txHistoryError" translate>
+                            <span ng-if="!index.txHistoryError" translate style="font-family: pflight;color: #90919D;font-size:12px;">
               					No transactions yet
             				</span>
                                     </div>
