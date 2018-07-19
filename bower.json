@@ -9,8 +9,6 @@
     "angular": "1.6.10",
     "angular-foundation": "byteball/angular-foundation",
     "angular-gettext": "2",
-    "angular-touch": "1.6.10",
-    "angular-carousel": "*",
     "angular-moment": "1.2.0",
     "angular-qrcode": "monospaced/angular-qrcode#~6.0.3",
     "angular-ui-router": "0.2",
