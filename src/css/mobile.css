@@ -295,7 +295,7 @@ a.missing-copayers {
 .button, button {
   padding: 1rem 1.2rem 1.0625rem;
   border: 1px solid transparent;
-  font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: pfregular, Arial, sans-serif;
 }
 
 .box-setup {

@@ -103,7 +103,7 @@
 .chatsettingaddr .chatsettingtitle,.chatsettingrename .chatsettingtitle{height:30px;line-height:34px;}
 .chatsettingaddr .chatsettingtitle,.chatsettingrename .chatsettingtitle{text-align: left;margin-left: 10px;flex-shrink:0;margin-right: 8px;}
 .chatsettingaddr .chatsettingtitle{color:#b0b0b0;}
-.chatsettingaddrtext{flex:1; text-align: right; word-break: break-all;margin-top: 5px;font-size:12px;font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;}
+.chatsettingaddrtext{flex:1; text-align: right; word-break: break-all;margin-top: 5px;font-size:12px;}
 .chatsettingrename input{padding: 0 !important; margin: 0 !important; text-align: right;border:none  !important;flex:1;}
 .chatsaverecords{width:100%;height:50px;line-height:50px;padding:0;border-radius:38px;border:1px solid;}
 .chatclearrecords{width:100%;height:50px;line-height:50px;padding:0;border-radius:38px;background-color:#eceff5;color:#246d98;border:1px solid #246d98;}
@@ -115,7 +115,7 @@
 .chatdeletecordsdiv .chatdeletecordsimg{margin:0 auto; }
 .chatdeletecordsdiv .chatdeletecordsimg img{width: 58px;height: 58px;}
 .chatdeletecordsdiv .chatdeletecordsimg i {font-size: 68px;color: #226d97;}
-.chatdeletecordsdiv .chatdeletecordstext{color:#6A7D90;font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;margin-top: 56px;font-size:18px;}
+.chatdeletecordsdiv .chatdeletecordstext{color:#6A7D90;margin-top: 56px;font-size:18px;}
 .chatdeleterecordbtn{width:100%;space-around ;padding: 14px;}
 .chatdeleterecordbtn .button{height: 50px;line-height: 50px;width:49%;padding:0;border-radius: 34px;}
 .chatdeleterecordbtn .yes_button_class{background-color: #246d98 !important;color:#fff !important;float:left;}
@@ -233,8 +233,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 .qdpagetwo > div{margin-top:0 !important;}
 .qdpageonetr{display: block;text-align: center;color:white;font-size: 32px;padding-top: 168px;}
 .qdpageoneimg{width:108px;margin: 0 auto;}
-.qdpageonetext{color:#454545;margin-top:2px;font-size:38px;text-align: center;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-"Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;}
+.qdpageonetext{color:#454545;margin-top:2px;font-size:38px;text-align: center;}
 .qdbggrey{background-color: #eceff5;width: 100%;height:100%;position: fixed;top: 0;left: 0;z-index: -1;}
 
 
@@ -309,11 +308,11 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 
 
 .addwhitebutton{font-size: 14px;width: 100%; height: 45px; line-height: 45px; padding: 0; background-color: #FFFFFF; border: 1px solid #3B3B3B;
-    color: #3B3B3B; border-radius: 3px !important; margin: 0;font-family: inherit;}
-.addblackbutton{font-size: 14px;width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;font-family: inherit;}
+    color: #3B3B3B; border-radius: 3px !important; margin: 0;}
+.addblackbutton{font-size: 14px;width: 100%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;}
 .addwhitebutton50{float:right;font-size: 14px;width: 49%; height: 45px; line-height: 45px; padding: 0; background-color: #FFFFFF; border: 1px solid #3B3B3B;
-    color: #3B3B3B; border-radius: 3px !important; margin: 0;font-family: inherit;}
-.addblackbutton50{float:left;font-size: 14px;width: 49%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;font-family: inherit;}
+    color: #3B3B3B; border-radius: 3px !important; margin: 0;}
+.addblackbutton50{float:left;font-size: 14px;width: 49%;height:45px;line-height: 45px;padding: 0;background-color: #3B3B3B;color:#fff;border-radius: 3px !important;margin:0;}
 button.disabled, button[disabled], .button.disabled, .button[disabled]{font-size: 14px;height: 45px; line-height: 45px; padding: 0; background-color: #eee !important; border: 1px solid #eee;
     color: #3B3B3B !important; border-radius: 3px !important; margin: 0;}
 button:hover, button:focus, .button:hover, .button:focus {background-color: #007095; border:1px solid #007095 !important;}

@@ -64,6 +64,22 @@
   font-weight: bold;
   font-style: italic;
 }
+@font-face{
+  font-family: "pfmedium";
+  src: url('/public/font/PingFang-Medium.ttf');
+}
+@font-face{
+  font-family: "pfregular";
+  src: url('/public/font/PingFang-Regular.ttf');
+}
+@font-face{
+  font-family: "pfbold";
+  src: url('/public/font/PingFang-Semibold.ttf');
+}
+@font-face{
+  font-family: "pflight";
+  src: url('/public/font/PingFang-Light.ttf');
+}
 @font-face {
   font-family: 'Hiragino';
   src: url('/public/font/Hiragino-Sans-GB-W3.otf') format('truetype');
@@ -72,7 +88,7 @@
 }
 
 body {
-  font-family: Hiragino, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: pfregular, Arial, sans-serif;
 }
 
 
@@ -93,6 +109,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: pfregular, Arial, sans-serif;
   color: #2C3E50;
 }
 
