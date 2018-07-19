@@ -30,13 +30,13 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     self.title = "";
 
     $rootScope.showrightpopvalue = false;
-    $rootScope.showrightpop = function($event){
+    $rootScope.showrightpop = function ($event) {
         $event.stopPropagation();           //阻止事件传播，即本次事件不产生连锁反应（不影响父节点和其他节点）
         $rootScope.showrightpopvalue = !$rootScope.showrightpopvalue;
         return $rootScope.showrightpopvalue;
     };
 
-    $rootScope.hiderightpop = function($event){
+    $rootScope.hiderightpop = function ($event) {
         $event.stopPropagation();
         $rootScope.showrightpopvalue = false;
     };
@@ -49,7 +49,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     console.log("hostname="+os.hostname());
     //console.log(os.userInfo());
     */
-//按钮
+    //按钮
     this.bindTouchDown = function (e) {
         console.log(e);
         // on touchdown elements
@@ -77,7 +77,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
             walletClient.credentials.addPublicKeyRing(arrApprovedDevices);
 
             // save it to profile
-            var credentialsIndex = lodash.findIndex(profileService.profile.credentials, {walletId: walletClient.credentials.walletId});
+            var credentialsIndex = lodash.findIndex(profileService.profile.credentials, { walletId: walletClient.credentials.walletId });
             if (credentialsIndex < 0)
                 throw Error("failed to find our credentials in profile");
             profileService.profile.credentials[credentialsIndex] = JSON.parse(walletClient.export());
@@ -104,7 +104,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
             description += "UA: " + navigator.userAgent + "\n";
             description += "Language: " + (navigator.userLanguage || navigator.language) + "\n";
             description += "Program: " + conf.program + ' ' + conf.program_version + ' ' + (conf.bLight ? 'light' : 'full') + "\n";
-            network.sendJustsaying(ws, 'bugreport', {message: error_message, exception: description});
+            network.sendJustsaying(ws, 'bugreport', { message: error_message, exception: description });
         });
     }
 
@@ -307,7 +307,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         device.readCorrespondent(device_address, function (correspondent) {
             notification.info(gettextCatalog.getString('Declined'), "Wallet " + walletName + " declined by " + (correspondent ? correspondent.name : 'peer'));
         });
-        profileService.deleteWallet({client: client}, function (err) {
+        profileService.deleteWallet({ client: client }, function (err) {
             if (err)
                 console.log(err);
         });
@@ -403,7 +403,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
             var privateKey = xPrivKey.derive(path).privateKey;
             console.log("priv key:", privateKey);
             //var privKeyBuf = privateKey.toBuffer();
-            var privKeyBuf = privateKey.bn.toBuffer({size: 32}); // https://github.com/bitpay/bitcore-lib/issues/47
+            var privKeyBuf = privateKey.bn.toBuffer({ size: 32 }); // https://github.com/bitpay/bitcore-lib/issues/47
             console.log("priv key buf:", privKeyBuf);
             var buf_to_sign = objectHash.getUnitHashToSign(objUnit);
             var signature = ecdsaSig.sign(buf_to_sign, privKeyBuf);
@@ -420,7 +420,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         var bbWallet = require('intervaluecore/wallet.js');
         var walletDefinedByKeys = require('intervaluecore/wallet_defined_by_keys.js');
         var unit = objUnit.unit;
-        var credentials = lodash.find(profileService.profile.credentials, {walletId: objAddress.wallet});
+        var credentials = lodash.find(profileService.profile.credentials, { walletId: objAddress.wallet });
         mutex.lock(["signing_request-" + unit], function (unlock) {
 
             // apply the previously obtained decision.
@@ -478,7 +478,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                         for (var asset in assocAmountByAssetAndAddress) {
                             var formatted_asset = isCordova ? asset : ("<span class='small'>" + asset + '</span><br/>');
                             var currency = "of asset " + formatted_asset;
-                            var assetIndex = lodash.findIndex(self.arrBalances, {asset: asset});
+                            var assetIndex = lodash.findIndex(self.arrBalances, { asset: asset });
                             var assetInfo = self.arrBalances[assetIndex];
                             if (asset === 'base')
                                 currency = config.unitName;
@@ -870,7 +870,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 go.path(tab.new_state);
                 return;
             } else {
-                self.title = (tab.title==='Home') ? '' : tab.title;
+                self.title = (tab.title === 'Home') ? '' : tab.title;
                 return self.setTab(tab.link, reset, tries, switchState);
             }
         }
@@ -1059,14 +1059,14 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 }
             }
             if (balanceInfo.name)
-                profileService.assetMetadata[asset] = {decimals: balanceInfo.decimals, name: balanceInfo.name};
+                profileService.assetMetadata[asset] = { decimals: balanceInfo.decimals, name: balanceInfo.name };
             if (asset === "base" || asset == self.BLACKBYTES_ASSET || balanceInfo.name) {
                 // 此处为首页显示的资产数额
                 balanceInfo.totalStr = profileService.formatAmountWithUnit(balanceInfo.total, asset);				//带单位
                 balanceInfo.totalStrWithoutUnit = profileService.formatAmount(balanceInfo.total, asset);			//不带单位
                 balanceInfo.stableStr = profileService.formatAmountWithUnit(balanceInfo.stable, asset);				//稳定数额
                 balanceInfo.pendingStr = profileService.formatAmountWithUnitIfShort(balanceInfo.pending, asset);	//确认中数额
-                balanceInfo.totalAvail = profileService.formatAmount(((balanceInfo.total - 2000) > 0 ? (balanceInfo.total - 2000) : 0), asset);
+                balanceInfo.totalAvail = profileService.formatAmount(((balanceInfo.total - 2000) > 0 ? (balanceInfo.total - 2000) : 0), asset, { dontRound: true });
                 if (typeof balanceInfo.shared === 'number') {
                     balanceInfo.sharedStr = profileService.formatAmountWithUnitIfShort(balanceInfo.shared, asset);
                 }
@@ -1206,7 +1206,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                     if (it.action == 'moved')
                         _note += ' Moved:' + it.amount
 
-                    dataString = formatDate(it.time * 1000) + ',' + formatString(it.addressTo) + ',' + _note + ',' + _amount/1000000 + ',INVE,,,,';
+                    dataString = formatDate(it.time * 1000) + ',' + formatString(it.addressTo) + ',' + _note + ',' + _amount / 1000000 + ',INVE,,,,';
                     csvContent += dataString + "\n";
 
                 });
@@ -1290,14 +1290,14 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         self.updateHistory();	//
     }, 1000);
 
-//  self.throttledUpdateHistory = lodash.throttle(function() {
-//    self.updateHistory();
-//  }, 5000);
+    //  self.throttledUpdateHistory = lodash.throttle(function() {
+    //    self.updateHistory();
+    //  }, 5000);
 
-//    self.onMouseDown = function(){
-//        console.log('== mousedown');
-//        self.oldAssetIndex = self.assetIndex;
-//    };
+    //    self.onMouseDown = function(){
+    //        console.log('== mousedown');
+    //        self.oldAssetIndex = self.assetIndex;
+    //    };
 
     self.onClick = function () {
         console.log('== click');
@@ -1512,15 +1512,15 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         go.walletHome();
     });
 
-//  self.debouncedUpdate = lodash.throttle(function() {
-//    self.updateAll({
-//      quiet: true
-//    });
-//    self.updateTxHistory();
-//  }, 4000, {
-//    leading: false,
-//    trailing: true
-//  });
+    //  self.debouncedUpdate = lodash.throttle(function() {
+    //    self.updateAll({
+    //      quiet: true
+    //    });
+    //    self.updateTxHistory();
+    //  }, 4000, {
+    //    leading: false,
+    //    trailing: true
+    //  });
 
     $rootScope.$on('Local/Resume', function (event) {
         $log.debug('### Resume event');

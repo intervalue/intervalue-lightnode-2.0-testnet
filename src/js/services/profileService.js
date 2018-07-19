@@ -25,7 +25,7 @@ angular.module('copayApp.services')
             if (asset === 'blackbytes' || asset === constants.BLACKBYTES_ASSET) {
                 return this.Utils.formatAmount(amount, config.bbUnitCode, opts);
             } else if (asset === 'base' || asset === 'bytes') {
-                return this.Utils.formatAmount(amount, config.unitCode, opts ? opts : { dontRound: true });
+                return this.Utils.formatAmount(amount, config.unitCode, opts);
             } else if (root.assetMetadata[asset]) {
                 var decimals = root.assetMetadata[asset].decimals || 0;
                 return (amount / Math.pow(10, decimals)).toLocaleString([], { maximumFractionDigits: decimals });
