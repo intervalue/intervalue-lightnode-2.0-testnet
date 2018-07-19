@@ -359,11 +359,13 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatecrtext{padding:20px 18px;background:#F9FAFC;}
 .addcreatecrlt{font-size: 14px; color: #3B3B3B; text-align: left !important;margin:0;}
 .addcreatecrlt span{font-weight: bold;}
-.addcreatecrinputp{padding:32px 18px 0;}
+.addcreatecrinputp{padding:22px 18px 0;}
 .addcreatecrinputm{padding: 0 5px;}
 .addcreatecrfalset{text-align: center; color:#EB6F50;margin:0;font-size: 14px;margin-top:32px;}
 .addcreatecrlstep{text-align: center;padding:0 18px;}
-.addcreatecrtruet{width: 90%; margin: 32px auto 10px;font-size:14px;}
+.addcreatecrtruet{padding:0 18px;margin: 32px auto 10px;font-size:14px;display: flex;justify-content: flex-start;align-items: flex-start;}
+.addcreatecrtruet img{flex-shrink: 0;margin-top:2px;margin-right:10px;}
+.addcreatecrtruet p{text-align: left !important;margin-bottom:0;}
 .addcreatecrtruet span:first-child{color:#2B2B2B;}
 .addcreatecrtruet span:last-child{color:#EB6F50;}
 .addcreatecrdl{text-align: center;margin-top: 32px;padding:0 18px;}
