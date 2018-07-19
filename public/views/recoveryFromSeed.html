@@ -2,9 +2,10 @@
 <style>
 	/*input的外层*/
 	div.inptWrap{
-		width: 23.8%;
+		width: 22%;
 		float: left;
-		margin-right:1.5%;
+		margin-right:4%;
+		margin-top:10px;
 		position: relative;
 	}
 	/*margin-right 设定0*/
@@ -14,12 +15,14 @@
 	/*助记词输入框*/
 	input.inptMnemonic{
 		width: 100%;
-		height: 25px;
+		height: 28px;
 		text-align: center;
-		margin-bottom:3px;
-		font-size: 1rem;
+		margin-bottom:0;
+		font-size: 14px;
 		padding-left: 0.4rem;
 		padding-right: 0.4rem;
+		font-family: "pfbold";
+		color: #3B3B3B;
 	}
 	/*下面的提示ul > li列表*/
 	ul.notiUl{
@@ -315,8 +318,7 @@
 			type="submit"
 			id="recSubmit"
 			value="{{'Recovery wallet'|translate}}"
-			style="background: #236D97; width: 100%;display: block; margin: 0 auto;height: 46px;margin-top: -30px;font-size: 16px;color: #fff;border-radius: 26px;
-    padding: 0;margin-bottom: 10px;">
+			class="addblackbutton">
 			<!--<input-->
 			<!--ng-show="!recFromSeeddir.scanning"-->
 			<!--ng-disabled="recFromSeeddir.credentialsEncrypted"-->
@@ -329,9 +331,9 @@
 		</form>
 
 		<div class="text-center size-12 columns" style="margin-top:10px;padding-bottom:30px;">
-			<div style="display: inline-block">
-				<span translate style="color: #E96F60;font-size: 12px;">Note:</span>
-				<p translate style="display: inline;color: #E96F60;font-size: 12px;">During the recovery, please be patient and do not shut down the software.</p></div>
+			<div style="display: flex;justify-content: flex-start;align-items: flex-start;">
+				<span translate style="flex-shrink: 0;color: #E96F60;font-size: 12px;margin-right:10px;">Note:</span>
+				<p translate style="text-align: left;color: #E96F60;font-size: 12px;">During the recovery, please be patient and do not shut down the software.</p></div>
 
 		</div>
 	</div>
