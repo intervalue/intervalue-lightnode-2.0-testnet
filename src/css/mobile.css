@@ -256,8 +256,6 @@ ul.copayer-list img {
 }
 
 .bottombar-item a.active {
- /* color: #E4E8EC;*/
-  /*background-color: #122232;*/
   color: #3E4663;
 }
 
@@ -295,7 +293,7 @@ a.missing-copayers {
 .button, button {
   padding: 1rem 1.2rem 1.0625rem;
   border: 1px solid transparent;
-  font-family: pfregular, Arial, sans-serif;
+  font-family: pfmedium, Arial, sans-serif;
 }
 
 .box-setup {
