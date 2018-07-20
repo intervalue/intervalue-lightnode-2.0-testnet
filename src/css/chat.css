@@ -14,7 +14,7 @@
     *zoom:1;/*IE/7/6*/
 }
 .chatbgcolorheight{width:100%;height:16px;background-color:#F9FAFC;}
-.chatbackstate{width: 20px !important;height: 14px !important;margin-top: -2px  !important;margin-right: 4px  !important;}
+.chatbackstate{width: 20px !important;height: 14px !important;margin-top: -2px  !important;margin-right: 8px  !important;}
 .chatacolorfff{color:#fff !important;}
 .chatacolorred{color:red !important;}
 .chattabbarhonem{font-size: 18px !important;color:#3B3B3B !important;}
@@ -267,13 +267,13 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 
 /*选择钱包下一步*/
 .chatcreattext{ color:#EC7051;padding: 20px 0 30px;margin:0;font-size:16px;}
-.chatcnextbtndiv{width:100%;margin-top:30px;padding:0 18px;}
+.chatcnextbtndiv{width:100%;margin-top:30px;padding:0 15px;}
 .chatcnextbtn{background-color:#3B3B3B;border-radius: 3px !important;height:45px;line-height:45px;padding:0 !important;width:100%;margin:0;color:#fff;font-size:16px;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .chatccnextbtn{background-color:#3B3B3B;border-radius: 3px !important;height:45px;line-height:45px;padding:0 !important;width:100%;margin:0;color:#fff;font-size:16px;}
 @media screen and (max-width: 330px){
     .chatccnextbtn{font-size:14px;}
 }
-.chatcnextnote{display:flex;justify-content: flex-start;padding:10px 18px 0;}
+.chatcnextnote{display:flex;justify-content: flex-start;padding:10px 15px 0;}
 .chatcnextnote span{flex-shrink: 0;font-size: 14px;color: #EC7051;margin-top: -2px; margin-right: 10px;}
 .chatcnextnote p{font-size:12px;color: #EC7051;margin-bottom:0;text-align: left;}
 
@@ -295,7 +295,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 .adddsh{background-color: #3B3B3B;font-size: 14px;text-align: center !important;}
 .adddsh h1{font-size:13px;color:#9697A3;margin:0 0 6px 0;}
 .adddsh h2{color: #fff;text-align: center;font-size:19px;margin:0 0 9px 0;}
-.adddsb{margin-bottom: 18px;padding:0 18px;}
+.adddsb{margin-bottom: 18px;padding:0 15px;}
 .adddsbtext{background-color: #FFFFFF;padding: 18px;border-radius:7px 7px 0px 0px;overflow: auto;height: calc(100vh - 176px);}
 .adddsbtext ul{font-size: 13px;margin:0;padding:0;color:#3B3B3B;}
 .adddsbagreebtn{}
@@ -339,43 +339,43 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatenh a{color:#fff; position: absolute; left: 0;width: 60px;}
 .addcreatenh a i{font-size: 24px; position: absolute; left: 0; top: 10px;}
 .addcreatenh a span{font-size: 16px;position: absolute; left:20px;}
-.addcreatenb{background-color: #FFFFFF;padding: 20px 18px 0 18px;}
+.addcreatenb{background-color: #FFFFFF;padding: 20px 15px 0 15px;}
 .addcreatenbimg{padding:42px 0 0;}
 .addcreatenbimg img{}
 /*inve2.0 creatWallet.html page create password*/
 .addcreatepwh{background: #3B3B3B; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF;}
-.addcreatepwwarn{background-color: #FFFFFF;padding: 20px 18px 0 18px;}
+.addcreatepwwarn{background-color: #FFFFFF;padding: 20px 15px 0 15px;}
 .addcreatepwimg{padding:42px 0 0;}
 .addcreatepwimg img{}
 .addcreatepwwarn h1{font-size: 16px; color: #EC7051 ;margin:0 auto;}
 .addcreatepwwarn p{font-size: 14px;color: #2b2b2b;padding:10px 0;margin-bottom:0;}
-.addcreatepwlt{padding:16px 0 5px 20px;text-align: left;font-size: 15px;color: #282828;}
-.addcreatepwshow{background:#FFFFFF;-webkit-user-select: text; color: #000; border-radius: 3px; line-height:26px;text-align: left;padding:10px 18px 0;}
+.addcreatepwlt{padding:16px 15px 5px 15px;text-align: left;font-size: 15px;color: #282828;}
+.addcreatepwshow{background:#FFFFFF;-webkit-user-select: text; color: #000; border-radius: 3px; line-height:26px;text-align: left;padding:10px 15px 0;}
 .addcreatepwpw{white-space:nowrap; -webkit-user-select: text;font-size: 15px;color: #999999;}
-.addcreatepwnbtn{padding:0 18px;}
+.addcreatepwnbtn{padding:0 15px;}
 .addcreatepwnbtn button{margin-top:30px;}
 /*inve2.0 creatWallet.html page correct password*/
 .addcreatecr{height: 100%;}
 .addcreatecrh{background: #3B3B3B; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#fff;}
-.addcreatecrtext{padding:20px 18px;background:#F9FAFC;}
+.addcreatecrtext{padding:20px 15px;background:#F9FAFC;}
 .addcreatecrlt{font-size: 14px; color: #3B3B3B; text-align: left !important;margin:0;}
 .addcreatecrlt span{font-weight: bold;}
-.addcreatecrinputp{padding:22px 18px 0;}
+.addcreatecrinputp{padding:22px 15px 0;}
 .addcreatecrinputm{padding: 0 5px;}
 .addcreatecrfalset{text-align: center; color:#EB6F50;margin:0;font-size: 14px;margin-top:32px;}
-.addcreatecrlstep{text-align: center;padding:0 18px;}
-.addcreatecrtruet{padding:0 18px;margin: 32px auto 10px;font-size:14px;display: flex;justify-content: flex-start;align-items: flex-start;}
+.addcreatecrlstep{text-align: center;padding:0 15px;}
+.addcreatecrtruet{padding:0 15px;margin: 32px auto 10px;font-size:14px;display: flex;justify-content: flex-start;align-items: flex-start;}
 .addcreatecrtruet img{flex-shrink: 0;margin-top:2px;margin-right:10px;}
 .addcreatecrtruet p{text-align: left !important;margin-bottom:0;}
 .addcreatecrtruet span:first-child{color:#2B2B2B;}
 .addcreatecrtruet span:last-child{color:#EB6F50;}
-.addcreatecrdl{text-align: center;margin-top: 32px;padding:0 18px;}
+.addcreatecrdl{text-align: center;margin-top: 32px;padding:0 15px;}
 .addcreatecrdlt{width: 100%; text-align:center; height: 45px; background: #3B3B3B; border-radius: 3px; color: #fff; margin: 0px auto 0; padding: 0;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.38);}
 .addcreatecrdlf{width: 100%; text-align:center; height: 45px; background: #fff; border-radius: 3px; color: #3B3B3B; padding: 0;margin: 0; margin-top:20px;border: 1px solid #3B3B3B;text-transform: uppercase;box-shadow:0px 0px 7px 0px rgba(90,90,90,0.18);}
 /*inve2.0 creatWallet.html page delete ok*/
-.addcreatedo{position: absolute; width: 100%;height: 100%; left:0; top:0;background:#eceff6;}
+.addcreatedo{position: absolute; width: 100%;height: 100%; left:0; top:0;}
 .addcreatedoh{background: #3B3B3B; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF;}
-.addcreatedob{background-color: #FFFFFF;padding: 20px 18px 0 18px;margin-top:20px;}
+.addcreatedob{background-color: #FFFFFF;padding: 20px 15px 0 15px;margin-top:20px;height: calc(100vh - 66px);}
 .addcreatedobimg{padding-top: 30px}
 .addcreatedobimg img{width: 60px;}
 .addcreatedob h1{font-size: 16px; margin:0 auto;}
@@ -387,11 +387,11 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreaterch a i{font-size: 24px; position: absolute; left: 0; top: 10px;}
 .addcreaterch a .text-back{font-size: 16px;position: absolute; left:20px;}
 .addcreatercwarn{color: #d55b56 ! important;}
-.addcreaterclt{margin: 10px 0 8px;text-align: left;padding-left: 18px;font-size: 14px;color: #282828;}
+.addcreaterclt{margin: 10px 0 8px;text-align: left;padding-left: 15px;font-size: 14px;color: #282828;}
 .addcreaterclt span{text-transform: capitalize;}
-.addcreatercinputp{padding: 0 18px;}
+.addcreatercinputp{padding: 0 15px;}
 .addcreatercinputm{height: 120px; padding: 0 5px; margin-bottom:30px;}
-.addcreatercbtn{padding:0 18px;margin-top:10px;}
+.addcreatercbtn{padding:0 15px;margin-top:10px;}
 .addcreatercbtnd{color: #3B3B3B;display: block;background: #fff; border: 1px solid #3B3B3B;margin: 20px auto;}
 /*inve2.0 walletHome.html page setting*/
 .addwsltitle{font-size: 16px;color:#3B3B3B;}
