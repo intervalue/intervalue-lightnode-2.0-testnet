@@ -597,7 +597,7 @@
                                                type="text" id="address" name="address"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
                                                ng-required="!home.bSendAll && !home.send_multiple"
-                                               ng-model="_address" ng-required alid-address
+                                               ng-model="_address" ng-required valid-address
                                                ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"
