@@ -162,7 +162,6 @@ h4.title a {
 .preferences h4 {
   background: #F1F3F5;
   padding: 25px 0px 5px 20px;
-  text-transform: uppercase;
   color: #555;
   font-size: 12px;
   font-weight:300;
@@ -173,13 +172,13 @@ h4.title a {
 .preferences ul {
   font-size: 14px;
   background: white;
-  padding: 0 0 0 20px;
+  padding: 0 0 0 15px;
 }
 .preferences ul li{
   cursor: pointer;
 }
 .preferences ul li, ul.whopays li, ul.profile-entries li {
-  padding: 13px 20px 13px 0;
+  padding: 13px 15px 13px 0;
   border-bottom: 1px solid #EDEEF0;
 }
 
@@ -579,7 +578,7 @@ ul.manage li {
 .p70l {padding-left: 70px;}
 .p5h {padding: 0 5px;}
 .p20h {padding: 0 20px;}
-.p18h {padding: 0 18px;}
+.p18h {padding: 0 15px;}
 .p20v {padding: 20px 0;}
 .p25l {padding-left: 25px;}
 .p15 {padding:15px;}

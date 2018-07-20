@@ -938,7 +938,7 @@
                     <!--</li>-->
                     <!-- TOR匿名　ng-show="!index.isCordova" -->
                     <!--<li ng-show="!index.isCordova"  class=" ng-click="$root.go('preferencesGlobal.preferencesTor')">-->
-                    <!--<div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">-->
+                    <!--<div class="right settintcolorl">-->
                     <!--<span translate>{{prefGlobal.torEnabled?'On':'Off'}}</span>-->
                     <!--<img src="./img/settinglyou.png" class="settingarrowl right" >-->
                     <!--</div>-->
@@ -949,7 +949,7 @@
                     <!--</li>-->
                     <!-- 语言设定 -->
                     <li ng-click="$root.go('preferencesGlobal.preferencesLanguage')">
-                        <div class="right text-gray settintcolorl" style="margin-right: -7px;font-size: 16px;">
+                        <div class="right settintcolorl">
                             {{prefGlobal.currentLanguageName|translate}}
                             <img src="./img/settinglyou.png" class="settingarrowl right" >
                         </div>
@@ -1011,7 +1011,7 @@
                 <h4 translate class="settinth4titlel">Backups</h4>
                 <ul class="no-bullet m0">
                     <li ng-click="$root.go('preferencesGlobal.backup')" ng-hide="index.isPrivKeyExternal">
-                        <div class="right text-gray settintcolorl" style="margin-right: -7px;">
+                        <div class="right settintcolorl">
                             <span class="text-warning" ng-show="index.needsBackup">
                                 <i class="fi-alert"></i><span translate>Still not done</span>
                             </span>
@@ -1023,7 +1023,7 @@
                 <!-- 使用口令恢复钱包 -->
                 <ul class="no-bullet m0">
                 <li ng-click="$root.go('preferencesGlobal.recoveryFromSeed')" ng-hide="index.isPrivKeyExternal">
-                <div class="right text-gray settintcolorl" style="margin-right: -7px;">
+                <div class="right settintcolorl">
                 <img src="./img/settinglyou.png" class="settingarrowl right" >
                 </div>
                 <div translate class="addwsltitle">Recovery from seed</div>
@@ -1051,15 +1051,11 @@
                 <div class="chatbgcolorheight ng-scope"></div>
                 <ul class="no-bullet m0">
                     <li ng-click="$root.go('preferencesGlobal.preferencesAbout')">
-                        <img src="./img/settinglyou.png" class="settingarrowl right" style="margin-right: -7px;">
-                        <!--<i class="icon-arrow-right3 size-24 right text-gray settintcolorl"></i>-->
+                        <img src="./img/settinglyou.png" class="settingarrowl right">
                         <div translate class="addwsltitle">About INVE</div>
                     </li>
                 </ul>
             </div>
-
-            <!-- diduan -->
-            <!--<div class="extra-margin-bottom"></div>-->
         </div>
 
 

@@ -97,6 +97,7 @@ _:-ms-fullscreen, :root .main {
 .tab-bar {
   background: #FFF;
   z-index: 5;
+  box-shadow:0px 2px 5px 0px rgba(170,165,165,0.05);
 }
 
 .tab-bar h1 {
@@ -396,7 +397,7 @@ ul.correspondentList li a.removeCorrespondentList {
 
 .modal-content ul li a.selectAddressbook {
   font-size: 18px;
-  padding: 8px 14px;
+  padding: 9px 14px;
   color: red;
   float: right;
   position: relative;

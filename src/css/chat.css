@@ -13,14 +13,14 @@
 .chatclearfix{
     *zoom:1;/*IE/7/6*/
 }
-.chatbgcolorheight{width:100%;height:20px;background-color:#F9FAFC;}
+.chatbgcolorheight{width:100%;height:16px;background-color:#F9FAFC;}
 .chatbackstate{width: 20px !important;height: 14px !important;margin-top: -2px  !important;margin-right: 4px  !important;}
 .chatacolorfff{color:#fff !important;}
 .chatacolorred{color:red !important;}
 .chattabbarhonem{font-size: 18px !important;color:#3B3B3B !important;}
 .pleft18{padding-left:18px;}
 /*顶部三点*/
-.chattopdotimg{position: absolute;top: 14px;right: 18px;font-size:20px !important;cursor:pointer;z-index:0;width:18px;}
+.chattopdotimg{position: absolute;top: 14px;right: 16px;font-size:20px !important;cursor:pointer;z-index:0;width:18px;}
 .chattabtitle{height:45px;line-height:45px;text-align: center;background-color: #246d98;font-size:16px;color:#fff;}
 .chattabtitle h1{font-size:18px !important;color:#fff !important;}
 .middle.tab-bar-section.chattabbar{width: 100%;height:45px;padding:0;left: 0;right: 0;}
@@ -252,7 +252,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 .mimachatdeleterecordbtn{width:100%;padding: 14px;overflow: hidden;padding-bottom:0;}
 .mimachatdeleterecordbtn button{height:45px;margin:0;padding:0;width: 49%;}
 
-.chatpaddingleffi{padding-left:18px;}
+.chatpaddingleffi{padding-left:15px;}
 
 
 /*选择存储数据页面*/
@@ -286,7 +286,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 
 /*交易页面地址簿*/
 .text-gray{color:#cdcdcd;}
-.chattranaddaddr li{padding:0 18px;}
+.chattranaddaddr li{padding:6px 18px;}
 /*.chattranaddaddr li:first-child{margin-top:20px;}*/
 .chattranaddaddr li:last{border:none;}
 
@@ -319,7 +319,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcolorred{color: #EB6F50;}
 /*inve2.0 disclaimer.html  setting part*/
 .adddssetmain{}
-.adddssetbtext{background-color: #FFFFFF;padding: 18px;border-radius:7px 7px 0px 0px;overflow: auto;}
+.adddssetbtext{background-color: #FFFFFF;padding: 18px;border-radius:7px 7px 0px 0px;overflow: auto;height:calc(100vh - 86px);}
 /*inve2.0 creatWallet.html page select*/
 .addcreatepassmodal{height: 100%; width: 100% !important; background: #fff !important; border-radius: 0px !important; position: absolute !important; left: 0 !important; top: 0 !important;}
 .addcreatesplash{height:100%;position: relative;background: #fff;}
