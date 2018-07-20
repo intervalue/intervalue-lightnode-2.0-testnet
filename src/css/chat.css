@@ -421,6 +421,15 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addmdinputs{padding-right:46px !important;padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 .addmdinputsnoimg{padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 md-input-container .md-errors-spacer{min-height:0 !important;}
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input, md-input-container:not(.md-input-invalid).md-input-focused .md-input, md-input-container.md-default-theme:not(.md-input-invalid).md-input-resized .md-input, md-input-container:not(.md-input-invalid).md-input-resized .md-input{
+    border-bottom: 1px solid #CACACA;
+}
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label, md-input-container:not(.md-input-invalid).md-input-focused label, md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused md-icon, md-input-container:not(.md-input-invalid).md-input-focused md-icon{
+    color: #3B3B3B;
+}
+.md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover{
+    background:#007095 !important;
+}
 .color999999{color:#999999;}
 .color777777{color:#777777;}
 .addboxshadow{box-shadow:0px 0px 3px 0px rgba(160,160,160,0.32);}
@@ -429,9 +438,7 @@ md-input-container .md-errors-spacer{min-height:0 !important;}
 .addwhtrtime{margin-right: 4px;margin-top: -2px;}
 .ablock{display: block;}
 .ablock:hover{color:#fff;}
-.md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover{
-    background:#007095 !important;
-}
+
 .color333{color:#3B3B3B !important;}
 
 
