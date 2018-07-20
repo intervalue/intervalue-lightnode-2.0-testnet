@@ -1,11 +1,11 @@
 <div
     class="topbar-container"
-    ng-include="'views/includes/topbar.html'"
+    ng-include="'views/includes/topbar2.html'"
     ng-init="titleSection='Language'; goBackToState = true; noColor = true">
 </div>
 
 <!-- 语言设置视图 -->
-<div class="content preferences" ng-controller="preferencesLanguageController as prefLang"  style="background: #ECEFF6;">
+<div class="content preferences" ng-controller="preferencesLanguageController as prefLang">
     <div class="chatbgcolorheight"></div>
     <ul class="no-bullet m0 " style="margin-top: 20px;">
         <li ng-repeat="lang in prefLang.availableLanguages"

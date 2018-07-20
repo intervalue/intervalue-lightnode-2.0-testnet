@@ -12,42 +12,6 @@
             <img src="./img/chatbackstate.png" class="chatbackstate">
         </a>
     </section>
-
-    <!-- 右区 -->
-    <section class="right-small" style="height: 45px">
-        <a ng-click="showrightpop($event)" style="color:#fff;height:100%;display:block;">
-            <img src="./img/chatradd.png" class="chattopdotimg right" id="indexpop">
-        </a>
-    </section>
-    <div id="pop" style="position: relative;right:6px;top:-2px;z-index:1;" ng-show="showrightpopvalue" >
-        <div class="triangle ">
-        </div>
-        <div class="chatpopUpWindw">
-            <!-- 扫一扫 -->
-            <div class="subDiv" style="vertical-align: middle" ng-if="index.isCordova">
-                <qr-scanner ng-show="index.isComplete" on-scan="topbar.onQrCodeScanned(data)"
-                            before-scan="topbar.onBeforeScan()">
-                    <img src="./img/chatscannner.png"/><span translate>Scanner</span>
-                </qr-scanner>
-            </div>
-
-            <!-- 收款地址 -->
-            <div class="subDiv"  style="vertical-align: middle">
-                <a ng-click="$root.go('receive')">
-                    <img src="./img/chatshoukuan.png"/><span translate>receive address</span>
-                </a>
-            </div>
-
-            <!--添加设备-->
-            <!--<div class="subDiv" >-->
-                <!--<a ng-click="$root.go('correspondentDevices.chataddCorrespondentDevice')" >-->
-                    <!--<img src="./img/chatadddevice.png"/><span translate>Add device</span>-->
-                <!--</a>-->
-            <!--</div>-->
-        </div>
-    </div>
-
-
     <!-- 中间区 -->
     <section class="middle tab-bar-section">
         <h1 class="title ellipsis size-18">

@@ -244,7 +244,7 @@ ul.button-group li.selected {
 body, html{
   height:100%;
   width:100%;
-  color: #2C3E50;
+  color: #3B3B3B;
   -webkit-user-select: text;
 }
 
@@ -376,11 +376,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
 .box-notification {
   position: relative;
   font-size: 12px;
-  padding: 0.5rem 2rem 0.5rem 0.7rem;
+  padding: 10px 26px 10px 10px;
   border-radius: 2px;
   background: #F2F5F8;
   margin: 0 auto;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 .box-notification .box-icon {
@@ -411,9 +411,15 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill, inpu
 
 a.close-notification {
   position: absolute;
-  top: -4px;
-  right: 10px;
+  top: 50%;
+  right: 4px;
   font-size: 24px;
+  transform: translateY(-50%);
+  display: block;
+  width: 30px;
+  text-align: center;
+  height: 28px;
+  line-height: 28px;
 }
 
 ul.tx-copayers {

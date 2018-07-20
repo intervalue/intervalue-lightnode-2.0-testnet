@@ -1,12 +1,12 @@
 <div
     class="topbar-container"
-    ng-include="'views/includes/topbar.html'"
+    ng-include="'views/includes/topbar2.html'"
     ng-init="titleSection='About INVE'; goBackToState = true">
 </div>
 
 <!-- 关于InterValue视图 -->
 <div class="content preferences" ng-controller="preferencesAbout as about">
-    <h4 translate class="settinth4titlel">Release Information</h4>
+    <!--<h4 translate class="settinth4titlel">Release Information</h4>-->
     <div ng-controller="versionController as v">
         <ul class="no-bullet m0">
             <!-- 版本 -->
@@ -31,7 +31,7 @@
         <!-- 使用条款 -->
         <li ng-click="$root.go('preferencesGlobal.preferencesAbout.disclaimer')">
             <i class="icon-arrow-right3 size-24 right text-gray"></i>
-            <span translate >Terms of Use</span>
+            <span translate style="font-size: 16px;">Terms of Use</span>
         </li>
         <!-- 翻译者，刘星删除 -->
         <!--<li ng-click="$root.go('preferencesGlobal.preferencesAbout.translators')">-->

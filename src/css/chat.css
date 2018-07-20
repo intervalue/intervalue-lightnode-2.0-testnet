@@ -132,7 +132,7 @@
 
 
 /*弹出层*/
-.chatpopUpWindw{background-color: #324e77;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
+.chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
 .chatpopUpWindw .subDiv{height: auto !important;padding: 0 !important;text-align: left;}
 .chatpopUpWindw .subDiv a{color:#fff !important;display:block;padding:0 20px;font-size:14px;}
 .chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #405a7f;content: '';margin:0 auto;}
@@ -200,7 +200,8 @@
     padding-top: 8px;box-sizing: border-box;}
 .chatamounttranqrr .addreceiveimgpr .addcusamountimg{width: 50px;height:50px;position: absolute;top:-25px;left: 50%;transform: translateX(-50%);background: #ffffff;border-radius:50%;box-shadow:0px 0px 5px 0px rgba(179,179,179,0.5);text-align: center;
     padding-top: 11px;box-sizing: border-box;}
-.chatamounttranqrr .amounttranqrtitler{color: #999999;text-align: center;font-size:14px;}
+.chatamounttranqrr .addreceiveimgpr .addcusamountimg img{width: 30px;}
+.chatamounttranqrr .amounttranqrtitler{color: #999999;text-align: center;font-size:12px;}
 .chatamounttranqrr .code{padding-top: 36px;text-align: center;}
 
 /*公共button点击去掉效果*/
@@ -414,7 +415,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .sentheadermodal{width: 100%;background-color: #EA6C4C;padding: 18px 18px 7px 18px;position: relative;margin-top: 20px;box-shadow:0px 0px 18px 0px rgba(234,108,76,0.51);color:#fff;}
 .receivedheadermodal .addmodalamount,.sentheadermodal .addmodalamount{display:inline-block;word-break: break-all;margin-bottom: 10px;}
 /*inve2.0 receive.html*/
-.addcodeh4{display: inline-block;margin: 0;color:#a0a0a0;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
+.addcodeh4{display: inline-block;margin: 0;color:#3B3B3B;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
 .addmdinputcon{width: 100%;margin:0 !important;margin-top:18px !important;}
 .addmdinputimg{position: absolute;top: -2px;right: 3px;}
 .addmdlabels{font-size: 16px;color:#3B3B3B;bottom:105%;}
