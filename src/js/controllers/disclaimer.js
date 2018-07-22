@@ -16,8 +16,7 @@ angular.module('copayApp.controllers').controller('disclaimerController',
       $timeout(function() {
         storageService.setDisclaimerFlag(function(err,noWallet) {
             $timeout(function() {
-                if (isCordova)
-                    window.plugins.spinnerDialog.hide();
+
                 // why reload the page?
                 //applicationService.restart();
                 // go.walletHome();
@@ -64,13 +63,15 @@ angular.module('copayApp.controllers').controller('disclaimerController',
                                 self.create(noWallet);
                             }, 3000);*/
                         }
+                        if (isCordova)
+                            window.plugins.spinnerDialog.hide();
                         go.path('createWallet');
                     });
-                }, 100);
+                }, 10);
                 //splash.js   profile
-            }, 1000);
+            }, 10);
         });
-      }, 100);
+      }, 10);
     };
     
     $scope.init = function() {
@@ -81,5 +82,7 @@ angular.module('copayApp.controllers').controller('disclaimerController',
           $scope.$digest();
         }, 1);
       });
+
+
     };
   });

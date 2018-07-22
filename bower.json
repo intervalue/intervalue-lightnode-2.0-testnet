@@ -7,7 +7,7 @@
   ],
   "dependencies": {
     "angular": "1.6.10",
-    "angular-foundation": "byteball/angular-foundation",
+    "angular-foundation": "yalabot/angular-foundation-bower",
     "angular-gettext": "2",
     "angular-moment": "1.2.0",
     "angular-qrcode": "monospaced/angular-qrcode#~6.0.3",
