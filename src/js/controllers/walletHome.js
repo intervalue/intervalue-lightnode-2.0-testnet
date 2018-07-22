@@ -1146,7 +1146,6 @@ angular.module('copayApp.controllers')
 							}
 							else // redirect to history
 							{
-								$state.reload();
 								$rootScope.$emit('Local/SetTab', 'walletHome');
 							}
 
