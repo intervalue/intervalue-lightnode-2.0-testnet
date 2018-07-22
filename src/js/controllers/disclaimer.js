@@ -67,11 +67,11 @@ angular.module('copayApp.controllers').controller('disclaimerController',
                             window.plugins.spinnerDialog.hide();
                         go.path('createWallet');
                     });
-                }, 10);
+                }, 100);
                 //splash.js   profile
-            }, 10);
+            }, 1000);
         });
-      }, 10);
+      }, 100);
     };
     
     $scope.init = function() {
