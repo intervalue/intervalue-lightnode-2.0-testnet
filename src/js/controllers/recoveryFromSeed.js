@@ -637,26 +637,26 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
                         device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
                         createWallets(arrWalletIndexes, function () {
-                            // createAddress(0, arrWalletIndexes[0], function () {
-                            self.scanning = false;
-                            $scope.index.showneikuang = false;
+                            createAddress(0, arrWalletIndexes[0], function () {
+                                self.scanning = false;
+                                $scope.index.showneikuang = false;
 
-                            if (self.password) {
-                                profileService.setPrivateKeyEncryptionFC(self.password, function () {
-                                    $rootScope.$emit('Local/NewEncryptionSetting');
-                                    $scope.encrypt = true;
-                                    delete self.password;
+                                if (self.password) {
+                                    profileService.setPrivateKeyEncryptionFC(self.password, function () {
+                                        $rootScope.$emit('Local/NewEncryptionSetting');
+                                        $scope.encrypt = true;
+                                        delete self.password;
+                                    });
+                                }
+
+                                // 更改代码   修改后恢复（没有交易）
+                                $rootScope.$emit('Local/ShowAlert', arrWalletIndexes.length + " wallets recovered, please restart the application to finish.", 'fi-check', function () {
+                                    if (navigator && navigator.app) // android
+                                        navigator.app.exitApp();
+                                    else if (process.exit) // nwjs
+                                        process.exit();
                                 });
-                            }
-
-                            // 更改代码   修改后恢复（没有交易）
-                            $rootScope.$emit('Local/ShowAlert', arrWalletIndexes.length + " wallets recovered, please restart the application to finish.", 'fi-check', function () {
-                                if (navigator && navigator.app) // android
-                                    navigator.app.exitApp();
-                                else if (process.exit) // nwjs
-                                    process.exit();
                             });
-                            // });
                         });
                     });
                 });

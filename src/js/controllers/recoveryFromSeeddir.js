@@ -341,21 +341,21 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
 					device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
 					createWallets(arrWalletIndexes, function () {
-						// createAddress(0, arrWalletIndexes[0], function () {
-						self.scanning = false;
-						self.show = false;
-						// 向内存中写入2
-						self.haschoosen();
+						createAddress(0, arrWalletIndexes[0], function () {
+							self.scanning = false;
+							self.show = false;
+							// 向内存中写入2
+							self.haschoosen();
 
-						// 更改代码   没有交易恢复
-						$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
-							if (navigator && navigator.app) // android
-								navigator.app.exitApp();
+							// 更改代码   没有交易恢复
+							$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
+								if (navigator && navigator.app) // android
+									navigator.app.exitApp();
 
-							else if (process.exit) // nwjs
-								process.exit();
+								else if (process.exit) // nwjs
+									process.exit();
+							});
 						});
-						// });
 					});
 				});
 			});
