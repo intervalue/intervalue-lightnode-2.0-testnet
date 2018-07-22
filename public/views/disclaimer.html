@@ -13,12 +13,6 @@
 </style>
 <!-- 使用条款 -->
 <div ng-controller="disclaimerController" ng-init="init()">
-	<div
-		ng-if="agreed && index.hasProfile"
-		class="topbar-container"
-		ng-include="'views/includes/topbar2.html'"
-		ng-init="titleSection='Terms of Use';  goBackToState = true; noColor = true">
-	</div>
 
 	<div class="ontent-setup-disclaimer p20b adddsmain" ng-show="!index.hasProfile">
 		<div class="m0 center adddsh" >
@@ -54,10 +48,6 @@
 					Agree
 				</button>
 			</div>
-			<!-- 已配置过但是没有个人配置信息，则显示后退 -->
-			<button ng-show="agreed && !index.hasProfile" class="addwhitebutton m20t" ng-click="agree()" translate>
-				Go back
-			</button>
 		</div>
 	</div>
 </div>
