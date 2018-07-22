@@ -670,7 +670,7 @@ msgstr "上一步"
 msgid "Invalid mnemonic"
 msgstr "无效的口令"
 
-msgid "Your mnemonic words are correct. To make your wallet safe, "
+msgid "Your mnemonic words are correct. To make your wallet safe,"
 msgstr "您的口令正确，为了保证您的钱包安全，"
 
 msgid "we highly recommend you delete mnemonic words from app."

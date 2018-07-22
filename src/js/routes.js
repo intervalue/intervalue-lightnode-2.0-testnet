@@ -521,6 +521,15 @@ angular
 					}
 				}
 			})
+            .state('preferencesGlobal.preferencesAbout.disclaimerabout', {
+                url: '/disclaimerabout',
+                needProfile: false,
+                views: {
+                    'main@': {
+                        templateUrl: 'views/disclaimerabout.html',
+                    }
+                }
+            })
 			.state('preferencesGlobal.preferencesAbout.translators', {
 				url: '/translators',
 				walletShouldBeComplete: true,

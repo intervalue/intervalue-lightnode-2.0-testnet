@@ -717,8 +717,8 @@
             <p  ng-if="wordsC.dis() && wordsC.value" class="addcreatecrfalset" translate>Invalid mnemonic</p>
             <!--点击 上一步-->
             <!-- wordsC.dis()判断wordsC.value与完整口令是否不一致时显示 -->
-            <div class="addcreatecrlstep">
-                <button ng-if="wordsC.dis()" ng-click="wordsC.gono()" class="addblackbutton m32t" translate>
+            <div class="addcreatecrlstep" ng-if="wordsC.dis()">
+                <button  ng-click="wordsC.gono()" class="addblackbutton m32t" translate>
                     LastStep
                 </button>
             </div>
@@ -730,10 +730,10 @@
 
 
             <!--点击删除钱包-->
-            <div class="addcreatecrdl">
-                <button ng-click="wordsC.del()" translate ng-if="!wordsC.dis()" translate class="addblackbutton">Delete Seed Phrase</button>
+            <div class="addcreatecrdl" ng-if="!wordsC.dis()">
+                <button ng-click="wordsC.del()" translate  translate class="addblackbutton">Delete Seed Phrase</button>
                 <!--正确 点击下一步 主页-->
-                <button ng-click="wordsC.haschoosen(); index.splashClick = false" ng-if="!wordsC.dis()" translate class="addwhitebutton m20t">
+                <button ng-click="wordsC.haschoosen(); index.splashClick = false"  translate class="addwhitebutton m20t">
                     Skip
                 </button>
             </div>
