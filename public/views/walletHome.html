@@ -596,14 +596,14 @@
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"
                                                type="text" id="address" name="address"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
-                                               ng-required="!home.bSendAll && !home.send_multiple"
+                                               ng-required="!home.bSendAll && !home.send_multiple && _address.length > 0"
                                                ng-model="_address" ng-required valid-address
                                                ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"
                                                type="text" id="address" name="address"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
-                                               ng-required="!home.bSendAll && !home.send_multiple"
+                                               ng-required="!home.bSendAll && !home.send_multiple && _address.length > 0"
                                                ng-model="_address" ng-required valid-address
                                                ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
@@ -723,7 +723,7 @@
                                                valid-amount="{{index.arrBalances[index.assetIndex].asset}}"
                                                autocomplete="off"
                                                ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)"
-                                               ng-required="!home.bSendAll && !home.send_multiple" autocomplete="off">
+                                               ng-required="!home.bSendAll && !home.send_multiple && _amount.length > 0" autocomplete="off">
                                         <div  ng-repeat="balance in index.arrBalances|filter:'base'" class="addmdinputimg">
 										    <span  ng-if="balance.totalStr && balance.totalStr.length <= 26" translate class="color777777 size-18">
 											    INVE
@@ -789,7 +789,7 @@
                                      ng-class="{'small-6 medium-6 large-6':!home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)}"
                                      style="width:100%;">
                                     <button type="submit" class="addblackbutton m32t"
-                                            ng-disabled="home.current_payment_key || sendPaymentForm.$invalid || home.blockUx || index.isOffline || !index.isEnoughSignersSelected()"
+                                            ng-disabled="home.current_payment_key || sendPaymentForm.$invalid || home.blockUx || index.isOffline || !index.isEnoughSignersSelected() || !_address || !_amount || _amount <= 0"
                                             translate>
                                         Send
                                     </button>
