@@ -99,13 +99,13 @@
 		<div class="text-center p18h">
 
 			<div ng-show="!agreed && index.isCordova" >
-				<md-button class="addblackbutton m20t" ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
-					Share address
+				<md-button class="addblackbutton m20t" ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading">
+					<span translate>Share address</span>
 				</md-button>
 			</div>
 
 			<div ng-show="!agreed" >
-				<button class="addwhitebutton m32t" ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
+				<button class="addwhitebutton m20t" ng-click="home.openCustomizedAmountModal(index.shared_address || home.addr[index.walletId])" ng-disabled="loading" translate>
 					Request a specific amount
 				</button>
 			</div>
