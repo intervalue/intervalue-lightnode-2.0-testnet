@@ -389,8 +389,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('test-coveralls', ['karma:prod', 'coveralls']);
 	//grunt.registerTask('desktop', ['prod', 'nwjs', 'copy:linux', 'compress:linux32', 'compress:linux64', 'copy:osx', 'exec:osx32', 'exec:osx64']);
 	grunt.registerTask('desktop', ['default', 'nwjs']);
-	grunt.registerTask('dmg', ['clean:win64','copy:osx', 'exec:osx64']);
-	grunt.registerTask('linux64', ['clean:win64','copy:linux', 'compress:linux64']);
+	grunt.registerTask('dmg', ['clean:osx64','copy:osx', 'exec:osx64']);
+	grunt.registerTask('linux64', ['clean:linux64','copy:linux', 'compress:linux64']);
 	grunt.registerTask('linux32', ['copy:linux', 'compress:linux32']);
 	grunt.registerTask('deb', ['debian_package:linux64']);
 	grunt.registerTask('inno64', ['clean:win64','copy:node_sqlite3','innosetup_compiler:win64']);
