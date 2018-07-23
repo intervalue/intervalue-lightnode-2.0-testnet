@@ -61,7 +61,7 @@ win32:
 
 win64:
 	grunt.cmd desktop
-#	cp -rf node_modules ../intervaluebuilds/InterValue-2.0-testnet/win64/
+	cp -rf node_modules ../intervaluebuilds/InterValue-2.0-testnet/win64/
 	grunt.cmd inno64
 
 linux64:
