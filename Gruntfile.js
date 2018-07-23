@@ -393,7 +393,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('linux64', ['clean:linux64','copy:linux', 'compress:linux64']);
 	grunt.registerTask('linux32', ['copy:linux', 'compress:linux32']);
 	grunt.registerTask('deb', ['debian_package:linux64']);
-	grunt.registerTask('inno64', ['clean:win64','copy:node_sqlite3','innosetup_compiler:win64']);
+	grunt.registerTask('inno64', ['copy:node_sqlite3','desktop','copy:node_modules','clean:win64','innosetup_compiler:win64']);
 	grunt.registerTask('inno32', ['innosetup_compiler:win32']);
 	grunt.registerTask('partial', ['browserify:partialClient', 'uglify:partialClient']);
 	grunt.registerTask('partial-fast', ['browserify:partialClient']);
