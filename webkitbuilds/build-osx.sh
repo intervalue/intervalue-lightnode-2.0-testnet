@@ -40,7 +40,7 @@ fi
 
 echo "Signing the app ..."
 #codesign --sign="Developer ID Application: Matrix Platform LLC" --verbose=3 --deep "${PATH_NAME}${APP_NAME}.app"
-codesign -f -s "intervalue.live" --verbose=3 --deep "${PATH_NAME}${APP_NAME}.app"
+codesign -f -s "intervalue.one" --verbose=3 --deep "${PATH_NAME}${APP_NAME}.app"
 
 # clear out any old data
 echo "Clearing ..."
