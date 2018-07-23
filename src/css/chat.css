@@ -343,6 +343,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addcreatenbimg{padding:42px 0 0;}
 .addcreatenbimg img{}
 /*inve2.0 creatWallet.html page create password*/
+.addcreatepw{height:100%;}
 .addcreatepwh{background: #3B3B3B; height: 45px; line-height: 45px; text-align: center; font-size: 17px; color:#FFFFFF;}
 .addcreatepwwarn{background-color: #FFFFFF;padding: 20px 15px 0 15px;}
 .addcreatepwimg{padding:42px 0 0;}

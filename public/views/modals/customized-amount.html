@@ -78,11 +78,8 @@
 
 			<div ng-show="!index.needsBackup && index.isCordova" >
 				<div class="text-center p18h">
-
 					<div ng-show="!agreed" >
-						<md-button class="addblackbutton m32t"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" translate>
-							Share address
-						</md-button>
+						<md-button class="addblackbutton m32t"  ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading" ><span translate>Share address</span></md-button>
 					</div>
 				</div>
 			</div>
