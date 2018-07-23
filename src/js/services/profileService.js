@@ -623,21 +623,21 @@ angular.module('copayApp.services')
             $log.debug('Encrypting private key for', fc.credentials.walletName);
 
             fc.setPrivateKeyEncryption(password);
-            if (!fc.credentials.xPrivKeyEncrypted)
-                throw Error("no xPrivKeyEncrypted after setting encryption");
-            root.profile.xPrivKeyEncrypted = fc.credentials.xPrivKeyEncrypted;
-            root.profile.mnemonicEncrypted = fc.credentials.mnemonicEncrypted;
-            delete root.profile.xPrivKey;
-            delete root.profile.mnemonic;
-            root.lockFC();
-            for (var wid in root.walletClients) {
-                root.walletClients[wid].credentials.xPrivKeyEncrypted = root.profile.xPrivKeyEncrypted;
-                delete root.walletClients[wid].credentials.xPrivKey;
-            }
-            storageService.storeProfile(root.profile, function () {
-                $log.debug('Wallet encrypted');
-                return cb();
-            });
+            // if (!fc.credentials.xPrivKeyEncrypted)
+            //     throw Error("no xPrivKeyEncrypted after setting encryption");
+            // root.profile.xPrivKeyEncrypted = fc.credentials.xPrivKeyEncrypted;
+            // root.profile.mnemonicEncrypted = fc.credentials.mnemonicEncrypted;
+            // delete root.profile.xPrivKey;
+            // delete root.profile.mnemonic;
+            // root.lockFC();
+            // for (var wid in root.walletClients) {
+            //     root.walletClients[wid].credentials.xPrivKeyEncrypted = root.profile.xPrivKeyEncrypted;
+            //     delete root.walletClients[wid].credentials.xPrivKey;
+            // }
+            // storageService.storeProfile(root.profile, function () {
+            //     $log.debug('Wallet encrypted');
+            //     return cb();
+            // });
             /*root.updateCredentialsFC(function() {
                 $log.debug('Wallet encrypted');
                     return cb();
