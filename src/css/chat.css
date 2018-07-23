@@ -135,7 +135,8 @@
 .chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
 .chatpopUpWindw .subDiv{height: auto !important;padding: 0 !important;text-align: left;}
 .chatpopUpWindw .subDiv a{color:#fff !important;display:block;padding:0 20px;font-size:14px;}
-.chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #405a7f;content: '';margin:0 auto;}
+.chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #fff;content: '';margin:0 auto;}
+.chatpopUpWindw .subDiv:last-child a:after{border:none;}
 .chattriangle{border-bottom-color:#324e77 !important;}
 .chatpopUpWindw .subDiv img{width:22px; margin-top: -4px;    margin-right: 12px;}
 
