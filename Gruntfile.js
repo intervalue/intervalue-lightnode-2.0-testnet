@@ -336,32 +336,6 @@ module.exports = function (grunt) {
 				},
 				script: 'webkitbuilds/setup-win32.iss'
 			}
-		},
-		clean: {
-            linux64:{
-                options: {force: true},
-                files:[{
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/grunt*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/karma*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/babel*',
-                }],
-            },
-            win64:{
-                options: {force: true},
-                files:[{
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/win64/node_modules/grunt*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/win64/node_modules/karma*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/win64/node_modules/babel*',
-                }],
-            },
-            osx64:{
-                options: {force: true},
-                files:[{
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/osx64/node_modules/grunt*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/osx64/node_modules/karma*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/osx64/node_modules/babel*',
-                }],
-            },
 		}
 	});
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -392,7 +366,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('linux64', ['copy:linux', 'compress:linux64']);
 	grunt.registerTask('linux32', ['copy:linux', 'compress:linux32']);
 	grunt.registerTask('deb', ['debian_package:linux64']);
-	grunt.registerTask('inno64', ['copy:node_sqlite3','innosetup_compiler:win64']);
+	grunt.registerTask('inno64', ['copy:node_modules','copy:node_sqlite3','innosetup_compiler:win64']);
 	grunt.registerTask('inno32', ['innosetup_compiler:win32']);
 	grunt.registerTask('partial', ['browserify:partialClient', 'uglify:partialClient']);
 	grunt.registerTask('partial-fast', ['browserify:partialClient']);

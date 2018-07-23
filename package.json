@@ -80,7 +80,6 @@
     "grunt-karma": "^1.0.0",
     "grunt-karma-coveralls": "^2.5.3",
     "grunt-nw-builder": "^2.0.0",
-    "grunt-contrib-clean": "^1.1.0",
     "karma": "^1.1.0",
     "karma-cli": "0.0.4",
     "karma-coverage": "^0.2.7",
