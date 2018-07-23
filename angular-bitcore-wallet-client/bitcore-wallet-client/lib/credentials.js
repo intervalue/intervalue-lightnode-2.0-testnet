@@ -256,7 +256,8 @@ Credentials.prototype.hasWalletInfo = function () {
 };
 
 Credentials.prototype.isPrivKeyEncrypted = function () {
-  return (!!this.xPrivKeyEncrypted) && !this.xPrivKey;
+  // return (!!this.xPrivKeyEncrypted) && !this.xPrivKey;
+  return (!!this.xPrivKeyEncrypted);
 };
 
 Credentials.prototype.hasPrivKeyEncrypted = function () {
@@ -264,28 +265,28 @@ Credentials.prototype.hasPrivKeyEncrypted = function () {
 };
 
 Credentials.prototype.setPrivateKeyEncryption = function (password, opts) {
-  // if (this.xPrivKeyEncrypted)
-  //   throw new Error('Encrypted Privkey Already exists');
+  if (this.xPrivKeyEncrypted)
+    throw new Error('Encrypted Privkey Already exists');
 
-  // if (!this.xPrivKey)
-  //   throw new Error('No private key to encrypt');
+  if (!this.xPrivKey)
+    throw new Error('No private key to encrypt');
 
 
-  // this.xPrivKeyEncrypted = sjcl.encrypt(password, this.xPrivKey, opts);
-  // if (!this.xPrivKeyEncrypted)
-  //   throw new Error('Could not encrypt');
+  this.xPrivKeyEncrypted = sjcl.encrypt(password, this.xPrivKey, opts);
+  if (!this.xPrivKeyEncrypted)
+    throw new Error('Could not encrypt');
 
-  // if (this.mnemonic)
-  //   this.mnemonicEncrypted = sjcl.encrypt(password, this.mnemonic, opts);
+  if (this.mnemonic)
+    this.mnemonicEncrypted = sjcl.encrypt(password, this.mnemonic, opts);
 };
 
 
 Credentials.prototype.disablePrivateKeyEncryption = function () {
-  // if (!this.xPrivKeyEncrypted)
-  //   throw new Error('Private Key is not encrypted');
+  if (!this.xPrivKeyEncrypted)
+    throw new Error('Private Key is not encrypted');
 
-  // if (!this.xPrivKey)
-  //   throw new Error('Wallet is locked, cannot disable encryption');
+  if (!this.xPrivKey)
+    throw new Error('Wallet is locked, cannot disable encryption');
 
   this.xPrivKeyEncrypted = null;
   this.mnemonicEncrypted = null;
@@ -304,10 +305,10 @@ Credentials.prototype.unlock = function (password) {
   $.checkArgument(password);
 
   // if (this.xPrivKeyEncrypted) {
-  //   this.xPrivKey = sjcl.decrypt(password, this.xPrivKeyEncrypted);
-  //   if (this.mnemonicEncrypted) {
-  //     this.mnemonic = sjcl.decrypt(password, this.mnemonicEncrypted);
-  //   }
+  // this.xPrivKey = sjcl.decrypt(password, this.xPrivKeyEncrypted);
+  // if (this.mnemonicEncrypted) {
+  // this.mnemonic = sjcl.decrypt(password, this.mnemonicEncrypted);
+  // }
   // }
 };
 

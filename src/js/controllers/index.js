@@ -367,7 +367,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                             );
                         });
                     };
-                    if (profileService.focusedClient.credentials.xPrivKey)
+                    if (!profileService.focusedClient.credentials.xPrivKeyEncrypted)
                         createNewWallet();
                     else
                         profileService.insistUnlockFC(null, createNewWallet);
