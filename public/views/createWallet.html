@@ -138,8 +138,8 @@
                             <input type="text" id="deviceName" ng-model="splash.deviceName" >
 
                             <!-- 创建 -->
-                            <md-button ng-click="wordsC.gono00()" translate class="addblackbutton">
-                                Creat Wallet
+                            <md-button ng-click="wordsC.gono00()" class="addblackbutton">
+                                <span translate>Creat Wallet</span>
                             </md-button>
                             <!-- 恢复 -->
                             <!--<md-button ng-click="wordsC.gorukou2()" translate class="addwhitebutton m20t">-->
@@ -183,7 +183,7 @@
             <!-- 点击next打开第三步“显示助记词”页面 -->
             <div class="chatcnextbtndiv">
                 <md-button ng-click="wordsC.gono()" class="addblackbutton"  translate>
-                    Next
+                    <span translate>Next</span>
                 </md-button>
             </div>
         </div>
@@ -500,8 +500,8 @@
 
             <!-- 点击next进入第四步“校验您的钱包口令”页面 -->
             <div class="addcreatepwnbtn">
-                <md-button ng-click="wordsC.showinput()" class="addblackbutton" translate>
-                    Next
+                <md-button ng-click="wordsC.showinput()" class="addblackbutton">
+                    <span translate>Next</span>
                 </md-button>
             </div>
         </div>
@@ -718,8 +718,8 @@
             <!--点击 上一步-->
             <!-- wordsC.dis()判断wordsC.value与完整口令是否不一致时显示 -->
             <div class="addcreatecrlstep" ng-if="wordsC.dis()">
-                <md-button  ng-click="wordsC.gono()" class="addblackbutton m32t" translate>
-                    LastStep
+                <md-button  ng-click="wordsC.gono()" class="addblackbutton m32t">
+                    <span translate>LastStep</span>
                 </md-button>
             </div>
 
@@ -733,8 +733,8 @@
             <div class="addcreatecrdl" ng-if="!wordsC.dis()">
                 <md-button ng-click="wordsC.del()" translate  translate class="addblackbutton">Delete Seed Phrase</md-button>
                 <!--正确 点击下一步 主页-->
-                <md-button ng-click="wordsC.haschoosen(); index.splashClick = false"  translate class="addwhitebutton m20t">
-                    Skip
+                <md-button ng-click="wordsC.haschoosen(); index.splashClick = false"  class="addwhitebutton m20t">
+                    <span translate>Skip</span>
                 </md-button>
             </div>
 
@@ -751,9 +751,9 @@
                     </h1>
                     <p class="size-14 text-center" translate="">It will delete the seed phrase in the app and can not be restored, please be sure that you have the seed phrase back to a safe place</p>
                     <!--点击 确定删除口令 进入钱包-->
-                    <md-button class="pbutton addblackbutton m32t" translate ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  Confirm delete </md-button>
+                    <md-button class="pbutton addblackbutton m32t" ng-click="wordsC.delteConfirm();wordsC.haschoosen(); index.splashClick = false">  <span translate>Confirm delete</span> </md-button>
                     <!--点击 跳过删除口令 进入钱包-->
-                    <md-button class="pbutton addwhitebutton m20t" translate ng-click="wordsC.haschoosen(); index.splashClick = false " style=""> Skip </md-button>
+                    <md-button class="pbutton addwhitebutton m20t" ng-click="wordsC.haschoosen(); index.splashClick = false " style=""> <span translate>Skip</span> </md-button>
                 </div>
             </div>
         </div>
