@@ -43,7 +43,7 @@
 						 ng-click="home.copyAddress(index.shared_address || home.addr[index.walletId])"
 						 ng-show="home.addr[index.walletId] || home.generatingAddress">
 						<qrcode size="135" version="15"
-								data="{{home.protocol}}:{{index.shared_address || home.addr[index.walletId] + '?amount=' + amountInSmallestUnits + asset_param}}"></qrcode>
+								data="{{home.protocol}}:{{(index.shared_address || home.addr[index.walletId])}}{{ (amountInSmallestUnits + asset_param) === undefined ? '':'?amount=' + amountInSmallestUnits + asset_param}}"></qrcode>
 						<div ng-show="home.generatingAddress" style="position:relative; top:-226px; height:0px">
 							<div style="height:220px; width:220px; margin:auto; background: url(img/qr.png) white">
 								<div class="spinner" style="margin-top:80px;margin-bottom: 30px">
