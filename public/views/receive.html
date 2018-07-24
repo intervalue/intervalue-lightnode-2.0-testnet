@@ -43,7 +43,7 @@
 						 ng-click="home.copyAddress(index.shared_address || home.addr[index.walletId])"
 						 ng-show="home.addr[index.walletId] || home.generatingAddress">
 						<qrcode size="135" version="15"
-								data="{{home.protocol}}:{{index.shared_address || home.addr[index.walletId] + '?amount=' + amountInSmallestUnits + asset_param}}"></qrcode>
+								data="{{home.protocol}}:{{(index.shared_address || home.addr[index.walletId])}}{{ (amountInSmallestUnits + asset_param) === undefined ? '':'?amount=' + amountInSmallestUnits + asset_param}}"></qrcode>
 						<div ng-show="home.generatingAddress" style="position:relative; top:-226px; height:0px">
 							<div style="height:220px; width:220px; margin:auto; background: url(img/qr.png) white">
 								<div class="spinner" style="margin-top:80px;margin-bottom: 30px">
@@ -85,7 +85,7 @@
 			</div>
 		</div>
 
-		<!-- 生成新地址，刘星删除 -->
+		<!-- 生成新地址，删除 -->
 		<!--<div class="row m20t" ng-if="!index.shared_address && !index.isSingleAddress">-->
 		<!--<div class="large-12 columns">-->
 		<!--<button class="button black expand round m0" ng-click="home.setAddress(true)"-->
@@ -120,7 +120,7 @@
 					<span translate></span>
 				</a>
 			</div>
-			<!-- 使用textcoin索要资金，刘星删除 -->
+			<!-- 使用textcoin索要资金，删除 -->
 			<!--<div class="text-center hor-link" ng-show="!home.generatingAddress && home.addr[index.walletId]"-->
 			<!--ng-if="!index.shared_address">-->
 			<!--<a class="size-14" ng-click="home.openClaimTextcoinModal(home.addr[index.walletId])"-->

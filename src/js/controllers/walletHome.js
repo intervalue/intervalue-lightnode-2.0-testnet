@@ -877,7 +877,7 @@ angular.module('copayApp.controllers')
 				var amount = form.amount.$modelValue;
 				// address can be [bytreball_addr, email, empty => social sharing]
 				var isTextcoin = !ValidationUtils.isValidAddress(address);
-				// 刘星屏蔽
+				// 屏蔽
 				// var isEmail = ValidationUtils.isValidEmail(address);
 				var isEmail = true;
 				if (isTextcoin)
