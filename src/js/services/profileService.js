@@ -376,7 +376,7 @@ angular.module('copayApp.services')
         // create additional wallet (the first wallet is created in _createNewProfile())
         root.createWallet = function (opts, cb) {
             $log.debug('Creating Wallet:', opts);
-            if (root.focusedClient.credentials.xPrivKeyEncrypted) { // locked
+            if (!root.focusedClient.credentials.xPrivKey) { // locked
                 root.unlockFC(null, function (err) {
                     if (err)
                         return cb(err.message);

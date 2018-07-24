@@ -641,8 +641,8 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                             self.scanning = false;
                             $scope.index.showneikuang = false;
 
-                            if (self.password) {
-                                profileService.setPrivateKeyEncryptionFC(self.password, function () {
+                            if (fc.credentials.xPrivKeyEncrypted) {
+                                profileService.setPrivateKeyEncryptionFC(fc.credentials.password, function () {
                                     $rootScope.$emit('Local/NewEncryptionSetting');
                                     $scope.encrypt = true;
                                     delete self.password;
@@ -669,21 +669,33 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
         }
 
         self.recoveryForm = function () {
-            self.inputMnemonic = self.value;
-            if (self.inputMnemonic) {
-                self.error = '';
-                self.inputMnemonic = self.inputMnemonic.toLowerCase();
-                if ((self.inputMnemonic.split(' ').length % 3 === 0) && Mnemonic.isValid(self.inputMnemonic)) {
-                    self.scanning = true;
-                    if (self.bLight) {
-                        scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+            if (!fc.credentials.xPrivKey) { // locked
+                profileService.unlockFC(null, function (err) {
+                    if (err)
+                        return self.error = 'Seed is not valid';
+                    return create();
+                });
+                return console.log('need password to create new wallet');
+            }
+
+            function create() {
+                self.inputMnemonic = self.value;
+                if (self.inputMnemonic) {
+                    self.error = '';
+                    self.inputMnemonic = self.inputMnemonic.toLowerCase();
+                    if ((self.inputMnemonic.split(' ').length % 3 === 0) && Mnemonic.isValid(self.inputMnemonic)) {
+                        self.scanning = true;
+                        if (self.bLight) {
+                            scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                        } else {
+                            scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                        }
                     } else {
-                        scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                        self.error = 'Seed is not valid';
                     }
-                } else {
-                    self.error = 'Seed is not valid';
                 }
             }
+            create();
         }
 
 

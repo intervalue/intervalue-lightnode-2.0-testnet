@@ -256,8 +256,7 @@ Credentials.prototype.hasWalletInfo = function () {
 };
 
 Credentials.prototype.isPrivKeyEncrypted = function () {
-  // return (!!this.xPrivKeyEncrypted) && !this.xPrivKey;
-  return (!!this.xPrivKeyEncrypted);
+  return (!!this.xPrivKeyEncrypted) && !this.xPrivKey;
 };
 
 Credentials.prototype.hasPrivKeyEncrypted = function () {
@@ -265,11 +264,11 @@ Credentials.prototype.hasPrivKeyEncrypted = function () {
 };
 
 Credentials.prototype.setPrivateKeyEncryption = function (password, opts) {
-  if (this.xPrivKeyEncrypted)
-    throw new Error('Encrypted Privkey Already exists');
+  // if (this.xPrivKeyEncrypted)
+  //   throw new Error('Encrypted Privkey Already exists');
 
-  if (!this.xPrivKey)
-    throw new Error('No private key to encrypt');
+  // if (!this.xPrivKey)
+  //   throw new Error('No private key to encrypt');
 
 
   this.xPrivKeyEncrypted = sjcl.encrypt(password, this.xPrivKey, opts);
@@ -297,19 +296,20 @@ Credentials.prototype.lock = function () {
   if (!this.xPrivKeyEncrypted)
     throw new Error('Could not lock, no encrypted private key');
 
-  // delete this.xPrivKey;
-  // delete this.mnemonic;
+  delete this.xPrivKey;
+  delete this.mnemonic;
 };
 
 Credentials.prototype.unlock = function (password) {
   $.checkArgument(password);
 
-  // if (this.xPrivKeyEncrypted) {
-  // this.xPrivKey = sjcl.decrypt(password, this.xPrivKeyEncrypted);
-  // if (this.mnemonicEncrypted) {
-  // this.mnemonic = sjcl.decrypt(password, this.mnemonicEncrypted);
-  // }
-  // }
+  if (this.xPrivKeyEncrypted) {
+    this.xPrivKey = sjcl.decrypt(password, this.xPrivKeyEncrypted);
+    if (this.mnemonicEncrypted) {
+      this.mnemonic = sjcl.decrypt(password, this.mnemonicEncrypted);
+    }
+    this.password = password;
+  }
 };
 
 Credentials.prototype.addPublicKeyRing = function (publicKeyRing) {
