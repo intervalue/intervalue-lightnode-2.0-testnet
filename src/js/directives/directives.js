@@ -36,7 +36,7 @@ function isValidAddress(value) {
 function isValidEmail(value) {
 	var ValidationUtils = require('intervaluecore/validation_utils.js');
 
-	// 刘星屏蔽
+	// 屏蔽
 	// return ValidationUtils.isValidEmail(value);
 	return true;
 }
