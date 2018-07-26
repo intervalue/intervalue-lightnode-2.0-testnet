@@ -594,14 +594,14 @@
                                     <md-input-container class="addmdinputcon">
                                         <label class="addmdlabels" for="address">{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}</label>
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"
-                                               type="text" id="address" name="address"
+                                               type="text" id="address" name="address" maxlength="32" onkeyup="this.value=this.value.toUpperCase()"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
                                                ng-required="!home.bSendAll && !home.send_multiple && _address.length > 0"
                                                ng-model="_address" ng-required valid-address
                                                ng-focus="home.formFocus('address')" ng-blur="home.formFocus(false)">
 
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && index.arrBalances[index.assetIndex].is_private"
-                                               type="text" id="address" name="address"
+                                               type="text" id="address" name="address" ng-maxlength="32"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
                                                ng-required="!home.bSendAll && !home.send_multiple && _address.length > 0"
                                                ng-model="_address" ng-required valid-address
@@ -716,10 +716,10 @@
                                             <span translate ng-if="!home.send_multiple">Amount</span>
                                             <span translate ng-if="home.send_multiple">Total amount</span>
                                         </label>
-                                        <input class="addmdinputs" type="" id="amount"
+                                        <input class="addmdinputs" type="number" id="amount"
                                                ng-disabled="home.blockUx || home.lockAmount || home.bSendAll"
                                                name="amount"
-                                               ng-minlength="0.00000001" ng-maxlength="10000000000" ng-model="_amount"
+                                               ng-maxlength="20" ng-model="_amount"
                                                valid-amount="{{index.arrBalances[index.assetIndex].asset}}"
                                                autocomplete="off"
                                                ng-focus="home.formFocus('amount')" ng-blur="home.formFocus(false)"
