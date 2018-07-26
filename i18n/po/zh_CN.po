@@ -746,7 +746,7 @@ msgid "Don't Screenshot,Please backup the mnemonic words"
 msgstr "请勿截图，抄写下您的钱包口令"
 
 msgid "Those 12 mnemonic words are for recovering you wallet, write down correctly on paper and keep in a safe place."
-msgstr "口令用于恢复钱包，将它准确地写在纸上， 并保存在只有你知道的地方"
+msgstr "口令用于恢复钱包，将它准确地写在纸上， 并保存在只有您知道的地方"
 
 msgid "We highly recommend you write the Mnemonic words(Backup Phrase) on Paper and keep it in a safe place, anyone get it can access or spend your assets. Also get start with a small amout of assets."
 msgstr "备份钱包，导出“口令”并抄写到安全的地方，千万不要保存到网络上。"
@@ -1329,6 +1329,10 @@ msgstr "全部"
 #: public/views/modals/multi-payment.html:53
 msgid "Send Payment"
 msgstr "发送付款"
+
+
+msgid "Send"
+msgstr "发送"
 
 #: public/views/preferencesInformation.html:125
 msgid "Send addresses by email"
