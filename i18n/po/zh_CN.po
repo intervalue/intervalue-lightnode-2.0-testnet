@@ -56,8 +56,8 @@ msgstr "收款地址"
 msgid "1 wallets recovered, please restart the application to finish."
 msgstr "1个钱包已经恢复，请重启软件"
 
-msgid "Purse back to confirm"
-msgstr "钱包恢复确认"
+msgid "Tips"
+msgstr "温馨提示"
 
 #: src/js/controllers/copayers.js:8
 #: src/js/controllers/preferencesDelete.js:9
@@ -966,8 +966,8 @@ msgid "No"
 msgstr "否"
 
 #: src/js/controllers/password.js:18
-msgid "No password given"
-msgstr "没有设置密码"
+msgid "Please enter your password"
+msgstr "请输入密码"
 
 #: public/views/walletHome.html:545
 msgid "No transactions yet"
