@@ -594,7 +594,7 @@
                                     <md-input-container class="addmdinputcon">
                                         <label class="addmdlabels" for="address">{{home.canSendExternalPayment() ? 'Wallet address' : 'Wallet address of your other wallet &#8594;'|translate}}</label>
                                         <input class="addmdinputs md-input" ng-if="!home.send_multiple && !index.arrBalances[index.assetIndex].is_private"
-                                               type="text" id="address" name="address" maxlength="32" onkeyup="this.value=this.value.toUpperCase()"
+                                               type="text" id="address" name="address" maxlength="32" onkeyup="this.value=this.value.toUpperCase()"  onkeyup="this.value=this.value.replace(/[^a-z0-9_]/g,'')"
                                                ng-disabled="home.blockUx || home.lockAddress || !home.canSendExternalPayment()"
                                                ng-required="!home.bSendAll && !home.send_multiple && _address.length > 0"
                                                ng-model="_address" ng-required valid-address
