@@ -57,8 +57,7 @@
                 <div translate style="font-size: 16px;width:100%;" ng-hide="wordbacksC.show">Show wallet seed</div>
                 <div translate style="font-size: 16px;width:100%;" ng-hide="!wordbacksC.show">Hide wallet seed</div>
                 <a style="margin-top:4px;" ng-click="wordbacksC.toggle()">
-                    <switch translate ng-hide="wordbacksC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Show the Wallet Seed Anyway</switch>
-                    <switch translate ng-hide="!wordbacksC.show" ng-model="autoUpdWitnessesList" class="green right settingpopbtnl">Hide the Wallet Seed</switch>
+                    <switch translate ng-model="show" class="green right settingpopbtnl"></switch>
                 </a>
             </div>
         </div>
