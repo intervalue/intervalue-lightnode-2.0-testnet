@@ -787,20 +787,18 @@
                                 <!-- 发送按钮 -->
                                 <div class=""
                                      ng-class="{'small-6 medium-6 large-6':!home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)}"
-                                     style="width:100%;">
+                                     style="width:100%;" >
                                     <md-button type="submit" class="addblackbutton m32t"
                                             ng-disabled="home.current_payment_key || sendPaymentForm.$invalid || home.blockUx || index.isOffline || !index.isEnoughSignersSelected() || !_address || !_amount || _amount <= 0"
-                                            translate>
-                                        Send
-                                    </md-button>
+                                    ><span translate="">Send</span></md-button>
                                 </div>
                                 <div class=""
                                      ng-show="!home.blockUx && !home.send_multiple && (home.lockAddress || home.lockAmount || home.bSendAll)"
                                      style="width: 100%; margin-bottom: 0;"
                                 >
                                     <md-button ng-click="home.resetForm(sendPaymentForm)"
-                                       class="addwhitebutton m20t"
-                                       translate>Cancel</md-button>
+                                       class="addwhitebutton m20t">
+                                       <span translate>Cancel</span></md-button>
                                 </div>
                             </div>
                         </div>
