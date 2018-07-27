@@ -15,7 +15,7 @@ angular.module('copayApp.services').factory('txFormatService', function (profile
 	// 更改代码 交易手续费单位是 INVE(1INVE=1000000bytes)
 	var formatFeeStr = function (fee) {
 		if (!fee) return;
-		return fee/1000000  + ' INVE';
+		return fee / 1000000 + ' INVE';
 	};
 
 	root.processTx = function (tx) {
@@ -33,7 +33,7 @@ angular.module('copayApp.services').factory('txFormatService', function (profile
 		}
 
 		tx.amountStr = formatAmountStr(tx.amount, tx.asset);
-		tx.amountTx = profileService.formatAmount(tx.amount, tx.asset);
+		tx.amountTx = profileService.formatAmount(tx.amount, tx.asset, { dontRound: true });
 		tx.feeStr = formatFeeStr(tx.fee || tx.fees);
 
 		return tx;
