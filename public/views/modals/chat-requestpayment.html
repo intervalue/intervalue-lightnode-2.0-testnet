@@ -47,7 +47,7 @@
                         <div class="chatfkboardbtn" translate>Amount</div>
 
                         <div class="chatfkcurinputdiv" >
-                            <input class="chatfkcurinput" type="number" id="amount" name="amount"
+                            <input class="chatfkcurinput" type="number" id="amount" name="amount" maxlength="20"
                                    ng-model="_customAmount" valid-amount="{{index.arrBalances[index.assetIndex].asset}}"
                                    required autocomplete="off" ng-attr-placeholder="{{'Enter the M amount'|translate}}" style="margin-left: 5px;">
                             <!--<a class="postfix" ng-if="index.arrBalances[index.assetIndex].asset === 'base'">{{unitName|uppercase}}</a>-->
