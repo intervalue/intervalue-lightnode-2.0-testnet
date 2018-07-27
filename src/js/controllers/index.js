@@ -49,21 +49,6 @@ angular.module('copayApp.controllers').controller('indexController', function ($
     console.log("hostname="+os.hostname());
     //console.log(os.userInfo());
     */
-    //按钮
-    this.bindTouchDown = function (e) {
-        console.log(e);
-        // on touchdown elements
-        e.addEventListener('touchstart', function () {
-            try {
-                event.preventDefault();
-            }
-            catch (e) {
-            }
-            ;
-            angular.element(e)
-                .triggerHandler('click');
-        }, true);
-    }
 
     function updatePublicKeyRing(walletClient, onDone) {
         var walletDefinedByKeys = require('intervaluecore/wallet_defined_by_keys.js');
