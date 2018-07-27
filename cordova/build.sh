@@ -128,7 +128,7 @@ if [ ! -d $PROJECT ]; then
 # 	cordova plugin add cordova-plugin-uniquedeviceid
 # 	checkOK
 
-	cordova plugin add cordova-plugin-file
+	cordova plugin add cordova-plugin-file@4.3.3
 	checkOK
 
 	cordova plugin add cordova-plugin-touch-id && cordova prepare
@@ -205,7 +205,7 @@ if [ $CURRENT_OS == "ANDROID" ]; then
 	checkOK
 
 #  cp android/AndroidManifest.xml $PROJECT/platforms/android/AndroidManifest.xml
-#  checkOK
+# checkOK
 	
 	cp android/build-extras.gradle $PROJECT/platforms/android/build-extras.gradle
 	checkOK
