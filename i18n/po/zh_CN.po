@@ -1783,7 +1783,7 @@ msgstr "请确保设备足够安全，并及时备份钱包"
 
 #: public/views/splash.html:100
 msgid "Also in the Settings menu, you will find security options such as setting a password."
-msgstr "此外，你可以在设置页面开启交易密码保护"
+msgstr "此外，您可以在设置页面开启交易密码保护"
 
 #: public/views/create.html:94
 msgid "[ Add new co-signer device ]"
