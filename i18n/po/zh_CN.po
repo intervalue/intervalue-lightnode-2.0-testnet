@@ -2086,4 +2086,6 @@ msgstr "InterValue钱包"
 msgid "Receiving address"
 msgstr "收款地址"
 
+msgid "to_address and from_address is same"
+msgstr "不能发送给自己"
 

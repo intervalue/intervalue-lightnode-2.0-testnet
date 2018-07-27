@@ -194,7 +194,7 @@ angular.module('copayApp.controllers')
 							return;
 						}
 						$scope.list = ab;
-						if(isCordova){$scope.$digest();}
+						if (isCordova) { $scope.$digest(); }
 
 					});
 				};
@@ -1098,6 +1098,8 @@ angular.module('copayApp.controllers')
 									err = gettextCatalog.getString("Not enough spendable funds, make sure all your funds are confirmed");
 								else if (err.match(/connection closed/))
 									err = gettextCatalog.getString('[internal] connection closed');
+								else if (err.match(/to_address and from_address/))
+									err = gettextCatalog.getString('to_address and from_address is same');
 								else if (err.match(/funds from/))
 									err = err.substring(err.indexOf("from") + 4, err.indexOf("for")) + gettextCatalog.getString(err.substr(0, err.indexOf("from"))) + gettextCatalog.getString(". It needs at least ") + parseInt(err.substring(err.indexOf("for") + 3, err.length)) / 1000000 + "INVE";
 								return self.setSendError(err);
