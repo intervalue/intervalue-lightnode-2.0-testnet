@@ -21,6 +21,9 @@ msgstr "(站点看不到你的余额，也没有花费)"
 msgid "(possible double spend)"
 msgstr "（重复支付）"
 
+msgid "network error, please try again."
+msgstr "网络错误,请重试."
+
 #: public/views/create.html:92
 msgid "-- Select co-signer --"
 msgstr "-- 选择多重签名账户 --"

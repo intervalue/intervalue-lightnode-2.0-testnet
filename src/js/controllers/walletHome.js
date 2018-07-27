@@ -1098,6 +1098,8 @@ angular.module('copayApp.controllers')
 									err = gettextCatalog.getString("Not enough spendable funds or make sure all your funds are confirmed");
 								else if (err.match(/connection closed/))
 									err = gettextCatalog.getString('[internal] connection closed');
+                                else if (err.match(/network error/))
+                                    err = gettextCatalog.getString('network error, please try again.');
 								else if (err.match(/to_address and from_address/))
 									err = gettextCatalog.getString('to_address and from_address is same');
 								else if (err.match(/funds from/))
