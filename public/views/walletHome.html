@@ -267,9 +267,9 @@
                                     <div>
                                         <div class="size-1onGoingProcess-content2" ng-if="btx.action == 'invalid'" translate> (possible double spend) </div>
                                         <!--金额-->
-                                        <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
-                                        <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
-                                        <div ng-if="btx.action == 'moved'" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
+                                        <div ng-if="btx.action == 'received' && btx.confirmations" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="btx.action == 'sent' && btx.confirmations" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="btx.action == 'moved' && btx.confirmations" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                         <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
@@ -428,9 +428,9 @@
                                         <div class="size-12" ng-if="btx.action == 'invalid'" translate>
                                             (possible double spend) </div>
                                         <!--金额-->
-                                        <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
-                                        <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
-                                        <div ng-if="btx.action == 'moved'" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
+                                        <div ng-if="btx.action == 'received' && btx.confirmations" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="btx.action == 'sent' && btx.confirmations" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="btx.action == 'moved' && btx.confirmations" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                         <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
