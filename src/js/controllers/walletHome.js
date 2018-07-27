@@ -194,6 +194,7 @@ angular.module('copayApp.controllers')
 							return;
 						}
 						$scope.list = ab;
+						$scope.$digest();
 					});
 				};
 
