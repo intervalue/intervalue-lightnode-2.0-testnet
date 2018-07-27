@@ -135,6 +135,9 @@
                                         <span ng-if="balance.pendingStr">{{balance.pendingStr}}</span>
                                         <span ng-if="!balance.pendingStr">{{balance.pending.toLocaleString()}}</span>
                                     </div>
+                                    <a class="addindexaddra" ng-click="$root.go('receive')">{{index.shared_address || (home.generatingAddress ? '...' : home.addr[index.walletId])}}
+                                    <img src="./img/addindexaddra.png" />
+                                    </a>
                                 </div>
                                 <style ng-if="index.isCordova">
                                     .rn-carousel-controls {
@@ -159,6 +162,7 @@
                                         <span translate>in smart wallets</span>
                                     </a>
                                 </div>
+
                             </li>
                         </ul>
                         <!-- 过滤banner翻页指示器，即点
