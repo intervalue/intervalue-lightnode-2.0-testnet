@@ -22,11 +22,11 @@
         <!-- 右区：编辑、完成、二维码 -->
         <section class="right-small" ng-show="!selectedWalletsOpt" >
             <!-- 非编辑状态且不是添加地址时，显示编辑功能 -->
-            <a ng-show="!editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()" style="height:100%;display:block;">
+            <a ng-show="!editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()">
                 <img src="./img/tranedit.png" class="chattopdotimg right">
             </a>
             <!-- 编辑状态且不是添加地址时，显示完成功能 -->
-            <a ng-show="editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()" style="color: #3B3B3B; margin-right: 15px;font-size:18px;height:100%;display:block;">
+            <a ng-show="editAddressbook && !addAddressbookEntry"  ng-click="toggleEditAddressbook()" style="margin-right: 15px;">
                 <span translate>Done</span>
             </a>
             <!-- 添加地址页面时，显示扫一扫功能 -->

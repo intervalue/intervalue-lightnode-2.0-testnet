@@ -281,7 +281,10 @@ ul.copayer-list img {
 
 
 .right-small a, .left-small a {
-  color: #A5B2BF;
+  color: #3B3B3B;
+  display: block;
+  height: 100%;
+  font-size:18px;
 }
 
 a.missing-copayers {
