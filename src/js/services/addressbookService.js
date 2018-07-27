@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('copayApp.services').factory('addressbookService', function(storageService, profileService) {
+angular.module('copayApp.services').factory('addressbookService', function(storageService, profileService, gettext, gettextCatalog) {
   var root = {};
 
   root.getLabel = function(addr, cb) {
@@ -16,7 +16,7 @@ angular.module('copayApp.services').factory('addressbookService', function(stora
   root.list = function(cb) {
     var fc = profileService.focusedClient;
     storageService.getAddressbook(fc.credentials.network, function(err, ab) {
-      if (err) return cb('Could not get the Addressbook');
+      if (err) return cb(gettextCatalog.getString('Could not get the Addressbook'));
       if (ab) ab = JSON.parse(ab);
       return cb(err, ab);
     });
@@ -27,10 +27,10 @@ angular.module('copayApp.services').factory('addressbookService', function(stora
     root.list(function(err, ab) {
       if (err) return cb(err);
       if (!ab) ab = {};
-      if (ab[entry.address]) return cb('Entry already exist');
+      if (ab[entry.address]) return cb(gettextCatalog.getString('Entry already exist'));
       ab[entry.address] = entry.label;
       storageService.setAddressbook(fc.credentials.network, JSON.stringify(ab), function(err, ab) {
-        if (err) return cb('Error adding new entry');
+        if (err) return cb(gettextCatalog.getString('Error adding new entry'));
         root.list(function(err, ab) {
           return cb(err, ab);
         });
@@ -46,7 +46,7 @@ angular.module('copayApp.services').factory('addressbookService', function(stora
       if (!ab[addr]) return cb('Entry does not exist');
       delete ab[addr];
       storageService.setAddressbook(fc.credentials.network, JSON.stringify(ab), function(err) {
-        if (err) return cb('Error deleting entry');
+        if (err) return cb(gettextCatalog.getString('Error deleting entry'));
         root.list(function(err, ab) {
           return cb(err, ab);
         });
@@ -57,7 +57,7 @@ angular.module('copayApp.services').factory('addressbookService', function(stora
   root.removeAll = function() {
     var fc = profileService.focusedClient;
     storageService.removeAddressbook(fc.credentials.network, function(err) {
-      if (err) return cb('Error deleting addressbook');
+      if (err) return cb(gettextCatalog.getString('Error deleting addressbook'));
       return cb();
     });
   };

@@ -1794,6 +1794,24 @@ msgstr "这是私人资产，请仅通过点击聊天链接发送"
 msgid "[internal] connection closed"
 msgstr "网络连接关闭"
 
+msgid ". It needs at least"
+msgstr " 至少需要"
+
+msgid "Entry already exist"
+msgstr "地址已保存"
+
+msgid "Could not get the Addressbook"
+msgstr "获取不到地址簿"
+
+msgid "Error adding new entry"
+msgstr "添加条目失败"
+
+msgid "Error deleting entry"
+msgstr "删除条目失败"
+
+msgid "Error deleting addressbook"
+msgstr "删除地址簿失败"
+
 #: public/views/create.html:94
 msgid "[ Add new co-signer device ]"
 msgstr "[添加新的多钱包设备]"
