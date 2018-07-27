@@ -233,7 +233,7 @@
                                                     translate>GET</span>
                                             <!--已发送  确认+发送-->
                                             <span
-                                                    class="tu radius addwhfourzt addwhfourztsent"
+                                                    class="tu radius addwhfourzt addwhfourztdqr"
                                                     ng-show="btx.action == 'sent' && btx.confirmations"
                                                     translate>SENT</span>
                                             <!--收到+发送  待确认-->
@@ -269,6 +269,7 @@
                                         <!--金额-->
                                         <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
                                         <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransdqram">-{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
 
@@ -391,7 +392,7 @@
                     </span>
                                             <!--收到+发送  待确认-->
                                             <span
-                                                    class="tu radius addwhfourzt addwhfourztsent"
+                                                    class="tu radius addwhfourzt addwhfourztdqr"
                                                     ng-show="!btx.confirmations || btx.confirmations == 0"
                                                     translate>
                         Pending
@@ -428,6 +429,7 @@
                                         <!--金额-->
                                         <div ng-if="btx.action == 'received'" class="addwhtransgetam">+{{btx.amountTx}} <span>INVE</span>  </div>
                                         <div ng-if="btx.action == 'sent'" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
+                                        <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransdqram">-{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
 

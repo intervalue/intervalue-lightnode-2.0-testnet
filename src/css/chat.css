@@ -405,10 +405,12 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 .addwhfourzt{color:#fff;font-size:12px;padding:3px 14px;border-radius: 22px;}
 .addwhfourztget{background: #57C17B;}
 .addwhfourztsent{background: #EA6C4C;}
+.addwhfourztdqr{background: #eab54c;}
 .addwhfourothersent{background: #3B3B3B;}
 .addwhtransgetam{color:#57C17B;font-size: 23px;word-break: break-word;display: flex;align-items:center;line-height: 24px;}
 .addwhtranssentam{color:#EA6C4C;font-size: 23px;word-break: break-word;display: flex;align-items:center;line-height: 24px;}
-.addwhtransgetam span,.addwhtranssentam span{color: #999999;font-size: 12px;flex-shrink: 0;margin-left: 4px;}
+.addwhtransdqram{color:#777777;font-size: 23px;word-break: break-word;display: flex;align-items:center;line-height: 24px;}
+.addwhtransgetam span,.addwhtranssentam span,.addwhtransdqram span{color: #999999;font-size: 12px;flex-shrink: 0;margin-left: 4px;}
 /*inve2.0 walletHome.html page transaction*/
 #send{background:#fff;}
 .addwhtranall{font-size:12px;color:rgba(0,122,255,1);}

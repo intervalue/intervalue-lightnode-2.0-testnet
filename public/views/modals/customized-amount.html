@@ -182,8 +182,14 @@
 						<!--</div>-->
 					</div>
 					<!--<div class="chatfkmodel"><span class="chatfkmodelnumber">{{_customAmount == undefined ? 0 : _customAmount}} </span>INVE</div>-->
-					<button type="submit" class="addblackbutton m32t" translate>
-					{{buttonLabel}}
+					<!--<button type="submit" class="addblackbutton m32t" translate ng-disabled="_customAmount">-->
+					<!--{{buttonLabel}}-->
+					<!--</button>-->
+					<button class="addblackbutton m32t md-button md-ink-ripple"
+							type="submit"
+							disabled="disabled"
+					        ng-disabled="amountForm.$invalid || !_customAmount || index.isOffline || !index.isEnoughSignersSelected()">
+						<span translate>{{buttonLabel}}</span>
 					</button>
 				</div>
 				<!--<div>-->

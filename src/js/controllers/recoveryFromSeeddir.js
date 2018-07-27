@@ -23,7 +23,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 
 
 	// 更改代码
-	var successMsg = gettext('Backup words deleted');
+	var successMsg = gettextCatalog.getString('Backup words deleted');
 	var self = this;
 
 	self.error = '';
