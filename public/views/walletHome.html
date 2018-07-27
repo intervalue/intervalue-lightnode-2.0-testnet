@@ -130,11 +130,11 @@
                                         <div class="of-asset">of {{balance.asset}}</div>
                                     </div>
                                     <!-- 确认中，则显示确认中资产数额字符串 -->
-                                    <div class="size-14 secondrow" ng-if="balance.pending" style="background-color: #3B3B3B;height:24px;  width:100%;margin-top: 17px; ">
-                                        <span translate>Including pending confirmation</span>:
-                                        <span ng-if="balance.pendingStr">{{balance.pendingStr}}</span>
-                                        <span ng-if="!balance.pendingStr">{{balance.pending.toLocaleString()}}</span>
-                                    </div>
+                                    <!--<div class="size-14 secondrow" ng-if="balance.pending" style="background-color: #3B3B3B;height:24px;  width:100%;margin-top: 17px; ">-->
+                                        <!--<span translate>Including pending confirmation</span>:-->
+                                        <!--<span ng-if="balance.pendingStr">{{balance.pendingStr}}</span>-->
+                                        <!--<span ng-if="!balance.pendingStr">{{balance.pending.toLocaleString()}}</span>-->
+                                    <!--</div>-->
                                     <a class="addindexaddra" ng-click="$root.go('receive')">{{index.shared_address || (home.generatingAddress ? '...' : home.addr[index.walletId])}}
                                     <img src="./img/addindexaddra.png" />
                                     </a>
