@@ -1785,8 +1785,8 @@ msgid "Also in the Settings menu, you will find security options such as setting
 msgstr "此外，您可以在设置页面开启交易密码保护"
 
 #: public/views/splash.html:100
-msgid "Not enough spendable funds, make sure all your funds are confirmed"
-msgstr "没有足够的可用资金，确保您的所有资金都得到确认"
+msgid "Not enough spendable funds or make sure all your funds are confirmed"
+msgstr "没有足够的可用资金或确保您的所有资金都得到确认"
 
 msgid "This is a private asset, please send it only by clicking links from chat"
 msgstr "这是私人资产，请仅通过点击聊天链接发送"

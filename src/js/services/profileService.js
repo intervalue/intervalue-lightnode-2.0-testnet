@@ -687,7 +687,7 @@ angular.module('copayApp.services')
             $rootScope.$emit('Local/NeedsPassword', false, error_message, function (err2, password) {
                 if (err2 || !password) {
                     return cb({
-                        message: (err2 || gettext('Password needed'))
+                        message: (err2 || gettextCatalog.getString('Password needed'))
                     });
                 }
                 var fc = root.focusedClient;
@@ -697,7 +697,7 @@ angular.module('copayApp.services')
                 } catch (e) {
                     $log.debug(e);
                     return cb({
-                        message: gettext('Wrong password')
+                        message: gettextCatalog.getString('Wrong password')
                     });
                 }
                 var autolock = function () {

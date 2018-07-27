@@ -1095,7 +1095,7 @@ angular.module('copayApp.controllers')
 								else if (err.match(/device address/))
 									err = gettextCatalog.getString("This is a private asset, please send it only by clicking links from chat");
 								else if (err.match(/no funded/))
-									err = gettextCatalog.getString("Not enough spendable funds, make sure all your funds are confirmed");
+									err = gettextCatalog.getString("Not enough spendable funds or make sure all your funds are confirmed");
 								else if (err.match(/connection closed/))
 									err = gettextCatalog.getString('[internal] connection closed');
 								else if (err.match(/to_address and from_address/))
