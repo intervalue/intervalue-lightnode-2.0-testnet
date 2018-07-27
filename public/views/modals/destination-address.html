@@ -128,7 +128,7 @@
                     <div class="m20t p18h p15t">
                         <md-input-container class="addmdinputcon">
                             <label class="addmdlabels" for="address" translate>Wallet address</label>
-                            <input class="addmdinputsnoimg md-input" type="text" id="address" name="address" maxlength="32" onkeyup="this.value=this.value.toUpperCase()"
+                            <input class="addmdinputsnoimg md-input" type="text" id="address" name="address" maxlength="32" onkeyup="this.value=this.value.replace(/[^A-Z0-9_]/g,'')"
                                    ng-model="addressbook.address" valid-address required>
                         </md-input-container>
                         <!--<input type="text" id="address" name="address" ng-model="addressbook.address"-->
