@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('copayApp.controllers').controller('splashController',
-    function ($scope, $timeout, $log, configService, profileService, storageService, go, isCordova) {
+	function ($scope, $timeout, $log, configService, profileService, storageService, go, isCordova) {
 		var self = this;
 
 		// this.step = isCordova ? 'device_name' : 'wallet_type';
-        this.step = 'device_name';
+		this.step = 'device_name';
 		this.wallet_type = 'light';
 
-        self.gono11 = function () { self.step = 'device_name'; };
+		self.gono11 = function () { self.step = 'device_name'; };
 
 		// 点击配置数据库存储信息(全节点/轻节点？)页面continue后的响应函数
 		this.setWalletType = function () {
@@ -21,7 +21,7 @@ angular.module('copayApp.controllers').controller('splashController',
 			var desktopApp = require('intervaluecore/desktop_app.js');
 			var appDataDir = desktopApp.getAppDataDir();
 			var userConfFile = appDataDir + '/conf.json';
-			fs.writeFile(userConfFile, JSON.stringify({bLight: bLight}, null, '\t'), 'utf8', function (err) {
+			fs.writeFile(userConfFile, JSON.stringify({ bLight: bLight }, null, '\t'), 'utf8', function (err) {
 				if (err)
 					throw Error('failed to write conf.json: ' + err);
 				var conf = require('intervaluecore/conf.js');
@@ -39,7 +39,7 @@ angular.module('copayApp.controllers').controller('splashController',
 			console.log('saveDeviceName: ' + self.deviceName);
 			var device = require('intervaluecore/device.js');
 			device.setDeviceName(self.deviceName);
-			var opts = {deviceName: self.deviceName};
+			var opts = { deviceName: self.deviceName };
 
 			configService.set(opts, function (err) {
 				$timeout(function () {
@@ -52,17 +52,17 @@ angular.module('copayApp.controllers').controller('splashController',
 
 		// 点击欢迎页面上Next按钮后的响应函数
 		this.create = function (noWallet) {
-            $scope.index.splashClick=true;
+			$scope.index.splashClick = true;
 			if (self.creatingProfile)		//是否完成
 				return console.log('already creating profile');
 			self.creatingProfile = true;
 
-            //设置状态标识，用于解决创建钱包生成口令后，没有进行口令校验的情况下，关闭app再次打开app可以跳过校验直接进入首页的bug
-            storageService.hashaschoosen(1, function (err) {});
+			//设置状态标识，用于解决创建钱包生成口令后，没有进行口令校验的情况下，关闭app再次打开app可以跳过校验直接进入首页的bug
+			storageService.hashaschoosen(1, function (err) { });
 
 			$timeout(function () {
 				//首次登录,创建钱包
-				profileService.create({noWallet: noWallet}, function (err) {
+				profileService.create({ noWallet: noWallet }, function (err) {
 					if (err) {
 						self.creatingProfile = false;
 						$log.warn(err);
@@ -74,18 +74,25 @@ angular.module('copayApp.controllers').controller('splashController',
                             self.create(noWallet);
                         }, 3000);*/
 					}
-                   go.path('createWallet');
-                });
-            }, 100);
-        };
+					go.path('createWallet');
+				});
+			}, 100);
+		};
 
 		configService.get(function (err, config) {
 			if (err)
 				throw Error("failed to read config");
+
 			self.deviceName = config.deviceName ? config.deviceName:'android-app';
             $timeout(function () {
                 $scope.$apply();
             });
+
+			self.deviceName = config.deviceName;
+			$timeout(function () {
+				$scope.$apply();
+			});
+>>>>>>> origin/master
 		});
 
 		this.init = function () {

@@ -3,7 +3,7 @@
 
 #define MyAppName "InterValue-2.0-testnet"
 #define MyAppPackageName "InterValue-2.0-testnet"
-#define MyAppVersion "2.0.0"
+#define MyAppVersion "2.2.0"
 #define MyAppPublisher "InterValue-2.0-testnet"
 #define MyAppURL "https://www.inve.one"
 #define MyAppExeName "InterValue-2.0-testnet.exe"
