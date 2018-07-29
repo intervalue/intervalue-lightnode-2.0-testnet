@@ -143,7 +143,7 @@ if [ ! -d $PROJECT ]; then
 	cordova plugin add https://github.com/byteball/cordova-sqlite-plugin.git
 	checkOK
 
-	cordova plugin add cordova-plugin-device-name@1.3.2
+	cordova plugin add cordova-plugin-device-name
 	checkOK
 
 	if [ $CURRENT_OS == "ANDROID" ]; then
@@ -153,7 +153,7 @@ if [ ! -d $PROJECT ]; then
 		cordova plugin add https://github.com/8zrealestate/android-referrer-plugin
 		checkOK
 	fi
-	
+
 	cordova plugin add https://github.com/xJeneKx/MFileChooser.git
 	checkOK
 
@@ -198,15 +198,15 @@ checkOK
 # ANDROID
 if [ $CURRENT_OS == "ANDROID" ]; then
 	echo "Android project!!!"
-	
+
 	cat $BUILDDIR/android/android.css >> $PROJECT/www/css/intervalue.css
 
 	mkdir -p $PROJECT/platforms/android/res/xml/
 	checkOK
 
 #  cp android/AndroidManifest.xml $PROJECT/platforms/android/AndroidManifest.xml
-# checkOK
-	
+#  checkOK
+
 	cp android/build-extras.gradle $PROJECT/platforms/android/build-extras.gradle
 	checkOK
 
@@ -267,5 +267,4 @@ if [ $CURRENT_OS == "WP8" ]; then
 		checkOK
 	fi
 fi
-
 
