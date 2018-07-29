@@ -87,12 +87,6 @@ angular.module('copayApp.controllers').controller('splashController',
             $timeout(function () {
                 $scope.$apply();
             });
-
-			self.deviceName = config.deviceName;
-			$timeout(function () {
-				$scope.$apply();
-			});
->>>>>>> origin/master
 		});
 
 		this.init = function () {
