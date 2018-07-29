@@ -100,7 +100,7 @@
                 <div class="amount" style=""
                      ng-swipe-right="index.suspendSwipe()">
                     <div ng-if="!index.anyOnGoingProcess || 1" style="position: relative;">
-                        <div ng-show="index.updateError" ng-click='index.openWallet(); index.updateTxHistory()'>
+                        <div ng-show="index.updateError" ng-click='index.openWallet(); index.updateTxHistory(3)'>
                             <span class="size-12 db m10b">{{index.updateError|translate}}</span>
                             <button class="outline white tiny round" translate>Tap to retry</button>
                         </div>
@@ -181,11 +181,11 @@
                 <div class="addwhhometran">
                     <div class="addwhhometranin bgwhite">
                         <!--判断isCordova 电脑端   电脑端添加init初始化交易历史  -->
-                        <div id="history" class="history p30t p30b" ng-init="index.updateTxHistory()">
+                        <div id="history" class="history p30t p30b" ng-init="index.updateTxHistory(3)">
                             <div ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]" style="margin-top: -26px;">
                                 <div>
                                     <div class="oh text-center">
-            				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory()'>
+            				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory(3)'>
               					<p class="size-12 m10b db text-gray" translate>Could not fetch transaction history</p>
               					<button class="outline round light-gray tiny" translate>Tap to retry</button>
             				</span>
