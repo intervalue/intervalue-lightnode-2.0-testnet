@@ -82,7 +82,10 @@ angular.module('copayApp.controllers').controller('splashController',
 		configService.get(function (err, config) {
 			if (err)
 				throw Error("failed to read config");
-			self.deviceName = config.deviceName;
+			self.deviceName = config.deviceName ? config.deviceName:'android-app';
+            $timeout(function () {
+                $scope.$apply();
+            });
 		});
 
 		this.init = function () {
