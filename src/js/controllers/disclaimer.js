@@ -41,13 +41,13 @@ angular.module('copayApp.controllers').controller('disclaimerController',
                 }
                 //splash.js   light
                 //splash.js   profile
-                $scope.index.splashClick=true;
-                if (self.creatingProfile)		//是否完成
-                    return console.log('already creating profile');
-                self.creatingProfile = true;
+                // $scope.index.splashClick=true;
+                // if (self.creatingProfile)		//是否完成
+                //     return console.log('already creating profile');
+                // self.creatingProfile = true;
 
                 //设置状态标识，用于解决创建钱包生成口令后，没有进行口令校验的情况下，关闭app再次打开app可以跳过校验直接进入首页的bug
-                storageService.hashaschoosen(1, function (err) {});
+                //storageService.hashaschoosen(1, function (err) {});
 
                 $timeout(function () {
                     //首次登录,创建钱包
@@ -65,7 +65,16 @@ angular.module('copayApp.controllers').controller('disclaimerController',
                         }
                         if (isCordova)
                             window.plugins.spinnerDialog.hide();
-                        go.path('createWallet');
+                            storageService.hashaschoosen(2, function (err) {
+                                $scope.index.splashClick = false;
+                                $timeout(function () {
+                                    $scope.$apply();
+                                }, 1);
+
+                                go.walletHome();
+                            });
+
+                        //go.path('createWallet');
                     });
                 }, 100);
                 //splash.js   profile
