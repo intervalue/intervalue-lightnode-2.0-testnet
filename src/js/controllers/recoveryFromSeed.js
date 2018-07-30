@@ -462,6 +462,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
 
         function removeAddressesAndWallets(cb) {
             var arrQueries = [];
+            db.addQuery(arrQueries, "BEGIN TRANSACTION");
             db.addQuery(arrQueries, "DELETE FROM pending_shared_address_signing_paths");
             db.addQuery(arrQueries, "DELETE FROM shared_address_signing_paths");
             db.addQuery(arrQueries, "DELETE FROM pending_shared_addresses");
@@ -471,7 +472,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
             db.addQuery(arrQueries, "DELETE FROM extended_pubkeys");
             db.addQuery(arrQueries, "DELETE FROM wallets");
             db.addQuery(arrQueries, "DELETE FROM correspondent_devices");
-
+            db.addQuery(arrQueries, "COMMIT");
             async.series(arrQueries, cb);
         }
 
@@ -660,7 +661,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                                 // });
                             });
                         });
-                    }, 3 * 1000);
+                    }, 5 * 1000);
                 });
                 // self.error = 'No active addresses found.';
                 // self.scanning = false;
