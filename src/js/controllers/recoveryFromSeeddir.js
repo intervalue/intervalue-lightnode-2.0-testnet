@@ -153,7 +153,19 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 		setCurrentWallet();
 	}
 
-	function removeAddressesAndWallets(cb) {
+	async function removeAddressesAndWallets(cb) {
+		var arrQueries = [];
+		db.addCmd(arrQueries, "DELETE FROM pending_shared_address_signing_paths");
+		db.addCmd(arrQueries, "DELETE FROM shared_address_signing_paths");
+		db.addCmd(arrQueries, "DELETE FROM pending_shared_addresses");
+		db.addCmd(arrQueries, "DELETE FROM shared_addresses");
+		db.addCmd(arrQueries, "DELETE FROM my_addresses");
+		db.addCmd(arrQueries, "DELETE FROM wallet_signing_paths");
+		db.addCmd(arrQueries, "DELETE FROM extended_pubkeys");
+		db.addCmd(arrQueries, "DELETE FROM wallets");
+		db.addCmd(arrQueries, "DELETE FROM correspondent_devices");
+		await db.executeTrans(arrQueries);
+		return;
 		var arrQueries = [];
 		db.addQuery(arrQueries, "BEGIN TRANSACTION");
 		db.addQuery(arrQueries, "DELETE FROM pending_shared_address_signing_paths");
@@ -237,13 +249,13 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 		createWallet(0);
 	}
 
-	function scanForAddressesAndWalletsInLightClient(mnemonic, cb) {
+	async function scanForAddressesAndWalletsInLightClient(mnemonic, cb) {
 		self.xPrivKey = new Mnemonic(mnemonic).toHDPrivateKey();
 		var xPubKey;
 		var currentWalletIndex = 0;
 		var lastUsedWalletIndex = -1;
 		var assocMaxAddressIndexes = {};
-		cb({});
+		await cb({});
 		return;
 		function checkAndAddCurrentAddresses(is_change) {
 			if (!assocMaxAddressIndexes[currentWalletIndex]) assocMaxAddressIndexes[currentWalletIndex] = {
@@ -308,7 +320,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 	}
 
 
-	function cleanAndAddWalletsAndAddresses(assocMaxAddressIndexes) {
+	async function cleanAndAddWalletsAndAddresses(assocMaxAddressIndexes) {
 		var device = require('intervaluecore/device');
 		var arrWalletIndexes = Object.keys(assocMaxAddressIndexes);
 		if (arrWalletIndexes.length) {
@@ -336,29 +348,28 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				});
 			});
 		} else {
-			removeAddressesAndWallets(function () {
-				setTimeout(function () {
-					arrWalletIndexes[0] = 0;
-					var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
-					profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
-						device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
-						createWallets(arrWalletIndexes, function () {
-							// createAddress(0, arrWalletIndexes[0], function () {
-							self.scanning = false;
-							self.show = false;
-							// 向内存中写入2
-							self.haschoosen();
+			await removeAddressesAndWallets();
+			setTimeout(function () {
+				arrWalletIndexes[0] = 0;
+				var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
+				profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
+					device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
+					createWallets(arrWalletIndexes, function () {
+						// createAddress(0, arrWalletIndexes[0], function () {
+						self.scanning = false;
+						self.show = false;
+						// 向内存中写入2
+						self.haschoosen();
 
-							// 更改代码   没有交易恢复
-							$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
-								if (navigator && navigator.app) // android
-									navigator.app.exitApp();
+						// 更改代码   没有交易恢复
+						$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
+							if (navigator && navigator.app) // android
+								navigator.app.exitApp();
 
-								else if (process.exit) // nwjs
-									process.exit();
-							});
-							// });
+							else if (process.exit) // nwjs
+								process.exit();
 						});
+						// });
 					});
 				});
 			}, 5 * 1000);
@@ -393,7 +404,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 
 
 	// 点击恢复钱包
-	self.recoveryForm = function () {
+	self.recoveryForm = async function () {
 
 		// 首先拼接一下 12个 助记词
 		self.strMnemonic();
@@ -411,7 +422,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				self.show = true;
 
 				if (self.bLight) {
-					scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+					await scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
 
 				} else {
 					scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
@@ -440,7 +451,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 回复钱包并删除口令
-	self.recoveryFormdel = function () {
+	self.recoveryFormdel = async function () {
 
 		// 首先拼接一下 12个 助记词
 		self.strMnemonic();
@@ -455,7 +466,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				self.show = true;
 
 				if (self.bLight) {
-					scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddressesdel);
+					await scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddressesdel);
 				} else {
 					scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddressesdel);
 				}
@@ -466,7 +477,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 	};
 
 
-	function cleanAndAddWalletsAndAddressesdel(assocMaxAddressIndexes) {
+	async function cleanAndAddWalletsAndAddressesdel(assocMaxAddressIndexes) {
 		var device = require('intervaluecore/device');
 		var arrWalletIndexes = Object.keys(assocMaxAddressIndexes);
 		if (arrWalletIndexes.length) {
@@ -495,36 +506,31 @@ angular.module('copayApp.controllers').controller('recoveryFromSeeddir', functio
 				});
 			});
 		} else {
-			removeAddressesAndWallets(function () {
-				setTimeout(function () {
-					arrWalletIndexes[0] = 0;
-					var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
-					profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
-						device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
-						removeAddressesAndWallets(function () {
-							setTimeout(function () {
-								createWallets(arrWalletIndexes, function () {
-									self.scanning = false;
-									self.show = false;
-									// 向内存中写入2
-									self.haschoosen();
+			await removeAddressesAndWallets();
+			setTimeout(function () {
+				arrWalletIndexes[0] = 0;
+				var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
+				profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
+					device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
+					createWallets(arrWalletIndexes, function () {
+						self.scanning = false;
+						self.show = false;
+						// 向内存中写入2
+						self.haschoosen();
 
-									// 更改代码   没有交易恢复
-									$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
+						// 更改代码   没有交易恢复
+						$rootScope.$emit('Local/ShowAlertdir', arrWalletIndexes.length + gettextCatalog.getString(" wallets recovered, please restart the application to finish."), 'fi-check', function () {
 
-										self.delteConfirm();
-										if (navigator && navigator.app) // android
-											navigator.app.exitApp();
+							self.delteConfirm();
+							if (navigator && navigator.app) // android
+								navigator.app.exitApp();
 
-										else if (process.exit) // nwjs
-											process.exit();
-									});
-								});
-							}, 5 * 1000);
+							else if (process.exit) // nwjs
+								process.exit();
 						});
 					});
-				}, 5 * 1000);
-			});
+				});
+			}, 5 * 1000);
 			// self.error = 'No active addresses found.';
 			// self.scanning = false;
 			// $timeout(function () {

@@ -1081,7 +1081,7 @@ angular.module('copayApp.controllers')
 							opts.asset_outputs = [{ address: to_address, amount: amount }];
 							opts.base_outputs = [{ address: to_address, amount: constants.TEXTCOIN_ASSET_CLAIM_FEE }];
 						}
-						opts.spendUnconfirmed = $scope.currentSpendUnconfirmed = ture;
+						opts.spendUnconfirmed = $scope.currentSpendUnconfirmed = true;
 						fc.sendMultiPayment(opts, function (err, unit, mnemonics) {
 							// if multisig, it might take very long before the callback is called
 							indexScope.setOngoingProcess(gettext('sending'), false);
