@@ -1081,6 +1081,7 @@ angular.module('copayApp.controllers')
 							opts.asset_outputs = [{ address: to_address, amount: amount }];
 							opts.base_outputs = [{ address: to_address, amount: constants.TEXTCOIN_ASSET_CLAIM_FEE }];
 						}
+						opts.spendUnconfirmed = $scope.currentSpendUnconfirmed;
 						fc.sendMultiPayment(opts, function (err, unit, mnemonics) {
 							// if multisig, it might take very long before the callback is called
 							indexScope.setOngoingProcess(gettext('sending'), false);
@@ -1098,8 +1099,8 @@ angular.module('copayApp.controllers')
 									err = gettextCatalog.getString("Not enough spendable funds or make sure all your funds are confirmed");
 								else if (err.match(/connection closed/))
 									err = gettextCatalog.getString('[internal] connection closed');
-                                else if (err.match(/network error/))
-                                    err = gettextCatalog.getString('network error, please try again.');
+								else if (err.match(/network error/))
+									err = gettextCatalog.getString('network error, please try again.');
 								else if (err.match(/to_address and from_address/))
 									err = gettextCatalog.getString('to_address and from_address is same');
 								else if (err.match(/funds from/))
