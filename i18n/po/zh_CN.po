@@ -2010,8 +2010,8 @@ msgid "You are responsible for safekeeping your passwords, private key pairs, PI
 msgstr "您有责任妥善保管您的口令、私钥、交易密码和您用以访问本软件的其他密码。"
 
 #: public/views/disclaimer.html: 22
-msgid "<b>If YOU LOSE ACCESS TO YOUR INTERVALUE WALLET, YOU ACKNOWLEDGE AND AGREE THAT ANY INVE OR OTHER VALUABLES YOU HAVE ASSOCIATED WITH THAT INTERVALUE WALLET WILL BECOME INACCESSIBLE.</b>"
-msgstr "<b>若您失去对本钱包的控制权，您知悉并接受任何与本钱包关联的INVE和其它有价资产将无法找回。</b>"
+msgid "IF YOU LOSE ACCESS TO YOUR INTERVALUE WALLET, YOU ACKNOWLEDGE AND AGREE THAT ANY INVE OR OTHER VALUABLES YOU HAVE ASSOCIATED WITH THAT INTERVALUE WALLET WILL BECOME INACCESSIBLE."
+msgstr "若您失去对本钱包的控制权，您知悉并接受任何与本钱包关联的INVE和其它有价资产将无法找回。"
 
 #: public/views/disclaimer.html: 23
 msgid "All transaction requests are irreversible."

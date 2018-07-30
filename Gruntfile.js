@@ -344,7 +344,6 @@ module.exports = function (grunt) {
                 files:[{
                     src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/grunt*',
                     src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/karma*',
-                    src:'../intervaluebuilds/InterValue-2.0-testnet/linux64/node_modules/babel*',
                 }],
             },
             win64:{
