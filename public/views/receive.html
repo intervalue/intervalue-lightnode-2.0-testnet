@@ -1,9 +1,25 @@
-<div
+<!--<div
 	class="topbar-container"
 	ng-include="'views/includes/topbar.html'"
 	ng-init="titleSection='receive address'; closeToHome = true; noColor = true">
-</div>
+</div>-->
+<div
+		class="topbar-container"
+		ng-init="titleSection='receive address'; closeToHome = true; noColor = true"
+		ng-controller="topbarController as topbar" class="tab-bar"  ng-click="hiderightpop($event)">
 
+	<section class="left-small">
+		<a ng-show="goBackToState"
+		   ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi">
+			<img src="./img/chatbackstate.png" class="chatbackstate">
+		</a>
+
+		<a ng-show="closeToHome" class="chatpaddingleffi"
+		   ng-click="topbar.goHome(); closeToHome = null">
+			<img src="./img/chatbackstate.png" class="chatbackstate">
+		</a>
+	</section>
+</div>
 
 <div ng-controller="walletHomeController as home" ng-click="hiderightpop($event)">
 	<div class="chatbgcolorheight"></div>
