@@ -689,6 +689,10 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                 if (self.inputMnemonic) {
                     self.error = '';
                     self.inputMnemonic = self.inputMnemonic.toLowerCase();
+                    if (self.inputMnemonic == fc.credentials.mnemonic) {
+                        self.error = 'can not recover the same wallet';
+                        return;
+                    }
                     if ((self.inputMnemonic.split(' ').length % 3 === 0) && Mnemonic.isValid(self.inputMnemonic)) {
                         self.scanning = true;
                         if (self.bLight) {
