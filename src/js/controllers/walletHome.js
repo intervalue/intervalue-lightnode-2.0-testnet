@@ -45,7 +45,9 @@ angular.module('copayApp.controllers')
 			console.log('paymentRequest event ' + address + ', ' + amount);
 			$rootScope.$emit('Local/SetTab', 'send');
 			self.setForm(address, amount, null, asset, recipient_device_address);
-
+			$timeout(function () {
+				$rootScope.$apply();
+			}, 1);
 			var form = $scope.sendPaymentForm;
 			if (form.address && form.address.$invalid && !self.blockUx) {
 				console.log("invalid address, resetting form");
