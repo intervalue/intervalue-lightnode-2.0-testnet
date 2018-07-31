@@ -843,6 +843,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         // check if the whole menu item passed
         if (typeof tab == 'object') {
             if (!tab.new_state) backButton.clearHistory();
+            self.title = (tab.title === 'Home') ? '' : tab.title;
             if (tab.open) {
                 if (tab.link) {
                     $rootScope.tab = self.tab = tab.link;
@@ -855,7 +856,7 @@ angular.module('copayApp.controllers').controller('indexController', function ($
                 go.path(tab.new_state);
                 return;
             } else {
-                self.title = (tab.title === 'Home') ? '' : tab.title;
+                // self.title = (tab.title === 'Home') ? '' : tab.title;
                 return self.setTab(tab.link, reset, tries, switchState);
             }
         }
