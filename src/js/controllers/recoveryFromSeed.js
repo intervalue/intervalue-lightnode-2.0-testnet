@@ -692,7 +692,10 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     if ((self.inputMnemonic.split(' ').length % 3 === 0) && Mnemonic.isValid(self.inputMnemonic)) {
                         self.scanning = true;
                         if (self.bLight) {
-                            scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                            setTimeout(function () {
+                                scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                            }, 3 * 1000);
+
                         } else {
                             scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
                         }
