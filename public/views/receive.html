@@ -3,23 +3,30 @@
 	ng-include="'views/includes/topbar.html'"
 	ng-init="titleSection='receive address'; closeToHome = true; noColor = true">
 </div>-->
-<div
-		class="topbar-container"
-		ng-init="titleSection='receive address'; closeToHome = true; noColor = true"
-		ng-controller="topbarController as topbar" class="tab-bar"  ng-click="hiderightpop($event)">
-
-	<section class="left-small">
-		<a ng-show="goBackToState"
-		   ng-click="$root.go('^', true); goBackToState = null" class="chatpaddingleffi">
-			<img src="./img/chatbackstate.png" class="chatbackstate">
-		</a>
-
-		<a ng-show="closeToHome" class="chatpaddingleffi"
-		   ng-click="topbar.goHome(); closeToHome = null">
-			<img src="./img/chatbackstate.png" class="chatbackstate">
-		</a>
-	</section>
-</div>
+<!-- 顶部导航栏视图 -->
+<nav ng-controller="topbarController as topbar" class="tab-bar"  ng-click="hiderightpop($event)">
+    <!-- 左区 -->
+    <section class="left-small">
+        <a class="chatpaddingleffi"
+           ng-click="topbar.goHome(); closeToHome = null">
+            <img src="./img/chatbackstate.png" class="chatbackstate">
+        </a>
+    </section>
+    <!-- 中间区 -->
+    <section class="middle tab-bar-section">
+        <h1 class="title ellipsis size-18">
+            <span translate>receive address</span>
+            <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
+                  <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">
+                      <span class="ellipsis" style="max-width: calc(100% - 14px);float: left;">
+                          {{(index.shared_address || index.alias || index.walletName)}}
+                      </span>
+                      <span class="arrow-down" ng-style="{'float': 'left', 'border-top-color': index.backgroundColor}"></span>
+                  </a>
+              </span>
+        </h1>
+    </section>
+</nav>
 
 <div ng-controller="walletHomeController as home" ng-click="hiderightpop($event)">
 	<div class="chatbgcolorheight"></div>
@@ -147,4 +154,18 @@
 		</div>
 	</div>
 </div>
+<!-- 中间区 -->
+<section class="middle tab-bar-section">
+    <h1 class="title ellipsis size-18">
+        <span ng-if="index.arrBalances[index.assetIndex].shared === undefined && !index.shared_address || titleSection" >{{(titleSection|translate) || (index.title|translate) || (index.shared_address || index.alias )}}</span>
+        <span ng-if="(index.arrBalances[index.assetIndex].shared !== undefined || index.shared_address) && !titleSection">
+                  <a ng-click="index.openSubwalletModal()" ng-style="{'color': noColor ? '#4A90E2' : index.backgroundColor}">
+                      <span class="ellipsis" style="max-width: calc(100% - 14px);float: left;">
+                          {{(index.shared_address || index.alias || index.walletName)}}
+                      </span>
+                      <span class="arrow-down" ng-style="{'float': 'left', 'border-top-color': index.backgroundColor}"></span>
+                  </a>
+              </span>
+    </h1>
+</section>
 <!--<div ng-include="'views/includes/menu.html'" ng-show="!index.noFocusedWallet"></div>-->
