@@ -460,19 +460,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
             setCurrentWallet();
         }
 
-        async function removeAddressesAndWallets(cb) {
-            var arrQueries = [];
-            db.addCmd(arrQueries, "DELETE FROM pending_shared_address_signing_paths");
-            db.addCmd(arrQueries, "DELETE FROM shared_address_signing_paths");
-            db.addCmd(arrQueries, "DELETE FROM pending_shared_addresses");
-            db.addCmd(arrQueries, "DELETE FROM shared_addresses");
-            db.addCmd(arrQueries, "DELETE FROM my_addresses");
-            db.addCmd(arrQueries, "DELETE FROM wallet_signing_paths");
-            db.addCmd(arrQueries, "DELETE FROM extended_pubkeys");
-            db.addCmd(arrQueries, "DELETE FROM wallets");
-            db.addCmd(arrQueries, "DELETE FROM correspondent_devices");
-            await db.executeTrans(arrQueries);
-            return;
+        function removeAddressesAndWallets(cb) {
             var arrQueries = [];
             db.addQuery(arrQueries, "BEGIN TRANSACTION");
             db.addQuery(arrQueries, "DELETE FROM pending_shared_address_signing_paths");
@@ -556,13 +544,13 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
             createWallet(0);
         }
 
-        async function scanForAddressesAndWalletsInLightClient(mnemonic, cb) {
+        function scanForAddressesAndWalletsInLightClient(mnemonic, cb) {
             self.xPrivKey = new Mnemonic(mnemonic).toHDPrivateKey();
             var xPubKey;
             var currentWalletIndex = 0;
             var lastUsedWalletIndex = -1;
             var assocMaxAddressIndexes = {};
-            await cb({});
+            cb({});
             return;
             function checkAndAddCurrentAddresses(is_change) {
                 if (!assocMaxAddressIndexes[currentWalletIndex]) assocMaxAddressIndexes[currentWalletIndex] = {
@@ -622,7 +610,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
             setCurrentWallet();
         }
 
-        async function cleanAndAddWalletsAndAddresses(assocMaxAddressIndexes) {
+        function cleanAndAddWalletsAndAddresses(assocMaxAddressIndexes) {
             var device = require('intervaluecore/device');
             var arrWalletIndexes = Object.keys(assocMaxAddressIndexes);
             if (arrWalletIndexes.length) {
@@ -644,35 +632,40 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     });
                 });
             } else {
-                await removeAddressesAndWallets();
-                setTimeout(function () {
-                    arrWalletIndexes[0] = 0;
-                    var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
-                    profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
-                        device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
-                        createWallets(arrWalletIndexes, function () {
-                            // createAddress(0, arrWalletIndexes[0], function () {
-                            self.scanning = false;
-                            $scope.index.showneikuang = false;
+                removeAddressesAndWallets(function () {
+                    setTimeout(function () {
+                        arrWalletIndexes[0] = 0;
+                        var myDeviceAddress = objectHash.getDeviceAddress(ecdsa.publicKeyCreate(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }), true).toString('base64'));
+                        profileService.replaceProfile(self.xPrivKey.toString(), self.inputMnemonic, myDeviceAddress, function () {
+                            device.setDevicePrivateKey(self.xPrivKey.derive("m/1'").privateKey.bn.toBuffer({ size: 32 }));
+                            removeAddressesAndWallets(function () {
+                                setTimeout(function () {
+                                    createWallets(arrWalletIndexes, function () {
+                                        // createAddress(0, arrWalletIndexes[0], function () {
+                                        self.scanning = false;
+                                        $scope.index.showneikuang = false;
 
-                            if (fc.credentials.xPrivKeyEncrypted) {
-                                profileService.setPrivateKeyEncryptionFC(fc.credentials.password, function () {
-                                    $rootScope.$emit('Local/NewEncryptionSetting');
-                                    $scope.encrypt = true;
-                                    delete self.password;
-                                });
-                            }
+                                        if (fc.credentials.xPrivKeyEncrypted) {
+                                            profileService.setPrivateKeyEncryptionFC(fc.credentials.password, function () {
+                                                $rootScope.$emit('Local/NewEncryptionSetting');
+                                                $scope.encrypt = true;
+                                                delete self.password;
+                                            });
+                                        }
 
-                            // 更改代码   修改后恢复（没有交易）
-                            $rootScope.$emit('Local/ShowAlert', arrWalletIndexes.length + " wallets recovered, please restart the application to finish.", 'fi-check', function () {
-                                if (navigator && navigator.app) // android
-                                    navigator.app.exitApp();
-                                else if (process.exit) // nwjs
-                                    process.exit();
+                                        // 更改代码   修改后恢复（没有交易）
+                                        $rootScope.$emit('Local/ShowAlert', arrWalletIndexes.length + " wallets recovered, please restart the application to finish.", 'fi-check', function () {
+                                            if (navigator && navigator.app) // android
+                                                navigator.app.exitApp();
+                                            else if (process.exit) // nwjs
+                                                process.exit();
+                                        });
+                                    });
+                                }, 5 * 1000);
                             });
                         });
-                    });
-                }, 5 * 1000);
+                    }, 5 * 1000);
+                });
                 // self.error = 'No active addresses found.';
                 // self.scanning = false;
                 // $timeout(function () {
@@ -681,17 +674,17 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
             }
         }
 
-        self.recoveryForm = async function () {
+        self.recoveryForm = function () {
             if (!fc.credentials.xPrivKey) { // locked
                 profileService.unlockFC(null, function (err) {
                     if (err)
                         return self.error = 'Seed is not valid';
-                    return await create();
+                    return create();
                 });
                 return console.log('need password to create new wallet');
             }
 
-            async function create() {
+            function create() {
                 self.inputMnemonic = self.value;
                 if (self.inputMnemonic) {
                     self.error = '';
@@ -699,7 +692,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     if ((self.inputMnemonic.split(' ').length % 3 === 0) && Mnemonic.isValid(self.inputMnemonic)) {
                         self.scanning = true;
                         if (self.bLight) {
-                            await scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
+                            scanForAddressesAndWalletsInLightClient(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
                         } else {
                             scanForAddressesAndWallets(self.inputMnemonic, cleanAndAddWalletsAndAddresses);
                         }
@@ -708,7 +701,7 @@ angular.module('copayApp.controllers').controller('recoveryFromSeed',
                     }
                 }
             }
-            await create();
+            create();
         }
 
 
