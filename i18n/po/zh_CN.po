@@ -2111,5 +2111,5 @@ msgid "to_address and from_address is same"
 msgstr "不能发送给自己"
 
 msgid "can not recover the same wallet"
-msgstr "不能恢复本身的钱包"
+msgstr "错误：不能恢复本身的钱包"
 
