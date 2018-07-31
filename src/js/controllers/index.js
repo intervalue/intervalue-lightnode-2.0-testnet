@@ -844,6 +844,9 @@ angular.module('copayApp.controllers').controller('indexController', function ($
         if (typeof tab == 'object') {
             if (!tab.new_state) backButton.clearHistory();
             self.title = (tab.title === 'Home') ? '' : tab.title;
+            $timeout(function () {
+                $scope.$apply();
+            });
             if (tab.open) {
                 if (tab.link) {
                     $rootScope.tab = self.tab = tab.link;
