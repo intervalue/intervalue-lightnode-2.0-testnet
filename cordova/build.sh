@@ -86,6 +86,7 @@ if [ ! -d $PROJECT ]; then
 #  checkOK
 
 	if [ $CURRENT_OS == "IOS" ]; then
+	    cordova plugin add https://github.com/FRD49/iOS-ExitApp.git
 		cordova plugin add https://github.com/phonegap/phonegap-plugin-barcodescanner.git#v7.0.4
 	else
 		cordova plugin add cordova-plugin-android-support-v4-jar
@@ -136,7 +137,7 @@ if [ ! -d $PROJECT ]; then
 
 #	cordova plugin add cordova-plugin-transport-security
 #	checkOK
-
+ 
 	cordova plugin add cordova-ios-requires-fullscreen
 	checkOK
 
