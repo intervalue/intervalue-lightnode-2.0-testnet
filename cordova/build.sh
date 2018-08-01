@@ -137,7 +137,7 @@ if [ ! -d $PROJECT ]; then
 
 #	cordova plugin add cordova-plugin-transport-security
 #	checkOK
-
+ 
 	cordova plugin add cordova-ios-requires-fullscreen
 	checkOK
 
