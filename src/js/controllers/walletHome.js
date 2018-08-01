@@ -1106,7 +1106,7 @@ angular.module('copayApp.controllers')
 								else if (err.match(/to_address and from_address/))
 									err = gettextCatalog.getString('to_address and from_address is same');
 								else if (err.match(/funds from/))
-									err = err.substring(err.indexOf("from") + 4, err.indexOf("for")) + gettextCatalog.getString(err.substr(0, err.indexOf("from"))) + gettextCatalog.getString(". It needs at least ") + parseInt(err.substring(err.indexOf("for") + 3, err.length)) / 1000000 + "INVE";
+									err = err.substring(err.indexOf("from") + 4, err.indexOf("for")) + gettextCatalog.getString(err.substr(0, err.indexOf("from"))) + gettextCatalog.getString(". It needs at least") + parseInt(err.substring(err.indexOf("for") + 3, err.length)) / 1000000 + "INVE";
 								return self.setSendError(err);
 							}
 							var binding = self.binding;

@@ -1797,8 +1797,11 @@ msgstr "这是私人资产，请仅通过点击聊天链接发送"
 msgid "[internal] connection closed"
 msgstr "网络连接关闭"
 
+msgid "not enough spendable funds "
+msgstr "没有足够的余额，"
+
 msgid ". It needs at least"
-msgstr " 至少需要"
+msgstr "至少需要"
 
 msgid "Entry already exist"
 msgstr "地址已保存"
