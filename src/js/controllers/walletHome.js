@@ -207,6 +207,7 @@ angular.module('copayApp.controllers')
 						addressbookService.add(addressbook, function (err, ab) {
 							if (err) {
 								$scope.error = err;
+                                $scope.$digest();
 								return;
 							}
 							$rootScope.$emit('Local/AddressbookUpdated', ab);
