@@ -291,7 +291,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 /*.chattranaddaddr li:first-child{margin-top:20px;}*/
 .chattranaddaddr li .chattranaddaddrdiv{padding:6px 0;}
 .chattranaddaddr li:last{border:none;}
-
+.addaddrerror{padding-left: 16px;padding-top: 14px;margin-top: 16px;margin-bottom: -20px;}
 /*inve2.0 disclaimer.html*/
 .adddsmain{background-color: #3B3B3B;position:static;margin-top: 20px;}
 .adddsh{background-color: #3B3B3B;font-size: 14px;text-align: center !important;}
