@@ -253,7 +253,7 @@
                                                     translate>Moved</span>
 
                                             <!--移动资产 结束-->
-                                            <span class="label tu warning radius addwhfourzt" ng-show="btx.action == 'invalid'" translate>Invalid</span>
+                                            <span class="label tu warning radius addwhfourztyd" ng-show="btx.action == 'invalid'" translate>Invalid</span>
                                         </div>
                                         <!--交易发生时间-->
                                         <!--<div class="large-3 medium-3 small-3 columns text-right " style=" width: 108px;">-->
@@ -275,6 +275,7 @@
                                         <div ng-if="btx.action == 'sent' && btx.confirmations" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
                                         <div ng-if="btx.action == 'moved' && btx.confirmations" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                         <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
+                                        <div ng-if="btx.action == 'invalid'" class="addwhtransydam">{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
 
