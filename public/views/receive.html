@@ -121,8 +121,11 @@
 
 		<div class="text-center p18h">
 
-			<div ng-show="!agreed && index.isCordova" >
-				<md-button class="addblackbutton m20t" ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading">
+			<div ng-show="!agreed" >
+				<!--<md-button class="addblackbutton m20t" ng-click="home.shareAddress(home.addr[index.walletId])" ng-disabled="loading">-->
+					<!--<span translate>Share address</span>-->
+				<!--</md-button>-->
+				<md-button class="addblackbutton m20t" ng-click="home.copyAddress(index.shared_address || home.addr[index.walletId])" ng-disabled="loading">
 					<span translate>Share address</span>
 				</md-button>
 			</div>
