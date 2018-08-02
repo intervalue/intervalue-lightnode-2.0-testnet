@@ -213,7 +213,7 @@ angular.module('copayApp.controllers')
 							$scope.list = ab;
 							$scope.editAddressbook = true;
 							$scope.toggleEditAddressbook();
-							$scope.$digest();
+							$scope.$apply();
 						});
 					}, 100);
 				};
