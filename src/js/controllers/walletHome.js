@@ -217,7 +217,7 @@ angular.module('copayApp.controllers')
 							$scope.$apply();
 						});
 					}, 100);
-                },2*1000);
+                },500);
 
 				$scope.remove = function (addr) {
 					$scope.error = null;
