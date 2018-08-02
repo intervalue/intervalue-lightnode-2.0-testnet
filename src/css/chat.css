@@ -424,7 +424,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 /*inve2.0 receive.html*/
 .addcodeh4{display: inline-block;margin: 0;color:#3B3B3B;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
 .addmdinputcon{width: 100%;margin:0 !important;margin-top:18px !important;}
-.addmdinputimg{position: absolute;top: -2px;right: 3px;}
+.addmdinputimg{position: absolute;top: -2px;right: 3px;z-index:100;}
 .addmdlabels{font-size: 16px;color:#3B3B3B;bottom:105%;}
 .addmdinputs{padding-right:46px !important;padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 .addmdinputsnoimg{padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
@@ -437,6 +437,9 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused labe
 }
 .md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover{
     background:#007095 !important;
+}
+[disabled] md-input-container.md-default-theme .md-input, [disabled] md-input-container .md-input, md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled]{
+    border-bottom-color: #CACACA;
 }
 .color999999{color:#999999;}
 .color777777{color:#777777;}
