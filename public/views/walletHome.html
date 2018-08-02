@@ -453,11 +453,13 @@
                                                   ng-model="_addresses" required
                                                   valid-addresses="{{index.arrBalances[index.assetIndex].asset}}" rows="4" msd-elastic="\n"
                                                   ng-change="_amount=(_addresses | sumNumbers)"></textarea>
+                                        <!--<a class="addmdinputimg"-->
+                                           <!--ng-hide="home.blockUx || home.lockAddress || home.send_multiple"-->
+                                           <!--ng-click="openDestinationAddressModal(index.otherWallets, _address)">-->
+                                            <!--<img src="img/geren-icon@3x.png" width="20">-->
+                                        <!--</a>-->
                                         <a class="addmdinputimg"
-                                           ng-hide="home.blockUx || home.lockAddress || home.send_multiple"
                                            ng-click="openDestinationAddressModal(index.otherWallets, _address)">
-                                            <!--<i class="icon-wallet size-18"-->
-                                            <!--style="margin-right: -3px;vertical-align: baseline;"></i>-->
                                             <img src="img/geren-icon@3x.png" width="20">
                                         </a>
                                     </md-input-container>

@@ -132,7 +132,7 @@
 
 
 /*弹出层*/
-.chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
+.chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;z-index:10;}
 .chatpopUpWindw .subDiv{height: auto !important;padding: 0 !important;text-align: left;}
 .chatpopUpWindw .subDiv a{color:#fff !important;display:block;padding:0 20px;font-size:14px;}
 .chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #fff;content: '';margin:0 auto;}
@@ -424,7 +424,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 /*inve2.0 receive.html*/
 .addcodeh4{display: inline-block;margin: 0;color:#3B3B3B;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
 .addmdinputcon{width: 100%;margin:0 !important;margin-top:18px !important;}
-.addmdinputimg{position: absolute;top: -2px;right: 3px;z-index:100;}
+.addmdinputimg{position: absolute;top: -2px;right: 3px;z-index:2;}
 .addmdlabels{font-size: 16px;color:#3B3B3B;bottom:105%;}
 .addmdinputs{padding-right:46px !important;padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 .addmdinputsnoimg{padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
