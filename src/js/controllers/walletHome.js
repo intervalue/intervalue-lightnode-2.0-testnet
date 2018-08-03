@@ -196,8 +196,8 @@ angular.module('copayApp.controllers')
 							return;
 						}
 						$scope.list = ab;
-						if (isCordova) { $scope.$digest(); }
-
+						$timeout(function () { $scope.$digest(); }
+						);
 					});
 				};
 
@@ -628,7 +628,9 @@ angular.module('copayApp.controllers')
 			else {
 				$rootScope.hideMenuBar = false;
 			}
-			$rootScope.$digest();
+			$timeout(function () {
+				$rootScope.$digest();
+			});
 		}, 100);
 
 		this.formFocus = function (what) {
@@ -1762,7 +1764,9 @@ angular.module('copayApp.controllers')
 							return;
 						}
 						$scope.list = ab;
-						$scope.$digest();
+						$timeout(function () {
+							$scope.$digest();
+						});
 					});
 				};
 
