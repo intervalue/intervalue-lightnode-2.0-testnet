@@ -201,22 +201,23 @@ angular.module('copayApp.controllers')
 					});
 				};
 
-				$scope.add = function (addressbook) {
+				$scope.add = lodash.debounce(function (addressbook) {
 					$scope.error = null;
 					$timeout(function () {
 						addressbookService.add(addressbook, function (err, ab) {
 							if (err) {
 								$scope.error = err;
+                                $scope.$digest();
 								return;
 							}
 							$rootScope.$emit('Local/AddressbookUpdated', ab);
 							$scope.list = ab;
 							$scope.editAddressbook = true;
 							$scope.toggleEditAddressbook();
-							$scope.$digest();
+							$scope.$apply();
 						});
 					}, 100);
-				};
+                },500);
 
 				$scope.remove = function (addr) {
 					$scope.error = null;

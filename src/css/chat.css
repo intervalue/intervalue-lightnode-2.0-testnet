@@ -132,7 +132,7 @@
 
 
 /*弹出层*/
-.chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;}
+.chatpopUpWindw{background-color: #3d3939;position: absolute;top: 0;right: 0;margin-top: 46px;max-width: 200px;z-index:10;}
 .chatpopUpWindw .subDiv{height: auto !important;padding: 0 !important;text-align: left;}
 .chatpopUpWindw .subDiv a{color:#fff !important;display:block;padding:0 20px;font-size:14px;}
 .chatpopUpWindw .subDiv a:after{display:block;height:1px;width:100%;border-bottom:1px solid #fff;content: '';margin:0 auto;}
@@ -291,7 +291,7 @@ button:focus{border:none !important;outline: none !important;box-shadow: none !i
 /*.chattranaddaddr li:first-child{margin-top:20px;}*/
 .chattranaddaddr li .chattranaddaddrdiv{padding:6px 0;}
 .chattranaddaddr li:last{border:none;}
-
+.addaddrerror{padding-left: 16px;padding-top: 14px;margin-top: 16px;margin-bottom: -20px;}
 /*inve2.0 disclaimer.html*/
 .adddsmain{background-color: #3B3B3B;position:static;margin-top: 20px;}
 .adddsh{background-color: #3B3B3B;font-size: 14px;text-align: center !important;}
@@ -424,7 +424,7 @@ ul, ol, dl{margin:0 !important;list-style-type: none !important;}
 /*inve2.0 receive.html*/
 .addcodeh4{display: inline-block;margin: 0;color:#3B3B3B;word-break: break-all;padding: 26px 10px;margin-top:10px;font-size: 12px;}
 .addmdinputcon{width: 100%;margin:0 !important;margin-top:18px !important;}
-.addmdinputimg{position: absolute;top: -2px;right: 3px;}
+.addmdinputimg{position: absolute;top: -2px;right: 3px;z-index:2;}
 .addmdlabels{font-size: 16px;color:#3B3B3B;bottom:105%;}
 .addmdinputs{padding-right:46px !important;padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
 .addmdinputsnoimg{padding-bottom: 15px !important;margin-bottom:0 !important;height:35px !important;}
@@ -437,6 +437,9 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused labe
 }
 .md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover{
     background:#007095 !important;
+}
+[disabled] md-input-container.md-default-theme .md-input, [disabled] md-input-container .md-input, md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled]{
+    border-bottom-color: #CACACA;
 }
 .color999999{color:#999999;}
 .color777777{color:#777777;}

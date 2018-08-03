@@ -85,6 +85,7 @@
       <splash src="../ios/splash/Default-667h@2x~iphone6.png" width="750" height="1334"/>
       <splash src="../ios/splash/Default-960h@2x~iphone6plus.png" width="1080" height="1920"/>
       <splash src="../ios/splash/Default-736h@3x~iphone6plus.png" width="1242" height="2208"/>
+      <splash src="../ios/splash/Default-812h@3x.png" width="1125" height="2436"/>
     </platform>
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>To scan barcodes</string>

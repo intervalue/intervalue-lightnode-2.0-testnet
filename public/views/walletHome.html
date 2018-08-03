@@ -185,44 +185,44 @@
                             <div ng-show="!index.txHistory[0] && !index.updatingTxHistory[index.walletId]" style="margin-top: -26px;">
                                 <div>
                                     <div class="oh text-center">
-            				<span ng-show="index.txHistoryError" ng-click='index.updateTxHistory(3)'>
-              					<p class="size-12 m10b db text-gray" translate>Could not fetch transaction history</p>
-              					<button class="outline round light-gray tiny" translate>Tap to retry</button>
-            				</span>
+            				          <span ng-show="index.txHistoryError" ng-click='index.updateTxHistory(3)'>
+              					         <p class="size-12 m10b db text-gray" translate>Could not fetch transaction history</p>
+              					         <button class="outline round light-gray tiny" translate>Tap to retry</button>
+            				          </span>
 
-                            <span ng-if="!index.txHistoryError" translate style="font-family: pflight;color: #90919D;font-size:12px;">
-              					No transactions yet
-            				</span>
+                                      <span ng-if="!index.txHistoryError" translate style="font-family: pflight;color: #90919D;font-size:12px;">
+              					          No transactions yet
+            				          </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">
-                                <div class="columns large-12 medium-12 small-12">
-                                    <div class="spinner">
-                                        <div class="rect1"></div>
-                                        <div class="rect2"></div>
-                                        <div class="rect3"></div>
-                                        <div class="rect4"></div>
-                                        <div class="rect5"></div>
-                                    </div>
-                                </div>
+                            <!--<div class="row m20t text-center" ng-show="index.updatingTxHistory[index.walletId]">-->
+                                <!--<div class="columns large-12 medium-12 small-12">-->
+                                    <!--<div class="spinner">-->
+                                        <!--<div class="rect1"></div>-->
+                                        <!--<div class="rect2"></div>-->
+                                        <!--<div class="rect3"></div>-->
+                                        <!--<div class="rect4"></div>-->
+                                        <!--<div class="rect5"></div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
-                                <div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">
-                                    Initial transaction history synchronization can take some minutes for wallets with many transactions.
-                                    <br/>
-                                    Please stand by.
-                                </div>
+                                <!--<div ng-show="index.txProgress > 6" translate class="size-12 text-gray m20t">-->
+                                    <!--Initial transaction history synchronization can take some minutes for wallets with many transactions.-->
+                                    <!--<br/>-->
+                                    <!--Please stand by.-->
+                                <!--</div>-->
 
-                                <div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">
-                                    <b>{{index.txProgress}}</b>
-                                    <span translate>
-							Transactions
-							<br>
-							Downloaded
-						</span>
-                                </div>
-                            </div>
+                                <!--<div ng-show="index.txProgress > 6" class="size-14 text-gray m20t">-->
+                                    <!--<b>{{index.txProgress}}</b>-->
+                                    <!--<span translate>-->
+							          <!--Transactions-->
+							        <!--<br>-->
+							          <!--Downloaded-->
+                                    <!--</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
                             <div ng-show="index.txHistory[0]">
 
@@ -253,7 +253,7 @@
                                                     translate>Moved</span>
 
                                             <!--移动资产 结束-->
-                                            <span class="label tu warning radius addwhfourzt" ng-show="btx.action == 'invalid'" translate>Invalid</span>
+                                            <span class="label tu warning radius addwhfourztyd" ng-show="btx.action == 'invalid'" translate>Invalid</span>
                                         </div>
                                         <!--交易发生时间-->
                                         <!--<div class="large-3 medium-3 small-3 columns text-right " style=" width: 108px;">-->
@@ -275,6 +275,7 @@
                                         <div ng-if="btx.action == 'sent' && btx.confirmations" class="addwhtranssentam">-{{btx.amountTx}} <span>INVE</span>  </div>
                                         <div ng-if="btx.action == 'moved' && btx.confirmations" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
                                         <div ng-if="!btx.confirmations || btx.confirmations == 0" class="addwhtransydam">-{{btx.amountTx}} <span>INVE</span> </div>
+                                        <div ng-if="btx.action == 'invalid'" class="addwhtransydam">{{btx.amountTx}} <span>INVE</span> </div>
                                     </div>
 
 
@@ -453,11 +454,13 @@
                                                   ng-model="_addresses" required
                                                   valid-addresses="{{index.arrBalances[index.assetIndex].asset}}" rows="4" msd-elastic="\n"
                                                   ng-change="_amount=(_addresses | sumNumbers)"></textarea>
+                                        <!--<a class="addmdinputimg"-->
+                                           <!--ng-hide="home.blockUx || home.lockAddress || home.send_multiple"-->
+                                           <!--ng-click="openDestinationAddressModal(index.otherWallets, _address)">-->
+                                            <!--<img src="img/geren-icon@3x.png" width="20">-->
+                                        <!--</a>-->
                                         <a class="addmdinputimg"
-                                           ng-hide="home.blockUx || home.lockAddress || home.send_multiple"
                                            ng-click="openDestinationAddressModal(index.otherWallets, _address)">
-                                            <!--<i class="icon-wallet size-18"-->
-                                            <!--style="margin-right: -3px;vertical-align: baseline;"></i>-->
                                             <img src="img/geren-icon@3x.png" width="20">
                                         </a>
                                     </md-input-container>

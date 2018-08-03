@@ -113,7 +113,7 @@
             <div ng-show="addAddressbookEntry" style="height:calc(100vh - 60px);background-color: #fff;" >
                 <form name="addressbookForm" class="p10" no-validate style="padding: 0;">
                     <!-- 校验及错误信息 -->
-                    <div class="text-warning size-12 m10b" ng-show="error" style="padding-left:20px;">{{error|translate}}</div>
+                    <div class="text-warning size-12 addaddrerror" ng-show="error">{{error|translate}}</div>
                     <span ng-hide="addressbookForm.address.$pristine">
                         <!--<span class="has-error right size-12" ng-show="addressbookForm.address.$invalid && addressbook.address" style="position: absolute!important;top: 9.5rem!important;left: 10rem!important;">-->
                         <!--<i class="icon-close-circle size-14"></i>-->
