@@ -207,7 +207,7 @@ angular.module('copayApp.controllers')
 						addressbookService.add(addressbook, function (err, ab) {
 							if (err) {
 								$scope.error = err;
-                                $scope.$digest();
+								$scope.$digest();
 								return;
 							}
 							$rootScope.$emit('Local/AddressbookUpdated', ab);
@@ -217,7 +217,7 @@ angular.module('copayApp.controllers')
 							$scope.$apply();
 						});
 					}, 100);
-                },500);
+				}, 500);
 
 				$scope.remove = function (addr) {
 					$scope.error = null;
@@ -1086,7 +1086,7 @@ angular.module('copayApp.controllers')
 							opts.asset_outputs = [{ address: to_address, amount: amount }];
 							opts.base_outputs = [{ address: to_address, amount: constants.TEXTCOIN_ASSET_CLAIM_FEE }];
 						}
-						opts.spendUnconfirmed = $scope.currentSpendUnconfirmed = true;
+						opts.spendUnconfirmed = $scope.currentSpendUnconfirmed = false;
 						fc.sendMultiPayment(opts, function (err, unit, mnemonics) {
 							// if multisig, it might take very long before the callback is called
 							indexScope.setOngoingProcess(gettext('sending'), false);
